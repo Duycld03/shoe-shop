@@ -20,6 +20,7 @@
 			</div>
 		</section>
 
+
 		<!-- flash sale -->
 		<div class="hidden md:mx-28 md:flex -mt-20 mb-16">
 			<div class="md:relative w-1/3 hover:cursor-pointer">

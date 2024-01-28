@@ -14,7 +14,7 @@
             <ul class="flex md:space-x-8 space-x-2 text-xs md:text-lg items-center">
                 <li>
                     <a href="#" class="flex space-x-2 items-center">
-                        <img src="assets/img/svg/profile_close_2.svg" alt="">
+                        <img src="assets/img/svg/profile_close_2.svg" alt="profile">
                         <span>My profile</span>
                     </a>
                 </li>

@@ -25,6 +25,7 @@
             <p class="text-sm mb-5">E-Comm , 4578 Marmora Road, Glasgow D04 89GR</p>
         </div>
     </div>
+
     <hr class="bg-white">
     <div class="flex justify-between mt-8 space-x-2">
         <div class="text-[#92989d] text-xs md:text-sm">© 2024 Shoe Store theme by Duycld03</div>
