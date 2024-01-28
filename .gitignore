@@ -1,0 +1,9 @@
+/dist/
+/build/
+# Compiled class file
+*.class
+
+# IDE configuration files
+/nbproject/
+
+/node_modules/
