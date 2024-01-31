@@ -29,7 +29,7 @@
                     <a href="#">Register</a>
                 </li>
                 <li class="hover:text-sky-400 transition-all duration-200">
-                    <a href="#">Login</a>
+                    <a href="login.jsp">Login</a>
                 </li>
                 <li>
                     <a href="#">
