@@ -3,8 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/HK5_SP24/CODE_SP24/SWP391/shoe-shop/web/login.jsp</file>
-            <file>file:/D:/HK5_SP24/CODE_SP24/SWP391/shoe-shop/web/index.jsp</file>
+            <file>file:/D:/Documents/Major/SPRING24/SWP391/project/shoe-store/web/head.jsp</file>
+            <file>file:/D:/Documents/Major/SPRING24/SWP391/project/shoe-store/web/index.jsp</file>
+            <file>file:/D:/Documents/Major/SPRING24/SWP391/project/shoe-store/web/META-INF/context.xml</file>
+            <file>file:/D:/Documents/Major/SPRING24/SWP391/project/shoe-store/src/java/Controllers/HomeController.java</file>
+            <file>file:/D:/Documents/Major/SPRING24/SWP391/project/shoe-store/web/WEB-INF/web.xml</file>
         </group>
     </open-files>
 </project-private>
