@@ -7,24 +7,24 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DBConnection {
+    private static String server = "LAPTOP-DUY";
+    private static String port = "1433";
+    private static String database = "";
+    private static String user = "sa";
+    private static String password = "123";
 
-    public static Connection connect() throws SQLException {
-        String server = "";
-        String port = "1433";
-        String database = "";
-        String user = "";
-        String password = "";
-
+    public static Connection getConnection() {
         Connection conn = null;
-
         try {
-            // Đảm bảo driver đã được tạo
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 
-            // Tạo đối tượng Connection
-            conn = DriverManager.getConnection("jdbc:sqlserver://" + server + ":" + port
-                    + ";databaseName=" + database + ";user=" + user + ";password=" + password
-                    + ";encrypt=true;trustServerCertificate=true;");
+            try {
+                conn = DriverManager.getConnection("jdbc:sqlserver://" + server + ":" + port
+                        + ";databaseName=" + database + ";user=" + user + ";password=" + password
+                        + ";encrypt=true;trustServerCertificate=true;");
+            } catch (SQLException ex) {
+                Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
