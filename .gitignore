@@ -6,4 +6,5 @@
 # IDE configuration files
 /nbproject/
 
+/.vscode/
 /node_modules/
