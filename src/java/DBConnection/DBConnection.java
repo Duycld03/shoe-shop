@@ -9,12 +9,11 @@ import java.util.logging.Logger;
 public class DBConnection {
 
     public static Connection connect() throws SQLException {
-
-        String server = "LAPTOP-DUY";
+        String server = "";
         String port = "1433";
         String database = "";
-        String user = "sa";
-        String password = "123";
+        String user = "";
+        String password = "";
 
         Connection conn = null;
 
