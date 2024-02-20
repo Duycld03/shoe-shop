@@ -1,6 +1,6 @@
 package Models;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  *
@@ -9,10 +9,10 @@ import java.sql.Date;
 public class Order {
     private String orderId;
     private float totalAmount;
-    private Date orderDate;
+    private Timestamp orderDate;
     private String PaymentStatus;
 
-    public Order(String orderId, float totalAmount, Date orderDate, String paymentStatus) {
+    public Order(String orderId, float totalAmount, Timestamp orderDate, String paymentStatus) {
         this.orderId = orderId;
         this.totalAmount = totalAmount;
         this.orderDate = orderDate;
@@ -35,11 +35,11 @@ public class Order {
         this.totalAmount = totalAmount;
     }
 
-    public Date getOrderDate() {
+    public Timestamp getOrderDate() {
         return orderDate;
     }
 
-    public void setOrderDate(Date orderDate) {
+    public void setOrderDate(Timestamp orderDate) {
         this.orderDate = orderDate;
     }
 
@@ -50,4 +50,5 @@ public class Order {
     public void setPaymentStatus(String paymentStatus) {
         PaymentStatus = paymentStatus;
     }
+
 }
