@@ -12,9 +12,10 @@ public class ProductVariant {
     private float discount;
     private int stockQuantity;
     private String productId;
+    private String imageId;
 
     public ProductVariant(String variantId, String color, float price, int size, float discount, int stockQuantity,
-            String productId) {
+            String productId, String imageId) {
         this.variantId = variantId;
         this.color = color;
         this.price = price;
@@ -22,6 +23,15 @@ public class ProductVariant {
         this.discount = discount;
         this.stockQuantity = stockQuantity;
         this.productId = productId;
+        this.imageId = imageId;
+    }
+
+    public String getImageId() {
+        return imageId;
+    }
+
+    public void setImageId(String imageId) {
+        this.imageId = imageId;
     }
 
     public String getProductId() {
