@@ -11,12 +11,43 @@ public class Order {
     private float totalAmount;
     private Timestamp orderDate;
     private String PaymentStatus;
+    private String orderStatus;
+    private String customerId;
+    private String methodId;
 
-    public Order(String orderId, float totalAmount, Timestamp orderDate, String paymentStatus) {
+    public Order(String orderId, float totalAmount, Timestamp orderDate, String paymentStatus, String orderStatus,
+            String customerId, String methodId) {
         this.orderId = orderId;
         this.totalAmount = totalAmount;
         this.orderDate = orderDate;
         PaymentStatus = paymentStatus;
+        this.orderStatus = orderStatus;
+        this.customerId = customerId;
+        this.methodId = methodId;
+    }
+
+    public String getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(String orderStatus) {
+        this.orderStatus = orderStatus;
+    }
+
+    public String getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
+    }
+
+    public String getMethodId() {
+        return methodId;
+    }
+
+    public void setMethodId(String methodId) {
+        this.methodId = methodId;
     }
 
     public String getOrderId() {

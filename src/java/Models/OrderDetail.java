@@ -8,11 +8,31 @@ public class OrderDetail {
     private String orderDetailId;
     private float price;
     private int quantity;
+    private String orderId;
+    private String variantId;
 
-    public OrderDetail(String orderDetailId, float price, int quantity) {
+    public OrderDetail(String orderDetailId, float price, int quantity, String orderId, String variantId) {
         this.orderDetailId = orderDetailId;
         this.price = price;
         this.quantity = quantity;
+        this.orderId = orderId;
+        this.variantId = variantId;
+    }
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
+    }
+
+    public String getVariantId() {
+        return variantId;
+    }
+
+    public void setVariantId(String variantId) {
+        this.variantId = variantId;
     }
 
     public String getOrderDetailId() {

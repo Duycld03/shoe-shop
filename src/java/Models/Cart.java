@@ -8,11 +8,31 @@ public class Cart {
     private String cartId;
     private int quantity;
     private float totalPrice;
+    private String customerId;
+    private String variantId;
 
-    public Cart(String cartId, int quantity, float totalPrice) {
+    public Cart(String cartId, int quantity, float totalPrice, String customerId, String variantId) {
         this.cartId = cartId;
         this.quantity = quantity;
         this.totalPrice = totalPrice;
+        this.customerId = customerId;
+        this.variantId = variantId;
+    }
+
+    public String getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
+    }
+
+    public String getVariantId() {
+        return variantId;
+    }
+
+    public void setVariantId(String variantId) {
+        this.variantId = variantId;
     }
 
     public String getCartId() {

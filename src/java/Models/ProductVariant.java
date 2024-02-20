@@ -11,14 +11,25 @@ public class ProductVariant {
     private int size;
     private float discount;
     private int stockQuantity;
+    private String productId;
 
-    public ProductVariant(String variantId, String color, float price, int size, float discount, int stockQuantity) {
+    public ProductVariant(String variantId, String color, float price, int size, float discount, int stockQuantity,
+            String productId) {
         this.variantId = variantId;
         this.color = color;
         this.price = price;
         this.size = size;
         this.discount = discount;
         this.stockQuantity = stockQuantity;
+        this.productId = productId;
+    }
+
+    public String getProductId() {
+        return productId;
+    }
+
+    public void setProductId(String productId) {
+        this.productId = productId;
     }
 
     public String getVariantId() {

@@ -7,10 +7,30 @@ package Models;
 public class ProductImage {
     private String imageId;
     private String imageURL;
+    private boolean isPrimary;
+    private String productId;
 
-    public ProductImage(String imageId, String imageURL) {
+    public ProductImage(String imageId, String imageURL, boolean isPrimary, String productId) {
         this.imageId = imageId;
         this.imageURL = imageURL;
+        this.isPrimary = isPrimary;
+        this.productId = productId;
+    }
+
+    public boolean isPrimary() {
+        return isPrimary;
+    }
+
+    public void setPrimary(boolean isPrimary) {
+        this.isPrimary = isPrimary;
+    }
+
+    public String getProductId() {
+        return productId;
+    }
+
+    public void setProductId(String productId) {
+        this.productId = productId;
     }
 
     public String getImageId() {
