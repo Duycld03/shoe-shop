@@ -51,6 +51,7 @@
                 <a rel="noopener noreferrer" href="#" class="text-[#40BFFF] font-bold hover:underline">Sign up</a>
             </p>
         </div>
+        <h1>To Do Hong Y</h1>
         <%@include file="footer.jsp" %>
 </body>
 
