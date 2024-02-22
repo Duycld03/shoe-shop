@@ -5,5 +5,7 @@
 
 # IDE configuration files
 /nbproject/
+src/java/DBConnection/
 
+/.vscode/
 /node_modules/

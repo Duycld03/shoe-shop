@@ -3,6 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/D:/SP24/SWP391/Project/shoe-shop/web/footer.jsp</file>
             <file>file:/D:/SP24/SWP391/Project/shoe-shop/web/filterProduct.jsp</file>
             <file>file:/D:/SP24/SWP391/Project/shoe-shop/web/head.jsp</file>
@@ -11,6 +12,26 @@
             <file>file:/D:/SP24/SWP391/Project/shoe-shop/web/header.jsp</file>
             <file>file:/D:/SP24/SWP391/Project/shoe-shop/src/java/Controllers/HomeController.java</file>
             <file>file:/D:/SP24/SWP391/Project/shoe-shop/web/login.jsp</file>
+=======
+            <file>file:/D:/Documents/Major/SPRING24/SWP391/project/shoe-store/web/index.jsp</file>
+            <file>file:/D:/Documents/Major/SPRING24/SWP391/project/shoe-store/src/java/DBConnection/DBConnection.java</file>
+            <file>file:/D:/Documents/Major/SPRING24/SWP391/project/shoe-store/src/java/Models/ProductImage.java</file>
+            <file>file:/D:/Documents/Major/SPRING24/SWP391/project/shoe-store/web/META-INF/context.xml</file>
+            <file>file:/D:/Documents/Major/SPRING24/SWP391/project/shoe-store/src/java/Controllers/HomeController.java</file>
+            <file>file:/D:/Documents/Major/SPRING24/SWP391/project/shoe-store/web/WEB-INF/web.xml</file>
+            <file>file:/D:/Documents/Major/SPRING24/SWP391/project/shoe-store/src/java/Models/PaymentMethod.java</file>
+            <file>file:/D:/Documents/Major/SPRING24/SWP391/project/shoe-store/web/head.jsp</file>
+            <file>file:/D:/Documents/Major/SPRING24/SWP391/project/shoe-store/src/java/Controllers/ProductController.java</file>
+            <file>file:/D:/Documents/Major/SPRING24/SWP391/project/shoe-store/src/java/Models/ProductVariant.java</file>
+            <file>file:/D:/Documents/Major/SPRING24/SWP391/project/shoe-store/src/java/Models/Cart.java</file>
+            <file>file:/D:/Documents/Major/SPRING24/SWP391/project/shoe-store/web/filterProduct.jsp</file>
+            <file>file:/D:/Documents/Major/SPRING24/SWP391/project/shoe-store/src/java/Models/Product.java</file>
+            <file>file:/D:/Documents/Major/SPRING24/SWP391/project/shoe-store/src/java/Models/OrderDetail.java</file>
+            <file>file:/D:/Documents/Major/SPRING24/SWP391/project/shoe-store/src/java/DAOs/ProductDAO.java</file>
+            <file>file:/D:/Documents/Major/SPRING24/SWP391/project/shoe-store/src/java/Models/Brand.java</file>
+            <file>file:/D:/Documents/Major/SPRING24/SWP391/project/shoe-store/src/java/Models/Address.java</file>
+            <file>file:/D:/Documents/Major/SPRING24/SWP391/project/shoe-store/src/java/Models/Order.java</file>
+>>>>>>> 35a37cee8eb0369b853b12e07e6848bb1a085a12
         </group>
     </open-files>
 </project-private>

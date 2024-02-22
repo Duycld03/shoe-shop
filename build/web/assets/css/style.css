@@ -1139,10 +1139,6 @@ video {
   padding: 1.25rem;
 }
 
-.p-6 {
-  padding: 1.5rem;
-}
-
 .p-8 {
   padding: 2rem;
 }
@@ -1788,6 +1784,7 @@ body {
     width: 100%;
   }
 
+<<<<<<< HEAD
   .md\:w-\[80px\] {
     width: 80px;
   }
@@ -1796,6 +1793,8 @@ body {
     width: 75px;
   }
 
+=======
+>>>>>>> 35a37cee8eb0369b853b12e07e6848bb1a085a12
   .md\:grid-cols-3 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
