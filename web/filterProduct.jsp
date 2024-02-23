@@ -12,41 +12,42 @@
 
         <body class="m-0">
             <%@include file="header.jsp" %>
-                <div class=" flex md:w-full md:justify-between mt-[20px] h-auto  mt-[20px] md:my-[40px] my-0">
-                    <div class="slide-bar md:w-[25%] w-[20%] md:ml-[50px] md:mr-0 mr-[10px]">
+                <div
+                    class=" grid grid-cols-1 gap-4 mx-2 md:flex md:w-full md:justify-between mt-[20px] h-auto mt-[20px] md:my-[40px] my-0">
+                    <div class="slide-bar md:w-[25%]  md:ml-[50px] md:mr-0">
                         <!-- Hot deal box -->
                         <div
                             class="Hot-deal-box md:pt-[1.5rem] md:pr-[1.491rem] md:pb-[1rem] md:mb-8 md:pl-6 bg-[#F6F7F8] pb-2 pb:10px mb-3 w-full">
-                            <p class=" font-bold md:text-[30px] md:mb-6 pt-1 text-[10px]">Hot deal</p>
-                            <div class="hot-deal-content font-light text-[10px] md:text-[1.2rem]">
+                            <p class=" font-bold md:text-[30px] md:mb-6 pt-1 text-xl">Hot deal</p>
+                            <div class="hot-deal-content font-light text-sm md:text-[1.2rem]">
                                 <div>
                                     <a href="#"
-                                        class="flex justify-between text-[8px] md:text-[20px] px-[5px] md:mb-3 hover:text-[#40BFFF]  transition-all duration-200 ease-in hover:cursor-pointer">
+                                        class="flex justify-between  md:text-[20px] px-[5px] md:mb-3 hover:text-[#40BFFF]  transition-all duration-200 ease-in hover:cursor-pointer">
                                         <p class="">Nike</p>
                                         <p class="">2</p>
                                     </a>
                                     <a href="#"
-                                        class="flex justify-between text-[8px] md:text-[20px] px-[5px] md:mb-3 hover:text-[#40BFFF]  transition-all duration-200 ease-in hover:cursor-pointer">
+                                        class="flex justify-between  md:text-[20px] px-[5px] md:mb-3 hover:text-[#40BFFF]  transition-all duration-200 ease-in hover:cursor-pointer">
                                         <p class="">Nike</p>
                                         <p class="">2</p>
                                     </a>
                                     <a href="#"
-                                        class="flex justify-between text-[8px] md:text-[20px] px-[5px] md:mb-3 hover:text-[#40BFFF]  transition-all duration-200 ease-in hover:cursor-pointer">
+                                        class="flex justify-between  md:text-[20px] px-[5px] md:mb-3 hover:text-[#40BFFF]  transition-all duration-200 ease-in hover:cursor-pointer">
                                         <p class="">Nike</p>
                                         <p class="">2</p>
                                     </a>
                                     <a href="#"
-                                        class="flex justify-between text-[8px] md:text-[20px] px-[5px] md:mb-3 hover:text-[#40BFFF]  transition-all duration-200 ease-in hover:cursor-pointer">
+                                        class="flex justify-between  md:text-[20px] px-[5px] md:mb-3 hover:text-[#40BFFF]  transition-all duration-200 ease-in hover:cursor-pointer">
                                         <p class="">Nike</p>
                                         <p class="">2</p>
                                     </a>
                                     <a href="#"
-                                        class="flex justify-between text-[8px] md:text-[20px] px-[5px] md:mb-3 hover:text-[#40BFFF]  transition-all duration-200 ease-in hover:cursor-pointer">
+                                        class="flex justify-between  md:text-[20px] px-[5px] md:mb-3 hover:text-[#40BFFF]  transition-all duration-200 ease-in hover:cursor-pointer">
                                         <p class="">Nike</p>
                                         <p class="">2</p>
                                     </a>
                                     <a href="#"
-                                        class="flex justify-between text-[8px] md:text-[20px] px-[5px] md:mb-3 hover:text-[#40BFFF]  transition-all duration-200 ease-in hover:cursor-pointer">
+                                        class="flex justify-between  md:text-[20px] px-[5px] md:mb-3 hover:text-[#40BFFF]  transition-all duration-200 ease-in hover:cursor-pointer">
                                         <p class="">Nike</p>
                                         <p class="">2</p>
                                     </a>
@@ -59,18 +60,18 @@
                             class="Hot-deal-box md:pt-[1.5rem] md:pr-[1.491rem] md:pb-[1rem] md:mb-8 md:pl-6 bg-[#F6F7F8] pb-[10px]  h-auto w-full mb-3">
                             <div class="custom-wrapper w-full md:pr-[25px] md:pb-[40px] md:left-[63px] mx-0 md:mx-1">
                                 <div class="price-input-container w-full ">
-                                    <p class=" font-bold md:text-[30px] md:mb-6 pt-1 text-[10px]">Price</p>
-                                    <div class="md:flex md:justify-between w-full md:items-center">
-                                        <p class=" md:text-[1.3rem] md:mb-6 text-[8px] md:text-[20px]">Range:</p>
+                                    <p class=" font-bold md:text-[30px] md:mb-6 pt-1 text-xl">Price</p>
+                                    <div class="flex md:justify-between  w-full items-center">
+                                        <p class="  md:mb-6 md:text-xl font-medium text-[15px]">Range:</p>
                                         <div
-                                            class="price-input flex items-center md:items-center mb-2 mt-2 md:mb-[22px] md:w-[60%] w-full">
+                                            class="price-input flex items-center md:items-center mb-3 mt-2 md:mb-[22px] md:w-[60%]">
                                             <input type="number"
-                                                class="min-input text-[7px] w-[20px] md:text-[20px] md:w-[75px] md:mx-[10px] md:h-[30px] md:mx-1 mx-[2px]  border rounded-md"
+                                                class="min-input w-14 mx-5  md:text-[20px] md:w-[75px] md:h-[30px] md:mx-1  border rounded-md"
                                                 value="2500">
-                                            <p class="md:font-medium text-[10px] md:mx-2 items-center md:text-[20px]">to
+                                            <p class="md:font-medium  text-sm md:mx-2 items-center md:text-[20px]">to
                                             </p>
                                             <input type="number"
-                                                class="max-input text-[7px] w-[20px] md:text-[20px] md:w-[75px] md:mx-[10px] md:h-[30px] md:mx-1 mx-[2px]  border rounded-md"
+                                                class="max-input w-14 mx-5 md:text-[20px] md:w-[75px] md:h-[30px] md:mx-1  border rounded-md"
                                                 value="8500">
                                         </div>
                                     </div>
@@ -91,72 +92,72 @@
 
                         <div
                             class="Hot-deal-box md:pt-[1.5rem] md:pr-[1.491rem] md:pb-[1rem] pb-[15px] md:mb-8 md:pl-6 bg-[#F6F7F8] h-auto w-full mb-3">
-                            <p class=" font-bold md:text-[30px] md:mb-6 pt-1 text-[10px]">Color</p>
-                            <div class=" md:flex md:justify-evenly md:items-center md:mt-10">
+                            <p class=" font-bold mb-3 md:text-[30px] md:mb-6 pt-1 text-xl">Color</p>
+                            <div class="flex md:justify-evenly md:items-center md:mt-10">
                                 <img src="assets/img/color/blue-removebg-preview.png"
-                                    class="m-auto md:w-[25px] w-[20px] h-auto mb-3 border-3 border-transparent rounded-full transition duration-200 ease-in-out hover:border-blue-500 "
-                                    onmouseover="this.style.border = '3px solid #40BFFF';"
-                                    onmouseout="this.style.border = '3px solid transparent';" />
+                                    class="m-auto md:w-7 w-5 h-auto mb-3 border-3 border-transparent rounded-full transition duration-200 ease-in-out hover:border-blue-500 "
+                                    onmouseenter="this.style.border = '3px solid #40BFFF';"
+                                    onmouseout="this.style.border = '0px solid transparent';" />
 
                                 <img src="assets/img/color/ellipse-1-copy-2-9tY.png"
                                     class="m-auto md:w-[25px] w-[20px] h-auto mb-3 border-3 border-transparent rounded-full transition duration-200 ease-in-out hover:border-blue-500 "
                                     onmouseover="this.style.border = '3px solid #40BFFF';"
-                                    onmouseout="this.style.border = '3px solid transparent';" />
+                                    onmouseout="this.style.border = '0px solid transparent';" />
 
                                 <img src="assets/img/color/ellipse-1-copy-3(2).png"
                                     class="m-auto md:w-[25px] w-[20px] h-auto mb-3 border-3 border-transparent rounded-full transition duration-200 ease-in-out hover:border-blue-500 "
                                     onmouseover="this.style.border = '3px solid #40BFFF';"
-                                    onmouseout="this.style.border = '3px solid transparent';" />
+                                    onmouseout="this.style.border = '0px solid transparent';" />
 
                                 <img src="assets/img/color/ellipse-1-copy-4(2).png"
                                     class="m-auto md:w-[25px] w-[20px] h-auto mb-3 border-3 border-transparent rounded-full transition duration-200 ease-in-out hover:border-blue-500 "
                                     onmouseover="this.style.border = '3px solid #40BFFF';"
-                                    onmouseout="this.style.border = '3px solid transparent';" />
+                                    onmouseout="this.style.border = '0px solid transparent';" />
 
                                 <img src="assets/img/color/ellipse-1-copy-5(2).png"
                                     class="m-auto md:w-[25px] w-[20px] h-auto mb-3 border-3 border-transparent rounded-full transition duration-200 ease-in-out hover:border-blue-500 "
                                     onmouseover="this.style.border = '3px solid #40BFFF';"
-                                    onmouseout="this.style.border = '3px solid transparent';" />
+                                    onmouseout="this.style.border = '0px solid transparent';" />
 
                                 <img src="assets/img/color/ellipse-1-copy-6(2).png"
                                     class="m-auto md:w-[25px] w-[20px] h-auto mb-3 border-3 border-transparent rounded-full transition duration-200 ease-in-out hover:border-blue-500 "
                                     onmouseover="this.style.border = '3px solid #40BFFF';"
-                                    onmouseout="this.style.border = '3px solid transparent';" />
+                                    onmouseout="this.style.border = '0px solid transparent';" />
                             </div>
                         </div>
                         <!-- Brand box -->
                         <div
-                            class="Hot-deal-box md:pt-[1.5rem] md:pr-[1.491rem] md:pb-[1rem] md:mb-8 md:pl-6 bg-[#F6F7F8] pb-2 mb-3 w-full">
-                            <p class=" font-bold md:text-[30px] md:mb-6 pt-1 text-[10px]">Brand</p>
-                            <div class="hot-deal-content font-light  text-[10px] md:text-[1.2rem]">
+                            class="Hot-deal-box md:pt-[1.5rem] md:pr-[1.491rem] md:pb-[1rem] md:mb-8 md:pl-6 bg-[#F6F7F8] pb-2 pb:10px mb-3 w-full">
+                            <p class=" font-bold md:text-[30px] md:mb-6 pt-1 text-xl">Brand</p>
+                            <div class="hot-deal-content font-light text-sm md:text-[1.2rem]">
                                 <div>
                                     <a href="#"
-                                        class="flex justify-between text-[8px] md:text-[20px] px-[5px] md:mb-3 hover:text-[#40BFFF]  transition-all duration-200 ease-in hover:cursor-pointer">
+                                        class="flex justify-between  md:text-[20px] px-[5px] md:mb-3 hover:text-[#40BFFF]  transition-all duration-200 ease-in hover:cursor-pointer">
                                         <p class="">Nike</p>
                                         <p class="">2</p>
                                     </a>
                                     <a href="#"
-                                        class="flex justify-between text-[8px] md:text-[20px] px-[5px] md:mb-3 hover:text-[#40BFFF]  transition-all duration-200 ease-in hover:cursor-pointer">
+                                        class="flex justify-between  md:text-[20px] px-[5px] md:mb-3 hover:text-[#40BFFF]  transition-all duration-200 ease-in hover:cursor-pointer">
                                         <p class="">Nike</p>
                                         <p class="">2</p>
                                     </a>
                                     <a href="#"
-                                        class="flex justify-between text-[8px] md:text-[20px] px-[5px] md:mb-3 hover:text-[#40BFFF]  transition-all duration-200 ease-in hover:cursor-pointer">
+                                        class="flex justify-between  md:text-[20px] px-[5px] md:mb-3 hover:text-[#40BFFF]  transition-all duration-200 ease-in hover:cursor-pointer">
                                         <p class="">Nike</p>
                                         <p class="">2</p>
                                     </a>
                                     <a href="#"
-                                        class="flex justify-between text-[8px] md:text-[20px] px-[5px] md:mb-3 hover:text-[#40BFFF]  transition-all duration-200 ease-in hover:cursor-pointer">
+                                        class="flex justify-between  md:text-[20px] px-[5px] md:mb-3 hover:text-[#40BFFF]  transition-all duration-200 ease-in hover:cursor-pointer">
                                         <p class="">Nike</p>
                                         <p class="">2</p>
                                     </a>
                                     <a href="#"
-                                        class="flex justify-between text-[8px] md:text-[20px] px-[5px] md:mb-3 hover:text-[#40BFFF]  transition-all duration-200 ease-in hover:cursor-pointer">
+                                        class="flex justify-between  md:text-[20px] px-[5px] md:mb-3 hover:text-[#40BFFF]  transition-all duration-200 ease-in hover:cursor-pointer">
                                         <p class="">Nike</p>
                                         <p class="">2</p>
                                     </a>
                                     <a href="#"
-                                        class="flex justify-between text-[8px] md:text-[20px] px-[5px] md:mb-3 hover:text-[#40BFFF]  transition-all duration-200 ease-in hover:cursor-pointer">
+                                        class="flex justify-between  md:text-[20px] px-[5px] md:mb-3 hover:text-[#40BFFF]  transition-all duration-200 ease-in hover:cursor-pointer">
                                         <p class="">Nike</p>
                                         <p class="">2</p>
                                     </a>
@@ -166,12 +167,14 @@
                         </div>
 
                         <!--                Button More-->
-                        <div class=" text-center bg-[#F6F7F8] flex justify-center items-center w-full md:py-[10px]">
-                            <button class="font-medium md:text-[20px] text-[10px]">More</button>
+                        <div
+                            class=" h-auto text-center bg-[#F6F7F8] flex justify-center items-center w-full md:py-[10px] px-2">
+                            <button class="font-medium text-xl ">More</button>
                         </div>
                     </div>
-                    <div class="Product-bar md:w-[70%] w-[75%]  md:mx-10 ">
-                        <div class="Show-Product-bar bg-[#40BFFF] text-white md:flex md:h-[17%] md:mb-7 pb-[20px] mb-5">
+                    <div class="Product-bar col-auto md:w-[70%]  md:mx-10 ">
+                        <div
+                            class="Show-Product-bar bg-[#40BFFF] text-white md:flex md:h-auto md:mb-7 pb-[20px] mb-5 md:block hidden ">
                             <div class="md:pl-[100px] pt-3 md:pt-[50px] md:w-full pl-5 relative">
                                 <div class="md:text-4xl text-xl  font-[800] md:mb-3">
                                     Adidas Men Running
@@ -235,9 +238,9 @@
                         </div>
                         <!-- List product -->
                         <div class="Product-list">
-                            <div class="flex justify-between md:mb-[30px] mb-3 md:w-full md:full ">
+                            <div class=" grid md:grid-cols-3 grid-cols-2 gap-4 md:mb-[30px] mb-3 md:w-full ">
                                 <div
-                                    class="border-solid border-2  w-[33%] md:w-[30%] h-full pb-[10px] md:pb-[20px] md:h-auto  rounded-[5%] relative shadow-lg rounded-sm hover:scale-105 transition-all duration-200 ease-in hover:cursor-pointer">
+                                    class="border-solid border-2 h-full pb-[10px] md:pb-[20px] md:h-auto  rounded-[5%] relative shadow-lg rounded-sm hover:scale-105 transition-all duration-200 ease-in hover:cursor-pointer">
                                     <img src="assets/img/products/image Product1.jpg" class="cm:w-full" />
                                     <div class="text-center md:mt-2 mt-1">
                                         <div
@@ -265,7 +268,7 @@
                                     </div>
                                 </div>
                                 <div
-                                    class="border-solid border-2  w-[33%] md:w-[30%] h-full pb-[10px] md:pb-[20px] md:h-auto  rounded-[5%] relative shadow-lg rounded-sm hover:scale-105 transition-all duration-200 ease-in hover:cursor-pointer">
+                                    class="border-solid border-2 h-full pb-[10px] md:pb-[20px] md:h-auto  rounded-[5%] relative shadow-lg rounded-sm hover:scale-105 transition-all duration-200 ease-in hover:cursor-pointer">
                                     <img src="assets/img/products/image Product1.jpg" class="cm:w-full" />
                                     <div class="text-center md:mt-2 mt-1">
                                         <div
@@ -293,37 +296,7 @@
                                     </div>
                                 </div>
                                 <div
-                                    class="border-solid border-2  w-[33%] md:w-[30%] h-full pb-[10px] md:pb-[20px] md:h-auto  rounded-[5%] relative shadow-lg rounded-sm hover:scale-105 transition-all duration-200 ease-in hover:cursor-pointer">
-                                    <img src="assets/img/products/image Product1.jpg" class="cm:w-full" />
-                                    <div class="text-center md:mt-2 mt-1">
-                                        <div
-                                            class="absolute top-0 rounded-[5%] left-0 bg-red-500 md:w-[70px] md:text-[17px] text-[8px] px-[10px] py-[5px] font-medium text-white text-center">
-                                            HOT</div>
-                                        <p class="text-[10px] md:text-xl font-[700]">Nike Air Max 270 React</p>
-                                        <p class="text-[7px] md:text-[sm] font-medium md:text-base">Lorem ipsum dolor
-                                            sit amet
-                                            consectetur
-                                            adipisicing elit.</p>
-                                        <div
-                                            class="flex justify-between px-2 pt-2 items-center md:px-[40px] md:pt-[10px]">
-                                            <div>
-                                                <span
-                                                    class="text-[#40BFFF] font-bold text-[10px] md:text-lg">$299,43</span>
-                                            </div>
-                                            <div class="flex flex-col md:flex-row">
-                                                <span
-                                                    class="text-[#9098B1] line-through text-[8px] md:text-sm md:text-base">$534,33</span>
-                                                <span
-                                                    class="text-[#FB7181] font-bold text-[8px] md:text-sm md:text-base">24%
-                                                    Off</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="flex justify-between md:mb-[30px] mb-3 md:w-full md:full ">
-                                <div
-                                    class="border-solid border-2  w-[33%] md:w-[30%] h-full pb-[10px] md:pb-[20px] md:h-auto  rounded-[5%] relative shadow-lg rounded-sm hover:scale-105 transition-all duration-200 ease-in hover:cursor-pointer">
+                                    class="border-solid border-2 h-full pb-[10px] md:pb-[20px] md:h-auto  rounded-[5%] relative shadow-lg rounded-sm hover:scale-105 transition-all duration-200 ease-in hover:cursor-pointer">
                                     <img src="assets/img/products/image Product1.jpg" class="cm:w-full" />
                                     <div class="text-center md:mt-2 mt-1">
                                         <div
@@ -351,7 +324,7 @@
                                     </div>
                                 </div>
                                 <div
-                                    class="border-solid border-2  w-[33%] md:w-[30%] h-full pb-[10px] md:pb-[20px] md:h-auto  rounded-[5%] relative shadow-lg rounded-sm hover:scale-105 transition-all duration-200 ease-in hover:cursor-pointer">
+                                    class="border-solid border-2 h-full pb-[10px] md:pb-[20px] md:h-auto  rounded-[5%] relative shadow-lg rounded-sm hover:scale-105 transition-all duration-200 ease-in hover:cursor-pointer">
                                     <img src="assets/img/products/image Product1.jpg" class="cm:w-full" />
                                     <div class="text-center md:mt-2 mt-1">
                                         <div
@@ -379,37 +352,7 @@
                                     </div>
                                 </div>
                                 <div
-                                    class="border-solid border-2  w-[33%] md:w-[30%] h-full pb-[10px] md:pb-[20px] md:h-auto  rounded-[5%] relative shadow-lg rounded-sm hover:scale-105 transition-all duration-200 ease-in hover:cursor-pointer">
-                                    <img src="assets/img/products/image Product1.jpg" class="cm:w-full" />
-                                    <div class="text-center md:mt-2 mt-1">
-                                        <div
-                                            class="absolute top-0 rounded-[5%] left-0 bg-red-500 md:w-[70px] md:text-[17px] text-[8px] px-[10px] py-[5px] font-medium text-white text-center">
-                                            HOT</div>
-                                        <p class="text-[10px] md:text-xl font-[700]">Nike Air Max 270 React</p>
-                                        <p class="text-[7px] md:text-[sm] font-medium md:text-base">Lorem ipsum dolor
-                                            sit amet
-                                            consectetur
-                                            adipisicing elit.</p>
-                                        <div
-                                            class="flex justify-between px-2 pt-2 items-center md:px-[40px] md:pt-[10px]">
-                                            <div>
-                                                <span
-                                                    class="text-[#40BFFF] font-bold text-[10px] md:text-lg">$299,43</span>
-                                            </div>
-                                            <div class="flex flex-col md:flex-row">
-                                                <span
-                                                    class="text-[#9098B1] line-through text-[8px] md:text-sm md:text-base">$534,33</span>
-                                                <span
-                                                    class="text-[#FB7181] font-bold text-[8px] md:text-sm md:text-base">24%
-                                                    Off</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="flex justify-between md:mb-[30px] mb-3 md:w-full md:full ">
-                                <div
-                                    class="border-solid border-2  w-[33%] md:w-[30%] h-full pb-[10px] md:pb-[20px] md:h-auto  rounded-[5%] relative shadow-lg rounded-sm hover:scale-105 transition-all duration-200 ease-in hover:cursor-pointer">
+                                    class="border-solid border-2 h-full pb-[10px] md:pb-[20px] md:h-auto  rounded-[5%] relative shadow-lg rounded-sm hover:scale-105 transition-all duration-200 ease-in hover:cursor-pointer">
                                     <img src="assets/img/products/image Product1.jpg" class="cm:w-full" />
                                     <div class="text-center md:mt-2 mt-1">
                                         <div
@@ -437,7 +380,7 @@
                                     </div>
                                 </div>
                                 <div
-                                    class="border-solid border-2  w-[33%] md:w-[30%] h-full pb-[10px] md:pb-[20px] md:h-auto  rounded-[5%] relative shadow-lg rounded-sm hover:scale-105 transition-all duration-200 ease-in hover:cursor-pointer">
+                                    class="border-solid border-2 h-full pb-[10px] md:pb-[20px] md:h-auto  rounded-[5%] relative shadow-lg rounded-sm hover:scale-105 transition-all duration-200 ease-in hover:cursor-pointer">
                                     <img src="assets/img/products/image Product1.jpg" class="cm:w-full" />
                                     <div class="text-center md:mt-2 mt-1">
                                         <div
@@ -465,7 +408,7 @@
                                     </div>
                                 </div>
                                 <div
-                                    class="border-solid border-2  w-[33%] md:w-[30%] h-full pb-[10px] md:pb-[20px] md:h-auto  rounded-[5%] relative shadow-lg rounded-sm hover:scale-105 transition-all duration-200 ease-in hover:cursor-pointer">
+                                    class="border-solid border-2 h-full pb-[10px] md:pb-[20px] md:h-auto  rounded-[5%] relative shadow-lg rounded-sm hover:scale-105 transition-all duration-200 ease-in hover:cursor-pointer">
                                     <img src="assets/img/products/image Product1.jpg" class="cm:w-full" />
                                     <div class="text-center md:mt-2 mt-1">
                                         <div
@@ -492,6 +435,63 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div
+                                    class="border-solid border-2 h-full pb-[10px] md:pb-[20px] md:h-auto  rounded-[5%] relative shadow-lg rounded-sm hover:scale-105 transition-all duration-200 ease-in hover:cursor-pointer">
+                                    <img src="assets/img/products/image Product1.jpg" class="cm:w-full" />
+                                    <div class="text-center md:mt-2 mt-1">
+                                        <div
+                                            class="absolute top-0 rounded-[5%] left-0 bg-red-500 md:w-[70px] md:text-[17px] text-[8px] px-[10px] py-[5px] font-medium text-white text-center">
+                                            HOT</div>
+                                        <p class="text-[10px] md:text-xl font-[700]">Nike Air Max 270 React</p>
+                                        <p class="text-[7px] md:text-[sm] font-medium md:text-base">Lorem ipsum dolor
+                                            sit amet
+                                            consectetur
+                                            adipisicing elit.</p>
+                                        <div
+                                            class="flex justify-between px-2 pt-2 items-center md:px-[40px] md:pt-[10px]">
+                                            <div>
+                                                <span
+                                                    class="text-[#40BFFF] font-bold text-[10px] md:text-lg">$299,43</span>
+                                            </div>
+                                            <div class="flex flex-col md:flex-row">
+                                                <span
+                                                    class="text-[#9098B1] line-through text-[8px] md:text-sm md:text-base">$534,33</span>
+                                                <span
+                                                    class="text-[#FB7181] font-bold text-[8px] md:text-sm md:text-base">24%
+                                                    Off</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="border-solid border-2 h-full pb-[10px] md:pb-[20px] md:h-auto  rounded-[5%] relative shadow-lg rounded-sm hover:scale-105 transition-all duration-200 ease-in hover:cursor-pointer">
+                                    <img src="assets/img/products/image Product1.jpg" class="cm:w-full" />
+                                    <div class="text-center md:mt-2 mt-1">
+                                        <div
+                                            class="absolute top-0 rounded-[5%] left-0 bg-red-500 md:w-[70px] md:text-[17px] text-[8px] px-[10px] py-[5px] font-medium text-white text-center">
+                                            HOT</div>
+                                        <p class="text-[10px] md:text-xl font-[700]">Nike Air Max 270 React</p>
+                                        <p class="text-[7px] md:text-[sm] font-medium md:text-base">Lorem ipsum dolor
+                                            sit amet
+                                            consectetur
+                                            adipisicing elit.</p>
+                                        <div
+                                            class="flex justify-between px-2 pt-2 items-center md:px-[40px] md:pt-[10px]">
+                                            <div>
+                                                <span
+                                                    class="text-[#40BFFF] font-bold text-[10px] md:text-lg">$299,43</span>
+                                            </div>
+                                            <div class="flex flex-col md:flex-row">
+                                                <span
+                                                    class="text-[#9098B1] line-through text-[8px] md:text-sm md:text-base">$534,33</span>
+                                                <span
+                                                    class="text-[#FB7181] font-bold text-[8px] md:text-sm md:text-base">24%
+                                                    Off</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                         <div class="bg-[#F6F7F8] w-full md:h-[3%] h-[50px] md:py-6 relative ">
