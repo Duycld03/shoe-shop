@@ -1,11 +1,14 @@
 package Controllers;
 
+import DAOs.ProductDAO;
+import Models.Product;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  *
@@ -52,6 +55,9 @@ public class HomeController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		ProductDAO pDAO = new ProductDAO();
+		List<Product> top3DiscountedProduct = pDAO.getTop3DiscountedProduct();
+		request.setAttribute("top3DiscountedProduct", top3DiscountedProduct);
 		request.getRequestDispatcher("index.jsp").forward(request, response);
 	}
 

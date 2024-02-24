@@ -643,6 +643,11 @@ video {
   margin-right: 1rem;
 }
 
+.mx-5 {
+  margin-left: 1.25rem;
+  margin-right: 1.25rem;
+}
+
 .mx-8 {
   margin-left: 2rem;
   margin-right: 2rem;
@@ -651,11 +656,6 @@ video {
 .mx-\[10px\] {
   margin-left: 10px;
   margin-right: 10px;
-}
-
-.mx-\[2px\] {
-  margin-left: 2px;
-  margin-right: 2px;
 }
 
 .mx-auto {
@@ -676,11 +676,6 @@ video {
 .my-8 {
   margin-top: 2rem;
   margin-bottom: 2rem;
-}
-
-.mx-5 {
-  margin-left: 1.25rem;
-  margin-right: 1.25rem;
 }
 
 .-mt-20 {
@@ -823,8 +818,8 @@ video {
   width: 33.333333%;
 }
 
-.w-10 {
-  width: 2.5rem;
+.w-14 {
+  width: 3.5rem;
 }
 
 .w-20 {
@@ -875,24 +870,12 @@ video {
   width: 100%;
 }
 
-.w-14 {
-  width: 3.5rem;
-}
-
-.w-7 {
-  width: 1.75rem;
-}
-
 .max-w-md {
   max-width: 28rem;
 }
 
 .flex-1 {
   flex: 1 1 0%;
-}
-
-.flex-auto {
-  flex: 1 1 auto;
 }
 
 .shrink-0 {
@@ -935,10 +918,6 @@ video {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
-.grid-cols-3 {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
 .flex-row {
   flex-direction: row;
 }
@@ -969,6 +948,10 @@ video {
 
 .justify-between {
   justify-content: space-between;
+}
+
+.justify-around {
+  justify-content: space-around;
 }
 
 .justify-evenly {
@@ -1102,11 +1085,6 @@ video {
 
 .border-transparent {
   border-color: transparent;
-}
-
-.border-blue-500 {
-  --tw-border-opacity: 1;
-  border-color: rgb(59 130 246 / var(--tw-border-opacity));
 }
 
 .bg-\[\#05a3e7\] {
@@ -1715,10 +1693,6 @@ body {
     height: 4rem;
   }
 
-  .md\:h-\[17\%\] {
-    height: 17%;
-  }
-
   .md\:h-\[270px\] {
     height: 270px;
   }
@@ -1745,6 +1719,10 @@ body {
 
   .md\:w-32 {
     width: 8rem;
+  }
+
+  .md\:w-7 {
+    width: 1.75rem;
   }
 
   .md\:w-\[100px\] {
@@ -1797,10 +1775,6 @@ body {
 
   .md\:w-full {
     width: 100%;
-  }
-
-  .md\:w-7 {
-    width: 1.75rem;
   }
 
   .md\:grid-cols-3 {
@@ -1980,10 +1954,6 @@ body {
 
   .md\:text-\[1\.2rem\] {
     font-size: 1.2rem;
-  }
-
-  .md\:text-\[1\.3rem\] {
-    font-size: 1.3rem;
   }
 
   .md\:text-\[17px\] {
