@@ -27,17 +27,3 @@ input[type="range"]::-webkit-slider-thumb {
     pointer-events: auto;
     -webkit-appearance: none;
 }
-
-@media (max-width: 768px) {
-
-    /* Điều chỉnh chiều rộng khi màn hình có độ rộng ít nhất 768px */
-    input[type="range"]::-webkit-slider-thumb {
-        height: 7px;
-        width: 7px;
-        border-radius: 70%;
-        background: #05a3e7;
-        pointer-events: auto;
-        -webkit-appearance: none;
-    }
-
-}
