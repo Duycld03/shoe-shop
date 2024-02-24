@@ -6,6 +6,7 @@ package Controllers;
 
 import DAOs.ProductDAO;
 import Models.Product;
+import Utils.MD5;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -70,6 +71,7 @@ public class test extends HttpServlet {
 			System.out.println(product.getPrimaryImage().getImageURL());
 		}
 //		System.out.println(pDAO.getPrimaryImage("P001").getImageURL());
+		System.out.println(MD5.getMd5("duy"));
 	}
 
 	/**
