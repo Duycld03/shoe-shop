@@ -35,7 +35,7 @@ public class ProductDAO {
 	}
 
 	public ResultSet getTop3DiscountedProduct() {
-		String sql = "select * from ProductVariants";
+		String sql = "SELECT TOP 3 * FROM Products WHERE Discount IS NOT NULL ORDER BY Discount DESC;";
 		try {
 			ps = conn.prepareStatement(sql);
 			rs = ps.executeQuery();

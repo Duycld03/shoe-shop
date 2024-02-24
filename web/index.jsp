@@ -1,3 +1,4 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,6 +23,9 @@
 
 
 		<!-- flash sale -->
+		<% 
+			ProductDAO pDAO = new ProductDAO(); 
+		%>
 		<div class="hidden md:mx-28 md:flex -mt-20 mb-16">
 			<div class="md:relative w-1/3 hover:cursor-pointer">
 				<img src="assets/img/products/image Product1.jpg" alt="">
