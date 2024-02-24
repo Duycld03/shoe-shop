@@ -790,6 +790,10 @@ video {
   height: 150px;
 }
 
+.h-\[340px\] {
+  height: 340px;
+}
+
 .h-\[3px\] {
   height: 3px;
 }

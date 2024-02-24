@@ -25,7 +25,8 @@
 			<div class="hidden md:mx-28 md:flex -mt-20 mb-16">
 				<c:forEach items="${top3DiscountedProduct}" var="product">
 					<div class="md:relative w-1/3 hover:cursor-pointer">
-						<img src="assets/img/products/image Product1.jpg" alt="">
+						<img src="assets/img/products/${product.primaryImage.imageURL}" alt="img"
+							class="h-[340px] w-full">
 						<div class="absolute top-4 flex justify-around w-full">
 							<p class="text-xl font-bold text-ellipsis overflow-hidden text-[#223263]">
 								${product.productName}</p>
