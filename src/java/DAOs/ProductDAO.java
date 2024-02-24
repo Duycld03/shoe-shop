@@ -38,6 +38,27 @@ public class ProductDAO {
 		return null;
 	}
 
+	public List<Product> getAllProducts() {
+		List<Product> products = new ArrayList<>();
+		String sql = "select * from products p inner join ProductImages i on p.ProductID = i.ProductID where p.isDeleted = 0 and i.isPrimary = 1";
+		try {
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				ProductImage productImage = new ProductImage(rs.getString("ImageID"), rs.getString("ImageURL"), false,
+						rs.getString("ProductID"));
+				Product product = new Product(rs.getString("ProductID"), rs.getString("ProductName"),
+						rs.getFloat("Price"), rs.getFloat("Discount"), rs.getString("Description"),
+						rs.getString("BrandID"), false, productImage);
+				products.add(product);
+			}
+			return products;
+		} catch (SQLException ex) {
+			Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		return null;
+	}
+
 	public List<Product> getTop3DiscountedProduct() {
 		List<Product> products = new ArrayList<>();
 		String sql = "SELECT Top 3 * FROM Products p inner join ProductImages i on p.ProductID = i.ProductID WHERE Discount IS NOT NULL AND i.isPrimary = 1 AND p.isDeleted = 0 ORDER BY Discount DESC";

@@ -65,11 +65,11 @@ public class test extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		ProductDAO pDAO = new ProductDAO();
-//		List<Product> products = pDAO.getTop3DiscountedProduct();
-//		for (Product product : products) {
-//			System.out.println(product.getPrimaryImage().getImageURL());
-//		}
-		System.out.println(pDAO.getPrimaryImage("P001").getImageURL());
+		List<Product> products = pDAO.getAllProducts();
+		for (Product product : products) {
+			System.out.println(product.getPrimaryImage().getImageURL());
+		}
+//		System.out.println(pDAO.getPrimaryImage("P001").getImageURL());
 	}
 
 	/**
