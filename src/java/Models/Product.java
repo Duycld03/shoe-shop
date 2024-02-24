@@ -1,5 +1,7 @@
 package Models;
 
+import java.util.List;
+
 /**
  *
  * @author Duy
@@ -11,17 +13,44 @@ public class Product {
     private float discount;
     private String description;
     private String brandId;
-    private String isDelete;
+    private boolean isDeleted;
+    private ProductImage primaryImage;
+    private List<ProductImage> images;
 
     public Product(String productId, String productName, float price, float discount, String description,
-            String brandId, String isDelete) {
+            String brandId, boolean isDeleted, ProductImage primaryImage, List<ProductImage> images) {
         this.productId = productId;
         this.productName = productName;
         this.price = price;
         this.discount = discount;
         this.description = description;
         this.brandId = brandId;
-        this.isDelete = isDelete;
+        this.isDeleted = isDeleted;
+        this.primaryImage = primaryImage;
+        this.images = images;
+    }
+
+    public Product(String productId, String productName, float price, float discount, String description,
+            String brandId, boolean isDeleted, ProductImage primaryImage) {
+        this.productId = productId;
+        this.productName = productName;
+        this.price = price;
+        this.discount = discount;
+        this.description = description;
+        this.brandId = brandId;
+        this.isDeleted = isDeleted;
+        this.primaryImage = primaryImage;
+    }
+
+    public Product(String productId, String productName, float price, float discount, String description,
+            String brandId, boolean isDeleted) {
+        this.productId = productId;
+        this.productName = productName;
+        this.price = price;
+        this.discount = discount;
+        this.description = description;
+        this.brandId = brandId;
+        this.isDeleted = isDeleted;
     }
 
     public String getProductId() {
@@ -72,12 +101,28 @@ public class Product {
         this.brandId = brandId;
     }
 
-    public String getIsDelete() {
-        return isDelete;
+    public boolean getIsDelete() {
+        return isDeleted;
     }
 
-    public void setIsDelete(String isDelete) {
-        this.isDelete = isDelete;
+    public void setIsDelete(boolean isDeleted) {
+        this.isDeleted = isDeleted;
+    }
+
+    public ProductImage getPrimaryImage() {
+        return primaryImage;
+    }
+
+    public void setPrimaryImage(ProductImage primaryImage) {
+        this.primaryImage = primaryImage;
+    }
+
+    public List<ProductImage> getImages() {
+        return images;
+    }
+
+    public void setImages(List<ProductImage> images) {
+        this.images = images;
     }
 
 }

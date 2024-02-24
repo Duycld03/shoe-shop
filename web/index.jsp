@@ -1,4 +1,4 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import="DAOs.ProductDAO" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,7 +10,6 @@
 <body>
 	<!-- header -->
 	<%@include file="header.jsp" %>
-
 		<!-- banner -->
 		<section class="relative">
 			<img src="assets/img/banner.jpg" alt="" class="w-full">
@@ -24,7 +23,10 @@
 
 		<!-- flash sale -->
 		<% 
-			ProductDAO pDAO = new ProductDAO(); 
+			ProductDAO pDAO = new ProductDAO();
+			pDAO.getAll();
+
+
 		%>
 		<div class="hidden md:mx-28 md:flex -mt-20 mb-16">
 			<div class="md:relative w-1/3 hover:cursor-pointer">
