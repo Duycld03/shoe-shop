@@ -7,14 +7,21 @@ package Models;
 public class Product {
     private String productId;
     private String productName;
+    private float price;
+    private float discount;
     private String description;
     private String brandId;
+    private String isDelete;
 
-    public Product(String productId, String productName, String description, String brandId) {
+    public Product(String productId, String productName, float price, float discount, String description,
+            String brandId, String isDelete) {
         this.productId = productId;
         this.productName = productName;
+        this.price = price;
+        this.discount = discount;
         this.description = description;
         this.brandId = brandId;
+        this.isDelete = isDelete;
     }
 
     public String getProductId() {
@@ -33,6 +40,22 @@ public class Product {
         this.productName = productName;
     }
 
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
+    }
+
+    public float getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(float discount) {
+        this.discount = discount;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -47,6 +70,14 @@ public class Product {
 
     public void setBrandId(String brandId) {
         this.brandId = brandId;
+    }
+
+    public String getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(String isDelete) {
+        this.isDelete = isDelete;
     }
 
 }
