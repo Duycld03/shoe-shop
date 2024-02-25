@@ -6,6 +6,7 @@ package Controllers;
 
 import DAOs.ProductDAO;
 import Models.Product;
+import Models.ProductImage;
 import Utils.MD5;
 
 import java.io.IOException;
@@ -66,12 +67,12 @@ public class test extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		ProductDAO pDAO = new ProductDAO();
-		List<Product> products = pDAO.getAllProducts();
-		for (Product product : products) {
-			System.out.println(product.getPrimaryImage().getImageURL());
+		List<ProductImage> images = pDAO.getImages("P001");
+		for (ProductImage image : images) {
+			System.out.println(image.getImageURL());
 		}
 //		System.out.println(pDAO.getPrimaryImage("P001").getImageURL());
-		System.out.println(MD5.getMd5("duy"));
+//		System.out.println(MD5.getMd5("duy"));
 	}
 
 	/**

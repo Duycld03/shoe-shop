@@ -18,6 +18,7 @@ import java.util.logging.Logger;
  * @author Duy
  */
 public class ProductDAO {
+
 	private Connection conn;
 	private PreparedStatement ps;
 	private ResultSet rs;
@@ -66,18 +67,16 @@ public class ProductDAO {
 			ps = conn.prepareStatement(sql);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				ProductImage productImage = new ProductImage(rs.getString("ImageID"), rs.getString("ImageURL"), false,
-						rs.getString("ProductID"));
+				ProductImage productImage = new ProductImage(rs.getString("ImageID"), rs.getString("ImageURL"), false, rs.getString("ProductID"));
 				Product product = new Product(rs.getString("ProductID"), rs.getString("ProductName"),
 						rs.getFloat("Price"), rs.getFloat("Discount"), rs.getString("Description"),
 						rs.getString("BrandID"), false, productImage);
 				products.add(product);
 			}
-			return products;
 		} catch (SQLException ex) {
 			Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
 		}
-		return null;
+		return products;
 	}
 
 	public ProductImage getPrimaryImage(String productId) {
@@ -88,14 +87,30 @@ public class ProductDAO {
 			ps.setBoolean(2, true);
 			rs = ps.executeQuery();
 			if (rs.next()) {
-				ProductImage productImage = new ProductImage(rs.getString("ImageID"), rs.getString("ImageURL"), true,
-						rs.getString("ProductID"));
+				ProductImage productImage = new ProductImage(rs.getString("ImageID"), rs.getString("ImageURL"), true, rs.getString("ProductID"));
 				return productImage;
 			}
 		} catch (SQLException ex) {
 			Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		return null;
+	}
 
+	public List<ProductImage> getImages(String productId) {
+		List<ProductImage> images = new ArrayList<>();
+		String sql = "select * from ProductImages where ProductID = ? and isPrimary = ?";
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, productId);
+			ps.setBoolean(2, false);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				ProductImage productImage = new ProductImage(rs.getString("ImageID"), rs.getString("ImageURL"), true, rs.getString("ProductID"));
+				images.add(productImage);
+			}
+		} catch (SQLException ex) {
+			Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		return images;
 	}
 }
