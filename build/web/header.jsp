@@ -19,7 +19,7 @@
                     </a>
                 </li>
                 <li class="relative">
-                    <a href="#">
+                    <a href="Cart.jsp">
                         <img src="assets/img/svg/Cart.svg" alt="">
                         <span
                             class="absolute -top-1/4 -right-1/4 bg-[#FB7181] w-5 h-5 rounded-full text-[10px] flex justify-center items-center text-white">0</span>
