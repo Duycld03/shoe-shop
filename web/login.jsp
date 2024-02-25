@@ -37,14 +37,15 @@
             </div>
 
             <div class="flex justify-center space-x-4">
-                <button
+                <a href="https://accounts.google.com/o/oauth2/auth?scope=email%20profile%20openid&redirect_uri=http://localhost:8080/auth/LoginGoogleHandler&response_type=code
+		   &client_id=890248307249-p2bid9b832qnpvfnf05nins9pvoerjrt.apps.googleusercontent.com&approval_prompt=force"
                     class="hover:bg-[#BCDDFE] cursor-pointer w-full py-4 pr-[17px] pl-[15px] bg-[transparent] self-stretch rounded-8xs shadow-[0px_10px_30px_rgba(64,_191,_255,_0.24)] overflow-hidden flex flex-row items-center justify-start gap-[10px] border-[1px] border-solid border-neutral-light">
                     <img class="h-6 w-6 relative overflow-hidden shrink-0" alt="" src="assets/img/Google.png" />
                     <b
                         class="flex-1 relative text-sm tracking-[0.5px] leading-[180%] font-link-small text-neutral-grey text-center">
                         Login with Google
                     </b>
-                </button>
+                </a>
 
             </div>
             <p class="text-xs text-center sm:px-6">Don't have an account?
