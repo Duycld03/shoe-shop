@@ -1,5 +1,7 @@
 package Auth;
 
+import DAOs.CustomerDAO;
+import Models.Customer;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import java.io.IOException;
@@ -22,17 +24,35 @@ public class LoginGoogleHandler extends HttpServlet {
 	 * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
 	 * methods.
 	 *
-	 * @param request  servlet request
+	 * @param request servlet request
 	 * @param response servlet response
 	 * @throws ServletException if a servlet-specific error occurs
-	 * @throws IOException      if an I/O error occurs
+	 * @throws IOException if an I/O error occurs
 	 */
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		String error = request.getParameter("error");
+		if(error != null){
+			response.sendRedirect("/");
+			return;
+		}
+
 		String code = request.getParameter("code");
 		String accessToken = getToken(code);
 		UserGoogleDto user = getUserInfo(accessToken);
 		System.out.println(user);
+		CustomerDAO cDAO = new CustomerDAO();
+		Customer customer = cDAO.checkGoogleLogin(user.getId());
+		if (customer != null) {
+			//set cookie
+			System.out.println("Login successful");
+		} else if (cDAO.getCustomerByEmail(user.getEmail()) != null) {
+			//update socialId for customer
+			System.out.println("has email, no socialId");
+		} else {
+			//create customer
+			System.out.println("create customer");
+		}
 	}
 
 	public static String getToken(String code) throws ClientProtocolException, IOException {
@@ -62,10 +82,10 @@ public class LoginGoogleHandler extends HttpServlet {
 	/**
 	 * Handles the HTTP <code>GET</code> method.
 	 *
-	 * @param request  servlet request
+	 * @param request servlet request
 	 * @param response servlet response
 	 * @throws ServletException if a servlet-specific error occurs
-	 * @throws IOException      if an I/O error occurs
+	 * @throws IOException if an I/O error occurs
 	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -76,10 +96,10 @@ public class LoginGoogleHandler extends HttpServlet {
 	/**
 	 * Handles the HTTP <code>POST</code> method.
 	 *
-	 * @param request  servlet request
+	 * @param request servlet request
 	 * @param response servlet response
 	 * @throws ServletException if a servlet-specific error occurs
-	 * @throws IOException      if an I/O error occurs
+	 * @throws IOException if an I/O error occurs
 	 */
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
