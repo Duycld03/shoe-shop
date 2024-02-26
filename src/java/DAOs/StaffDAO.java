@@ -171,10 +171,6 @@ public class StaffDAO {
 		return count;
 	}
 
-    public static void main(String[] args) {
-        StaffDAO a = new StaffDAO();
-        List<Staff> l = a.getAllStaff();
-        System.out.println(l.get(0).getStaffId());
-    }
+
 
 }
