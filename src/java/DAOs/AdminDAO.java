@@ -33,7 +33,7 @@ public class AdminDAO {
 			ps.setString(2, MD5.getMd5(password));
 			rs = ps.executeQuery();
 			if (rs.next()) {
-				Admin admin = new Admin(rs.getString("AdminID"), rs.getString("UserName"), rs.getString("Password"), rs.getString("Email"), rs.getString("FullName"));
+				Admin admin = new Admin(rs.getString("AdminID"), rs.getString("UserName"), rs.getString("Password"), rs.getString("Email"), rs.getString("FullName"), rs.getString("PhoneNumber"));
 				return admin;
 			}
 		} catch (SQLException ex) {

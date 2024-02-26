@@ -31,7 +31,7 @@ public class CustomerDAO {
 			ps.setString(1, email);
 			rs = ps.executeQuery();
 			if (rs.next()) {
-				Customer customer = new Customer(rs.getString("CustomerID"), rs.getString("UserName"), rs.getString("Password"), email, rs.getString("FullName"), rs.getString("SocialID"));
+				Customer customer = new Customer(rs.getString("CustomerID"), rs.getString("UserName"), rs.getString("Password"), email, rs.getString("FullName"), rs.getString("SocialID"), rs.getString("phoneNumber"));
 				return customer;
 			}
 		} catch (SQLException ex) {
@@ -46,7 +46,7 @@ public class CustomerDAO {
 			ps.setString(1, socialId);
 			rs = ps.executeQuery();
 			if (rs.next()) {
-				Customer customer = new Customer(rs.getString("CustomerID"), rs.getString("UserName"), rs.getString("Password"), rs.getString("Email"), rs.getString("FullName"), socialId);
+				Customer customer = new Customer(rs.getString("CustomerID"), rs.getString("UserName"), rs.getString("Password"), rs.getString("Email"), rs.getString("FullName"), socialId, rs.getString("phoneNumber"));
 				return customer;
 			}
 		} catch (SQLException ex) {
@@ -63,7 +63,7 @@ public class CustomerDAO {
 			ps.setString(2, MD5.getMd5(password));
 			rs = ps.executeQuery();
 			if (rs.next()) {
-				Customer customer = new Customer(rs.getString("CustomerID"), rs.getString("UserName"), rs.getString("Password"), rs.getString("Email"), rs.getString("FullName"), rs.getString("SocialID"));
+				Customer customer = new Customer(rs.getString("CustomerID"), rs.getString("UserName"), rs.getString("Password"), rs.getString("Email"), rs.getString("FullName"), rs.getString("SocialID"), rs.getString("phoneNumber"));
 				return customer;
 			}
 		} catch (SQLException ex) {

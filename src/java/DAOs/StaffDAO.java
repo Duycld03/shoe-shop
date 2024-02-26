@@ -34,7 +34,7 @@ public class StaffDAO {
             ps.setString(2, MD5.getMd5(password));
             rs = ps.executeQuery();
             if (rs.next()) {
-                Staff staff = new Staff(rs.getString("StaffID"), rs.getString("UserName"), rs.getString("Password"), rs.getString("Email"), rs.getString("FullName"));
+                Staff staff = new Staff(rs.getString("StaffID"), rs.getString("UserName"), rs.getString("Password"), rs.getString("Email"), rs.getString("FullName"), rs.getString("PhoneNumber"));
                 return staff;
             }
         } catch (SQLException ex) {
@@ -51,6 +51,7 @@ public class StaffDAO {
                 + "      ,[Password]\n"
                 + "      ,[Email]\n"
                 + "      ,[FullName]\n"
+                + "      ,[PhoneNumber]\n"
                 + "  FROM [dbo].[Staffs]";
         try {
             // Đảm bảo cSonnection đã được khởi tạo và mở
@@ -58,8 +59,8 @@ public class StaffDAO {
                 PreparedStatement st = conn.prepareStatement(sql);
                 ResultSet rs = st.executeQuery();
                 while (rs.next()) {
-                    Staff c = new Staff(rs.getString("StaffID"), rs.getString("UserName"), rs.getString("Password"), rs.getString("Email"), rs.getString("FullName"));
-                    list.add(c);
+                    Staff staff = new Staff(rs.getString("StaffID"), rs.getString("UserName"), rs.getString("Password"), rs.getString("Email"), rs.getString("FullName"), rs.getString("PhoneNumber"));
+                    list.add(staff);
                 }
             } else {
                 System.out.println("Kết nối đến cơ sở dữ liệu không hợp lệ.");
@@ -77,6 +78,7 @@ public class StaffDAO {
                 + "      ,[Password]\n"
                 + "      ,[Email]\n"
                 + "      ,[FullName]\n"
+                + "      ,[PhoneNumber]\n"
                 + "  FROM [dbo].[Staffs]\n"
                 + "  where StaffID = ?";
         try {
@@ -84,7 +86,7 @@ public class StaffDAO {
             st.setString(1, id);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
-                Staff c = new Staff(rs.getString("StaffID"), rs.getString("UserName"), rs.getString("Password"), rs.getString("Email"), rs.getString("FullName"));
+                Staff c = new Staff(rs.getString("StaffID"), rs.getString("UserName"), rs.getString("Password"), rs.getString("Email"), rs.getString("FullName"), rs.getString("PhoneNumber"));
                 return c;
             }
 
@@ -101,9 +103,10 @@ public class StaffDAO {
                 + "           ,[UserName]\n"
                 + "           ,[Password]\n"
                 + "           ,[Email]\n"
-                + "           ,[FullName])\n"
+                + "           ,[FullName]\n"
+                + "           ,[PhoneNumber])\n"
                 + "     VALUES\n"
-                + "           (?,?,?,?,?)";
+                + "           (?,?,?,?,?,?)";
         try {
             PreparedStatement st = conn.prepareCall(sql);
             st.setString(1, c.getStaffId());
@@ -111,6 +114,7 @@ public class StaffDAO {
             st.setString(3, c.getPassword());
             st.setString(4, c.getEmail());
             st.setString(5, c.getFullname());
+            st.setString(6, c.getPhoneNumber());
             st.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
@@ -137,6 +141,7 @@ public class StaffDAO {
                 + "      ,[Password] = ?\n"
                 + "      ,[Email] = ?\n"
                 + "      ,[FullName] = ?\n"
+                + "      ,[PhoneNumber] = ?\n"
                 + " WHERE StaffID = ?";
         try {
             PreparedStatement st = conn.prepareStatement(sql);
@@ -144,7 +149,8 @@ public class StaffDAO {
             st.setString(2, c.getPassword());
             st.setString(3, c.getEmail());
             st.setString(4, c.getFullname());
-            st.setString(5, c.getStaffId());
+            st.setString(5, c.getPhoneNumber());
+            st.setString(6, c.getStaffId());
             st.executeUpdate();
         } catch (SQLException e) {
         }
