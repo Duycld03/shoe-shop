@@ -24,7 +24,40 @@ public class CustomerDAO {
 		conn = DBConnection.getConnection();
 	}
 
-	public Customer getCustomerByEmail(String email) {
+	public int add(Customer customer) {
+		int count = 0;
+		String sql = "insert into customers values(?,?,?,?,?,?)";
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, customer.getCustomerId());
+			ps.setString(2, customer.getUsername());
+			ps.setString(3, MD5.getMd5(customer.getPassword()));
+			ps.setString(4, customer.getEmail());
+			ps.setString(5, customer.getFullname());
+			ps.setString(6, customer.getSocialId());
+			count = ps.executeUpdate();
+		} catch (SQLException ex) {
+			Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		return count;
+	}
+
+	public int getCustomerCount() {
+		int count = -1;
+		String sql = "SELECT COUNT(*) AS CustomerCount FROM customers";
+		try {
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				return rs.getInt("CustomerCount");
+			}
+		} catch (SQLException ex) {
+			Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		return count;
+	}
+
+	public Customer getByEmail(String email) {
 		String sql = "select * from Customers where email = ?";
 		try {
 			ps = conn.prepareStatement(sql);
@@ -39,6 +72,7 @@ public class CustomerDAO {
 		}
 		return null;
 	}
+
 	public Customer checkGoogleLogin(String socialId) {
 		String sql = "select * from Customers where SocialID = ?";
 		try {
@@ -72,5 +106,22 @@ public class CustomerDAO {
 		return null;
 	}
 
-	
+	public int update(Customer customer) {
+		int count = 0;
+		String sql = "update Customers set UserName = ?, Password = ?, Email = ?, FullName = ?, SocialID =? where CustomerID = ?";
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, customer.getUsername());
+			ps.setString(2, customer.getPassword());
+			ps.setString(3, customer.getEmail());
+			ps.setString(4, customer.getFullname());
+			ps.setString(5, customer.getSocialId());
+			ps.setString(6, customer.getCustomerId());
+			count = ps.executeUpdate();
+		} catch (SQLException ex) {
+			Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		return count;
+	}
+
 }

@@ -11,6 +11,9 @@ import DAOs.StaffDAO;
 import Models.Product;
 import Models.ProductImage;
 import Utils.MD5;
+import Utils.*;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -76,14 +79,18 @@ public class test extends HttpServlet {
 //		}
 //		System.out.println(pDAO.getPrimaryImage("P001").getImageURL());
 //		System.out.println(MD5.getMd5("duy"));
-		AdminDAO aDAO = new AdminDAO();
-		System.out.println(aDAO.checkLogin("DuyNT", "12345"));
+//		AdminDAO aDAO = new AdminDAO();
+//		System.out.println(aDAO.checkLogin("DuyNT", "12345"));
 
-		StaffDAO sDAO = new StaffDAO();
-		System.out.println(sDAO.checkLogin("DuyNT", "12345"));
-
+//		StaffDAO sDAO = new StaffDAO();
+//		System.out.println(sDAO.checkLogin("DuyNT", "12345"));
 		CustomerDAO cDAO = new CustomerDAO();
-		System.out.println(cDAO.checkLogin("DuyNT", "12345"));
+//		System.out.println(cDAO.checkLogin("DuyNT", "12345"));
+//		String token = JwtUtils.generateToken("duycld03");
+//		System.out.println(token);
+//		System.out.println(JwtUtils.getUsernameFromToken(token));
+
+		System.out.println(cDAO.getCustomerCount());
 	}
 
 	/**

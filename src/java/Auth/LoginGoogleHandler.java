@@ -2,14 +2,16 @@ package Auth;
 
 import DAOs.CustomerDAO;
 import Models.Customer;
+import Utils.JwtUtils;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.fluent.Form;
 import org.apache.http.client.fluent.Request;
@@ -32,7 +34,7 @@ public class LoginGoogleHandler extends HttpServlet {
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String error = request.getParameter("error");
-		if(error != null){
+		if (error != null) {
 			response.sendRedirect("/");
 			return;
 		}
@@ -45,14 +47,39 @@ public class LoginGoogleHandler extends HttpServlet {
 		Customer customer = cDAO.checkGoogleLogin(user.getId());
 		if (customer != null) {
 			//set cookie
-			System.out.println("Login successful");
-		} else if (cDAO.getCustomerByEmail(user.getEmail()) != null) {
+			String token = JwtUtils.generateToken(customer.getUsername());
+			Cookie cookie = new Cookie("login", token);
+			cookie.setMaxAge(3 * 24 * 60 * 60);
+			cookie.setPath("/");
+			response.addCookie(cookie);
+			response.sendRedirect("/");
+			return;
+		}
+		customer = cDAO.getByEmail(user.getEmail());
+		if (customer != null) {
 			//update socialId for customer
 			System.out.println("has email, no socialId");
-		} else {
-			//create customer
-			System.out.println("create customer");
+			customer.setSocialId(user.getId());
+			int result = cDAO.update(customer);
+			if (result >= 1) {
+				String token = JwtUtils.generateToken(customer.getUsername());
+				Cookie cookie = new Cookie("login", token);
+				cookie.setMaxAge(3 * 24 * 60 * 60);
+				cookie.setPath("/");
+				response.addCookie(cookie);
+				response.sendRedirect("/");
+			} else {
+				response.sendRedirect("/");
+			}
+			return;
 		}
+		//create customer
+//		String customerId = "Cus" + cDAO.getCustomerCount();
+//		customer = new Customer(customerId, "username", "password", user.getEmail(), user.getName(), user.getId());
+		System.out.println("create customer");
+		HttpSession session = request.getSession();
+		session.setAttribute("user", user);
+		request.getRequestDispatcher("/googleRegister.jsp").forward(request, response);
 	}
 
 	public static String getToken(String code) throws ClientProtocolException, IOException {
