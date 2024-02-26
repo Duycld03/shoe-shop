@@ -93,25 +93,60 @@ public class StaffDAO {
         }
         return null;
     }
-    
-    public void insertStaff(Staff c) {
-        String sql = "INSERT INTO [dbo].[Staffs]\n" +
-"           ([StaffID]\n" +
-"           ,[UserName]\n" +
-"           ,[Password]\n" +
-"           ,[Email]\n" +
-"           ,[FullName])\n" +
-"     VALUES\n" +
-"           (?,?,?,?,?)";
+
+    //add new staff
+    public void addStaff(Staff c) {
+        String sql = "INSERT INTO [dbo].[Staffs]\n"
+                + "           ([StaffID]\n"
+                + "           ,[UserName]\n"
+                + "           ,[Password]\n"
+                + "           ,[Email]\n"
+                + "           ,[FullName])\n"
+                + "     VALUES\n"
+                + "           (?,?,?,?,?)";
         try {
             PreparedStatement st = conn.prepareCall(sql);
-            st.setString(1, c.getLaptop_id());
-            st.setString(2, c.getLaptop_name());
-            st.setString(3, c.getLaptop_description());
-            st.setFloat(4, c.getLaptop_price());
+            st.setString(1, c.getStaffId());
+            st.setString(2, c.getUsername());
+            st.setString(3, c.getPassword());
+            st.setString(4, c.getEmail());
+            st.setString(5, c.getFullname());
             st.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
+        }
+    }
+
+    //delete staff
+    public void deleteStaff(String id) {
+        String sql = "DELETE FROM [dbo].[Staffs]\n"
+                + "      WHERE StaffID = ?";
+        try {
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.setString(1, id);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
+    //update staff
+    public void updateStaff(Staff c) {
+        String sql = "UPDATE [dbo].[Staffs]\n"
+                + "   SET [UserName] = ?\n"
+                + "      ,[Password] = ?\n"
+                + "      ,[Email] = ?\n"
+                + "      ,[FullName] = ?\n"
+                + " WHERE StaffID = ?";
+        try {
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.setString(1, c.getUsername());
+            st.setString(2, c.getPassword());
+            st.setString(3, c.getEmail());
+            st.setString(4, c.getFullname());
+            st.setString(5, c.getStaffId());
+            st.executeUpdate();
+        } catch (SQLException e) {
         }
     }
 
