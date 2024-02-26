@@ -5,83 +5,83 @@ package Models;
  * @author Duy
  */
 public class Customer {
-    private String customerId;
-    private String username;
-    private String password;
-    private String email;
-    private String fullname;
-    private String socialId;
-    private String phoneNumber;
 
-    public Customer() {
-    }
+	private String customerId;
 
-    public Customer(String customerId, String username, String password, String email, String fullname, String socialId, String phoneNumber) {
-        this.customerId = customerId;
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.fullname = fullname;
-        this.socialId = socialId;
-        this.phoneNumber = phoneNumber;
-    }
+	private String username;
+	private String password;
+	private String email;
+	private String fullname;
+	private String socialId;
+	private String phoneNumber;
 
-    public String getCustomerId() {
-        return customerId;
-    }
+	public Customer() {
+	}
 
-    public void setCustomerId(String customerId) {
-        this.customerId = customerId;
-    }
+	public Customer(String customerId, String username, String password, String email, String fullname, String socialId, String phoneNumber) {
+		this.customerId = customerId;
+		this.username = username;
+		this.password = password;
+		this.email = email;
+		this.fullname = fullname;
+		this.socialId = socialId;
+		this.phoneNumber = phoneNumber;
+	}
 
-    public String getUsername() {
-        return username;
-    }
+	public String getCustomerId() {
+		return customerId;
+	}
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+	public void setCustomerId(String customerId) {
+		this.customerId = customerId;
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	public String getUsername() {
+		return username;
+	}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    public String getFullname() {
-        return fullname;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public String getSocialId() {
-        return socialId;
-    }
+	public String getFullname() {
+		return fullname;
+	}
 
-    public void setSocialId(String socialId) {
-        this.socialId = socialId;
-    }
+	public void setFullname(String fullname) {
+		this.fullname = fullname;
+	}
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
+	public String getSocialId() {
+		return socialId;
+	}
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
+	public void setSocialId(String socialId) {
+		this.socialId = socialId;
+	}
 
-  
-    
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
 }

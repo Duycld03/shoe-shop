@@ -74,12 +74,9 @@ public class LoginGoogleHandler extends HttpServlet {
 			return;
 		}
 		//create customer
-//		String customerId = "Cus" + cDAO.getCustomerCount();
-//		customer = new Customer(customerId, "username", "password", user.getEmail(), user.getName(), user.getId());
-		System.out.println("create customer");
 		HttpSession session = request.getSession();
 		session.setAttribute("user", user);
-		request.getRequestDispatcher("/googleRegister.jsp").forward(request, response);
+		response.sendRedirect("/GoogleRegister");
 	}
 
 	public static String getToken(String code) throws ClientProtocolException, IOException {

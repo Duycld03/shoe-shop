@@ -16,6 +16,14 @@
         <servlet-name>LoginGoogleHandler</servlet-name>
         <servlet-class>Auth.LoginGoogleHandler</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>StaffManager</servlet-name>
+        <servlet-class>Controllers.StaffManager</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GoogleRegisterController</servlet-name>
+        <servlet-class>Controllers.GoogleRegisterController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
         <url-pattern/>
@@ -31,6 +39,14 @@
     <servlet-mapping>
         <servlet-name>LoginGoogleHandler</servlet-name>
         <url-pattern>/auth/LoginGoogleHandler</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffManager</servlet-name>
+        <url-pattern>/staffmanager</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GoogleRegisterController</servlet-name>
+        <url-pattern>/GoogleRegister</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

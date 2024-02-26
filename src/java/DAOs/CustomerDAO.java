@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,9 +26,46 @@ public class CustomerDAO {
 		conn = DBConnection.getConnection();
 	}
 
+	public Customer checkGoogleLogin(String socialId) {
+		String sql = "select * from Customers where SocialID = ?";
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, socialId);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				Customer customer = new Customer(rs.getString("CustomerID"), rs.getString("UserName"),
+						rs.getString("Password"), rs.getString("Email"), rs.getString("FullName"), socialId,
+						rs.getString("PhoneNumber"));
+				return customer;
+			}
+		} catch (SQLException ex) {
+			Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		return null;
+	}
+
+	public Customer checkLogin(String username, String password) {
+		String sql = "select * from Customers where UserName = ? and Password = ?";
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, username);
+			ps.setString(2, MD5.getMd5(password));
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				Customer customer = new Customer(rs.getString("CustomerID"), rs.getString("UserName"),
+						rs.getString("Password"), rs.getString("Email"), rs.getString("FullName"),
+						rs.getString("SocialID"), rs.getString("PhoneNumber"));
+				return customer;
+			}
+		} catch (SQLException ex) {
+			Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		return null;
+	}
+
 	public int add(Customer customer) {
 		int count = 0;
-		String sql = "insert into customers values(?,?,?,?,?,?)";
+		String sql = "insert into customers values(?,?,?,?,?,?,?)";
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, customer.getCustomerId());
@@ -35,6 +74,7 @@ public class CustomerDAO {
 			ps.setString(4, customer.getEmail());
 			ps.setString(5, customer.getFullname());
 			ps.setString(6, customer.getSocialId());
+			ps.setString(7, customer.getPhoneNumber());
 			count = ps.executeUpdate();
 		} catch (SQLException ex) {
 			Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -65,44 +105,7 @@ public class CustomerDAO {
 			rs = ps.executeQuery();
 			if (rs.next()) {
 				Customer customer = new Customer(rs.getString("CustomerID"), rs.getString("UserName"),
-						rs.getString("Password"), email, rs.getString("FullName"), rs.getString("SocialID"));
-				return customer;
-			}
-		} catch (SQLException ex) {
-			Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
-		}
-		return null;
-	}
-
-	public Customer checkGoogleLogin(String socialId) {
-		String sql = "select * from Customers where SocialID = ?";
-		try {
-			ps = conn.prepareStatement(sql);
-			ps.setString(1, socialId);
-			rs = ps.executeQuery();
-			if (rs.next()) {
-				Customer customer = new Customer(rs.getString("CustomerID"), rs.getString("UserName"),
-						rs.getString("Password"), rs.getString("Email"), rs.getString("FullName"), socialId,
-						rs.getString("NumberPhone"));
-				return customer;
-			}
-		} catch (SQLException ex) {
-			Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
-		}
-		return null;
-	}
-
-	public Customer checkLogin(String username, String password) {
-		String sql = "select * from Customers where UserName = ? and Password = ?";
-		try {
-			ps = conn.prepareStatement(sql);
-			ps.setString(1, username);
-			ps.setString(2, MD5.getMd5(password));
-			rs = ps.executeQuery();
-			if (rs.next()) {
-				Customer customer = new Customer(rs.getString("CustomerID"), rs.getString("UserName"),
-						rs.getString("Password"), rs.getString("Email"), rs.getString("FullName"),
-						rs.getString("SocialID"));
+						rs.getString("Password"), email, rs.getString("FullName"), rs.getString("SocialID"), rs.getString("PhoneNumber"));
 				return customer;
 			}
 		} catch (SQLException ex) {
@@ -128,5 +131,4 @@ public class CustomerDAO {
 		}
 		return count;
 	}
-
 }
