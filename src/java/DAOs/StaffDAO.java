@@ -155,6 +155,21 @@ public class StaffDAO {
         } catch (SQLException e) {
         }
     }
+    
+    public int getStaffCount() {
+		int count = -1;
+		String sql = "SELECT COUNT(*) AS CustomerCount FROM Staffs";
+		try {
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				return rs.getInt("CustomerCount");
+			}
+		} catch (SQLException ex) {
+			Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		return count;
+	}
 
     public static void main(String[] args) {
         StaffDAO a = new StaffDAO();
