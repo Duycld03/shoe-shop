@@ -494,18 +494,17 @@
 
                             </div>
                         </div>
-                        <div class="bg-[#F6F7F8] w-full md:h-[3%] h-[50px] md:py-6 relative ">
-                            <div
-                                class="flex  justify-center h-auto w-[50%] md:h-full md:w-[40%] absolute  top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                                <p class="h-full hover:bg-[#40BFFF] md:py-[10px] py-[10px] md:px-[30px] px-[20px] ">1
+                        <div class="bg-[#F6F7F8]  w-full h-auto ">
+                            <div class=" grid grid-cols-5 h-auto md:mx-72 mx-4">
+                                <p class="h-full hover:bg-[#40BFFF] text-center py-3  ">1
                                 </p>
-                                <p class="h-full hover:bg-[#40BFFF] md:py-[10px] py-[10px] md:px-[30px] px-[20px] ">2
+                                <p class="h-full hover:bg-[#40BFFF] text-center py-3  ">1
                                 </p>
-                                <p class="h-full hover:bg-[#40BFFF] md:py-[10px] py-[10px] md:px-[30px] px-[20px] ">3
+                                <p class="h-full hover:bg-[#40BFFF] text-center py-3  ">1
                                 </p>
-                                <p class="h-full hover:bg-[#40BFFF] md:py-[10px] py-[10px] md:px-[30px] px-[20px] ">4
+                                <p class="h-full hover:bg-[#40BFFF] text-center py-3  ">1
                                 </p>
-                                <p class="h-full hover:bg-[#40BFFF] md:py-[10px] py-[10px] md:px-[30px] px-[20px] ">5
+                                <p class="h-full hover:bg-[#40BFFF] text-center py-3  ">1
                                 </p>
                             </div>
                         </div>
