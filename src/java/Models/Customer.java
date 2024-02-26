@@ -11,15 +11,19 @@ public class Customer {
     private String email;
     private String fullname;
     private String socialId;
+    private String phoneNumber;
 
-    public Customer(String customerId, String username, String password, String email, String fullname,
-            String socialId) {
+    public Customer() {
+    }
+
+    public Customer(String customerId, String username, String password, String email, String fullname, String socialId, String phoneNumber) {
         this.customerId = customerId;
         this.username = username;
         this.password = password;
         this.email = email;
         this.fullname = fullname;
         this.socialId = socialId;
+        this.phoneNumber = phoneNumber;
     }
 
     public String getCustomerId() {
@@ -69,4 +73,15 @@ public class Customer {
     public void setSocialId(String socialId) {
         this.socialId = socialId;
     }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+  
+    
 }
