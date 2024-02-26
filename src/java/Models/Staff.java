@@ -10,13 +10,18 @@ public class Staff {
     private String password;
     private String email;
     private String fullname;
+    private String phoneNumber;
 
-    public Staff(String staffId, String username, String password, String email, String fullname) {
+    public Staff() {
+    }
+
+    public Staff(String staffId, String username, String password, String email, String fullname, String phoneNumber) {
         this.staffId = staffId;
         this.username = username;
         this.password = password;
         this.email = email;
         this.fullname = fullname;
+        this.phoneNumber = phoneNumber;
     }
 
     public String getStaffId() {
@@ -58,5 +63,15 @@ public class Staff {
     public void setFullname(String fullname) {
         this.fullname = fullname;
     }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+    
+
 
 }
