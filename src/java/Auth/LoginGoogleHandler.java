@@ -76,7 +76,7 @@ public class LoginGoogleHandler extends HttpServlet {
 		//create customer
 		HttpSession session = request.getSession();
 		session.setAttribute("user", user);
-		response.sendRedirect("/GoogleRegister");
+		response.sendRedirect("/googleRegister");
 	}
 
 	public static String getToken(String code) throws ClientProtocolException, IOException {

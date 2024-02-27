@@ -32,6 +32,10 @@
         <servlet-name>ProfileController</servlet-name>
         <servlet-class>Controllers.ProfileControler</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AuthController</servlet-name>
+        <servlet-class>Controllers.AuthController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
         <url-pattern/>
@@ -54,7 +58,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GoogleRegisterController</servlet-name>
-        <url-pattern>/GoogleRegister</url-pattern>
+        <url-pattern>/googleRegister</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddStaffController</servlet-name>
@@ -63,6 +67,10 @@
     <servlet-mapping>
         <servlet-name>ProfileController</servlet-name>
         <url-pattern>/profilecontroller</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AuthController</servlet-name>
+        <url-pattern>/auth</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

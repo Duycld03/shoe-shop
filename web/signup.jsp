@@ -5,7 +5,7 @@
 
     <head>
         <%@include file="head.jsp" %>
-
+            <script src="https://www.google.com/recaptcha/api.js" async defer></script>
             <title>JSP Page</title>
     </head>
 
