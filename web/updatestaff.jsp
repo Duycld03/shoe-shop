@@ -28,29 +28,37 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="id">Enter ID:</label>
-                        <input type="text" name="id" readonly value="${c.staffId}" class="form-control"/>
-                    </div>
+                    <label for="id">Enter ID:</label>
+                    <input type="text" name="id" readonly value="${c.staffId}" class="form-control"/>
+                </div>
                     <div class="form-group">
-                        <label>UserName</label>
-                        <input name="username" type="text" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label>FullName</label>
-                        <input name="Fullname" type="text" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Password</label>
-                        <input name="password" type="text" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input name="email" type="text" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Phone Number</label>
-                        <input name="phonenumber" type="text" class="form-control" required>
-                    </div>
+                                <label>UserName</label>
+                                <input name="username" type="text" class="form-control" required pattern="[a-zA-Z]+" title="Username must contain only letters">
+                            </div>
+                            <div class="form-group">
+                                <label>FullName</label>
+                                <input name="Fullname" type="text" class="form-control" required pattern="[a-zA-Z ]+" title="Full Name cannot contain numbers">
+                            </div>
+                            <div class="form-group">
+                                <label>Password</label>
+                                <div class="input-group">
+                                    <input name="password" id="password" type="password" class="form-control" required pattern=".{8,}" title="Password must be at least 8 characters">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                                            <i class="fa fa-eye-slash" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input name="email" type="email" class="form-control" required pattern="[a-zA-Z0-9._%+-]+@gmail\.com$" title="Email must be in the format example@gmail.com">
+                            </div>
+                            <div class="form-group">
+                                <label>Phone Number</label>
+                                <input name="phonenumber" type="tel" class="form-control" required pattern="[0-9]{10}" title="Phone number must contain 10 digits">
+                            </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
