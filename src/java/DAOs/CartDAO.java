@@ -50,7 +50,7 @@ public class CartDAO {
                 System.out.println("Kết nối đến cơ sở dữ liệu không hợp lệ.");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CartDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return list;
     }
@@ -97,7 +97,7 @@ public class CartDAO {
             ps.setString(5, cart.getVariantId());
             count = ps.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CartDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return count;
     }
@@ -152,7 +152,7 @@ public class CartDAO {
             ps.setString(5, cart.getCartId());
             count = ps.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CartDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return count;
     }
@@ -166,7 +166,7 @@ public class CartDAO {
                 return rs.getInt("CartCount");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CartDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return count;
     }

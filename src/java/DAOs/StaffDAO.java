@@ -39,7 +39,7 @@ public class StaffDAO {
                 return staff;
             }
         } catch (SQLException ex) {
-            Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(StaffDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
@@ -67,7 +67,7 @@ public class StaffDAO {
                 System.out.println("Kết nối đến cơ sở dữ liệu không hợp lệ.");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(StaffDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return list;
     }
@@ -143,7 +143,7 @@ public class StaffDAO {
             ps.setString(6, staff.getPhoneNumber());
             count = ps.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(StaffDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return count;
     }
@@ -170,7 +170,7 @@ public class StaffDAO {
       ps.setString(1, staffId);
       ketqua = ps.executeUpdate();
     } catch (SQLException ex) {
-      Logger.getLogger(CartDAO.class.getName()).log(Level.SEVERE, null, ex);
+      Logger.getLogger(StaffDAO.class.getName()).log(Level.SEVERE, null, ex);
     }
     return ketqua;
   }
@@ -215,7 +215,7 @@ public class StaffDAO {
 			ps.setString(6, staff.getStaffId());
 			count = ps.executeUpdate();
 		} catch (SQLException ex) {
-			Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(StaffDAO.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		return count;
 	}
@@ -232,7 +232,7 @@ public class StaffDAO {
                 return rs.getInt("StaffCount");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(StaffDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return count;
     }

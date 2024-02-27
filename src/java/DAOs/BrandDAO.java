@@ -45,7 +45,7 @@ public class BrandDAO {
                 System.out.println("Kết nối đến cơ sở dữ liệu không hợp lệ.");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(BrandDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return list;
     }
@@ -126,7 +126,7 @@ public class BrandDAO {
                 return rs.getInt("BrandCount");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(BrandDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return count;
     }
