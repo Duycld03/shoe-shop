@@ -174,26 +174,26 @@ public class StaffDAO {
     }
 
     //update staff
-//    public void updateStaff(Staff c) {
-//        String sql = "UPDATE [dbo].[Staffs]\n"
-//                + "   SET [UserName] = ?\n"
-//                + "      ,[Password] = ?\n"
-//                + "      ,[Email] = ?\n"
-//                + "      ,[FullName] = ?\n"
-//                + "      ,[PhoneNumber] = ?\n"
-//                + " WHERE StaffID = ?";
-//        try {
-//            PreparedStatement st = conn.prepareStatement(sql);
-//            st.setString(1, c.getUsername());
-//            st.setString(2, c.getPassword());
-//            st.setString(3, c.getEmail());
-//            st.setString(4, c.getFullname());
-//            st.setString(5, c.getPhoneNumber());
-//            st.setString(6, c.getStaffId());
-//            st.executeUpdate();
-//        } catch (SQLException e) {
-//        }
-//    }
+    public void updateStaff(Staff c) {
+        String sql = "UPDATE [dbo].[Staffs]\n"
+                + "   SET [UserName] = ?\n"
+                + "      ,[Password] = ?\n"
+                + "      ,[Email] = ?\n"
+                + "      ,[FullName] = ?\n"
+                + "      ,[PhoneNumber] = ?\n"
+                + " WHERE StaffID = ?";
+        try {
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.setString(1, c.getUsername());
+            st.setString(2, MD5.getMd5(c.getPassword()));
+            st.setString(3, c.getEmail());
+            st.setString(4, c.getFullname());
+            st.setString(5, c.getPhoneNumber());
+            st.setString(6, c.getStaffId());
+            st.executeUpdate();
+        } catch (SQLException e) {
+        }
+    }
     public int update(Staff staff) {
         int count = 0;
         String sql = "UPDATE [dbo].[Staffs]\n"
