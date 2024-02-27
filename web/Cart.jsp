@@ -19,8 +19,8 @@
     <body onload="loadTotalMoney()">
         <%@include file="header.jsp" %>
         <div class="shopping-cart">
-            <div class="px-4 px-lg-0">
-
+            <div class="pl-32">
+                <!-- px-4 px-lg-0 pl-32 -->
                 <div class="pb-5">
                     <div class="container">
                         <div class="row">
@@ -89,11 +89,16 @@
 
 
 
-                        <table class="min-w-full divide-y divide-gray-200  ">
+                      
+
+                        <table class="min-w-full divide-y divide-gray-200 px-8">
                             <thead>
                                 <tr>
-                                    <th scope="col" class="px-32 py-10 text-left text-lg font-medium ml-3">
+                                    <th scope="col" class="px-2 py-10 text-left text-lg font-medium ml-3">
                                         PRODUCT
+                                    </th>
+                                    <th class="px-2 py-2">
+
                                     </th>
                                     <th scope="col" class="px-4 py-10 text-left text-lg font-medium">
                                         PRICE
@@ -108,36 +113,41 @@
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
                                 <tr>
-                                    
-                                       <td class="px-32 py-10 whitespace-nowrap">
-                            <span class="font-medium text-lg">Nice Airmax 270 react</span>
-                            </td>
-                            <td class="px-4 py-10 whitespace-nowrap">
-                                $988
-                            </td>
-                            <td class="px-4 py-10 whitespace-nowrap">
-                                1
-                            </td>
-                            <td class="px-4 py-10 whitespace-nowrap">
-                                $499
-                            </td>
-                            </tr>
-                            <tr>
+                                    <th class="px-2 py-2 whitespace-nowrap"> 
+                                        <img src="assets/img/products/image Product1.jpg" class="h-16 w-16 object-cover rounded">
+                                    </th>
+                                    <td class="px-8 py-10 whitespace-nowrap">
+                                        <span class="font-medium text-lg">Nice Airmax 270 react</span>
+                                    </td>
+                                    <td class="px-4 py-10 whitespace-nowrap">
+                                        $988
+                                    </td>
+                                    <td class="px-4 py-10 whitespace-nowrap">
+                                        1
+                                    </td>
+                                    <td class="px-4 py-10 whitespace-nowrap">
+                                        $499
+                                    </td>
 
+                                </tr>
+                                <tr>
+                                    <th class="px-2 py-2 whitespace-nowrap"> 
+                                        <img src="assets/img/products/image Product1.jpg" class="h-16 w-16 object-cover rounded">
+                                    </th>
+                                    <td class="px-8 py-10 whitespace-nowrap">
+                                        <span class="font-medium text-lg">Nice Airmax 270 react</span>
+                                    </td>
+                                    <td class="px-4 py-10 whitespace-nowrap">
+                                        $988
+                                    </td>
+                                    <td class="px-4 py-10 whitespace-nowrap">
+                                        1
+                                    </td>
+                                    <td class="px-4 py-10 whitespace-nowrap">
+                                        $499
+                                    </td>
 
-                                <td class="px-32 py-10 whitespace-nowrap">
-                                    <span class="font-medium text-lg">Nice Airmax 270 react</span>
-                                </td>
-                                <td class="px-4 py-10 whitespace-nowrap">
-                                    $988
-                                </td>
-                                <td class="px-4 py-10 whitespace-nowrap">
-                                    1
-                                </td>
-                                <td class="px-4 py-10 whitespace-nowrap">
-                                    $499
-                                </td>
-                            </tr>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
