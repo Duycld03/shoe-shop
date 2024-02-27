@@ -137,7 +137,7 @@ public class StaffDAO {
             ps = conn.prepareStatement(sql);
             ps.setString(1, staff.getStaffId());
             ps.setString(2, staff.getUsername());
-            ps.setString(3, staff.getPassword());
+            ps.setString(3, MD5.getMd5(staff.getPassword()));
             ps.setString(4, staff.getEmail());
             ps.setString(5, staff.getFullname());
             ps.setString(6, staff.getPhoneNumber());
