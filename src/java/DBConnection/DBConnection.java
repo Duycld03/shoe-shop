@@ -12,25 +12,29 @@ public class DBConnection {
     private static String port = "1433";
     private static String database = "ShoeStoreManagement";
     private static String user = "sa";
-
     private static String password = "12345";
 
-    public static Connection getConnection() {
-        Connection conn = null;
+    
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-
-            try {
-                conn = DriverManager.getConnection("jdbc:sqlserver://" + server + ":" + port
-                        + ";databaseName=" + database + ";user=" + user + ";password=" + password
-                        + ";encrypt=true;trustServerCertificate=true;");
-            } catch (SQLException ex) {
-                Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return conn;
+				conn = DriverManager.getConnection("jdbc:sqlserver://" + server + ":" + port
+                + ";databaseName=" + database + ";user=" + user + ";password=" + password
+                + ";encrypt=true;trustServerCertificate=true;");
     }
+    catch (SQLException ex
+
+    
+        ) {
+				Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}
+
+
+catch (ClassNotFoundException ex) {
+			Logger.getLogger(DBConnection.class  
+
+.getName()).log(Level.SEVERE, null, ex);
+		}
+
+		return conn;
+	}
 }

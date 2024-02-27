@@ -20,7 +20,7 @@
             }
 
         </script>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="assets/css/icon.css">
         <link rel="stylesheet" href="assets/js/validation/bootstrap.min.css">
         <script src="assets/js/validation/jquery.min.js"></script>
         <style>
@@ -114,7 +114,7 @@
             </header>
             <main>
                 <div class="container mt-3 pt-4">
-                    <div class="row">
+                    <div class="row" style="margin-bottom: 15px">
                         <div class="col-sm-3 d-flex align-items-center">
                             <h5 class="mb-0 text-left">
                                 <strong>STAFF MANAGER</strong>
@@ -124,19 +124,24 @@
                             <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i></a>
                         </div>
                     </div>
+                <c:if test="${mess!=null }">
+                    <div class="alert alert-success" role="alert">
+                        ${mess}
+                    </div>
+                </c:if>
 
-                    <table class="table table-bordered table-striped mt-3">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th>ID</th>
-                                <th>User Name</th>
-                                <th>FullName</th>
-                                <th>Password</th>
-                                <th>Email</th>
-                                <th>Phone Number</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
+                <table class="table table-bordered table-striped mt-3">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>User Name</th>
+                            <th>FullName</th>
+                            <th>Password</th>
+                            <th>Email</th>
+                            <th>Phone Number</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
                     <c:forEach items="${requestScope.data}" var="c">
                         <c:set var="order_id" value="${c.staffId}" />
                         <tr>
@@ -148,9 +153,15 @@
                             <td>${c.phoneNumber}</td>
                             <td>
                                 <div class="btn-group">
-                                    <button class="btn btn-success" onclick="location.href = 'update?id=${c.staffId}'">Update</button>
+                                    <button class="btn btn-warning" onclick="location.href = 'loadStaff?id=${c.staffId}'">
+                                        <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+                                    </button>
+
                                     &nbsp;&nbsp;&nbsp;
-                                    <button class="btn btn-danger" onclick="doDelete('${c.staffId}')">Delete</button>
+                                    <button class="btn btn-danger" onclick="doDelete('${c.staffId}')">
+                                        <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
+                                    </button>
+
                                 </div>
                             </td>
                         </tr>
@@ -162,7 +173,7 @@
         <div id="addEmployeeModal" class="modal fade">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form action="" method="post">
+                    <form action="addstaffcontroller" method="post">
                         <div class="modal-header">						
                             <h4 class="modal-title">Add Staff</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -172,15 +183,15 @@
                                 <label>UserName</label>
                                 <input name="username" type="text" class="form-control" required>
                             </div>
-                             <div class="form-group">
+                            <div class="form-group">
                                 <label>FullName</label>
                                 <input name="Fullname" type="text" class="form-control" required>
                             </div>
-                             <div class="form-group">
+                            <div class="form-group">
                                 <label>Password</label>
                                 <input name="password" type="text" class="form-control" required>
                             </div>
-                             <div class="form-group">
+                            <div class="form-group">
                                 <label>Email</label>
                                 <input name="email" type="text" class="form-control" required>
                             </div>
@@ -188,7 +199,7 @@
                                 <label>Phone Number</label>
                                 <input name="phonenumber" type="text" class="form-control" required>
                             </div>
-                            
+
                         </div>
                         <div class="modal-footer">  
                             <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
