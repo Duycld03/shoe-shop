@@ -36,6 +36,10 @@
         <servlet-name>AuthController</servlet-name>
         <servlet-class>Controllers.AuthController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UpdateStaffController</servlet-name>
+        <servlet-class>Controllers.UpdateStaffController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
         <url-pattern/>
@@ -71,6 +75,10 @@
     <servlet-mapping>
         <servlet-name>AuthController</servlet-name>
         <url-pattern>/auth</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateStaffController</servlet-name>
+        <url-pattern>/loadStaff</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
