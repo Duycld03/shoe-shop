@@ -17,23 +17,34 @@
             <h1 class="text-2xl font-bold text-center mb-4">Sign Up</h1>
             <form novalidate="" action="" class="space-y-6">
                 <div class="space-y-1 text-sm">
-                    <label for="username" class="block">Username</label>
                     <input type="text" name="username" id="username" placeholder="Username"
                            class="w-full px-4 py-3 rounded-md focus:dark:border-violet-400">
                 </div>
                 <div class="space-y-1 text-sm">
-                    <label for="youremail" class="block">Your email</label>
+                    <input type="text" name="fullname" id="fullname" placeholder="Fullname"
+                           class="w-full px-4 py-3 rounded-md focus:dark:border-violet-400">
+                </div>
+                <div class="space-y-1 text-sm">
+                    <input type="text" name="phonenumber" id="phonenumber" placeholder="Phone Number"
+                           class="w-full px-4 py-3 rounded-md focus:dark:border-violet-400">
+                </div>
+                <div class="space-y-1 text-sm">
                     <input type="text" name="youremail" id="youremail" placeholder="Your Email"
                            class="w-full px-4 py-3 rounded-md focus:dark:border-violet-400">
                 </div>
                 <div class="space-y-1 text-sm">
-                    <label for="password" class="block">Password</label>
-                    <input type="password" name="password" id="password" placeholder="Password"
+                    <input type="text" name="city" id="city" placeholder="Your city"
                            class="w-full px-4 py-3 rounded-md focus:dark:border-violet-400">
-
                 </div>
                 <div class="space-y-1 text-sm">
-                    <label for="passwordagain" class="block">Password again</label>
+                    <input type="text" name="addressdetail" id="addressdetail" placeholder="Address Detail"
+                           class="w-full px-4 py-3 rounded-md focus:dark:border-violet-400">
+                </div>
+                <div class="space-y-1 text-sm">
+                    <input type="password" name="password" id="password" placeholder="Password"
+                           class="w-full px-4 py-3 rounded-md focus:dark:border-violet-400">
+                </div>
+                <div class="space-y-1 text-sm">
                     <input type="passwordagain" name="passwordagain" id="passwordagain" placeholder="Password again"
                            class="w-full px-4 py-3 rounded-md focus:dark:border-violet-400">
                 </div>
