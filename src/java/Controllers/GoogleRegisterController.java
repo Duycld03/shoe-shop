@@ -91,6 +91,7 @@ public class GoogleRegisterController extends HttpServlet {
 			} else {
 				System.out.println("Register failed");
 			}
+			request.getSession().invalidate();
 			response.sendRedirect("/login.jsp");
 		}
 	}

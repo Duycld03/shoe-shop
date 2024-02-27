@@ -1,5 +1,10 @@
 package Controllers;
 
+import DAOs.AddressDAO;
+import DAOs.CustomerDAO;
+import Models.Address;
+import Models.Customer;
+import Utils.VerifyRecaptcha;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -7,6 +12,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
@@ -78,8 +84,52 @@ public class SignUpController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		HttpSession sesstion = request.getSession();
 		if (request.getParameter("btnSignUp") != null) {
 			String fullname = request.getParameter("fullname");
+			String email = request.getParameter("email");
+			String phoneNumber = request.getParameter("phoneNumber");
+			String username = request.getParameter("username").toLowerCase();
+			String password = request.getParameter("password");
+			String confirmPassword = request.getParameter("confirmPassword");
+			String city = request.getParameter("city");
+			String addressDetail = request.getParameter("addressDetail");
+			String recaptcha = request.getParameter("g-recaptcha-response");
+
+			boolean verify = VerifyRecaptcha.verify(recaptcha);
+			if (!verify) {
+				sesstion.setAttribute("error", "Recaptcha verification failed");
+				response.sendRedirect("/signUp");
+				return;
+			}
+
+			CustomerDAO customerDAO = new CustomerDAO();
+			if (customerDAO.customerExist(email, username, phoneNumber) != null) {
+				sesstion.setAttribute("error", "Customer already exists");
+				response.sendRedirect("/signUp");
+				return;
+			}
+
+			String customerId = "Cus" + (customerDAO.getCustomerCount() + 1);
+			Customer customer = new Customer(customerId, username, password, email, fullname, phoneNumber);
+			int result = customerDAO.add(customer);
+			if (result >= 1) {
+				AddressDAO addressDAO = new AddressDAO();
+				String addressId = "Ad" + (addressDAO.getAddressCount() + 1);
+				Address address = new Address(addressId, city, addressDetail, "", customerId, true);
+				int addressResult = addressDAO.add(address);
+				if (addressResult >= 1) {
+					System.out.println("add address successful");
+					response.sendRedirect("/customerLogin");
+				} else {
+					System.out.println("add address failed");
+					response.sendRedirect("/signUp");
+				}
+
+			} else {
+				System.out.println("add customer failed");
+				response.sendRedirect("/signUp");
+			}
 		}
 	}
 
@@ -91,6 +141,6 @@ public class SignUpController extends HttpServlet {
 	@Override
 	public String getServletInfo() {
 		return "Short description";
-	}// </editor-fold>
+	}
 
 }

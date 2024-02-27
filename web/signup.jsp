@@ -49,8 +49,8 @@
                            class="w-full px-4 py-3 rounded-md focus:dark:border-violet-400" required>
                 </div>
                 <div class="space-y-1 text-sm">
-					<label for="address" class="block">Address Detail</label>
-                    <textarea name="address" id="address" placeholder="Address Detail" 
+					<label for="addressDetail" class="block">Address Detail</label>
+                    <textarea name="addressDetail" id="addressDetail" placeholder="Address Detail" 
                               class="w-full px-4 py-3 rounded-md focus:dark:border-violet-400" required></textarea>
                 </div>
 				<div class="g-recaptcha" data-sitekey="6LdYbLYZAAAAAOrln1pQOTOAUGDKZhfwVoZnMYr3"></div>

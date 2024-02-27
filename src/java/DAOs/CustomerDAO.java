@@ -171,6 +171,26 @@ public class CustomerDAO {
 		return null;
 	}
 
+	public Customer customerExist(String email, String username, String phoneNumber) {
+		String sql = "select * from Customers where Email = ? or UserName = ? or PhoneNumber = ?";
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, email);
+			ps.setString(2, username);
+			ps.setString(3, phoneNumber);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				Customer customer = new Customer(rs.getString("CustomerID"), rs.getString("UserName"),
+						rs.getString("Password"), rs.getString("Email"), rs.getString("FullName"),
+						rs.getString("SocialID"), rs.getString("PhoneNumber"));
+				return customer;
+			}
+		} catch (SQLException ex) {
+			Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		return null;
+	}
+
 	public static void main(String[] args) {
 		CustomerDAO d = new CustomerDAO();
 		String id = "Cus001";
