@@ -7,7 +7,6 @@ package Models;
 public class Customer {
 
 	private String customerId;
-
 	private String username;
 	private String password;
 	private String email;

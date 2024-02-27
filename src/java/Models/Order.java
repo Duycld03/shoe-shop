@@ -7,6 +7,7 @@ import java.sql.Timestamp;
  * @author Duy
  */
 public class Order {
+
     private String orderId;
     private float totalAmount;
     private Timestamp orderDate;
@@ -14,40 +15,20 @@ public class Order {
     private String orderStatus;
     private String customerId;
     private String methodId;
+    private String StaffID;
 
-    public Order(String orderId, float totalAmount, Timestamp orderDate, String paymentStatus, String orderStatus,
-            String customerId, String methodId) {
+    public Order() {
+    }
+
+    public Order(String orderId, float totalAmount, Timestamp orderDate, String PaymentStatus, String orderStatus, String customerId, String methodId, String StaffID) {
         this.orderId = orderId;
         this.totalAmount = totalAmount;
         this.orderDate = orderDate;
-        PaymentStatus = paymentStatus;
+        this.PaymentStatus = PaymentStatus;
         this.orderStatus = orderStatus;
         this.customerId = customerId;
         this.methodId = methodId;
-    }
-
-    public String getOrderStatus() {
-        return orderStatus;
-    }
-
-    public void setOrderStatus(String orderStatus) {
-        this.orderStatus = orderStatus;
-    }
-
-    public String getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(String customerId) {
-        this.customerId = customerId;
-    }
-
-    public String getMethodId() {
-        return methodId;
-    }
-
-    public void setMethodId(String methodId) {
-        this.methodId = methodId;
+        this.StaffID = StaffID;
     }
 
     public String getOrderId() {
@@ -78,8 +59,41 @@ public class Order {
         return PaymentStatus;
     }
 
-    public void setPaymentStatus(String paymentStatus) {
-        PaymentStatus = paymentStatus;
+    public void setPaymentStatus(String PaymentStatus) {
+        this.PaymentStatus = PaymentStatus;
     }
 
+    public String getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(String orderStatus) {
+        this.orderStatus = orderStatus;
+    }
+
+    public String getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
+    }
+
+    public String getMethodId() {
+        return methodId;
+    }
+
+    public void setMethodId(String methodId) {
+        this.methodId = methodId;
+    }
+
+    public String getStaffID() {
+        return StaffID;
+    }
+
+    public void setStaffID(String StaffID) {
+        this.StaffID = StaffID;
+    }
+
+   
 }
