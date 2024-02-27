@@ -115,6 +115,21 @@ public class BrandDAO {
         } catch (SQLException e) {
         }
     }
+    
+      public int getBrandCount() {
+        int count = -1;
+        String sql = "SELECT COUNT(*) AS BrandCount FROM Brands";
+        try {
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("BrandCount");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return count;
+    }
 
     public static void main(String[] args) {
         BrandDAO a = new BrandDAO();

@@ -149,17 +149,31 @@ public class StaffDAO {
     }
 
     //delete staff
-    public void deleteStaff(String id) {
-        String sql = "DELETE FROM [dbo].[Staffs]\n"
+//    public void deleteStaff(String id) {
+//        String sql = "DELETE FROM [dbo].[Staffs]\n"
+//                + "      WHERE StaffID = ?";
+//        try {
+//            PreparedStatement st = conn.prepareStatement(sql);
+//            st.setString(1, id);
+//            st.executeUpdate();
+//        } catch (SQLException e) {
+//            System.out.println(e);
+//        }
+//    }
+ 
+    public int delete(String staffId) {
+    int ketqua = 0;
+    String sql = "DELETE FROM [dbo].[Staffs]\n"
                 + "      WHERE StaffID = ?";
-        try {
-            PreparedStatement st = conn.prepareStatement(sql);
-            st.setString(1, id);
-            st.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
+    try {
+      PreparedStatement ps = conn.prepareStatement(sql);
+      ps.setString(1, staffId);
+      ketqua = ps.executeUpdate();
+    } catch (SQLException ex) {
+      Logger.getLogger(CartDAO.class.getName()).log(Level.SEVERE, null, ex);
     }
+    return ketqua;
+  }
 
     //update staff
 //    public void updateStaff(Staff c) {
@@ -210,12 +224,12 @@ public class StaffDAO {
 
     public int getStaffCount() {
         int count = -1;
-        String sql = "SELECT COUNT(*) AS CustomerCount FROM Staffs";
+        String sql = "SELECT COUNT(*) AS StaffCount FROM Staffs";
         try {
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
             if (rs.next()) {
-                return rs.getInt("CustomerCount");
+                return rs.getInt("StaffCount");
             }
         } catch (SQLException ex) {
             Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
