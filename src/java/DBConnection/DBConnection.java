@@ -11,7 +11,11 @@ public class DBConnection {
     private static String port = "1433";
     private static String database = "ShoeStoreManagement";
     private static String user = "sa";
+<<<<<<< HEAD
+    private static String password = "123456";
+=======
     private static String password = "todohongy14";
+>>>>>>> ebd7a1129fd970b3666ed6fe98e1b10d0417f039
 
     public static Connection getConnection() {
         Connection conn = null;

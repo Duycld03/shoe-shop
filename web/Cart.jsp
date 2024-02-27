@@ -40,7 +40,7 @@
                                                 ${mess}
                                             </div>
                                         </c:if>
-                                        <tr>
+                                        <!-- comment  <tr>
                                             <th scope="col" class="border-0 bg-light">
                                                 <div class="p-2 px-3 text-uppercase">S?n Ph?m</div>
                                             </th>
@@ -62,7 +62,11 @@
                                             <th scope="col" class="border-0 bg-light">
                                                 <div class="py-2 text-uppercase">Xóa</div>
                                             </th>
-                                        </tr>
+                                        </tr> 
+                                        -->
+                                     
+
+
                                         </thead>
                                         <tbody>
                                             <c:forEach items="${listCart}" var="o">
@@ -116,12 +120,12 @@
                                     <ul class="list-unstyled mb-4" id="contentTotalMoney">
                                         <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">T?ng ti?n hàng</strong>
 
-                                          
+
                                         </li>
                                         <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Phí v?n chuy?n</strong><strong>Free ship</strong></li>
 
                                         <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">T?ng thanh toánnnnn</strong>
-                                           
+
                                         </li> 
                                     </ul><a href="order" class="btn btn-dark rounded-pill py-2 btn-block text-white">Thanh Toán</a>
                                 </div>

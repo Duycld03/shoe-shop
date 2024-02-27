@@ -49,7 +49,7 @@
 
             </div>
             <p class="text-xs text-center sm:px-6">Don't have an account?
-                <a rel="noopener noreferrer" href="#" class="text-[#40BFFF] font-bold hover:underline">Sign up</a>
+                <a rel="noopener noreferrer" href="signup.jsp" class="text-[#40BFFF] font-bold hover:underline">Sign up</a>
             </p>
         </div>
         <%@include file="footer.jsp" %>
