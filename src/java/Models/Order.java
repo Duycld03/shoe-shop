@@ -7,79 +7,91 @@ import java.sql.Timestamp;
  * @author Duy
  */
 public class Order {
-    private String orderId;
-    private float totalAmount;
-    private Timestamp orderDate;
-    private String PaymentStatus;
-    private String orderStatus;
-    private String customerId;
-    private String methodId;
 
-    public Order(String orderId, float totalAmount, Timestamp orderDate, String paymentStatus, String orderStatus,
-            String customerId, String methodId) {
-        this.orderId = orderId;
-        this.totalAmount = totalAmount;
-        this.orderDate = orderDate;
-        PaymentStatus = paymentStatus;
-        this.orderStatus = orderStatus;
-        this.customerId = customerId;
-        this.methodId = methodId;
-    }
+	private String orderId;
+	private float totalAmount;
+	private Timestamp orderDate;
+	private String PaymentStatus;
+	private String orderStatus;
+	private String customerId;
+	private String methodId;
+	private String StaffID;
 
-    public String getOrderStatus() {
-        return orderStatus;
-    }
+	public Order() {
+	}
 
-    public void setOrderStatus(String orderStatus) {
-        this.orderStatus = orderStatus;
-    }
+	public Order(String orderId, float totalAmount, Timestamp orderDate, String PaymentStatus, String orderStatus, String customerId, String methodId) {
+		this.orderId = orderId;
+		this.totalAmount = totalAmount;
+		this.orderDate = orderDate;
+		this.PaymentStatus = PaymentStatus;
+		this.orderStatus = orderStatus;
+		this.customerId = customerId;
+		this.methodId = methodId;
+	}
 
-    public String getCustomerId() {
-        return customerId;
-    }
+	public String getOrderId() {
+		return orderId;
+	}
 
-    public void setCustomerId(String customerId) {
-        this.customerId = customerId;
-    }
+	public void setOrderId(String orderId) {
+		this.orderId = orderId;
+	}
 
-    public String getMethodId() {
-        return methodId;
-    }
+	public float getTotalAmount() {
+		return totalAmount;
+	}
 
-    public void setMethodId(String methodId) {
-        this.methodId = methodId;
-    }
+	public void setTotalAmount(float totalAmount) {
+		this.totalAmount = totalAmount;
+	}
 
-    public String getOrderId() {
-        return orderId;
-    }
+	public Timestamp getOrderDate() {
+		return orderDate;
+	}
 
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
-    }
+	public void setOrderDate(Timestamp orderDate) {
+		this.orderDate = orderDate;
+	}
 
-    public float getTotalAmount() {
-        return totalAmount;
-    }
+	public String getPaymentStatus() {
+		return PaymentStatus;
+	}
 
-    public void setTotalAmount(float totalAmount) {
-        this.totalAmount = totalAmount;
-    }
+	public void setPaymentStatus(String PaymentStatus) {
+		this.PaymentStatus = PaymentStatus;
+	}
 
-    public Timestamp getOrderDate() {
-        return orderDate;
-    }
+	public String getOrderStatus() {
+		return orderStatus;
+	}
 
-    public void setOrderDate(Timestamp orderDate) {
-        this.orderDate = orderDate;
-    }
+	public void setOrderStatus(String orderStatus) {
+		this.orderStatus = orderStatus;
+	}
 
-    public String getPaymentStatus() {
-        return PaymentStatus;
-    }
+	public String getCustomerId() {
+		return customerId;
+	}
 
-    public void setPaymentStatus(String paymentStatus) {
-        PaymentStatus = paymentStatus;
-    }
+	public void setCustomerId(String customerId) {
+		this.customerId = customerId;
+	}
+
+	public String getMethodId() {
+		return methodId;
+	}
+
+	public void setMethodId(String methodId) {
+		this.methodId = methodId;
+	}
+
+	public String getStaffID() {
+		return StaffID;
+	}
+
+	public void setStaffID(String StaffID) {
+		this.StaffID = StaffID;
+	}
 
 }

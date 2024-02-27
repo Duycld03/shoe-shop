@@ -58,7 +58,11 @@ public class GoogleRegisterController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.getRequestDispatcher("/googleRegister.jsp").forward(request, response);
+		if (request.getSession().getAttribute("user") != null) {
+			request.getRequestDispatcher("/googleRegister.jsp").forward(request, response);
+		} else {
+			response.sendRedirect("/");
+		}
 	}
 
 	/**

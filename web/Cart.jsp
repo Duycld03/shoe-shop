@@ -108,13 +108,7 @@
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
                                 <tr>
-
-
-
-                                 
-                                    <td class=" py-2  px-0"> <!-- ?i?u ch?nh padding t? px-32 py-10 thành px-4 py-2 -->
-                                        <img src="image Product1.jpg"  class="h-16 w-16 object-cover rounded">
-                                    </td>
+                                    
 
                             <span class="font-medium text-lg">Nice Airmax 270 react</span>
                             </td>
