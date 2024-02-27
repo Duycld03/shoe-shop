@@ -87,7 +87,7 @@
                             </div>
                         </div>
 
-
+                        <!--
                         <div class="px-4 md:px-24 flex md:justify-between items-center py-4 flex-col md:flex-row">
                             <div class="mb-4 md:mb-0">
                                 <span class="font-medium text-lg">PRODUCT</span>
@@ -102,7 +102,72 @@
                         </div>
 
 
-                       
+                        <div class="px-4 md:px-24 flex md:justify-between items-center py-4 flex-col md:flex-row">
+                                <div class="mb-2 md:mb-0">
+                                    <span class="font-medium text-lg">Nice Airmax 270 react</span>
+                                </div>
+                                <div>
+                                <ul class="flex items-center md:space-x-24 md:text-xl font-medium space-x-4 px-4">
+                                    <li class="transition-all duration-200">$988</li>
+                                    <li class=" transition-all duration-200">1</li>
+                                    <li class="transition-all duration-200">$499</li>                                
+                                </ul>
+                            </div>
+                        </div> -->
+                        
+    <table class="min-w-full divide-y divide-gray-200  ">
+        <thead>
+            <tr>
+                <th scope="col" class="px-20 py-2 text-left text-lg font-medium ml-3">
+                    PRODUCT
+                </th>
+                <th scope="col" class="px-4 py-2 text-left text-lg font-medium">
+                    PRICE
+                </th>
+                <th scope="col" class="px-4 py-2 text-left text-lg font-medium">
+                    QTY
+                </th>
+                <th scope="col" class="px-4 py-2 text-left text-lg font-medium">
+                    UNIT PRICE
+                </th>
+            </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+            <tr>
+                <td class="px-20 py-2 whitespace-nowrap">
+                    <span class="font-medium text-lg">Nice Airmax 270 react</span>
+                </td>
+                <td class="px-4 py-2 whitespace-nowrap">
+                    $988
+                </td>
+                <td class="px-4 py-2 whitespace-nowrap">
+                    1
+                </td>
+                <td class="px-4 py-2 whitespace-nowrap">
+                    $499
+                </td>
+            </tr>
+            <tr>
+                <td class="px-20 py-2 whitespace-nowrap">
+                    <span class="font-medium text-lg">Nice Airmax 270 react</span>
+                </td>
+                <td class="px-4 py-2 whitespace-nowrap">
+                    $988
+                </td>
+                <td class="px-4 py-2 whitespace-nowrap">
+                    1
+                </td>
+                <td class="px-4 py-2 whitespace-nowrap">
+                    $499
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+                        
+                        
+                        
                     </div>
                 </div>
             </div>
