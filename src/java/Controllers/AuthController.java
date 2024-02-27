@@ -1,5 +1,8 @@
 package Controllers;
 
+import DAOs.CustomerDAO;
+import Models.Customer;
+import Utils.JwtUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -77,7 +80,35 @@ public class AuthController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		processRequest(request, response);
+		String username = request.getParameter("username").toLowerCase();
+		String password = request.getParameter("password");
+
+		if (request.getParameter("btnCustomerLogin") != null) {
+			CustomerDAO customerDAO = new CustomerDAO();
+			Customer customer = customerDAO.checkLogin(username, password);
+			if (customer != null) {
+				String token = JwtUtils.generateToken(username);
+				Cookie cookie = new Cookie("login", token);
+				cookie.setMaxAge(3 * 24 * 60 * 60);
+				cookie.setPath("/");
+				response.addCookie(cookie);
+				response.sendRedirect("/");
+				return;
+			} else {
+				request.getSession().setAttribute("erorr", "Username and password incorrect");
+				response.sendRedirect("/login");
+			}
+		}
+
+		if (request.getParameter("btnStaffLogin") != null) {
+			//staff login handler
+			return;
+		}
+
+		if (request.getParameter("btnAdminLogin") != null) {
+			//Admin login handler
+			return;
+		}
 	}
 
 	/**

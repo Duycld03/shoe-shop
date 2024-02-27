@@ -10,24 +10,23 @@
     <%@include file="header.jsp" %>
         <div class="w-full max-w-md p-8 space-y-3 rounded-xl mx-auto bg-gray-100 m-8">
             <h1 class="text-2xl font-bold text-center mb-4">Login</h1>
-            <form action="" class="space-y-6">
+            <form action="auth" method="POST" class="space-y-6">
                 <div class="space-y-1 text-sm">
                     <label for="username" class="block">Username</label>
                     <input type="text" name="username" id="username" placeholder="Username"
-                        class="w-full px-4 py-3 rounded-md focus:dark:border-violet-400">
+						   class="w-full px-4 py-3 rounded-md focus:dark:border-violet-400" required>
                 </div>
                 <div class="space-y-1 text-sm">
                     <label for="password" class="block">Password</label>
                     <input type="password" name="password" id="password" placeholder="Password"
-                        class="w-full px-4 py-3 rounded-md focus:dark:border-violet-400">
+						   class="w-full px-4 py-3 rounded-md focus:dark:border-violet-400" required>
                     <div class="flex justify-end text-xs">
                         <a rel="noopener noreferrer" href="#" class="text-[#40BFFF] font-bold hover:underline">Forgot
                             Password?</a>
                     </div>
                 </div>
-                <button
-                    class="block w-full p-3 text-center rounded-sm text-[#FFFFFF] font-bold bg-[#40BFFF] hover:bg-[#BCDDFE]">Sign
-                    in</button>
+                <button name="btnCustomerLogin"
+                    class="block w-full p-3 text-center rounded-sm text-[#FFFFFF] font-bold bg-[#40BFFF] hover:bg-[#BCDDFE]">Sign in</button>
             </form>
             <div class="flex items-center space-x-4" style="height: 100px">
                 <div class="flex-1 h-px bg-[#40BFFF]"></div>

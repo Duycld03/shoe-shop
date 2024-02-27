@@ -20,13 +20,13 @@ import java.util.logging.Logger;
  *
  * @author Doan Thanh Phuc - CE170580
  */
-public class AdressDAO {
+public class AddressDAO {
 
     private Connection conn;
     private PreparedStatement ps;
     private ResultSet rs;
 
-    public AdressDAO() {
+    public AddressDAO() {
         conn = DBConnection.getConnection();
     }
 
