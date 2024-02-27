@@ -90,8 +90,7 @@
 
                         <div class="px-4 md:px-24 flex md:justify-between items-center py-4 flex-col md:flex-row">
                             <div class="mb-4 md:mb-0">
-                                    <span class="font-medium text-lg">PRODUCT</span>
-                                </a>
+                                <span class="font-medium text-lg">PRODUCT</span>
                             </div>
                             <div>
                                 <ul class="flex items-center md:space-x-24 md:text-xl font-medium space-x-4">
@@ -101,6 +100,9 @@
                                 </ul>
                             </div>
                         </div>
+
+
+                       
                     </div>
                 </div>
             </div>
