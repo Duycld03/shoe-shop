@@ -20,6 +20,7 @@
             }
 
         </script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
         <link rel="stylesheet" href="assets/css/icon.css">
         <link rel="stylesheet" href="assets/js/validation/bootstrap.min.css">
         <script src="assets/js/validation/jquery.min.js"></script>
@@ -181,26 +182,35 @@
                         <div class="modal-body">					
                             <div class="form-group">
                                 <label>UserName</label>
-                                <input name="username" type="text" class="form-control" required>
+                                <input name="username" type="text" class="form-control" required pattern="[a-zA-Z]+" title="Username must contain only letters">
                             </div>
                             <div class="form-group">
                                 <label>FullName</label>
-                                <input name="Fullname" type="text" class="form-control" required>
+                                <input name="Fullname" type="text" class="form-control" required pattern="[a-zA-Z ]+" title="Full Name cannot contain numbers">
                             </div>
                             <div class="form-group">
                                 <label>Password</label>
-                                <input name="password" type="text" class="form-control" required>
+                                <div class="input-group">
+                                    <input name="password" id="password" type="password" class="form-control" required pattern=".{8,}" title="Password must be at least 8 characters">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                                            <i class="fa fa-eye-slash" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
+
                             <div class="form-group">
                                 <label>Email</label>
-                                <input name="email" type="text" class="form-control" required>
+                                <input name="email" type="email" class="form-control" required pattern="[a-zA-Z0-9._%+-]+@gmail\.com$" title="Email must be in the format example@gmail.com">
                             </div>
                             <div class="form-group">
                                 <label>Phone Number</label>
-                                <input name="phonenumber" type="text" class="form-control" required>
+                                <input name="phonenumber" type="tel" class="form-control" required pattern="[0-9]{10}" title="Phone number must contain 10 digits">
                             </div>
-
                         </div>
+
+
                         <div class="modal-footer">  
                             <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
                             <input type="submit" class="btn btn-success" value="Add">
@@ -224,6 +234,18 @@
                     $("#addEmployeeModal").modal("hide");
                 });
             });
+            document.addEventListener("DOMContentLoaded", function () {
+                var togglePassword = document.getElementById("togglePassword");
+                var passwordInput = document.getElementById("password");
+
+                togglePassword.addEventListener("click", function () {
+                    var type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+                    passwordInput.setAttribute("type", type);
+                    this.querySelector("i").classList.toggle("fa-eye-slash");
+                    this.querySelector("i").classList.toggle("fa-eye");
+                });
+            });
+
         </script>
         <script src="assets/js/validation//manager.js" type="text/javascript"></script>
         <script src="assets/js/validation/bootstrap.min.js"></script>
