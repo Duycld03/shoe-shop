@@ -24,6 +24,15 @@
         <servlet-name>GoogleRegisterController</servlet-name>
         <servlet-class>Controllers.GoogleRegisterController</servlet-class>
     </servlet>
+    <servlet>
+<<<<<<< HEAD
+        <servlet-name>AddStaffController</servlet-name>
+        <servlet-class>Controllers.AddStaffController</servlet-class>
+=======
+        <servlet-name>ProfileController</servlet-name>
+        <servlet-class>Controllers.ProfileControler</servlet-class>
+>>>>>>> b73a1ef66eae43ea8a56002a89b00c61f57f2192
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
         <url-pattern/>
@@ -47,6 +56,15 @@
     <servlet-mapping>
         <servlet-name>GoogleRegisterController</servlet-name>
         <url-pattern>/GoogleRegister</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+<<<<<<< HEAD
+        <servlet-name>AddStaffController</servlet-name>
+        <url-pattern>/addstaffcontroller</url-pattern>
+=======
+        <servlet-name>ProfileController</servlet-name>
+        <url-pattern>/profilecontroller</url-pattern>
+>>>>>>> b73a1ef66eae43ea8a56002a89b00c61f57f2192
     </servlet-mapping>
     <session-config>
         <session-timeout>
