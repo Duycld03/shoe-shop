@@ -82,7 +82,7 @@ public class UpdateStaffController extends HttpServlet {
         StaffDAO staffDAO = new StaffDAO();
         Staff staff = new Staff(sid, susername,spassword, semail,sfullname, sphonenumber);
         staffDAO.updateStaff(staff);
-        request.setAttribute("mess", "Cap nhat thanh cong!");
+        request.setAttribute("mess", "Update successful!");
         request.getRequestDispatcher("staffmanager").forward(request, response);
     }
 
