@@ -37,9 +37,10 @@
                            class="w-full px-4 py-3 rounded-md focus:dark:border-violet-400">
                 </div>
                 <div class="space-y-1 text-sm">
-                    <input type="text" name="addressdetail" id="addressdetail" placeholder="Address Detail"
-                           class="w-full px-4 py-3 rounded-md focus:dark:border-violet-400">
+                    <textarea type="text" name="addressdetail" id="addressdetail" placeholder="Address Detail" 
+                              class="w-full px-4 py-3 rounded-md focus:dark:border-violet-400"></textarea>
                 </div>
+
                 <div class="space-y-1 text-sm">
                     <input type="password" name="password" id="password" placeholder="Password"
                            class="w-full px-4 py-3 rounded-md focus:dark:border-violet-400">
@@ -56,9 +57,84 @@
 
 
             <p class="text-xs text-center sm:px-6">Have an account?
-                <a rel="noopener noreferrer" href="#" class="text-[#40BFFF] font-bold hover:underline">Sign in</a>
+                <a rel="noopener noreferrer" href="login.jsp" class="text-[#40BFFF] font-bold hover:underline">Sign in</a>
             </p>
         </div>
         <%@include file="footer.jsp" %>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const form = document.querySelector('form');
+                form.addEventListener('submit', function (event) {
+                    event.preventDefault(); // Ng?n ch?n vi?c g?i form ?i ?? th?c hi?n ki?m tra tr??ng h?p
+                    let errors = [];
+
+                    const username = document.getElementById('username').value.trim();
+                    const fullname = document.getElementById('fullname').value.trim();
+                    const phonenumber = document.getElementById('phonenumber').value.trim();
+                    const youremail = document.getElementById('youremail').value.trim();
+                    const city = document.getElementById('city').value.trim();
+                    const addressdetail = document.getElementById('addressdetail').value.trim();
+                    const password = document.getElementById('password').value;
+                    const passwordagain = document.getElementById('passwordagain').value;
+
+                    // Ki?m tra các tr??ng d? li?u n?u r?ng
+                    if (username === '') {
+                        errors.push('Please enter your username.');
+                    }
+                    if (fullname === '') {
+                        errors.push('Please enter your fullname.');
+                    }
+                    if (phonenumber === '') {
+                        errors.push('Please enter your phone number.');
+                    }
+                    if (youremail === '') {
+                        errors.push('Please enter your email.');
+                    }
+                    if (city === '') {
+                        errors.push('Please enter your city.');
+                    }
+                    if (addressdetail === '') {
+                        errors.push('Please enter your address detail.');
+                    }
+                    if (password === '') {
+                        errors.push('Please enter your password.');
+                    }
+                    if (passwordagain === '') {
+                        errors.push('Please re-enter your password.');
+                    }
+                    let errors = [];
+
+                    const phoneNumber = document.getElementById('phonenumber').value.trim();
+
+                    // Ki?m tra s? ?i?n tho?i v?i bi?u th?c chính quy
+                    const phoneRegex = /^\d{10}$/; // ?ây là m?t ví d? bi?u th?c chính quy cho s? ?i?n tho?i 10 ch? s?
+
+                    if (!phoneRegex.test(phoneNumber)) {
+                        errors.push('Please enter a valid phone number.');
+                    }
+
+                    // Hi?n th? thông báo l?i n?u có
+                    if (errors.length > 0) {
+                        alert(errors.join('\n'));
+                    } else {
+                        // N?u không có l?i, g?i form ?i
+                        form.submit();
+                    }
+                    // Ki?m tra xem m?t kh?u có kh?p nhau không
+                    if (password !== passwordagain) {
+                        errors.push('Passwords do not match.');
+                    }
+
+                    // Hi?n th? thông báo l?i n?u có
+                    if (errors.length > 0) {
+                        alert(errors.join('\n'));
+                    } else {
+                        // N?u không có l?i, g?i form ?i
+                        form.submit();
+                    }
+                });
+            });
+        </script>
+
     </body>
 </html>
