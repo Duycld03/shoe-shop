@@ -114,7 +114,7 @@
             </header>
             <main>
                 <div class="container mt-3 pt-4">
-                    <div class="row">
+                    <div class="row" style="margin-bottom: 15px">
                         <div class="col-sm-3 d-flex align-items-center">
                             <h5 class="mb-0 text-left">
                                 <strong>STAFF MANAGER</strong>
@@ -124,6 +124,11 @@
                             <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i></a>
                         </div>
                     </div>
+                    <c:if test="${mess!=null }">
+                            <div class="alert alert-success" role="alert">
+                                ${mess}
+                            </div>
+                        </c:if>
 
                     <table class="table table-bordered table-striped mt-3">
                         <thead class="thead-dark">
@@ -148,7 +153,7 @@
                             <td>${c.phoneNumber}</td>
                             <td>
                                 <div class="btn-group">
-                                    <button class="btn btn-success" onclick="location.href = 'update?id=${c.staffId}'">Update</button>
+                                    <button class="btn btn-success" onclick="location.href = 'loadStaff?id=${c.staffId}'">Update</button> 
                                     &nbsp;&nbsp;&nbsp;
                                     <button class="btn btn-danger" onclick="doDelete('${c.staffId}')">Delete</button>
                                 </div>
