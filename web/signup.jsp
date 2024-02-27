@@ -55,7 +55,7 @@
 
 
 
-            <p class="text-xs text-center sm:px-6">have an account?
+            <p class="text-xs text-center sm:px-6">Have an account?
                 <a rel="noopener noreferrer" href="#" class="text-[#40BFFF] font-bold hover:underline">Sign in</a>
             </p>
         </div>
