@@ -6,20 +6,19 @@ package Controllers;
 
 import DAOs.StaffDAO;
 import Models.Staff;
-import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
  * @author To Do Hong Y - CE171148
  */
-public class StaffManager extends HttpServlet {
+public class AddStaffController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,12 +31,7 @@ public class StaffManager extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        StaffDAO c = new StaffDAO();
-        List<Staff> list = c.getAllStaff();
-        request.setAttribute("data", list);
-        RequestDispatcher r = request.getRequestDispatcher("staffmanager.jsp");
-        r.forward(request, response);
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -52,7 +46,6 @@ public class StaffManager extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-     processRequest(request, response);
     }
 
     /**
@@ -66,7 +59,18 @@ public class StaffManager extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        String susername = request.getParameter("username");
+        String sfullname = request.getParameter("Fullname");
+        String spassword = request.getParameter("password");
+        String semail = request.getParameter("email");
+        String sphonenumber = request.getParameter("phonenumber");
+        StaffDAO staffDAO = new StaffDAO();
+        String staffID = "ST" + (staffDAO.getStaffCount() + 1);
+        Staff staff = new Staff(staffID, susername,spassword, semail,sfullname, sphonenumber);
+        staffDAO.addStaff(staff);
+        request.setAttribute("mess", "Staff Added!");
+        request.getRequestDispatcher("staffmanager").forward(request, response);
     }
 
     /**

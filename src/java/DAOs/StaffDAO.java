@@ -98,30 +98,29 @@ public class StaffDAO {
     }
 
     //add new staff
-//    public void addStaff(Staff c) {
-//        String sql = "INSERT INTO [dbo].[Staffs]\n"
-//                + "           ([StaffID]\n"
-//                + "           ,[UserName]\n"
-//                + "           ,[Password]\n"
-//                + "           ,[Email]\n"
-//                + "           ,[FullName]\n"
-//                + "           ,[PhoneNumber])\n"
-//                + "     VALUES\n"
-//                + "           (?,?,?,?,?,?)";
-//        try {
-//            PreparedStatement st = conn.prepareCall(sql);
-//            st.setString(1, c.getStaffId());
-//            st.setString(2, c.getUsername());
-//            st.setString(3, c.getPassword());
-//            st.setString(4, c.getEmail());
-//            st.setString(5, c.getFullname());
-//            st.setString(6, c.getPhoneNumber());
-//            st.executeUpdate();
-//        } catch (SQLException e) {
-//            System.out.println(e);
-//        }
-//    }
-
+    public void addStaff(Staff staff) {
+        String sql = "INSERT INTO [dbo].[Staffs]\n"
+                + "           ([StaffID]\n"
+                + "           ,[UserName]\n"
+                + "           ,[Password]\n"
+                + "           ,[Email]\n"
+                + "           ,[FullName]\n"
+                + "           ,[PhoneNumber])\n"
+                + "     VALUES\n"
+                + "           (?,?,?,?,?,?)";
+        try {
+            PreparedStatement st = conn.prepareCall(sql);
+            st.setString(1, staff.getStaffId());
+            st.setString(2, staff.getUsername());
+            st.setString(3, MD5.getMd5(staff.getPassword()));
+            st.setString(4, staff.getEmail());
+            st.setString(5, staff.getFullname());
+            st.setString(6, staff.getPhoneNumber());
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
     public int add(Staff staff) {
         int count = 0;
         String sql = "INSERT INTO [dbo].[Staffs]\n"
@@ -160,20 +159,19 @@ public class StaffDAO {
 //            System.out.println(e);
 //        }
 //    }
- 
     public int delete(String staffId) {
-    int ketqua = 0;
-    String sql = "DELETE FROM [dbo].[Staffs]\n"
+        int ketqua = 0;
+        String sql = "DELETE FROM [dbo].[Staffs]\n"
                 + "      WHERE StaffID = ?";
-    try {
-      PreparedStatement ps = conn.prepareStatement(sql);
-      ps.setString(1, staffId);
-      ketqua = ps.executeUpdate();
-    } catch (SQLException ex) {
-      Logger.getLogger(StaffDAO.class.getName()).log(Level.SEVERE, null, ex);
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, staffId);
+            ketqua = ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(StaffDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ketqua;
     }
-    return ketqua;
-  }
 
     //update staff
 //    public void updateStaff(Staff c) {
@@ -197,30 +195,28 @@ public class StaffDAO {
 //        }
 //    }
     public int update(Staff staff) {
-		int count = 0;
-		String sql = "UPDATE [dbo].[Staffs]\n"
+        int count = 0;
+        String sql = "UPDATE [dbo].[Staffs]\n"
                 + "   SET [UserName] = ?\n"
                 + "      ,[Password] = ?\n"
                 + "      ,[Email] = ?\n"
                 + "      ,[FullName] = ?\n"
                 + "      ,[PhoneNumber] = ?\n"
                 + " WHERE StaffID = ?";
-		try {
-			ps = conn.prepareStatement(sql);
-			ps.setString(1, staff.getUsername());
-			ps.setString(2, staff.getPassword());
-			ps.setString(3, staff.getEmail());
-			ps.setString(4, staff.getFullname());
-			ps.setString(5, staff.getPhoneNumber());
-			ps.setString(6, staff.getStaffId());
-			count = ps.executeUpdate();
-		} catch (SQLException ex) {
-			Logger.getLogger(StaffDAO.class.getName()).log(Level.SEVERE, null, ex);
-		}
-		return count;
-	}
-    
-    
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, staff.getUsername());
+            ps.setString(2, staff.getPassword());
+            ps.setString(3, staff.getEmail());
+            ps.setString(4, staff.getFullname());
+            ps.setString(5, staff.getPhoneNumber());
+            ps.setString(6, staff.getStaffId());
+            count = ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(StaffDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return count;
+    }
 
     public int getStaffCount() {
         int count = -1;
@@ -236,7 +232,7 @@ public class StaffDAO {
         }
         return count;
     }
-    
+
     public static void main(String[] args) {
         //test add
         // Tạo một đối tượng StaffDAO
@@ -260,6 +256,9 @@ public class StaffDAO {
 //        } else {
 //            System.out.println("Thêm nhân viên thất bại!");
 //        }
+        StaffDAO a = new StaffDAO();
+        List<Staff> l = a.getAllStaff();
+        System.out.println(l.get(0).getStaffId());
     }
 
 }

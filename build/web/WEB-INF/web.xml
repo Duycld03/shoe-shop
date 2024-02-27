@@ -24,6 +24,10 @@
         <servlet-name>GoogleRegisterController</servlet-name>
         <servlet-class>Controllers.GoogleRegisterController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddStaffController</servlet-name>
+        <servlet-class>Controllers.AddStaffController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
         <url-pattern/>
@@ -47,6 +51,10 @@
     <servlet-mapping>
         <servlet-name>GoogleRegisterController</servlet-name>
         <url-pattern>/GoogleRegister</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddStaffController</servlet-name>
+        <url-pattern>/addstaffcontroller</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
