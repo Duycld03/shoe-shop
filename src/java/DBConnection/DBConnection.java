@@ -14,27 +14,22 @@ public class DBConnection {
     private static String user = "sa";
     private static String password = "12345";
 
-    
+    public static Connection getConnection() {
+        Connection conn = null;
         try {
-				conn = DriverManager.getConnection("jdbc:sqlserver://" + server + ":" + port
-                + ";databaseName=" + database + ";user=" + user + ";password=" + password
-                + ";encrypt=true;trustServerCertificate=true;");
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+
+            try {
+                conn = DriverManager.getConnection("jdbc:sqlserver://" + server + ":" + port
+                        + ";databaseName=" + database + ";user=" + user + ";password=" + password
+                        + ";encrypt=true;trustServerCertificate=true;");
+            } catch (SQLException ex) {
+                Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return conn;
     }
-    catch (SQLException ex
-
-    
-        ) {
-				Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
-    }
-}
-
-
-catch (ClassNotFoundException ex) {
-			Logger.getLogger(DBConnection.class  
-
-.getName()).log(Level.SEVERE, null, ex);
-		}
-
-		return conn;
-	}
 }
