@@ -1,8 +1,5 @@
 package Controllers;
 
-import DAOs.CustomerDAO;
-import Models.Customer;
-import Utils.JwtUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -15,7 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author Duy
  */
-public class AuthController extends HttpServlet {
+public class SignUpController extends HttpServlet {
 
 	/**
 	 * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,10 +31,10 @@ public class AuthController extends HttpServlet {
 			out.println("<!DOCTYPE html>");
 			out.println("<html>");
 			out.println("<head>");
-			out.println("<title>Servlet AuthController</title>");
+			out.println("<title>Servlet SignUpController</title>");
 			out.println("</head>");
 			out.println("<body>");
-			out.println("<h1>Servlet AuthController at " + request.getContextPath() + "</h1>");
+			out.println("<h1>Servlet SignUpController at " + request.getContextPath() + "</h1>");
 			out.println("</body>");
 			out.println("</html>");
 		}
@@ -55,18 +52,19 @@ public class AuthController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		if (request.getParameter("logout") != null) {
-			Cookie[] cookies = request.getCookies();
-			for (Cookie cookie : cookies) {
-				if (cookie.getName().equals("login")) {
-					cookie.setPath("/");
-					cookie.setValue(null);
-					cookie.setMaxAge(0);
-					response.addCookie(cookie);
-				}
+		Cookie[] cookies = request.getCookies();
+		Cookie loginCookie = null;
+		for (Cookie cookie : cookies) {
+			if (cookie.getName().equals("login")) {
+				loginCookie = cookie;
 			}
 		}
-		response.sendRedirect("/");
+		if (loginCookie == null) {
+			request.getRequestDispatcher("/signup.jsp").forward(request, response);
+		} else {
+			response.sendRedirect("/");
+		}
+
 	}
 
 	/**
@@ -80,34 +78,8 @@ public class AuthController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String username = request.getParameter("username").toLowerCase();
-		String password = request.getParameter("password");
-
-		if (request.getParameter("btnCustomerLogin") != null) {
-			CustomerDAO customerDAO = new CustomerDAO();
-			Customer customer = customerDAO.checkLogin(username, password);
-			if (customer != null) {
-				String token = JwtUtils.generateToken(username);
-				Cookie cookie = new Cookie("login", token);
-				cookie.setMaxAge(3 * 24 * 60 * 60);
-				cookie.setPath("/");
-				response.addCookie(cookie);
-				response.sendRedirect("/");
-			} else {
-				request.getSession().setAttribute("erorr", "Username and password incorrect");
-				response.sendRedirect("/login.jsp");
-			}
-			return;
-		}
-
-		if (request.getParameter("btnStaffLogin") != null) {
-			//staff login handler
-			return;
-		}
-
-		if (request.getParameter("btnAdminLogin") != null) {
-			//Admin login handler
-			return;
+		if (request.getParameter("btnSignUp") != null) {
+			String fullname = request.getParameter("fullname");
 		}
 	}
 

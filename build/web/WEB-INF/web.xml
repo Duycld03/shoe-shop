@@ -33,8 +33,8 @@
         <servlet-class>Controllers.ProfileControler</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AuthController</servlet-name>
-        <servlet-class>Controllers.AuthController</servlet-class>
+        <servlet-name>CustomerLoginController</servlet-name>
+        <servlet-class>Controllers.CustomerLoginController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UpdateStaffController</servlet-name>
@@ -43,6 +43,14 @@
     <servlet>
         <servlet-name>ProductFilterController</servlet-name>
         <servlet-class>Controllers.ProductFilterController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SignUpController</servlet-name>
+        <servlet-class>Controllers.SignUpController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LogoutController</servlet-name>
+        <servlet-class>Controllers.LogoutController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
@@ -77,8 +85,8 @@
         <url-pattern>/profilecontroller</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AuthController</servlet-name>
-        <url-pattern>/auth</url-pattern>
+        <servlet-name>CustomerLoginController</servlet-name>
+        <url-pattern>/customerLogin</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UpdateStaffController</servlet-name>
@@ -87,6 +95,14 @@
     <servlet-mapping>
         <servlet-name>ProductFilterController</servlet-name>
         <url-pattern>/productFilter</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SignUpController</servlet-name>
+        <url-pattern>/signUp</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogoutController</servlet-name>
+        <url-pattern>/logout</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

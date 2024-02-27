@@ -58,10 +58,10 @@
 							</a>
 						</li>
 						<li class="hover:text-sky-400 transition-all duration-200">
-							<a href="signup.jsp">Register</a>
+							<a href="/signUp">Register</a>
 						</li>
 						<li class="hover:text-sky-400 transition-all duration-200">
-							<a href="login.jsp">Login</a>
+							<a href="/customerLogin">Login</a>
 						</li>
 					</c:otherwise>
 				</c:choose>

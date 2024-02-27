@@ -55,7 +55,7 @@
                 class="flex justify-between items-center md:py-3 md:px-2 mb-3 py-1 bg-white border-2 border-sky-400 rounded-xl hover:bg-sky-400 hover:text-white transition-all duration-200">
                 <div class="flex gap-3 items-center font-medium text-xl">
                     <i class='bx bx-log-out'></i>
-                    <a href="/auth?logout=1" class="">
+                    <a href="/logout" class="">
                         Log Out
                     </a>
                 </div>
