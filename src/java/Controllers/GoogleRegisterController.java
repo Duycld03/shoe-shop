@@ -4,34 +4,21 @@
  */
 package Controllers;
 
-import DAOs.AdminDAO;
+import Auth.UserGoogleDto;
 import DAOs.CustomerDAO;
-import DAOs.ProductDAO;
-import DAOs.StaffDAO;
-import Models.Product;
-import Models.ProductImage;
-import Utils.MD5;
-import Utils.*;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.Keys;
-
+import Models.Customer;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  * @author Duy
  */
-public class test extends HttpServlet {
+public class GoogleRegisterController extends HttpServlet {
 
 	/**
 	 * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -50,17 +37,16 @@ public class test extends HttpServlet {
 			out.println("<!DOCTYPE html>");
 			out.println("<html>");
 			out.println("<head>");
-			out.println("<title>Servlet test</title>");
+			out.println("<title>Servlet GoogleRegisterController</title>");
 			out.println("</head>");
 			out.println("<body>");
-			out.println("<h1>Servlet test at " + request.getContextPath() + "</h1>");
+			out.println("<h1>Servlet GoogleRegisterController at " + request.getContextPath() + "</h1>");
 			out.println("</body>");
 			out.println("</html>");
 		}
 	}
 
-	// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the
-	// + sign on the left to edit the code.">
+	// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 	/**
 	 * Handles the HTTP <code>GET</code> method.
 	 *
@@ -72,25 +58,7 @@ public class test extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-//		ProductDAO pDAO = new ProductDAO();
-//		List<ProductImage> images = pDAO.getImages("P001");
-//		for (ProductImage image : images) {
-//			System.out.println(image.getImageURL());
-//		}
-//		System.out.println(pDAO.getPrimaryImage("P001").getImageURL());
-//		System.out.println(MD5.getMd5("duy"));
-//		AdminDAO aDAO = new AdminDAO();
-//		System.out.println(aDAO.checkLogin("DuyNT", "12345"));
-
-//		StaffDAO sDAO = new StaffDAO();
-//		System.out.println(sDAO.checkLogin("DuyNT", "12345"));
-		CustomerDAO cDAO = new CustomerDAO();
-//		System.out.println(cDAO.checkLogin("DuyNT", "12345"));
-//		String token = JwtUtils.generateToken("duycld03");
-//		System.out.println(token);
-//		System.out.println(JwtUtils.getUsernameFromToken(token));
-
-		System.out.println(cDAO.getCustomerCount());
+		request.getRequestDispatcher("/googleRegister.jsp").forward(request, response);
 	}
 
 	/**
@@ -104,7 +72,23 @@ public class test extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		processRequest(request, response);
+		if (request.getParameter("btnRegister") != null) {
+			UserGoogleDto user = (UserGoogleDto) request.getSession().getAttribute("user");
+			String username = request.getParameter("username");
+			String password = request.getParameter("password");
+			String phoneNumber = request.getParameter("phoneNumber");
+
+			CustomerDAO customerDAO = new CustomerDAO();
+			String customerId = "Cus" + (customerDAO.getCustomerCount() + 1);
+			Customer customer = new Customer(customerId, username, password, user.getEmail(), user.getName(), user.getId(), phoneNumber);
+			int result = customerDAO.add(customer);
+			if (result >= 1) {
+				System.out.println("Register successful");
+			} else {
+				System.out.println("Register failed");
+			}
+			response.sendRedirect("/login.jsp");
+		}
 	}
 
 	/**

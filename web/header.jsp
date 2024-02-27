@@ -1,4 +1,4 @@
-<header class="">
+<header class="shadow-sm">
     <div class="px-4 md:px-24 md:pt-8 pt-4 pb-4 flex justify-between items-center text-lg">
         <div class="text-xs md:text-lg flex space-x-2 md:space-x-4">
             <div class="flex space-x-1">
@@ -50,7 +50,7 @@
         <div>
             <ul class="flex items-center md:space-x-24 md:text-2xl font-medium space-x-4">
                 <li class="text-[#40BFFF] hover:text-sky-400 transition-all duration-200"><a href="#">HOME</a></li>
-                <li class="hover:text-sky-400 transition-all duration-200"><a href="#">BAGS</a></li>
+                <li class="hover:text-sky-400 transition-all duration-200"><a href="left_sidebar.jsp">MANAGER</a></li>
                 <li class="hover:text-sky-400 transition-all duration-200"><a href="filterProduct.jsp">SNEAKERS</a></li>
                 <li class="hover:text-sky-400 transition-all duration-200"><a href="#">BELT</a></li>
                 <li class="hover:text-sky-400 transition-all duration-200"><a href="#">CONTACT</a></li>

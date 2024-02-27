@@ -1,7 +1,5 @@
 package Models;
 
-import DAOs.ProductDAO;
-
 /**
  *
  * @author Duy

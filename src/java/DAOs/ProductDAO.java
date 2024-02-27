@@ -28,7 +28,7 @@ public class ProductDAO {
 	}
 
 	public ResultSet getAll() {
-		String sql = "select * from ProductVariants";
+		String sql = "select * from Products";
 		try {
 			ps = conn.prepareStatement(sql);
 			rs = ps.executeQuery();
