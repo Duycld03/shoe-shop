@@ -63,27 +63,53 @@
                 overflow-x: hidden;
                 overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
             }</style>
+        <style>
+    #manager a {
+        font-size: 14px;
+    }
+    #manager span{
+        padding-left: 0.5rem;
+    }
+</style>
     </head>
     <body>
         <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white" style="padding: 0px;">
             <div class="position-sticky">
                 <div class="list-group list-group-flush mx-3 mt-4">
 
-                    <a href="staffmanager" class="list-group-item list-group-item-action py-2 ripple">
-                        <i class="fas fa-shoe-prints fa-fw me-3"></i><span>Staff manager</span>
+                    <a href="#manager" id="accountManager" class="list-group-item list-group-item-action py-2 ripple">
+                        <i class="fas fa-shoe-prints fa-fw me-3"></i><span>Account manager</span>
                     </a>
-                    <a href="managerAccount" class="list-group-item list-group-item-action py-2 ripple">
-                        <i class="fas fa-user-circle fa-fw me-3"></i><span>Quản lý tài khoản</span>
-                    </a>
-                    <a href="doanhthutheothang" class="list-group-item list-group-item-action py-2 ripple">
-                        <i class="fas fa-chart-bar fa-fw me-3"></i><span>Doanh thu tháng</span>
-                    </a>
-                    <a href="doanhThuTheoThu" class="list-group-item list-group-item-action py-2 ripple">
-                        <i class="fas fa-chart-pie fa-fw me-3"></i><span>Danh thu thứ</span>
+
+                    <div id="manager" style="display: none;">
+                        <a href="staffmanager" class="list-group-item list-group-item-action py-2 ripple">
+                            <i class="fas fa-user-circle fa-fw me-3"></i><span>Staff manager</span>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action py-2 ripple">
+                            <i class="fas fa-user-circle fa-fw me-3"></i><span>Admin manager</span>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action py-2 ripple">
+                            <i class="fas fa-user-circle fa-fw me-3"></i><span>Customer manager</span>
+                        </a>
+                    </div>
+                     <a href="" class="list-group-item list-group-item-action py-2 ripple">
+                        <i class="fas fa-shoe-prints fa-fw me-3"></i><span>Product manager</span>
                     </a>
                 </div>
             </div>
         </nav>
+        <script>
+            document.getElementById('accountManager').addEventListener('click', function (event) {
+                event.preventDefault(); // Prevent default anchor behavior
+
+                var managerDiv = document.getElementById('manager');
+                if (managerDiv.style.display === 'none') {
+                    managerDiv.style.display = 'block';
+                } else {
+                    managerDiv.style.display = 'none';
+                }
+            });
+        </script>
 
     </body>
 </html>

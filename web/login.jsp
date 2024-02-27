@@ -29,7 +29,7 @@
                     class="block w-full p-3 text-center rounded-sm text-[#FFFFFF] font-bold bg-[#40BFFF] hover:bg-[#BCDDFE]">Sign
                     in</button>
             </form>
-            <div class="flex items-center space-x-4">
+            <div class="flex items-center space-x-4" style="height: 100px">
                 <div class="flex-1 h-px bg-[#40BFFF]"></div>
                 <p class="text-center text-[14px] font-bold tracking-[0px] font-[Poppins] not-italic leading-[150px]">OR
                 </p>
