@@ -40,30 +40,6 @@
                                                 ${mess}
                                             </div>
                                         </c:if>
-                                        <!-- comment  <tr>
-                                            <th scope="col" class="border-0 bg-light">
-                                                <div class="p-2 px-3 text-uppercase">S?n Ph?m</div>
-                                            </th>
-                                            <th scope="col" class="border-0 bg-light">
-                                                <div class="py-2 text-uppercase">??n Giá</div>
-                                            </th>
-                                            <th scope="col" class="border-0 bg-light">
-                                                <div class="py-2 text-uppercase">Màu S?c</div>
-                                            </th>
-                                            <th scope="col" class="border-0 bg-light">
-                                                <div class="py-2 text-uppercase">Delivery</div>
-                                            </th>
-                                            <th scope="col" class="border-0 bg-light">
-                                                <div class="py-2 text-uppercase">Kích Th??c</div>
-                                            </th>
-                                            <th scope="col" class="border-0 bg-light">
-                                                <div class="py-2 text-uppercase">S? L??ng</div>
-                                            </th>
-                                            <th scope="col" class="border-0 bg-light">
-                                                <div class="py-2 text-uppercase">Xóa</div>
-                                            </th>
-                                        </tr> 
-                                        -->
 
 
 
@@ -111,94 +87,19 @@
                             </div>
                         </div>
 
-                        </<!--  <div class="row py-5 p-4 bg-white rounded shadow-sm">
 
-                            <div class="col-lg-6">
-                                <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Thành ti?n</div>
-
-                                <div class="p-4">
-                                    <ul class="list-unstyled mb-4" id="contentTotalMoney">
-                                        <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">T?ng ti?n hàng</strong>
-
-
-                                        </li>
-                                        <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Phí v?n chuy?n</strong><strong>Free ship</strong></li>
-
-                                        <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">T?ng thanh toánnnnn</strong>
-
-                                        </li> 
-                                    </ul><a href="order" class="btn btn-dark rounded-pill py-2 btn-block text-white">Thanh Toán</a>
-                                </div>
+                        <div class="px-4 md:px-24 flex md:justify-between items-center py-4 flex-col md:flex-row">
+                            <div class="mb-4 md:mb-0">
+                                    <span class="font-medium text-lg">PRODUCT</span>
+                                </a>
                             </div>
-                        </div>  -->
-
-
-                        <div class="flex font-sans">                          
-                            <form class="flex-auto p-6">
-                                <div class="flex flex-wrap">
-                                    <h1 class="flex-auto text-lg font-semibold text-slate-900">
-                                        Utility Jacket
-                                    </h1>
-                                    <div class="text-lg font-semibold text-slate-500">
-                                        $110.00
-                                    </div>
-                                    <div class="w-full flex-none text-sm font-medium text-slate-700 mt-2">
-                                        In stock
-                                    </div>
-                                </div>
-                                <div class="flex items-baseline mt-4 mb-6 pb-6 border-b border-slate-200">
-                                    <div class="space-x-2 flex text-sm">
-                                        <label>
-                                            <input class="sr-only peer" name="size" type="radio" value="xs" checked />
-                                            <div class="w-9 h-9 rounded-lg flex items-center justify-center text-slate-700 peer-checked:font-semibold peer-checked:bg-slate-900 peer-checked:text-white">
-                                                XS
-                                            </div>
-                                        </label>
-                                        <label>
-                                            <input class="sr-only peer" name="size" type="radio" value="s" />
-                                            <div class="w-9 h-9 rounded-lg flex items-center justify-center text-slate-700 peer-checked:font-semibold peer-checked:bg-slate-900 peer-checked:text-white">
-                                                S
-                                            </div>
-                                        </label>
-                                        <label>
-                                            <input class="sr-only peer" name="size" type="radio" value="m" />
-                                            <div class="w-9 h-9 rounded-lg flex items-center justify-center text-slate-700 peer-checked:font-semibold peer-checked:bg-slate-900 peer-checked:text-white">
-                                                M
-                                            </div>
-                                        </label>
-                                        <label>
-                                            <input class="sr-only peer" name="size" type="radio" value="l" />
-                                            <div class="w-9 h-9 rounded-lg flex items-center justify-center text-slate-700 peer-checked:font-semibold peer-checked:bg-slate-900 peer-checked:text-white">
-                                                L
-                                            </div>
-                                        </label>
-                                        <label>
-                                            <input class="sr-only peer" name="size" type="radio" value="xl" />
-                                            <div class="w-9 h-9 rounded-lg flex items-center justify-center text-slate-700 peer-checked:font-semibold peer-checked:bg-slate-900 peer-checked:text-white">
-                                                XL
-                                            </div>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="flex space-x-4 mb-6 text-sm font-medium">
-                                    <div class="flex-auto flex space-x-4">
-                                        <button class="h-10 px-6 font-semibold rounded-md bg-black text-white" type="submit">
-                                            Buy now
-                                        </button>
-                                        <button class="h-10 px-6 font-semibold rounded-md border border-slate-200 text-slate-900" type="button">
-                                            Add to bag
-                                        </button>
-                                    </div>
-                                    <button class="flex-none flex items-center justify-center w-9 h-9 rounded-md text-slate-300 border border-slate-200" type="button" aria-label="Like">
-                                        <svg width="20" height="20" fill="currentColor" aria-hidden="true">
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" />
-                                        </svg>
-                                    </button>
-                                </div>
-                                <p class="text-sm text-slate-700">
-                                    Free shipping on all continental US orders.
-                                </p>
-                            </form>
+                            <div>
+                                <ul class="flex items-center md:space-x-24 md:text-xl font-medium space-x-4">
+                                    <li class=" transition-all duration-200">PRICE</li>
+                                    <li class=" transition-all duration-200">QTY</li>
+                                    <li class="transition-all duration-200">UNIT PRICE</li>                                
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>

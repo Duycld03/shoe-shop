@@ -853,6 +853,14 @@ video {
   margin-top: 0.75rem;
 }
 
+.ml-5 {
+  margin-left: 1.25rem;
+}
+
+.ml-1 {
+  margin-left: 0.25rem;
+}
+
 .block {
   display: block;
 }
