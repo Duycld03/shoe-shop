@@ -45,7 +45,7 @@ public class BrandDAO {
                 System.out.println("Kết nối đến cơ sở dữ liệu không hợp lệ.");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(BrandDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return list;
     }
@@ -72,7 +72,7 @@ public class BrandDAO {
     }
 
     //add new brand
-    public void addBrand(Brand c) {
+    public void addBrand(Brand brand) {
         String sql = "INSERT INTO [dbo].[Brands]\n"
                 + "           ([BrandID]\n"
                 + "           ,[BrandName])\n"
@@ -80,8 +80,8 @@ public class BrandDAO {
                 + "           (?,?)";
         try {
             PreparedStatement st = conn.prepareCall(sql);
-            st.setString(1, c.getBrandId());
-            st.setString(2, c.getBrandName());
+            st.setString(1, brand.getBrandId());
+            st.setString(2, brand.getBrandName());
 
             st.executeUpdate();
         } catch (SQLException e) {
@@ -103,17 +103,32 @@ public class BrandDAO {
     }
 
     //update brand
-    public void updateBrand(Brand c) {
+    public void updateBrand(Brand brand) {
         String sql = "UPDATE [dbo].[Brands]\n"
                 + "   SET [BrandName] = ?\n"
                 + " WHERE BrandID = ?";
         try {
             PreparedStatement st = conn.prepareStatement(sql);
-            st.setString(1, c.getBrandName());
-            st.setString(2, c.getBrandId());
+            st.setString(1, brand.getBrandName());
+            st.setString(2, brand.getBrandId());
             st.executeUpdate();
         } catch (SQLException e) {
         }
+    }
+    
+      public int getBrandCount() {
+        int count = -1;
+        String sql = "SELECT COUNT(*) AS BrandCount FROM Brands";
+        try {
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("BrandCount");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BrandDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return count;
     }
 
     public static void main(String[] args) {

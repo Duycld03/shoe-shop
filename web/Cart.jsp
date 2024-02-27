@@ -40,29 +40,9 @@
                                                 ${mess}
                                             </div>
                                         </c:if>
-                                        <tr>
-                                            <th scope="col" class="border-0 bg-light">
-                                                <div class="p-2 px-3 text-uppercase">S?n Ph?m</div>
-                                            </th>
-                                            <th scope="col" class="border-0 bg-light">
-                                                <div class="py-2 text-uppercase">??n Giá</div>
-                                            </th>
-                                            <th scope="col" class="border-0 bg-light">
-                                                <div class="py-2 text-uppercase">Màu S?c</div>
-                                            </th>
-                                            <th scope="col" class="border-0 bg-light">
-                                                <div class="py-2 text-uppercase">Delivery</div>
-                                            </th>
-                                            <th scope="col" class="border-0 bg-light">
-                                                <div class="py-2 text-uppercase">Kích Th??c</div>
-                                            </th>
-                                            <th scope="col" class="border-0 bg-light">
-                                                <div class="py-2 text-uppercase">S? L??ng</div>
-                                            </th>
-                                            <th scope="col" class="border-0 bg-light">
-                                                <div class="py-2 text-uppercase">Xóa</div>
-                                            </th>
-                                        </tr>
+
+
+
                                         </thead>
                                         <tbody>
                                             <c:forEach items="${listCart}" var="o">
@@ -107,27 +87,87 @@
                             </div>
                         </div>
 
-                        <div class="row py-5 p-4 bg-white rounded shadow-sm">
-
-                            <div class="col-lg-6">
-                                <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Thành ti?n</div>
-
-                                <div class="p-4">
-                                    <ul class="list-unstyled mb-4" id="contentTotalMoney">
-                                        <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">T?ng ti?n hàng</strong>
-
-                                          
-                                        </li>
-                                        <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Phí v?n chuy?n</strong><strong>Free ship</strong></li>
-
-                                        <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">T?ng thanh toánnnnn</strong>
-                                           
-                                        </li> 
-                                    </ul><a href="order" class="btn btn-dark rounded-pill py-2 btn-block text-white">Thanh Toán</a>
-                                </div>
+                        <!--
+                        <div class="px-4 md:px-24 flex md:justify-between items-center py-4 flex-col md:flex-row">
+                            <div class="mb-4 md:mb-0">
+                                <span class="font-medium text-lg">PRODUCT</span>
+                            </div>
+                            <div>
+                                <ul class="flex items-center md:space-x-24 md:text-xl font-medium space-x-4">
+                                    <li class=" transition-all duration-200">PRICE</li>
+                                    <li class=" transition-all duration-200">QTY</li>
+                                    <li class="transition-all duration-200">UNIT PRICE</li>                                
+                                </ul>
                             </div>
                         </div>
 
+
+                        <div class="px-4 md:px-24 flex md:justify-between items-center py-4 flex-col md:flex-row">
+                                <div class="mb-2 md:mb-0">
+                                    <span class="font-medium text-lg">Nice Airmax 270 react</span>
+                                </div>
+                                <div>
+                                <ul class="flex items-center md:space-x-24 md:text-xl font-medium space-x-4 px-4">
+                                    <li class="transition-all duration-200">$988</li>
+                                    <li class=" transition-all duration-200">1</li>
+                                    <li class="transition-all duration-200">$499</li>                                
+                                </ul>
+                            </div>
+                        </div> -->
+                        
+    <table class="min-w-full divide-y divide-gray-200  ">
+        <thead>
+            <tr>
+                <th scope="col" class="px-20 py-2 text-left text-lg font-medium ml-3">
+                    PRODUCT
+                </th>
+                <th scope="col" class="px-4 py-2 text-left text-lg font-medium">
+                    PRICE
+                </th>
+                <th scope="col" class="px-4 py-2 text-left text-lg font-medium">
+                    QTY
+                </th>
+                <th scope="col" class="px-4 py-2 text-left text-lg font-medium">
+                    UNIT PRICE
+                </th>
+            </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+            <tr>
+                <td class="px-20 py-2 whitespace-nowrap">
+                    <span class="font-medium text-lg">Nice Airmax 270 react</span>
+                </td>
+                <td class="px-4 py-2 whitespace-nowrap">
+                    $988
+                </td>
+                <td class="px-4 py-2 whitespace-nowrap">
+                    1
+                </td>
+                <td class="px-4 py-2 whitespace-nowrap">
+                    $499
+                </td>
+            </tr>
+            <tr>
+                <td class="px-20 py-2 whitespace-nowrap">
+                    <span class="font-medium text-lg">Nice Airmax 270 react</span>
+                </td>
+                <td class="px-4 py-2 whitespace-nowrap">
+                    $988
+                </td>
+                <td class="px-4 py-2 whitespace-nowrap">
+                    1
+                </td>
+                <td class="px-4 py-2 whitespace-nowrap">
+                    $499
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+                        
+                        
+                        
                     </div>
                 </div>
             </div>

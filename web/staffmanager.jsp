@@ -79,14 +79,6 @@
         <header>
             <jsp:include page="left_sidebar.jsp"></jsp:include>
         </header>
-        <!--               <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                    <div class="container">
-                        <div class="navbar-text ml-auto">
-                            <a href="logout" class="btn btn-danger">Logout</a>
-                        </div>
-                    </div>
-                </nav>-->
-
         <main>
               <div class="container mt-3 pt-4">
             <h1>STAFF MANAGEMENT</h1>
