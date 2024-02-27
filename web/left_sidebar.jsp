@@ -76,7 +76,7 @@
         <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white" style="padding: 0px;">
             <div class="position-sticky">
                 <div class="list-group list-group-flush mx-3 mt-4">
-
+                    <a href="#" class="d-block text-lg font-weight-bold text-dark mb-4">Menu</a>
                     <a href="#manager" id="accountManager" class="list-group-item list-group-item-action py-2 ripple">
                         <i class="fas fa-shoe-prints fa-fw me-3"></i><span>Account manager</span>
                     </a>
@@ -113,3 +113,4 @@
 
     </body>
 </html>
+

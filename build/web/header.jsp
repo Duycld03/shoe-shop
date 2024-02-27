@@ -26,7 +26,7 @@
                     </a>
                 </li>
                 <li class="hover:text-sky-400 transition-all duration-200">
-                    <a href="#">Register</a>
+                    <a href="signup.jsp">Register</a>
                 </li>
                 <li class="hover:text-sky-400 transition-all duration-200">
                     <a href="login.jsp">Login</a>
