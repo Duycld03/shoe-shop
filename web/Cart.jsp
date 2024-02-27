@@ -87,98 +87,131 @@
                             </div>
                         </div>
 
-                        <!--
-                        <div class="px-4 md:px-24 flex md:justify-between items-center py-4 flex-col md:flex-row">
-                            <div class="mb-4 md:mb-0">
-                                <span class="font-medium text-lg">PRODUCT</span>
-                            </div>
-                            <div>
-                                <ul class="flex items-center md:space-x-24 md:text-xl font-medium space-x-4">
-                                    <li class=" transition-all duration-200">PRICE</li>
-                                    <li class=" transition-all duration-200">QTY</li>
-                                    <li class="transition-all duration-200">UNIT PRICE</li>                                
-                                </ul>
+
+
+                        <table class="min-w-full divide-y divide-gray-200  ">
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="px-32 py-10 text-left text-lg font-medium ml-3">
+                                        PRODUCT
+                                    </th>
+                                    <th scope="col" class="px-4 py-10 text-left text-lg font-medium">
+                                        PRICE
+                                    </th>
+                                    <th scope="col" class="px-4 py-10 text-left text-lg font-medium">
+                                        QTY
+                                    </th>
+                                    <th scope="col" class="px-4 py-10 text-left text-lg font-medium">
+                                        UNIT PRICE
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr>
+                                    
+                                       <td class="px-32 py-10 whitespace-nowrap">
+                            <span class="font-medium text-lg">Nice Airmax 270 react</span>
+                            </td>
+                            <td class="px-4 py-10 whitespace-nowrap">
+                                $988
+                            </td>
+                            <td class="px-4 py-10 whitespace-nowrap">
+                                1
+                            </td>
+                            <td class="px-4 py-10 whitespace-nowrap">
+                                $499
+                            </td>
+                            </tr>
+                            <tr>
+
+
+                                <td class="px-32 py-10 whitespace-nowrap">
+                                    <span class="font-medium text-lg">Nice Airmax 270 react</span>
+                                </td>
+                                <td class="px-4 py-10 whitespace-nowrap">
+                                    $988
+                                </td>
+                                <td class="px-4 py-10 whitespace-nowrap">
+                                    1
+                                </td>
+                                <td class="px-4 py-10 whitespace-nowrap">
+                                    $499
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="flex">
+                        <div class="max-w-md w-full py-14 px-20">
+                            <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 py-14">
+                                <div class="mb-4">
+                                    <label class="block text-gray-700 text-sm font-bold mb-2 " for="voucher">
+                                        Voucher Code
+                                    </label>
+                                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="voucher" type="text" placeholder="Enter voucher code">
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+                                        Apply Voucher
+                                    </button>
+                                    <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
+                                        Cancel
+                                    </a>
+                                </div>
+                            </form>
+                        </div>
+
+
+
+
+                        <div class="max-w-xs w-full mx-auto py-14">
+                            <div class="max-w-xs mx-auto">
+                                <table class="w-full border-collapse border border-gray-300">
+                                    <tbody>
+                                        <tr>
+                                            <td class="p-3 border border-gray-300 pr-8">Subtotal</td>
+                                            <td class="p-3 border border-gray-300">$998</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="p-3 border border-gray-300 pr-8">Shipping fee</td>
+                                            <td class="p-3 border border-gray-300">$20</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="p-3 border border-gray-300 pr-8">Coupon</td>
+                                            <td class="p-3 border border-gray-300">No</td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td class="p-3 border border-gray-300 font-bold pr-8">Total</td>
+                                            <td class="p-3 border border-gray-300 font-bold">$118</td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                                <div class="flex justify-center mt-4">
+                                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold px-4 py-2" type="button">
+                                        Check out
+                                    </button>
+                                </div>
                             </div>
                         </div>
 
 
-                        <div class="px-4 md:px-24 flex md:justify-between items-center py-4 flex-col md:flex-row">
-                                <div class="mb-2 md:mb-0">
-                                    <span class="font-medium text-lg">Nice Airmax 270 react</span>
-                                </div>
-                                <div>
-                                <ul class="flex items-center md:space-x-24 md:text-xl font-medium space-x-4 px-4">
-                                    <li class="transition-all duration-200">$988</li>
-                                    <li class=" transition-all duration-200">1</li>
-                                    <li class="transition-all duration-200">$499</li>                                
-                                </ul>
-                            </div>
-                        </div> -->
-                        
-    <table class="min-w-full divide-y divide-gray-200  ">
-        <thead>
-            <tr>
-                <th scope="col" class="px-20 py-2 text-left text-lg font-medium ml-3">
-                    PRODUCT
-                </th>
-                <th scope="col" class="px-4 py-2 text-left text-lg font-medium">
-                    PRICE
-                </th>
-                <th scope="col" class="px-4 py-2 text-left text-lg font-medium">
-                    QTY
-                </th>
-                <th scope="col" class="px-4 py-2 text-left text-lg font-medium">
-                    UNIT PRICE
-                </th>
-            </tr>
-        </thead>
-        <tbody class="bg-white divide-y divide-gray-200">
-            <tr>
-                <td class="px-20 py-2 whitespace-nowrap">
-                    <span class="font-medium text-lg">Nice Airmax 270 react</span>
-                </td>
-                <td class="px-4 py-2 whitespace-nowrap">
-                    $988
-                </td>
-                <td class="px-4 py-2 whitespace-nowrap">
-                    1
-                </td>
-                <td class="px-4 py-2 whitespace-nowrap">
-                    $499
-                </td>
-            </tr>
-            <tr>
-                <td class="px-20 py-2 whitespace-nowrap">
-                    <span class="font-medium text-lg">Nice Airmax 270 react</span>
-                </td>
-                <td class="px-4 py-2 whitespace-nowrap">
-                    $988
-                </td>
-                <td class="px-4 py-2 whitespace-nowrap">
-                    1
-                </td>
-                <td class="px-4 py-2 whitespace-nowrap">
-                    $499
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div>
 
-                        
-                        
-                        
                     </div>
+
                 </div>
             </div>
         </div>
-        <%@include file="footer.jsp" %>
+    </div>
+    <%@include file="footer.jsp" %>
 
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
         function loadTotalMoney() {
             $.ajax({
                 url: "/WebsiteBanGiay/totalMoneyCart",
@@ -204,8 +237,8 @@
                 }
             });
         }, false);
-        </script>
-    </body>
+    </script>
+</body>
 
 </html>
 </html>
