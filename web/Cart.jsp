@@ -109,7 +109,7 @@
                             <tbody class="bg-white divide-y divide-gray-200">
                                 <tr>
                                     
-
+                                       <td class="px-32 py-10 whitespace-nowrap">
                             <span class="font-medium text-lg">Nice Airmax 270 react</span>
                             </td>
                             <td class="px-4 py-10 whitespace-nowrap">
