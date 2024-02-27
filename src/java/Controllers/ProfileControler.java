@@ -84,7 +84,7 @@ public class ProfileControler extends HttpServlet {
 		if (customer == null) {
 			request.setAttribute("error", "Khong co du lieu");
 		} else {
-			request.setAttribute("Cus", customer);
+			request.setAttribute("customer", customer);
 			request.setAttribute("address", address);
 		}
 		request.getRequestDispatcher("/myProfile.jsp").forward(request, response);

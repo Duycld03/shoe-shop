@@ -55,7 +55,7 @@
                 class="flex justify-between items-center md:py-3 md:px-2 mb-3 py-1 bg-white border-2 border-sky-400 rounded-xl hover:bg-sky-400 hover:text-white transition-all duration-200">
                 <div class="flex gap-3 items-center font-medium text-xl">
                     <i class='bx bx-log-out'></i>
-                    <a href="#" class="">
+                    <a href="/auth?logout=1" class="">
                         Log Out
                     </a>
                 </div>
@@ -69,7 +69,7 @@
             <!-- Profile Icon -->
             <section class="bg-[#40BFFF] rounded-t-2xl	 flex gap-2 items-center">
                 <div class="h-auto text-white text-8xl"><i class=' bx bxs-user-circle'></i></div>
-                <div class="Profile_Name text-white md:font-bold md:text-4xl">Phuc Doan</div>
+                <div class="Profile_Name text-white md:font-bold md:text-4xl">${customer.username}</div>
             </section>
             <!-- Profile information -->
             <section class="md:px-3 px-2 w-full grid gap-7">
@@ -79,7 +79,7 @@
                         <div class="FullName_Content md:text-xl font-bold">Full Name</div>
                     </div>
                     <div class="FullName_Content md:text-xl  font-light text-gray-500">
-                        Đoàn Thanh Phúc
+						${customer.fullname}
                     </div>
                 </div>
                 <div class="Email flex justify-between">
@@ -89,7 +89,7 @@
                         <div class="FullName_Content md:text-xl font-bold">Email</div>
                     </div>
                     <div class="FullName_Content md:text-xl  font-light text-gray-500">
-                        phucdt1123@gmail.com
+						${customer.email}
                     </div>
                 </div>
                 <div class="FullName flex justify-between">
@@ -99,7 +99,7 @@
                         <div class="FullName_Content md:text-xl font-bold">Phone Number</div>
                     </div>
                     <div class="FullName_Content md:text-xl  font-light text-gray-500">
-                        1234567687899
+						${customer.phoneNumber}
                     </div>
                 </div>
                 <div class="FullName flex justify-between">
@@ -109,7 +109,7 @@
                         <div class="FullName_Content md:text-xl font-bold">Password</div>
                     </div>
                     <div class="FullName_Content md:text-xl  font-light text-gray-500">
-                        1234567687899
+						**********
                     </div>
                 </div>
 

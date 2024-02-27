@@ -40,6 +40,10 @@
         <servlet-name>UpdateStaffController</servlet-name>
         <servlet-class>Controllers.UpdateStaffController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ProductFilterController</servlet-name>
+        <servlet-class>Controllers.ProductFilterController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
         <url-pattern/>
@@ -79,6 +83,10 @@
     <servlet-mapping>
         <servlet-name>UpdateStaffController</servlet-name>
         <url-pattern>/loadStaff</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProductFilterController</servlet-name>
+        <url-pattern>/productFilter</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

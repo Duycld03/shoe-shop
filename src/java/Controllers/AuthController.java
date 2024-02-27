@@ -93,11 +93,11 @@ public class AuthController extends HttpServlet {
 				cookie.setPath("/");
 				response.addCookie(cookie);
 				response.sendRedirect("/");
-				return;
 			} else {
 				request.getSession().setAttribute("erorr", "Username and password incorrect");
-				response.sendRedirect("/login");
+				response.sendRedirect("/login.jsp");
 			}
+			return;
 		}
 
 		if (request.getParameter("btnStaffLogin") != null) {
