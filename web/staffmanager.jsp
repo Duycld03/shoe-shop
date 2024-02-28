@@ -186,8 +186,9 @@
                             </div>
                             <div class="form-group">
                                 <label>FullName</label>
-                                <input name="Fullname" type="text" class="form-control" required pattern="[a-zA-Z ]+" title="Full Name cannot contain numbers">
+                                <input name="Fullname" type="text" class="form-control" required pattern="[a-zA-Z ]+" title="Full Name cannot contain numbers or special characters">
                             </div>
+
                             <div class="form-group">
                                 <label>Password</label>
                                 <div class="input-group">
