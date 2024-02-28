@@ -53,10 +53,6 @@
         <servlet-class>Controllers.LogoutController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ProductDetailInfor</servlet-name>
-        <servlet-class>Controllers.ProductDetail</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>LoadMoreController</servlet-name>
         <servlet-class>Controllers.LoadMoreController</servlet-class>
     </servlet>
@@ -113,8 +109,6 @@
         <url-pattern>/logout</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ProductDetailInfor</servlet-name>
-        <url-pattern>/productdetailInfor</url-pattern>
         <servlet-name>LoadMoreController</servlet-name>
         <url-pattern>/loadMore</url-pattern>
     </servlet-mapping>

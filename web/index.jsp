@@ -25,7 +25,7 @@
 			<!-- flash sale -->
 			<div class="hidden md:mx-28 md:flex -mt-20 mb-16">
 				<c:forEach items="${top3DiscountedProduct}" var="product">
-					<div class="md:relative w-1/3 hover:cursor-pointer">
+					<div class="md:relative w-1/3 hover:cursor-pointer" onclick="redirectToDetailPage('${product.productId}')">
 						<img src="assets/img/products/${product.primaryImage.imageURL}" alt="img"
 							class="h-[340px] w-full">
 						<div class="absolute top-4 flex justify-around w-full">
@@ -48,7 +48,7 @@
 				<h1 class="font-semibold text-3xl md:text-4xl text-center my-8 md:mb-16">ALL PRODUCTS</h1>
 				<div id="products" class="grid md:grid-cols-4 md:gap-9 grid-cols-2 gap-4">
 					<c:forEach items="${top8Product}" var="product">
-						<div
+						<div onclick="redirectToDetailPage('${product.productId}')"
 							class="product shadow-lg rounded-sm hover:scale-105 transition-all duration-200 ease-in hover:cursor-pointer">
 							<div>
 								<div><img src="assets/img/products/${product.primaryImage.imageURL}" alt=""
@@ -129,7 +129,7 @@
 				<h1 class="font-semibold text-3xl md:text-4xl text-center mb-16 md:mb-20">BEST SELLER</h1>
 				<div class="mx-4 md:mx-28 grid gap-4 grid-cols-1 md:grid-cols-3 ">
 					<c:forEach items="${top3BestSeller}" var="product">
-						<div class="flex space-x-6 cursor-pointer">
+						<div class="flex space-x-6 cursor-pointer" onclick="redirectToDetailPage('${product.productId}')">
 							<div><img src="assets/img/products/${product.primaryImage.imageURL}" alt=""
 									class="aspect-square w-[152px]"></div>
 							<div class="mb-5 flex justify-between flex-col">
