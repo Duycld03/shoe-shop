@@ -27,6 +27,15 @@ public class Customer {
 		this.phoneNumber = phoneNumber;
 	}
 
+	public Customer(String customerId, String username, String password, String email, String fullname, String phoneNumber) {
+		this.customerId = customerId;
+		this.username = username;
+		this.password = password;
+		this.email = email;
+		this.fullname = fullname;
+		this.phoneNumber = phoneNumber;
+	}
+
 	public String getCustomerId() {
 		return customerId;
 	}

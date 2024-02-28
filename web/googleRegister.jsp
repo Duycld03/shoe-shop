@@ -13,7 +13,7 @@
       <%@include file="header.jsp" %>
         <div class="w-full max-w-md p-8 space-y-3 rounded-xl mx-auto bg-gray-100 m-8">
           <h1 class="text-2xl font-bold text-center mb-4">Google Register</h1>
-          <form action="/GoogleRegister" method="POST" class="space-y-6">
+          <form action="/googleRegister" method="POST" class="space-y-6">
             <div class="space-y-1 text-sm">
               <label for="username" class="block">Username</label>
               <input type="text" name="username" id="username" placeholder="Username"
