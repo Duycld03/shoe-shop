@@ -46,7 +46,7 @@ public class ProductDAO {
 			ps = conn.prepareStatement(sql);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				ProductImage productImage = new ProductImage(rs.getString("ImageID"), rs.getString("ImageURL"), false,
+				ProductImage productImage = new ProductImage(rs.getString("ImageID"), rs.getString("ImageURL"), true,
 						rs.getString("ProductID"));
 				Product product = new Product(rs.getString("ProductID"), rs.getString("ProductName"),
 						rs.getFloat("Price"), rs.getFloat("Discount"), rs.getString("Description"),
@@ -67,7 +67,7 @@ public class ProductDAO {
 			ps = conn.prepareStatement(sql);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				ProductImage productImage = new ProductImage(rs.getString("ImageID"), rs.getString("ImageURL"), false,
+				ProductImage productImage = new ProductImage(rs.getString("ImageID"), rs.getString("ImageURL"), true,
 						rs.getString("ProductID"));
 				Product product = new Product(rs.getString("ProductID"), rs.getString("ProductName"),
 						rs.getFloat("Price"), rs.getFloat("Discount"), rs.getString("Description"),
@@ -89,7 +89,7 @@ public class ProductDAO {
 			ps.setInt(1, offset);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				ProductImage productImage = new ProductImage(rs.getString("ImageID"), rs.getString("ImageURL"), false,
+				ProductImage productImage = new ProductImage(rs.getString("ImageID"), rs.getString("ImageURL"), true,
 						rs.getString("ProductID"));
 				Product product = new Product(rs.getString("ProductID"), rs.getString("ProductName"),
 						rs.getFloat("Price"), rs.getFloat("Discount"), rs.getString("Description"),
@@ -110,7 +110,7 @@ public class ProductDAO {
 			ps = conn.prepareStatement(sql);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				ProductImage productImage = new ProductImage(rs.getString("ImageID"), rs.getString("ImageURL"), false,
+				ProductImage productImage = new ProductImage(rs.getString("ImageID"), rs.getString("ImageURL"), true,
 						rs.getString("ProductID"));
 				Product product = new Product(rs.getString("ProductID"), rs.getString("ProductName"),
 						rs.getFloat("Price"), rs.getFloat("Discount"), rs.getString("Description"),
@@ -136,6 +136,39 @@ public class ProductDAO {
 			Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		return count;
+	}
+
+	public List<Product> getTop3BestSeller() {
+		List<Product> products = new ArrayList<>();
+		String sql = "SELECT TOP 3 *\n"
+				+ "FROM\n"
+				+ "    Orders od\n"
+				+ "    INNER JOIN OrderDetails ode ON od.OrderID = ode.OrderID\n"
+				+ "    INNER JOIN ProductVariants v ON ode.VariantID = v.VariantID\n"
+				+ "    INNER JOIN Products p ON v.ProductID = p.ProductID\n"
+				+ "	INNER JOIN ProductImages img on p.ProductID = img.ProductID\n"
+				+ "WHERE\n"
+				+ "    od.OrderStatus = 'Accepted'\n"
+				+ "    AND od.PaymentStatus = 'Paid'\n"
+				+ "    AND p.isDeleted = 0\n"
+				+ "    AND v.StockQuantity > 0\n"
+				+ "	AND img.IsPrimary = 1\n"
+				+ "ORDER BY Quantity DESC";
+		try {
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				ProductImage productImage = new ProductImage(rs.getString("ImageID"), rs.getString("ImageURL"), true, rs.getString("ProductID"));
+				Product product = new Product(rs.getString("ProductID"), rs.getString("ProductName"),
+						rs.getFloat("Price"), rs.getFloat("Discount"), rs.getString("Description"),
+						rs.getString("BrandID"), false, productImage);
+				products.add(product);
+			}
+			return products;
+		} catch (SQLException ex) {
+			Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		return null;
 	}
 
 }

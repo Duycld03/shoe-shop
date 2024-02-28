@@ -81,6 +81,10 @@ public class HomeController extends HttpServlet {
 
 		List<Product> top8Product = productDAO.getTop8Product();
 		request.setAttribute("top8Product", top8Product);
+
+		List<Product> top3BestSeller = productDAO.getTop3BestSeller();
+		request.setAttribute("top3BestSeller", top3BestSeller);
+
 		request.getRequestDispatcher("index.jsp").forward(request, response);
 	}
 

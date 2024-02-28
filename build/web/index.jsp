@@ -128,36 +128,18 @@
 			<section class="mb-16 md:mb-32">
 				<h1 class="font-semibold text-3xl md:text-4xl text-center mb-16 md:mb-20">BEST SELLER</h1>
 				<div class="mx-4 md:mx-28 grid gap-4 grid-cols-1 md:grid-cols-3 ">
-					<div class="flex space-x-6">
-						<div><img src="assets/img/svg/Vector.svg" alt="" class="aspect-square w-[152px]"></div>
-						<div class="mb-5 flex justify-between flex-col">
-							<p class="text-2xl">Blue Swade Nike Sneakers</p>
-							<div class="text-xl">
-								<span class="text-[#FF4858]">$499</span>
-								<span class="text-[#C1C8CE] line-through">$599</span>
+					<c:forEach items="${top3BestSeller}" var="product">
+						<div class="flex space-x-6">
+							<div><img src="assets/img/products/${product.primaryImage.imageURL}" alt="" class="aspect-square w-[152px]"></div>
+							<div class="mb-5 flex justify-between flex-col">
+								<p class="text-2xl">${product.productName}</p>
+								<div class="text-xl">
+									<span class="text-[#FF4858]">$${product.price - product.price * (product.discount/100)}</span>
+									<span class="text-[#C1C8CE] line-through">$${product.price}</span>
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="flex space-x-6">
-						<div><img src="assets/img/svg/Vector.svg" alt="" class="aspect-square w-[152px]"></div>
-						<div class="mb-5 flex justify-between flex-col">
-							<p class="text-2xl">Blue Swade Nike Sneakers</p>
-							<div class="text-xl">
-								<span class="text-[#FF4858]">$499</span>
-								<span class="text-[#C1C8CE] line-through">$599</span>
-							</div>
-						</div>
-					</div>
-					<div class="flex space-x-6">
-						<div><img src="assets/img/svg/Vector.svg" alt="" class="aspect-square w-[152px]"></div>
-						<div class="mb-5 flex justify-between flex-col">
-							<p class="text-2xl">Blue Swade Nike Sneakers</p>
-							<div class="text-xl">
-								<span class="text-[#FF4858]">$499</span>
-								<span class="text-[#C1C8CE] line-through">$599</span>
-							</div>
-						</div>
-					</div>
+					</c:forEach>
 				</div>
 			</section>
 

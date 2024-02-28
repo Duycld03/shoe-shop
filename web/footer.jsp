@@ -28,7 +28,7 @@
 
     <hr class="bg-white">
     <div class="flex justify-between mt-8 space-x-2">
-        <div class="text-[#92989d] text-xs md:text-sm">© 2024 Shoe Store theme by Duycld03</div>
+        <div class="text-[#92989d] text-xs md:text-sm">© 2024 Shoe Store theme by Group 4</div>
         <div>
             <img src="assets/img/Brands.png" alt="" width="213px" height="26px">
         </div>
