@@ -96,7 +96,7 @@ public class CustomerLoginController extends HttpServlet {
 				response.sendRedirect("/");
 			} else {
 				request.getSession().setAttribute("erorr", "Username and password incorrect");
-				response.sendRedirect("/login.jsp");
+				response.sendRedirect("/customerLogin");
 			}
 		}
 
