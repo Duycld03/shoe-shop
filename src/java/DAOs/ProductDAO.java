@@ -19,98 +19,150 @@ import java.util.logging.Logger;
  */
 public class ProductDAO {
 
-	private Connection conn;
-	private PreparedStatement ps;
-	private ResultSet rs;
+    private Connection conn;
+    private PreparedStatement ps;
+    private ResultSet rs;
 
-	public ProductDAO() {
-		conn = DBConnection.getConnection();
-	}
+    public ProductDAO() {
+        conn = DBConnection.getConnection();
+    }
 
-	public ResultSet getAll() {
-		String sql = "select * from Products";
-		try {
-			ps = conn.prepareStatement(sql);
-			rs = ps.executeQuery();
-			return rs;
-		} catch (SQLException ex) {
-			Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
-		}
-		return null;
-	}
+    public ResultSet getAll() {
+        String sql = "select * from Products";
+        try {
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            return rs;
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 
-	public List<Product> getAllProducts() {
-		List<Product> products = new ArrayList<>();
-		String sql = "select * from products p inner join ProductImages i on p.ProductID = i.ProductID where p.isDeleted = 0 and i.isPrimary = 1";
-		try {
-			ps = conn.prepareStatement(sql);
-			rs = ps.executeQuery();
-			while (rs.next()) {
-				ProductImage productImage = new ProductImage(rs.getString("ImageID"), rs.getString("ImageURL"), false,
-						rs.getString("ProductID"));
-				Product product = new Product(rs.getString("ProductID"), rs.getString("ProductName"),
-						rs.getFloat("Price"), rs.getFloat("Discount"), rs.getString("Description"),
-						rs.getString("BrandID"), false, productImage);
-				products.add(product);
-			}
-			return products;
-		} catch (SQLException ex) {
-			Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
-		}
-		return null;
-	}
+    public List<Product> getAllProducts() {
+        List<Product> products = new ArrayList<>();
+        String sql = "select * from products p inner join ProductImages i on p.ProductID = i.ProductID where p.isDeleted = 0 and i.isPrimary = 1";
+        try {
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                ProductImage productImage = new ProductImage(rs.getString("ImageID"), rs.getString("ImageURL"), false,
+                        rs.getString("ProductID"));
+                Product product = new Product(rs.getString("ProductID"), rs.getString("ProductName"),
+                        rs.getFloat("Price"), rs.getFloat("Discount"), rs.getString("Description"),
+                        rs.getString("BrandID"), false, productImage);
+                products.add(product);
+            }
+            return products;
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 
-	public List<Product> getTop3DiscountedProduct() {
-		List<Product> products = new ArrayList<>();
-		String sql = "SELECT Top 3 * FROM Products p inner join ProductImages i on p.ProductID = i.ProductID WHERE Discount IS NOT NULL AND i.isPrimary = 1 AND p.isDeleted = 0 ORDER BY Discount DESC";
-		try {
-			ps = conn.prepareStatement(sql);
-			rs = ps.executeQuery();
-			while (rs.next()) {
-				ProductImage productImage = new ProductImage(rs.getString("ImageID"), rs.getString("ImageURL"), false, rs.getString("ProductID"));
-				Product product = new Product(rs.getString("ProductID"), rs.getString("ProductName"),
-						rs.getFloat("Price"), rs.getFloat("Discount"), rs.getString("Description"),
-						rs.getString("BrandID"), false, productImage);
-				products.add(product);
-			}
-		} catch (SQLException ex) {
-			Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
-		}
-		return products;
-	}
+    public List<Product> getTop3DiscountedProduct() {
+        List<Product> products = new ArrayList<>();
+        String sql = "SELECT Top 3 * FROM Products p inner join ProductImages i on p.ProductID = i.ProductID WHERE Discount IS NOT NULL AND i.isPrimary = 1 AND p.isDeleted = 0 ORDER BY Discount DESC";
+        try {
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                ProductImage productImage = new ProductImage(rs.getString("ImageID"), rs.getString("ImageURL"), false, rs.getString("ProductID"));
+                Product product = new Product(rs.getString("ProductID"), rs.getString("ProductName"),
+                        rs.getFloat("Price"), rs.getFloat("Discount"), rs.getString("Description"),
+                        rs.getString("BrandID"), false, productImage);
+                products.add(product);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return products;
+    }
 
-	public ProductImage getPrimaryImage(String productId) {
-		String sql = "select * from ProductImages where ProductID = ? and isPrimary = ?";
-		try {
-			ps = conn.prepareStatement(sql);
-			ps.setString(1, productId);
-			ps.setBoolean(2, true);
-			rs = ps.executeQuery();
-			if (rs.next()) {
-				ProductImage productImage = new ProductImage(rs.getString("ImageID"), rs.getString("ImageURL"), true, rs.getString("ProductID"));
-				return productImage;
-			}
-		} catch (SQLException ex) {
-			Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
-		}
-		return null;
-	}
+    public ProductImage getPrimaryImage(String productId) {
+        String sql = "select * from ProductImages where ProductID = ? and isPrimary = ?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, productId);
+            ps.setBoolean(2, true);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                ProductImage productImage = new ProductImage(rs.getString("ImageID"), rs.getString("ImageURL"), true, rs.getString("ProductID"));
+                return productImage;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 
-	public List<ProductImage> getImages(String productId) {
-		List<ProductImage> images = new ArrayList<>();
-		String sql = "select * from ProductImages where ProductID = ? and isPrimary = ?";
-		try {
-			ps = conn.prepareStatement(sql);
-			ps.setString(1, productId);
-			ps.setBoolean(2, false);
-			rs = ps.executeQuery();
-			while (rs.next()) {
-				ProductImage productImage = new ProductImage(rs.getString("ImageID"), rs.getString("ImageURL"), true, rs.getString("ProductID"));
-				images.add(productImage);
-			}
-		} catch (SQLException ex) {
-			Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
-		}
-		return images;
-	}
+    public List<ProductImage> getImages(String productId) {
+        List<ProductImage> images = new ArrayList<>();
+        String sql = "select * from ProductImages where ProductID = ? and isPrimary = 0";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, productId);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                ProductImage productImage = new ProductImage(rs.getString("ImageID"), rs.getString("ImageURL"), false, rs.getString("ProductID"));
+                images.add(productImage);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return images;
+    }
+
+    //Get Porduct By ID
+    public Product getProductByID(String proID) {
+        String sql = "SELECT * FROM Products p \n"
+                + "inner join ProductImages i on p.ProductID = i.ProductID \n"
+                + "WHERE i.isPrimary = 1 AND p.isDeleted = 0 and p.ProductID = ?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, proID);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                ProductImage productImage = new ProductImage(rs.getString("ImageID"), rs.getString("ImageURL"), false, rs.getString("ProductID"));
+                Product product = new Product(rs.getString("ProductID"), rs.getString("ProductName"),
+                        rs.getFloat("Price"), rs.getFloat("Discount"), rs.getString("Description"),
+                        rs.getString("BrandID"), false, productImage);
+                return product;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+
+    }
+
+    public List<Product> getTop4RelatePro(String BrandId) {
+        List<Product> products = new ArrayList<>();
+        String sql = "SELECT Top 4 * FROM Products p \n"
+                + "                join ProductImages i on p.ProductID = i.ProductID\n"
+                + "                WHERE i.isPrimary = 1 AND p.isDeleted = 0 and p.BrandID = ?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, BrandId);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                ProductImage productImage = new ProductImage(rs.getString("ImageID"), rs.getString("ImageURL"), false, rs.getString("ProductID"));
+                Product product = new Product(rs.getString("ProductID"), rs.getString("ProductName"),
+                        rs.getFloat("Price"), rs.getFloat("Discount"), rs.getString("Description"),
+                        rs.getString("BrandID"), false, productImage);
+                products.add(product);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return products;
+    }
+
+    public static void main(String[] args) {
+        ProductDAO d = new ProductDAO();
+        List<Product> L = d.getTop4RelatePro("Br2");
+        for (Product product : L) {
+            System.out.println(product.getProductId());
+        }
+    }
 }

@@ -14,7 +14,7 @@
 </head>
 
 <body>
-    <div class=" md:mx-28">
+    <div class=" md:mx-28 mx-3 md:mt-28">
         <div class="Product_Infor grid md:grid-cols-2 md:mb-8">
             <div class="Product_Img">
                 <img class="md:w-4/5 md:h-4/6 w-full" src="assets/img/products/image Product8.png" alt="">
@@ -83,7 +83,8 @@
                 <!-- line -->
                 <div class="border-t border-gray w-full md:my-5 my-3"></div>
                 <div class="numberAndCart flex justify-between md:w-5/6">
-                    <div class="Number flex md:justify-between justify-evenly px-3  md:text-xl text-sm font-medium bg-gray-200 w-2/6 rounded-lg md:py-0 py-3">
+                    <div
+                        class="Number flex md:justify-between justify-evenly px-3  md:text-xl text-sm font-medium bg-gray-200 w-2/6 rounded-lg md:py-0 py-3">
                         <button id="subtractBtn" class="sub text-sky-400 md:text-2xl"><i
                                 class='bx bx-minus'></i></button>
                         <input id="amountInput" min="1" class="amount outline-none bg-gray-200 ml-4 w-1/4"
@@ -122,12 +123,13 @@
             </div>
         </div>
     </div>
-    <div class="Relate_Product md:my-16">
+    <div class="Relate_Product md:my-16 h-auto mb-8">
         <div class="Content_Relate text-3xl font-bold text-center py-10">RELATE PRODUCTS</div>
         <div class=" grid md:grid-cols-4 gap-12 mx-20">
             <div
                 class="border-solid border-2 h-full pb-[10px] md:pb-[20px] md:h-auto  relative shadow-lg rounded-sm hover:scale-105 transition-all duration-200 ease-in hover:cursor-pointer">
-                <img src="assets/img/products/image Product1.jpg" class="cm:w-full" />
+                <div class=""> <img src="assets/img/products/image Product8.jpg" class="cm:w-full" />
+                </div>
                 <div class="text-center md:mt-2 mt-1">
                     <div
                         class="absolute top-0 rounded-[5%] left-0 bg-red-500 md:w-[70px] md:text-[17px] text-[8px] px-[10px] py-[5px] font-medium text-white text-center">
@@ -177,9 +179,6 @@
                 class="border-solid border-2 h-full pb-[10px] md:pb-[20px] md:h-auto  relative shadow-lg rounded-sm hover:scale-105 transition-all duration-200 ease-in hover:cursor-pointer">
                 <img src="assets/img/products/image Product1.jpg" class="cm:w-full" />
                 <div class="text-center md:mt-2 mt-1">
-                    <div
-                        class="absolute top-0 rounded-[5%] left-0 bg-red-500 md:w-[70px] md:text-[17px] text-[8px] px-[10px] py-[5px] font-medium text-white text-center">
-                        HOT</div>
                     <p class="text-[10px] md:text-xl font-[700]">Nike Air Max 270 React</p>
                     <p class="text-[7px] md:text-[sm] font-medium md:text-base">Lorem ipsum dolor
                         sit amet
@@ -226,7 +225,6 @@
     </div>
 
     <script src="assets/js/validation/amountInputDetail.js">
-
     </script>
 
 </body>

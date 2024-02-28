@@ -52,6 +52,10 @@
         <servlet-name>LogoutController</servlet-name>
         <servlet-class>Controllers.LogoutController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ProductDetailInfor</servlet-name>
+        <servlet-class>Controllers.ProductDetail</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
         <url-pattern/>
@@ -103,6 +107,10 @@
     <servlet-mapping>
         <servlet-name>LogoutController</servlet-name>
         <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProductDetailInfor</servlet-name>
+        <url-pattern>/productdetailInfor</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
