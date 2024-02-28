@@ -9,6 +9,7 @@
 <html>
     <head>
         <title>Page</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
         <link rel="stylesheet" href="assets/js/validation/bootstrap.min.css">
         <script src="assets/js/validation/jquery.min.js"></script>
         <style>
@@ -78,7 +79,7 @@
                 <div class="list-group list-group-flush mx-3 mt-4">
                     <a class="d-block text-lg font-weight-bold text-dark mb-4">Menu</a>
                     <a href="#manager" id="accountManager" class="list-group-item list-group-item-action py-2 ripple">
-                        <i class="fas fa-shoe-prints fa-fw me-3"></i><span>Account manager</span>
+                        <i class="fas fa-user-circle fa-fw me-3"></i><span>Account manager</span>
                     </a>
 
                     <div id="manager" style="display: none;">

@@ -78,7 +78,7 @@ public class GoogleRegisterController extends HttpServlet {
 			throws ServletException, IOException {
 		if (request.getParameter("btnRegister") != null) {
 			UserGoogleDto user = (UserGoogleDto) request.getSession().getAttribute("user");
-			String username = request.getParameter("username");
+			String username = request.getParameter("username").toLowerCase();
 			String password = request.getParameter("password");
 			String phoneNumber = request.getParameter("phoneNumber");
 
@@ -91,6 +91,7 @@ public class GoogleRegisterController extends HttpServlet {
 			} else {
 				System.out.println("Register failed");
 			}
+			request.getSession().invalidate();
 			response.sendRedirect("/login.jsp");
 		}
 	}

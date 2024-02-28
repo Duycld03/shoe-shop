@@ -1,10 +1,7 @@
 package Controllers;
 
-import DAOs.CartDAO;
 import DAOs.CustomerDAO;
-import DAOs.ProductDAO;
 import Models.Customer;
-import Models.Product;
 import Utils.JwtUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,13 +10,12 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
 
 /**
  *
  * @author Duy
  */
-public class HomeController extends HttpServlet {
+public class ProductFilterController extends HttpServlet {
 
 	/**
 	 * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,17 +34,16 @@ public class HomeController extends HttpServlet {
 			out.println("<!DOCTYPE html>");
 			out.println("<html>");
 			out.println("<head>");
-			out.println("<title>Servlet HomeController</title>");
+			out.println("<title>Servlet ProductFilterController</title>");
 			out.println("</head>");
 			out.println("<body>");
-			out.println("<h1>Servlet HomeController at " + request.getContextPath() + "</h1>");
+			out.println("<h1>Servlet ProductFilterController at " + request.getContextPath() + "</h1>");
 			out.println("</body>");
 			out.println("</html>");
 		}
 	}
 
-	// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the
-	// + sign on the left to edit the code.">
+	// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 	/**
 	 * Handles the HTTP <code>GET</code> method.
 	 *
@@ -75,10 +70,7 @@ public class HomeController extends HttpServlet {
 			request.setAttribute("customer", customer);
 		}
 
-		ProductDAO pDAO = new ProductDAO();
-		List<Product> top3DiscountedProduct = pDAO.getTop3DiscountedProduct();
-		request.setAttribute("top3DiscountedProduct", top3DiscountedProduct);
-		request.getRequestDispatcher("index.jsp").forward(request, response);
+		request.getRequestDispatcher("/filterProduct.jsp").forward(request, response);
 	}
 
 	/**
@@ -92,6 +84,7 @@ public class HomeController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		processRequest(request, response);
 	}
 
 	/**

@@ -5,4 +5,3 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
 <link rel="stylesheet" href="assets/css/style.css">
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>

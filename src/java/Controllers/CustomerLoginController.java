@@ -1,10 +1,7 @@
 package Controllers;
 
-import DAOs.CartDAO;
 import DAOs.CustomerDAO;
-import DAOs.ProductDAO;
 import Models.Customer;
-import Models.Product;
 import Utils.JwtUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,13 +10,12 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
 
 /**
  *
  * @author Duy
  */
-public class HomeController extends HttpServlet {
+public class CustomerLoginController extends HttpServlet {
 
 	/**
 	 * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,17 +34,16 @@ public class HomeController extends HttpServlet {
 			out.println("<!DOCTYPE html>");
 			out.println("<html>");
 			out.println("<head>");
-			out.println("<title>Servlet HomeController</title>");
+			out.println("<title>Servlet AuthController</title>");
 			out.println("</head>");
 			out.println("<body>");
-			out.println("<h1>Servlet HomeController at " + request.getContextPath() + "</h1>");
+			out.println("<h1>Servlet AuthController at " + request.getContextPath() + "</h1>");
 			out.println("</body>");
 			out.println("</html>");
 		}
 	}
 
-	// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the
-	// + sign on the left to edit the code.">
+	// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 	/**
 	 * Handles the HTTP <code>GET</code> method.
 	 *
@@ -67,18 +62,12 @@ public class HomeController extends HttpServlet {
 				loginCookie = cookie;
 			}
 		}
-
-		if (loginCookie != null) {
-			String username = JwtUtils.getUsernameFromToken(loginCookie.getValue());
-			CustomerDAO customerDAO = new CustomerDAO();
-			Customer customer = customerDAO.getCustomerByUsername(username);
-			request.setAttribute("customer", customer);
+		if (loginCookie == null) {
+			request.getRequestDispatcher("/customerLogin.jsp").forward(request, response);
+		} else {
+			response.sendRedirect("/");
 		}
 
-		ProductDAO pDAO = new ProductDAO();
-		List<Product> top3DiscountedProduct = pDAO.getTop3DiscountedProduct();
-		request.setAttribute("top3DiscountedProduct", top3DiscountedProduct);
-		request.getRequestDispatcher("index.jsp").forward(request, response);
 	}
 
 	/**
@@ -92,6 +81,33 @@ public class HomeController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		String username = request.getParameter("username").toLowerCase();
+		String password = request.getParameter("password");
+
+		if (request.getParameter("btnCustomerLogin") != null) {
+			CustomerDAO customerDAO = new CustomerDAO();
+			Customer customer = customerDAO.checkLogin(username, password);
+			if (customer != null) {
+				String token = JwtUtils.generateToken(username);
+				Cookie cookie = new Cookie("login", token);
+				cookie.setMaxAge(3 * 24 * 60 * 60);
+				cookie.setPath("/");
+				response.addCookie(cookie);
+				response.sendRedirect("/");
+			} else {
+				request.getSession().setAttribute("erorr", "Username and password incorrect");
+				response.sendRedirect("/login.jsp");
+			}
+		}
+
+//		if (request.getParameter("btnStaffLogin") != null) {
+		//staff login handler
+//			return;
+//		}
+//		if (request.getParameter("btnAdminLogin") != null) {
+		//Admin login handler
+//			return;
+//		}
 	}
 
 	/**
