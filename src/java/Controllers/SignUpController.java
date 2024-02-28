@@ -116,7 +116,7 @@ public class SignUpController extends HttpServlet {
 			if (result >= 1) {
 				AddressDAO addressDAO = new AddressDAO();
 				String addressId = "Ad" + (addressDAO.getAddressCount() + 1);
-				Address address = new Address(addressId, city, addressDetail, "", customerId, true);
+				Address address = new Address(addressId, city, addressDetail, customerId, true);
 				int addressResult = addressDAO.add(address);
 				if (addressResult >= 1) {
 					System.out.println("add address successful");

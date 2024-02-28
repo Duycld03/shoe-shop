@@ -6,69 +6,61 @@ package Models;
  */
 public class Address {
 
-	private String addressId;
-	private String city;
-	private String addressDetail;
-	private String staffId;
-	private String customerId;
-	private boolean isPrimary;
+    private String addressId;
+    private String city;
+    private String addressDetail;
+    private String customerId;
+    private boolean isPrimary;
 
-	public Address(String addressId, String city, String addressDetail, String staffId, String customerId,
-			boolean isPrimary) {
-		this.addressId = addressId;
-		this.city = city;
-		this.addressDetail = addressDetail;
-		this.staffId = staffId;
-		this.customerId = customerId;
-		this.isPrimary = isPrimary;
-	}
+    public Address() {
+    }
 
-	public String getAddressId() {
-		return addressId;
-	}
+    public Address(String addressId, String city, String addressDetail, String customerId, boolean isPrimary) {
+        this.addressId = addressId;
+        this.city = city;
+        this.addressDetail = addressDetail;
+        this.customerId = customerId;
+        this.isPrimary = isPrimary;
+    }
 
-	public void setAddressId(String addressId) {
-		this.addressId = addressId;
-	}
+    public String getAddressId() {
+        return addressId;
+    }
 
-	public String getCity() {
-		return city;
-	}
+    public void setAddressId(String addressId) {
+        this.addressId = addressId;
+    }
 
-	public void setCity(String city) {
-		this.city = city;
-	}
+    public String getCity() {
+        return city;
+    }
 
-	public String getAddressDetail() {
-		return addressDetail;
-	}
+    public void setCity(String city) {
+        this.city = city;
+    }
 
-	public void setAddressDetail(String addressDetail) {
-		this.addressDetail = addressDetail;
-	}
+    public String getAddressDetail() {
+        return addressDetail;
+    }
 
-	public String getStaffId() {
-		return staffId;
-	}
+    public void setAddressDetail(String addressDetail) {
+        this.addressDetail = addressDetail;
+    }
 
-	public void setStaffId(String staffId) {
-		this.staffId = staffId;
-	}
+    public String getCustomerId() {
+        return customerId;
+    }
 
-	public String getCustomerId() {
-		return customerId;
-	}
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
+    }
 
-	public void setCustomerId(String customerId) {
-		this.customerId = customerId;
-	}
+    public boolean isPrimary() {
+        return isPrimary;
+    }
 
-	public boolean isPrimary() {
-		return isPrimary;
-	}
-
-	public void setPrimary(boolean isPrimary) {
-		this.isPrimary = isPrimary;
-	}
+    public void setIsPrimary(boolean isPrimary) {
+        this.isPrimary = isPrimary;
+    }
 
 }
