@@ -92,7 +92,7 @@ public class GoogleRegisterController extends HttpServlet {
 				System.out.println("Register failed");
 			}
 			request.getSession().invalidate();
-			response.sendRedirect("/login.jsp");
+			response.sendRedirect("/customerLogin");
 		}
 	}
 
