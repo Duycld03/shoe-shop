@@ -79,7 +79,7 @@ public class ProfileControler extends HttpServlet {
         AddressDAO addressDAO = new AddressDAO();
         String username = JwtUtils.getUsernameFromToken(loginCookie.getValue());
         Customer customer = customerDAO.getCustomerByUsername(username);
-        Address address = addressDAO.getAdressnByCusId(customer.getCustomerId());
+        Address address = addressDAO.getAddressnByCusId(customer.getCustomerId());
         if (customer == null) {
             request.setAttribute("error", "Khong co du lieu");
         } else {
@@ -102,6 +102,29 @@ public class ProfileControler extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
+    CustomerDAO customerDAO = new CustomerDAO();
+    AddressDAO addressDAO = new AddressDAO();
+    String username = JwtUtils.getUsernameFromToken(loginCookie.getValue());
+    Customer customer = customerDAO.getCustomerByUsername(username);
+    Address address = addressDAO.getAddressnByCusId(customer.getCustomerId());
+    if (customer
+
+    
+        == null) {
+			request.setAttribute("error", "Khong co du lieu");
+    }
+
+    
+        else {
+			request.setAttribute("customer", customer);
+        request.setAttribute("address", address);
+    }
+
+    request.getRequestDispatcher (
+            
+
+"/myProfile.jsp").forward(request, response);
+	}
 
     /**
      * Returns a short description of the servlet.
@@ -109,7 +132,7 @@ public class ProfileControler extends HttpServlet {
      * @return a String containing servlet description
      */
     @Override
-    public String getServletInfo() {
+public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
 

@@ -92,6 +92,27 @@ public class HomeController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     }
+    ProductDAO productDAO = new ProductDAO();
+    List<Product> top3DiscountedProduct = productDAO.getTop3DiscountedProduct();
+
+    request.setAttribute (
+    "top3DiscountedProduct", top3DiscountedProduct);
+
+		List<Product> top8Product = productDAO.getTop8Product();
+
+    request.setAttribute (
+    "top8Product", top8Product);
+
+		List<Product> top3BestSeller = productDAO.getTop3BestSeller();
+
+    request.setAttribute (
+
+    "top3BestSeller", top3BestSeller);
+
+    request.getRequestDispatcher (
+
+"index.jsp").forward(request, response);
+	}
 
     /**
      * Returns a short description of the servlet.
@@ -99,7 +120,7 @@ public class HomeController extends HttpServlet {
      * @return a String containing servlet description
      */
     @Override
-    public String getServletInfo() {
+public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
 

@@ -53,8 +53,13 @@
         <servlet-class>Controllers.LogoutController</servlet-class>
     </servlet>
     <servlet>
+<<<<<<< HEAD
         <servlet-name>ProductDetailInfor</servlet-name>
         <servlet-class>Controllers.ProductDetail</servlet-class>
+        =======
+        <servlet-name>LoadMoreController</servlet-name>
+        <servlet-class>Controllers.LoadMoreController</servlet-class>
+        >>>>>>> 4f93999949ecf3b7a4d5db8359966a404f9cda04
     </servlet>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
@@ -111,6 +116,8 @@
     <servlet-mapping>
         <servlet-name>ProductDetailInfor</servlet-name>
         <url-pattern>/productdetailInfor</url-pattern>
+        <servlet-name>LoadMoreController</servlet-name>
+        <url-pattern>/loadMore</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
