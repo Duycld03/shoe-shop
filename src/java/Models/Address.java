@@ -9,16 +9,16 @@ public class Address {
 	private String addressId;
 	private String city;
 	private String addressDetail;
-	private String staffId;
 	private String customerId;
 	private boolean isPrimary;
 
-	public Address(String addressId, String city, String addressDetail, String staffId, String customerId,
-			boolean isPrimary) {
+	public Address() {
+	}
+
+	public Address(String addressId, String city, String addressDetail, String customerId, boolean isPrimary) {
 		this.addressId = addressId;
 		this.city = city;
 		this.addressDetail = addressDetail;
-		this.staffId = staffId;
 		this.customerId = customerId;
 		this.isPrimary = isPrimary;
 	}
@@ -47,14 +47,6 @@ public class Address {
 		this.addressDetail = addressDetail;
 	}
 
-	public String getStaffId() {
-		return staffId;
-	}
-
-	public void setStaffId(String staffId) {
-		this.staffId = staffId;
-	}
-
 	public String getCustomerId() {
 		return customerId;
 	}
@@ -67,7 +59,7 @@ public class Address {
 		return isPrimary;
 	}
 
-	public void setPrimary(boolean isPrimary) {
+	public void setIsPrimary(boolean isPrimary) {
 		this.isPrimary = isPrimary;
 	}
 

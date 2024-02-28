@@ -80,7 +80,7 @@ public class ProfileControler extends HttpServlet {
 		AddressDAO addressDAO = new AddressDAO();
 		String username = JwtUtils.getUsernameFromToken(loginCookie.getValue());
 		Customer customer = customerDAO.getCustomerByUsername(username);
-		Address address = addressDAO.getAdressnByCusId(customer.getCustomerId());
+		Address address = addressDAO.getAddressnByCusId(customer.getCustomerId());
 		if (customer == null) {
 			request.setAttribute("error", "Khong co du lieu");
 		} else {

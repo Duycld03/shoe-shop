@@ -31,7 +31,7 @@ public class AddressDAO {
 	}
 
 	//read all from admins
-	public List<Address> getAdressAdmins() {
+	public List<Address> getAddressAdmins() {
 		List<Address> list = new ArrayList<>();
 		String sql = "Select * from Addresses";
 		try {
@@ -40,10 +40,10 @@ public class AddressDAO {
 				PreparedStatement st = conn.prepareStatement(sql);
 				ResultSet rs = st.executeQuery();
 				while (rs.next()) {
-					Address adress = new Address(rs.getString("AddressID"),
+					Address address = new Address(rs.getString("AddressID"),
 							rs.getString("City"), rs.getString("addressDetail"),
-							rs.getString("StaffID"), rs.getString("CustomerID"), rs.getBoolean("isPrimary"));
-					list.add(adress);
+							rs.getString("CustomerID"), rs.getBoolean("isPrimary"));
+					list.add(address);
 				}
 			} else {
 				System.out.println("Kết nối đến cơ sở dữ liệu không hợp lệ.");
@@ -55,17 +55,17 @@ public class AddressDAO {
 	}
 
 	//get Admins by ID
-	public Address getAdressnByCusId(String id) {
+	public Address getAddressnByCusId(String id) {
 		String sql = "Select * from Addresses where CustomerID = ? and isPrimary = 1";
 		try {
 			PreparedStatement st = conn.prepareStatement(sql);
 			st.setString(1, id);
 			ResultSet rs = st.executeQuery();
 			if (rs.next()) {
-				Address adress = new Address(rs.getString("AddressID"),
-						rs.getString("City"), rs.getString("addressDetail"),
-						rs.getString("StaffID"), rs.getString("CustomerID"), rs.getBoolean("isPrimary"));
-				return adress;
+				Address address = new Address(rs.getString("AddressID"),
+						rs.getString("City"), rs.getString("AddressDetail"),
+						rs.getString("CustomerID"), rs.getBoolean("isPrimary"));
+				return address;
 			}
 
 		} catch (Exception e) {
@@ -91,15 +91,14 @@ public class AddressDAO {
 
 	public int add(Address address) {
 		int count = 0;
-		String sql = "insert into Addresses values(?,?,?,?,?,?)";
+		String sql = "insert into Addresses values(?,?,?,?,?)";
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, address.getAddressId());
 			ps.setString(2, address.getCity());
 			ps.setString(3, address.getAddressDetail());
 			ps.setBoolean(4, address.isPrimary());
-			ps.setString(5, address.getStaffId());
-			ps.setString(6, address.getCustomerId());
+			ps.setString(5, address.getCustomerId());
 			count = ps.executeUpdate();
 		} catch (SQLException ex) {
 			Logger.getLogger(AddressDAO.class.getName()).log(Level.SEVERE, null, ex);
