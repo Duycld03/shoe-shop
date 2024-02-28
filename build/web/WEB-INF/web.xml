@@ -53,13 +53,12 @@
         <servlet-class>Controllers.LogoutController</servlet-class>
     </servlet>
     <servlet>
-<<<<<<< HEAD
         <servlet-name>ProductDetailInfor</servlet-name>
         <servlet-class>Controllers.ProductDetail</servlet-class>
-        =======
+    </servlet>
+    <servlet>
         <servlet-name>LoadMoreController</servlet-name>
         <servlet-class>Controllers.LoadMoreController</servlet-class>
-        >>>>>>> 4f93999949ecf3b7a4d5db8359966a404f9cda04
     </servlet>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
