@@ -4,6 +4,7 @@ import DAOs.AddressDAO;
 import DAOs.CustomerDAO;
 import Models.Address;
 import Models.Customer;
+import Utils.JwtUtils;
 import Utils.VerifyRecaptcha;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -65,10 +66,18 @@ public class SignUpController extends HttpServlet {
 				loginCookie = cookie;
 			}
 		}
-		if (loginCookie == null) {
-			request.getRequestDispatcher("/signup.jsp").forward(request, response);
+
+		if (loginCookie != null) {
+			String username = JwtUtils.getUsernameFromToken(loginCookie.getValue());
+			CustomerDAO customerDAO = new CustomerDAO();
+			Customer customer = customerDAO.getCustomerByUsername(username);
+			if (customer != null) {
+				response.sendRedirect("/");
+			} else {
+				request.getRequestDispatcher("/signup.jsp").forward(request, response);
+			}
 		} else {
-			response.sendRedirect("/");
+			request.getRequestDispatcher("/signup.jsp").forward(request, response);
 		}
 
 	}

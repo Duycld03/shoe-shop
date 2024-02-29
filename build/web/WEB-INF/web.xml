@@ -56,6 +56,14 @@
         <servlet-name>LoadMoreController</servlet-name>
         <servlet-class>Controllers.LoadMoreController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ManagerLoginController</servlet-name>
+        <servlet-class>Controllers.ManagerLoginController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManagerController</servlet-name>
+        <servlet-class>Controllers.ManagerController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
         <url-pattern/>
@@ -111,6 +119,14 @@
     <servlet-mapping>
         <servlet-name>LoadMoreController</servlet-name>
         <url-pattern>/loadMore</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManagerLoginController</servlet-name>
+        <url-pattern>/managerLogin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManagerController</servlet-name>
+        <url-pattern>/manager</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

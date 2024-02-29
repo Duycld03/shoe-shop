@@ -1,15 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package Controllers;
 
 import DAOs.AdminDAO;
-import DAOs.AddressDAO;
-import DAOs.CustomerDAO;
 import DAOs.StaffDAO;
-import Models.Customer;
-import Models.Address;
+import Models.Admin;
+import Models.Staff;
 import Utils.JwtUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -21,9 +15,9 @@ import jakarta.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Doan Thanh Phuc - CE170580
+ * @author Duy
  */
-public class ProfileControler extends HttpServlet {
+public class ManagerLoginController extends HttpServlet {
 
 	/**
 	 * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,10 +36,10 @@ public class ProfileControler extends HttpServlet {
 			out.println("<!DOCTYPE html>");
 			out.println("<html>");
 			out.println("<head>");
-			out.println("<title>Servlet ProfileControler</title>");
+			out.println("<title>Servlet ManagerLogin</title>");
 			out.println("</head>");
 			out.println("<body>");
-			out.println("<h1>Servlet ProfileControler at " + request.getContextPath() + "</h1>");
+			out.println("<h1>Servlet ManagerLogin at " + request.getContextPath() + "</h1>");
 			out.println("</body>");
 			out.println("</html>");
 		}
@@ -66,33 +60,28 @@ public class ProfileControler extends HttpServlet {
 		Cookie[] cookies = request.getCookies();
 		Cookie loginCookie = null;
 		for (Cookie cookie : cookies) {
-			if (cookie.getName().equals("login")) {
+			if (cookie.getName().equals("manager")) {
 				loginCookie = cookie;
 			}
 		}
-		CustomerDAO customerDAO = new CustomerDAO();
-		Customer customer = null;
+
 		if (loginCookie != null) {
 			String username = JwtUtils.getUsernameFromToken(loginCookie.getValue());
-			customer = customerDAO.getCustomerByUsername(username);
-			if (customer == null) {
-				response.sendRedirect("/customerLogin");
-				return;
+			AdminDAO adminDAO = new AdminDAO();
+			Admin admin = adminDAO.getAdminByUsername(username);
+
+			StaffDAO staffDAO = new StaffDAO();
+			Staff staff = staffDAO.getStaffByUsername(username);
+
+			if (admin != null || staff != null) {
+				// to manager page
+				response.sendRedirect("/");
+			} else {
+				request.getRequestDispatcher("/managerLogin.jsp").forward(request, response);
 			}
 		} else {
-			response.sendRedirect("/customerLogin");
-			return;
+			request.getRequestDispatcher("/managerLogin.jsp").forward(request, response);
 		}
-
-		AddressDAO addressDAO = new AddressDAO();
-		if (customer == null) {
-			request.setAttribute("error", "Khong co du lieu");
-		} else {
-			Address address = addressDAO.getAddressnByCusId(customer.getCustomerId());
-			request.setAttribute("customer", customer);
-			request.setAttribute("address", address);
-		}
-		request.getRequestDispatcher("/myProfile.jsp").forward(request, response);
 	}
 
 	/**
@@ -106,7 +95,38 @@ public class ProfileControler extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		processRequest(request, response);
+
+		if (request.getParameter("btnManagerLogin") != null) {
+			String username = request.getParameter("username").toLowerCase();
+			String password = request.getParameter("password");
+
+			AdminDAO adminDAO = new AdminDAO();
+			Admin admin = adminDAO.checkLogin(username, password);
+			if (admin != null) {
+				String token = JwtUtils.generateToken(username);
+				Cookie cookie = new Cookie("manager", token);
+				cookie.setMaxAge(3 * 24 * 60 * 60);
+				cookie.setPath("/");
+				response.addCookie(cookie);
+				response.sendRedirect("/manager");
+				return;
+			}
+
+			StaffDAO staffDAO = new StaffDAO();
+			Staff staff = staffDAO.checkLogin(username, password);
+			if (staff != null) {
+				String token = JwtUtils.generateToken(username);
+				Cookie cookie = new Cookie("manager", token);
+				cookie.setMaxAge(3 * 24 * 60 * 60);
+				cookie.setPath("/");
+				response.addCookie(cookie);
+				response.sendRedirect("/manager");
+				return;
+			}
+
+			request.getSession().setAttribute("erorr", "Username and password incorrect");
+			response.sendRedirect("/managerLogin");
+		}
 	}
 
 	/**

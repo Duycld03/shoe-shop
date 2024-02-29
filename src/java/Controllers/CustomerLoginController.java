@@ -62,10 +62,17 @@ public class CustomerLoginController extends HttpServlet {
 				loginCookie = cookie;
 			}
 		}
-		if (loginCookie == null) {
-			request.getRequestDispatcher("/customerLogin.jsp").forward(request, response);
+		if (loginCookie != null) {
+			String username = JwtUtils.getUsernameFromToken(loginCookie.getValue());
+			CustomerDAO customerDAO = new CustomerDAO();
+			Customer customer = customerDAO.getCustomerByUsername(username);
+			if (customer != null) {
+				response.sendRedirect("/");
+			} else {
+				request.getRequestDispatcher("/customerLogin.jsp").forward(request, response);
+			}
 		} else {
-			response.sendRedirect("/");
+			request.getRequestDispatcher("/customerLogin.jsp").forward(request, response);
 		}
 
 	}

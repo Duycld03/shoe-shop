@@ -17,10 +17,14 @@ public class JwtUtils {
 	}
 
 	public static String getUsernameFromToken(String token) {
-		Claims claims = Jwts.parser()
-				.setSigningKey(SECRET_KEY)
-				.parseClaimsJws(token)
-				.getBody();
-		return claims.getSubject();
+		try {
+			Claims claims = Jwts.parser()
+					.setSigningKey(SECRET_KEY)
+					.parseClaimsJws(token)
+					.getBody();
+			return claims.getSubject();
+		} catch (Exception e) {
+			return "";
+		}
 	}
 }

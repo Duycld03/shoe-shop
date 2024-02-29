@@ -3,7 +3,7 @@
 
 <head>
     <%@include file="head.jsp" %>
-        <title>JSP Page</title>
+        <title>Login</title>
 </head>
 
 <body>
