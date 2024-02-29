@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 
 public class DBConnection {
 
+<<<<<<< HEAD
 	private static String server = "localhost";
 	private static String port = "1433";
 	private static String database = "ShoeStoreManagement";
@@ -15,6 +16,13 @@ public class DBConnection {
 	private static String password = "123456";
 
 
+=======
+	private static final String server = "localhost";
+	private static final String port = "1433";
+	private static final String database = "ShoeStoreManagement";
+	private static final String user = "sa";
+	private static final String password = "123";
+>>>>>>> b86d6d84ba2b95a1613cccae59d776024d26ca60
 
 	public static Connection getConnection() {
 		Connection conn = null;

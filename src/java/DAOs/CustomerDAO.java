@@ -105,7 +105,8 @@ public class CustomerDAO {
 			rs = ps.executeQuery();
 			if (rs.next()) {
 				Customer customer = new Customer(rs.getString("CustomerID"), rs.getString("UserName"),
-						rs.getString("Password"), email, rs.getString("FullName"), rs.getString("SocialID"), rs.getString("PhoneNumber"));
+						rs.getString("Password"), email, rs.getString("FullName"), rs.getString("SocialID"),
+						rs.getString("PhoneNumber"));
 				return customer;
 			}
 		} catch (SQLException ex) {
@@ -131,7 +132,7 @@ public class CustomerDAO {
 		}
 		return count;
 	}
-	//get Admins by ID
+	// get Admins by ID
 
 	public Customer getCustomerById(String id) {
 		String sql = "Select * from Customers where CustomerID = ?";
