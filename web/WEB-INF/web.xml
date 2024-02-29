@@ -52,6 +52,14 @@
         <servlet-name>LogoutController</servlet-name>
         <servlet-class>Controllers.LogoutController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LoadMoreController</servlet-name>
+        <servlet-class>Controllers.LoadMoreController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminManager</servlet-name>
+        <servlet-class>Controllers.AdminManager</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
         <url-pattern/>
@@ -104,9 +112,18 @@
         <servlet-name>LogoutController</servlet-name>
         <url-pattern>/logout</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoadMoreController</servlet-name>
+        <url-pattern>/loadMore</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminManager</servlet-name>
+        <url-pattern>/adminmanager</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
+    
 </web-app>

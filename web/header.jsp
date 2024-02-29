@@ -2,12 +2,12 @@
 <%@ page import="DAOs.CartDAO" %>
 <%@ page import="Models.Customer" %>
 <%
-	Customer customer = (Customer)request.getAttribute("customer");
-	if(customer != null){
-		CartDAO cartDAO = new CartDAO();
-		int productCount = cartDAO.getProductCountByCustomerId(customer.getCustomerId());
-		request.setAttribute("productCount", productCount);
-	}
+        Customer customer = (Customer)request.getAttribute("customer");
+        if(customer != null){
+                CartDAO cartDAO = new CartDAO();
+                int productCount = cartDAO.getProductCountByCustomerId(customer.getCustomerId());
+                request.setAttribute("productCount", productCount);
+        }
 	
 %>
 <header class="shadow-sm">
@@ -24,48 +24,48 @@
         </div>
         <div>
             <ul class="flex md:space-x-8 space-x-2 text-xs md:text-lg items-center">
-				<c:choose>
-					<c:when test="${customer != null}">
-						<li>
-							<a href="/profilecontroller" class="flex space-x-2 items-center">
-								<img src="assets/img/svg/profile_close_2.svg" alt="profile">
-								<span>${customer.username}</span>
-							</a>
-						</li>
-						<li class="relative">
-							<a href="Cart.jsp">
-								<img src="assets/img/svg/Cart.svg" alt="">
-								<span
-									class="absolute -top-1/4 -right-1/4 bg-[#FB7181] w-5 h-5 rounded-full text-[10px] flex justify-center items-center text-white">${productCount}</span>
-							</a>
-						</li>
-						<li class="hover:text-sky-400 transition-all duration-200">
-							<span>Hi, ${customer.fullname}</span>
-						</li>
-					</c:when>
-					<c:otherwise>
-						<li>
-							<a href="/profilecontroller" class="flex space-x-2 items-center">
-								<img src="assets/img/svg/profile_close_2.svg" alt="profile">
-								<span>My profile</span>
-							</a>
-						</li>
-						<li class="relative">
-							<a href="Cart.jsp">
-								<img src="assets/img/svg/Cart.svg" alt="">
-								<span
-									class="absolute -top-1/4 -right-1/4 bg-[#FB7181] w-5 h-5 rounded-full text-[10px] flex justify-center items-center text-white">0</span>
-							</a>
-						</li>
-						<li class="hover:text-sky-400 transition-all duration-200">
-							<a href="/signUp">Register</a>
-						</li>
-						<li class="hover:text-sky-400 transition-all duration-200">
-							<a href="/customerLogin">Login</a>
-						</li>
-					</c:otherwise>
-				</c:choose>
-                
+                <c:choose>
+                    <c:when test="${customer != null}">
+                        <li>
+                            <a href="/profilecontroller" class="flex space-x-2 items-center">
+                                <img src="assets/img/svg/profile_close_2.svg" alt="profile">
+                                <span>${customer.username}</span>
+                            </a>
+                        </li>
+                        <li class="relative">
+                            <a href="Cart.jsp">
+                                <img src="assets/img/svg/Cart.svg" alt="">
+                                <span
+                                    class="absolute -top-1/4 -right-1/4 bg-[#FB7181] w-5 h-5 rounded-full text-[10px] flex justify-center items-center text-white">${productCount}</span>
+                            </a>
+                        </li>
+                        <li class="hover:text-sky-400 transition-all duration-200">
+                            <span>Hi, ${customer.fullname}</span>
+                        </li>
+                    </c:when>
+                    <c:otherwise>
+                        <li>
+                            <a href="/profilecontroller" class="flex space-x-2 items-center">
+                                <img src="assets/img/svg/profile_close_2.svg" alt="profile">
+                                <span>My profile</span>
+                            </a>
+                        </li>
+                        <li class="relative">
+                            <a href="Cart.jsp">
+                                <img src="assets/img/svg/Cart.svg" alt="">
+                                <span
+                                    class="absolute -top-1/4 -right-1/4 bg-[#FB7181] w-5 h-5 rounded-full text-[10px] flex justify-center items-center text-white">0</span>
+                            </a>
+                        </li>
+                        <li class="hover:text-sky-400 transition-all duration-200">
+                            <a href="/signUp">Register</a>
+                        </li>
+                        <li class="hover:text-sky-400 transition-all duration-200">
+                            <a href="/customerLogin">Login</a>
+                        </li>
+                    </c:otherwise>
+                </c:choose>
+
                 <li>
                     <a href="#">
                         <img src="assets/img/svg/search-icon.svg" alt="">
@@ -87,7 +87,7 @@
                 <li class="text-[#40BFFF] hover:text-sky-400 transition-all duration-200"><a href="#">HOME</a></li>
                 <li class="hover:text-sky-400 transition-all duration-200"><a href="left_sidebar.jsp">MANAGER</a></li>
                 <li class="hover:text-sky-400 transition-all duration-200"><a href="/productFilter">SNEAKERS</a></li>
-                <li class="hover:text-sky-400 transition-all duration-200"><a href="#">BELT</a></li>
+                <li class="hover:text-sky-400 transition-all duration-200"><a href="productDetail.jsp">BELT</a></li>
                 <li class="hover:text-sky-400 transition-all duration-200"><a href="#">CONTACT</a></li>
             </ul>
         </div>

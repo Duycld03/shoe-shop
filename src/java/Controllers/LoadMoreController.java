@@ -1,29 +1,22 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package Controllers;
 
-import DAOs.AdminDAO;
-import DAOs.AddressDAO;
-import DAOs.CustomerDAO;
-import DAOs.StaffDAO;
-import Models.Customer;
-import Models.Address;
-import Utils.JwtUtils;
+import DAOs.ProductDAO;
+import Models.Product;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  *
- * @author Doan Thanh Phuc - CE170580
+ * @author Duy
  */
-public class ProfileControler extends HttpServlet {
+public class LoadMoreController extends HttpServlet {
 
 	/**
 	 * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,17 +30,24 @@ public class ProfileControler extends HttpServlet {
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
-		try ( PrintWriter out = response.getWriter()) {
-			/* TODO output your page here. You may use following sample code. */
-			out.println("<!DOCTYPE html>");
-			out.println("<html>");
-			out.println("<head>");
-			out.println("<title>Servlet ProfileControler</title>");
-			out.println("</head>");
-			out.println("<body>");
-			out.println("<h1>Servlet ProfileControler at " + request.getContextPath() + "</h1>");
-			out.println("</body>");
-			out.println("</html>");
+		String offset = request.getParameter("offset");
+		try {
+			int offsetCount = Integer.parseInt(offset);
+			ProductDAO productDAO = new ProductDAO();
+			List<Product> products = productDAO.getNext4Product(offsetCount);
+			int productCount = productDAO.getProductCount();
+
+			JsonObject jsonResponse = new JsonObject();
+			jsonResponse.add("products", new Gson().toJsonTree(products));
+			jsonResponse.addProperty("productCount", productCount);
+
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+			try ( PrintWriter out = response.getWriter()) {
+				response.getWriter().write(jsonResponse.toString());
+			}
+		} catch (NumberFormatException e) {
+			System.out.println(e.getMessage());
 		}
 	}
 
@@ -63,30 +63,7 @@ public class ProfileControler extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		Cookie[] cookies = request.getCookies();
-		Cookie loginCookie = null;
-		for (Cookie cookie : cookies) {
-			if (cookie.getName().equals("login")) {
-				loginCookie = cookie;
-			}
-		}
-		if (loginCookie == null) {
-			response.sendRedirect("/customerLogin");
-			return;
-		}
-
-		CustomerDAO customerDAO = new CustomerDAO();
-		AddressDAO addressDAO = new AddressDAO();
-		String username = JwtUtils.getUsernameFromToken(loginCookie.getValue());
-		Customer customer = customerDAO.getCustomerByUsername(username);
-		Address address = addressDAO.getAddressnByCusId(customer.getCustomerId());
-		if (customer == null) {
-			request.setAttribute("error", "Khong co du lieu");
-		} else {
-			request.setAttribute("customer", customer);
-			request.setAttribute("address", address);
-		}
-		request.getRequestDispatcher("/myProfile.jsp").forward(request, response);
+		processRequest(request, response);
 	}
 
 	/**

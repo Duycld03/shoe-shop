@@ -84,7 +84,8 @@ public class AdminDAO {
     }
 
     //add new admin
-    public void addAdmin(Admin c) {
+    public int addAdmin(Admin admin) {
+        int count = 0;
         String sql = "INSERT INTO [dbo].[Admins]\n"
                 + "           ([AdminID]\n"
                 + "           ,[UserName]\n"
@@ -95,17 +96,18 @@ public class AdminDAO {
                 + "     VALUES\n"
                 + "           (?,?,?,?,?,?)";
         try {
-            PreparedStatement st = conn.prepareCall(sql);
-            st.setString(1, c.getAdminId());
-            st.setString(2, c.getUsername());
-            st.setString(3, c.getPassword());
-            st.setString(4, c.getEmail());
-            st.setString(5, c.getFullname());
-            st.setString(6, c.getPhoneNumber());
-            st.executeUpdate();
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, admin.getAdminId());
+            ps.setString(2, admin.getUsername());
+            ps.setString(3, MD5.getMd5(admin.getPassword()));
+            ps.setString(4, admin.getEmail());
+            ps.setString(5, admin.getFullname());
+            ps.setString(6, admin.getPhoneNumber());
+            count = ps.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
         }
+        return count;
     }
 
     //delete Admin

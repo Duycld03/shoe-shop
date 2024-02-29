@@ -7,6 +7,7 @@ import java.util.List;
  * @author Duy
  */
 public class Product {
+
     private String productId;
     private String productName;
     private float price;
@@ -16,6 +17,9 @@ public class Product {
     private boolean isDeleted;
     private ProductImage primaryImage;
     private List<ProductImage> images;
+
+    public Product() {
+    }
 
     public Product(String productId, String productName, float price, float discount, String description,
             String brandId, boolean isDeleted, ProductImage primaryImage, List<ProductImage> images) {
