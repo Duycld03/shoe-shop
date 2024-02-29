@@ -14,7 +14,36 @@
                             window.location = "delete?staffId=" + order_id;
                         }
 
+<<<<<<< HEAD
                     }
+=======
+        </script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        <link rel="stylesheet" href="assets/css/icon.css">
+        <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+        <script src="assets/js/validation/jquery.min.js"></script>
+        <style>
+            img{
+                width: 200px;
+                height: 120px;
+            }
+        </style>
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+            }
+        </style>
+        <style>
+            body {
+                background-color: #fbfbfb;
+            }
+            @media (min-width: 991.98px) {
+                main {
+                    padding-left: 240px;
+                }
+            }
+>>>>>>> 9db89b55883b2794e22f8dd484d58de8e8b2810e
 
                 </script>
                 <link rel="stylesheet"
@@ -86,49 +115,22 @@
                         margin-left: auto;
                     }
 
-                    @media (min-width: 576px) {
-                        .container {
-                            max-width: 540px;
-                        }
-                    }
-
-                    @media (min-width: 768px) {
-                        .container {
-                            max-width: 972px;
-                        }
-                    }
-
-                    @media (min-width: 992px) {
-                        .container {
-                            max-width: 960px;
-                        }
-                    }
-
-                    @media (min-width: 1200px) {
-                        .container {
-                            max-width: 1140px;
-                        }
-                    }
-                </style>
-            </head>
-
-            <body>
-                <header>
-                    <jsp:include page="left_sidebar.jsp"></jsp:include>     
-
-                </header>
-                <main>
-                    <div class="container mt-3 pt-4">
-                        <div class="row" style="margin-bottom: 15px">
-                            <div class="col-sm-3 d-flex align-items-center">
-                                <h5 class="mb-0 text-left">
-                                    <strong>STAFF MANAGER</strong>
-                                </h5>
-                            </div>
-                            <div class="col-sm-9 text-right">
-                                <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i
-                                        class="material-icons">&#xE147;</i></a>
-                            </div>
+        </style>
+    </head>
+    <body>
+        <header>
+            <jsp:include page="left_sidebar.jsp"></jsp:include>
+            </header>
+            <main>
+                <div class="container mt-3 pt-4">
+                    <div class="row" style="margin-bottom: 15px">
+                        <div class="col-sm-3 d-flex align-items-center">
+                            <h5 class="mb-0 text-left">
+                                <strong>ADMIN MANAGER</strong>
+                            </h5>
+                        </div>
+                        <div class="col-sm-9 text-right">
+                            <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i></a>
                         </div>
                         <c:if test="${mess!=null }">
                             <div class="alert alert-success" role="alert">
@@ -209,16 +211,32 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group">
-                                        <label>Email</label>
-                                        <input name="email" type="email" class="form-control" required
-                                            pattern="[a-zA-Z0-9._%+-]+@gmail\.com$"
-                                            title="Email must be in the format example@gmail.com">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Phone Number</label>
-                                        <input name="phonenumber" type="tel" class="form-control" required
-                                            pattern="[0-9]{10}" title="Phone number must contain 10 digits">
+        <div id="addEmployeeModal" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form action="addstaffcontroller" method="post">
+                        <div class="modal-header">						
+                            <h4 class="modal-title">Add Staff</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        </div>
+                        <div class="modal-body">					
+                            <div class="form-group">
+                                <label>UserName</label>
+                                <input name="username" type="text" class="form-control" required pattern="[a-zA-Z]+" title="Username must contain only letters">
+                            </div>
+                            <div class="form-group">
+                                <label>FullName</label>
+                                <input name="Fullname" type="text" class="form-control" required pattern="[a-zA-Z ]+" title="Full Name cannot contain numbers or special characters">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Password</label>
+                                <div class="input-group">
+                                    <input name="password" id="password" type="password" class="form-control" required pattern=".{8,}" title="Password must be at least 8 characters">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                                            <i class="fa fa-eye-slash" aria-hidden="true"></i>
+                                        </button>
                                     </div>
                                 </div>
 

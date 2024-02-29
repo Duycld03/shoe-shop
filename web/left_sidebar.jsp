@@ -86,7 +86,7 @@
                         <a href="staffmanager" class="list-group-item list-group-item-action py-2 ripple">
                             <i class="fas fa-user-circle fa-fw me-3"></i><span>Staff manager</span>
                         </a>
-                        <a href="#" class="list-group-item list-group-item-action py-2 ripple">
+                        <a href="adminmanager" class="list-group-item list-group-item-action py-2 ripple">
                             <i class="fas fa-user-circle fa-fw me-3"></i><span>Admin manager</span>
                         </a>
                         <a href="#" class="list-group-item list-group-item-action py-2 ripple">
