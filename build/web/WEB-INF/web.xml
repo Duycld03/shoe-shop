@@ -68,6 +68,14 @@
         <servlet-name>AdminManager</servlet-name>
         <servlet-class>Controllers.AdminManager</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Checkout</servlet-name>
+        <servlet-class>VNPay.Checkout</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>VNPayReturn</servlet-name>
+        <servlet-class>VNPay.VNPayReturn</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>default</servlet-name>
         <url-pattern>*.css</url-pattern>
@@ -144,10 +152,17 @@
         <servlet-name>AdminManager</servlet-name>
         <url-pattern>/adminmanager</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Checkout</servlet-name>
+        <url-pattern>/checkout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VNPayReturn</servlet-name>
+        <url-pattern>/vnpayReturn</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
-    
 </web-app>
