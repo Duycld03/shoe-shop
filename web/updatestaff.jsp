@@ -12,10 +12,10 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-        <link rel="stylesheet" href="assets/js/validation/bootstrap.min.css">
-        <script src="assets/js/validation/jquery.min.js"></script>
-        <script src="assets/js/validation//manager.js" type="text/javascript"></script>
-        <script src="assets/js/validation/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="assets/css/icon.css">
+        <script src="assets/js/validation/manager.js" type="text/javascript"></script>
+        <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+        <%@include file="head.jsp" %>
     </head>
     <body>
         <div id="editEmployeeModal" class="modal fade">
@@ -69,40 +69,36 @@
                 </div>
             </div>
         </div>
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                var editEmployeeModal = document.getElementById("editEmployeeModal");
-                var closeModalButtons = document.querySelectorAll("#editEmployeeModal button.close, #editEmployeeModal button[data-dismiss='modal']");
-
-                closeModalButtons.forEach(function (button) {
-                    button.addEventListener("click", function () {
-                        // Đóng modal khi nút "X" hoặc "Cancel" được nhấn
-                        $("#editEmployeeModal").modal("hide");
-                        // Chuyển hướng về trang staffmanager
-                        window.location.href = "staffmanager";
+        <!--        <script src="assets/js/validation/jquery.min.js"></script>
+                <script src="assets/js/validation/bootstrap.min.js"></script>
+                <script>
+                    document.addEventListener("DOMContentLoaded", function () {
+                        var editEmployeeModal = document.getElementById("editEmployeeModal");
+                        var closeModalButtons = document.querySelectorAll("#editEmployeeModal button.close, #editEmployeeModal button[data-dismiss='modal']");
+        
+                        closeModalButtons.forEach(function (button) {
+                            button.addEventListener("click", function () {
+                                // Đóng modal khi nút "X" hoặc "Cancel" được nhấn
+                                $("#editEmployeeModal").modal("hide");
+                                // Chuyển hướng về trang staffmanager
+                                window.location.href = "staffmanager";
+                            });
+                        });
+        
                     });
-                });
-
-            });
-
-        </script>
-     <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        var togglePassword = document.getElementById("togglePassword");
-        var passwordInput = document.getElementById("password");
-        togglePassword.addEventListener("click", function () {
-            var type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
-            passwordInput.setAttribute("type", type);
-            this.querySelector("i").classList.toggle("fa-eye-slash");
-            this.querySelector("i").classList.toggle("fa-eye");
-        });
-    });
-</script>
-
-        <script>
-                    $(document).ready(function() {
-            $('#editEmployeeModal').modal('show');
-            });
-        </script>
+                    document.addEventListener("DOMContentLoaded", function () {
+                        var togglePassword = document.getElementById("togglePassword");
+                        var passwordInput = document.getElementById("password");
+                        togglePassword.addEventListener("click", function () {
+                            var type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+                            passwordInput.setAttribute("type", type);
+                            this.querySelector("i").classList.toggle("fa-eye-slash");
+                            this.querySelector("i").classList.toggle("fa-eye");
+                        });
+                    });
+                    $(document).ready(function () {
+                        $('#editEmployeeModal').modal('show');
+                    });
+                </script>-->
     </body>
 </html>

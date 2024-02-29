@@ -12,7 +12,7 @@ public class DBConnection {
 	private static final String port = "1433";
 	private static final String database = "ShoeStoreManagement";
 	private static final String user = "sa";
-	private static final String password = "123";
+	private static final String password = "12345";
 
 	public static Connection getConnection() {
 		Connection conn = null;

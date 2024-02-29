@@ -17,15 +17,15 @@ import java.util.logging.Logger;
  * @author Duy
  */
 public class AdminDAO {
-    
+
     private Connection conn;
     private PreparedStatement ps;
     private ResultSet rs;
-    
+
     public AdminDAO() {
         conn = DBConnection.getConnection();
     }
-    
+
     public Admin checkLogin(String username, String password) {
         String sql = "select * from Admins where UserName = ? and Password = ?";
         try {
@@ -76,7 +76,7 @@ public class AdminDAO {
                 Admin admin = new Admin(rs.getString("AdminID"), rs.getString("UserName"), rs.getString("Password"), rs.getString("Email"), rs.getString("FullName"), rs.getString("PhoneNumber"));
                 return admin;
             }
-            
+
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -84,7 +84,8 @@ public class AdminDAO {
     }
 
     //add new admin
-    public void addAdmin(Admin c) {
+    public int addAdmin(Admin c) {
+        int result = 0;
         String sql = "INSERT INTO [dbo].[Admins]\n"
                 + "           ([AdminID]\n"
                 + "           ,[UserName]\n"
@@ -102,10 +103,11 @@ public class AdminDAO {
             st.setString(4, c.getEmail());
             st.setString(5, c.getFullname());
             st.setString(6, c.getPhoneNumber());
-            st.executeUpdate();
+            result = st.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
         }
+        return result;
     }
 
     //delete Admin
@@ -144,7 +146,7 @@ public class AdminDAO {
         } catch (SQLException e) {
         }
     }
-    
+
     public int getAdminsCount() {
         int count = -1;
         String sql = "SELECT COUNT(*) AS AdminNumbers FROM Admins";
@@ -159,7 +161,7 @@ public class AdminDAO {
         }
         return count;
     }
-    
+
     public static void main(String[] args) {
         AdminDAO d = new AdminDAO();
         String adminID = "A002";

@@ -121,6 +121,7 @@ public class StaffDAO {
             System.out.println(e);
         }
     }
+
     public int add(Staff staff) {
         int count = 0;
         String sql = "INSERT INTO [dbo].[Staffs]\n"
@@ -194,6 +195,7 @@ public class StaffDAO {
         } catch (SQLException e) {
         }
     }
+
     public int update(Staff staff) {
         int count = 0;
         String sql = "UPDATE [dbo].[Staffs]\n"
@@ -234,31 +236,9 @@ public class StaffDAO {
     }
 
     public static void main(String[] args) {
-        //test add
-        // Tạo một đối tượng StaffDAO
-//        StaffDAO staffDAO = new StaffDAO();
-//
-//        // Tạo một đối tượng Staff để thêm vào cơ sở dữ liệu
-//        Staff staff = new Staff();
-//        staff.setStaffId("S001");
-//        staff.setUsername("john_doe");
-//        staff.setPassword("password123");
-//        staff.setEmail("john.doe@example.com");
-//        staff.setFullname("John Doe");
-//        staff.setPhoneNumber("123456789");
-//
-//        // Gọi phương thức addStaff
-//        int result = staffDAO.add(staff);
-//
-//        // Kiểm tra kết quả
-//        if (result > 0) {
-//            System.out.println("Thêm nhân viên thành công!");
-//        } else {
-//            System.out.println("Thêm nhân viên thất bại!");
-//        }
-        StaffDAO a = new StaffDAO();
-        List<Staff> l = a.getAllStaff();
-        System.out.println(l.get(0).getStaffId());
+        StaffDAO d = new StaffDAO();
+        Staff sa = d.getStaffById("ST1");
+        System.out.println(sa.getFullname());
     }
 
 }

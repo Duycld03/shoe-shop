@@ -10,7 +10,7 @@
     <head>
         <title>Page</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-        <link rel="stylesheet" href="assets/js/validation/bootstrap.min.css">
+        <link rel="stylesheet" href="assets/css/bootstrap.min.css">
         <script src="assets/js/validation/jquery.min.js"></script>
         <style>
             img{
@@ -65,13 +65,13 @@
                 overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
             }</style>
         <style>
-    #manager a {
-        font-size: 14px;
-    }
-    #manager span{
-        padding-left: 0.5rem;
-    }
-</style>
+            #manager a {
+                font-size: 14px;
+            }
+            #manager span{
+                padding-left: 0.5rem;
+            }
+        </style>
     </head>
     <body>
         <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white" style="padding: 0px;">
@@ -93,7 +93,7 @@
                             <i class="fas fa-user-circle fa-fw me-3"></i><span>Customer manager</span>
                         </a>
                     </div>
-                     <a href="" class="list-group-item list-group-item-action py-2 ripple">
+                    <a href="" class="list-group-item list-group-item-action py-2 ripple">
                         <i class="fas fa-shoe-prints fa-fw me-3"></i><span>Product manager</span>
                     </a>
                 </div>
