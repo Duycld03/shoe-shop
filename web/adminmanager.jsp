@@ -1,6 +1,6 @@
 <%-- 
-    Document   : staffmanager
-    Created on : Feb 26, 2024, 7:39:02 PM
+    Document   : adminmanager
+    Created on : Feb 29, 2024, 10:38:09 AM
     Author     : To Do Hong Y - CE171148
 --%>
 
@@ -13,8 +13,8 @@
         <title>JSP Page</title>
         <script type="text/javascript">
             function doDelete(order_id) {
-                if (confirm("Ban co chac chan xoa staff_id = " + order_id)) {
-                    window.location = "delete?staffId=" + order_id;
+                if (confirm("Ban co chac chan xoa adminId = " + order_id)) {
+                    window.location = "delete?adminId=" + order_id;
                 }
 
             }
@@ -118,7 +118,7 @@
                     <div class="row" style="margin-bottom: 15px">
                         <div class="col-sm-3 d-flex align-items-center">
                             <h5 class="mb-0 text-left">
-                                <strong>ADMIN MANAGER</strong>
+                                <strong>STAFF MANAGER</strong>
                             </h5>
                         </div>
                         <div class="col-sm-9 text-right">
@@ -144,7 +144,7 @@
                         </tr>
                     </thead>
                     <c:forEach items="${requestScope.data}" var="c">
-                        <c:set var="order_id" value="${c.staffId}" />
+                        <c:set var="order_id" value="${c.adminId}" />
                         <tr>
                             <td>${order_id}</td>
                             <td>${c.username}</td>
@@ -154,12 +154,12 @@
                             <td>${c.phoneNumber}</td>
                             <td>
                                 <div class="btn-group">
-                                    <button class="btn btn-warning" onclick="location.href = 'loadStaff?id=${c.staffId}'">
+                                    <button class="btn btn-warning" onclick="location.href = 'loadStaff?id=${c.adminId}'">
                                         <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
                                     </button>
 
                                     &nbsp;&nbsp;&nbsp;
-                                    <button class="btn btn-danger" onclick="doDelete('${c.staffId}')">
+                                    <button class="btn btn-danger" onclick="doDelete('${c.adminId}')">
                                         <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
                                     </button>
 
@@ -176,7 +176,7 @@
                 <div class="modal-content">
                     <form action="addstaffcontroller" method="post">
                         <div class="modal-header">						
-                            <h4 class="modal-title">Add Staff</h4>
+                            <h4 class="modal-title">Add Admin</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         </div>
                         <div class="modal-body">					

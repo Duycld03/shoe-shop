@@ -34,7 +34,8 @@ public class AdminDAO {
 			ps.setString(2, MD5.getMd5(password));
 			rs = ps.executeQuery();
 			if (rs.next()) {
-				Admin admin = new Admin(rs.getString("AdminID"), rs.getString("UserName"), rs.getString("Password"), rs.getString("Email"), rs.getString("FullName"), rs.getString("PhoneNumber"));
+				Admin admin = new Admin(rs.getString("AdminID"), rs.getString("UserName"), rs.getString("Password"),
+						rs.getString("Email"), rs.getString("FullName"), rs.getString("PhoneNumber"));
 				return admin;
 			}
 		} catch (SQLException ex) {
@@ -43,7 +44,34 @@ public class AdminDAO {
 		return null;
 	}
 
-	//read all from admins
+	// add new admin
+	public int addAdmin(Admin admin) {
+		int count = 0;
+		String sql = "INSERT INTO [dbo].[Admins]\n"
+				+ "           ([AdminID]\n"
+				+ "           ,[UserName]\n"
+				+ "           ,[Password]\n"
+				+ "           ,[Email]\n"
+				+ "           ,[FullName]\n"
+				+ "           ,[PhoneNumber])\n"
+				+ "     VALUES\n"
+				+ "           (?,?,?,?,?,?)";
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, admin.getAdminId());
+			ps.setString(2, admin.getUsername());
+			ps.setString(3, MD5.getMd5(admin.getPassword()));
+			ps.setString(4, admin.getEmail());
+			ps.setString(5, admin.getFullname());
+			ps.setString(6, admin.getPhoneNumber());
+			count = ps.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println(e);
+		}
+		return count;
+	}
+
+	// read all from admins
 	public List<Admin> getAllAdmins() {
 		List<Admin> list = new ArrayList<>();
 		String sql = "Select * from Admins";
@@ -53,7 +81,8 @@ public class AdminDAO {
 				PreparedStatement st = conn.prepareStatement(sql);
 				ResultSet rs = st.executeQuery();
 				while (rs.next()) {
-					Admin admin = new Admin(rs.getString("AdminID"), rs.getString("UserName"), rs.getString("Password"), rs.getString("Email"), rs.getString("FullName"), rs.getString("PhoneNumber"));
+					Admin admin = new Admin(rs.getString("AdminID"), rs.getString("UserName"), rs.getString("Password"),
+							rs.getString("Email"), rs.getString("FullName"), rs.getString("PhoneNumber"));
 					list.add(admin);
 				}
 			} else {
@@ -65,7 +94,7 @@ public class AdminDAO {
 		return list;
 	}
 
-	//get Admins by ID
+	// get Admins by ID
 	public Admin getAdminById(String id) {
 		String sql = "Select * from Admins where AdminID = ?";
 		try {
@@ -73,7 +102,8 @@ public class AdminDAO {
 			st.setString(1, id);
 			ResultSet rs = st.executeQuery();
 			if (rs.next()) {
-				Admin admin = new Admin(rs.getString("AdminID"), rs.getString("UserName"), rs.getString("Password"), rs.getString("Email"), rs.getString("FullName"), rs.getString("PhoneNumber"));
+				Admin admin = new Admin(rs.getString("AdminID"), rs.getString("UserName"), rs.getString("Password"),
+						rs.getString("Email"), rs.getString("FullName"), rs.getString("PhoneNumber"));
 				return admin;
 			}
 
@@ -83,32 +113,7 @@ public class AdminDAO {
 		return null;
 	}
 
-	//add new admin
-	public void addAdmin(Admin c) {
-		String sql = "INSERT INTO [dbo].[Admins]\n"
-				+ "           ([AdminID]\n"
-				+ "           ,[UserName]\n"
-				+ "           ,[Password]\n"
-				+ "           ,[Email]\n"
-				+ "           ,[FullName]\n"
-				+ "           ,[PhoneNumber])\n"
-				+ "     VALUES\n"
-				+ "           (?,?,?,?,?,?)";
-		try {
-			PreparedStatement st = conn.prepareCall(sql);
-			st.setString(1, c.getAdminId());
-			st.setString(2, c.getUsername());
-			st.setString(3, c.getPassword());
-			st.setString(4, c.getEmail());
-			st.setString(5, c.getFullname());
-			st.setString(6, c.getPhoneNumber());
-			st.executeUpdate();
-		} catch (SQLException e) {
-			System.out.println(e);
-		}
-	}
-
-	//delete Admin
+	// delete Admin
 	public Boolean deleteAdmin(String id) {
 		String sql = "DELETE FROM [dbo].[Admins]\n"
 				+ "      WHERE AdminID = ?";
@@ -123,7 +128,7 @@ public class AdminDAO {
 		return false;
 	}
 
-	//update staff
+	// update staff
 	public void updateAdmin(Admin c) {
 		String sql = "UPDATE [dbo].[Admins]\n"
 				+ "   SET [UserName] = ?\n"
@@ -167,7 +172,8 @@ public class AdminDAO {
 			ps.setString(1, username);
 			rs = ps.executeQuery();
 			if (rs.next()) {
-				Admin admin = new Admin(rs.getString("AdminID"), rs.getString("UserName"), rs.getString("Password"), rs.getString("Email"), rs.getString("FullName"), rs.getString("PhoneNumber"));
+				Admin admin = new Admin(rs.getString("AdminID"), rs.getString("UserName"), rs.getString("Password"),
+						rs.getString("Email"), rs.getString("FullName"), rs.getString("PhoneNumber"));
 				return admin;
 			}
 

@@ -12,7 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-        <link rel="stylesheet" href="assets/js/validation/bootstrap.min.css">
+        <link rel="stylesheet" href="assets/css/bootstrap.min.css">
         <script src="assets/js/validation/jquery.min.js"></script>
         <script src="assets/js/validation//manager.js" type="text/javascript"></script>
         <script src="assets/js/validation/bootstrap.min.js"></script>

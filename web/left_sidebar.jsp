@@ -10,7 +10,7 @@
     <head>
         <title>Page</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-        <link rel="stylesheet" href="assets/js/validation/bootstrap.min.css">
+        <link rel="stylesheet" href="assets/css/bootstrap.min.css">
         <script src="assets/js/validation/jquery.min.js"></script>
         <style>
             img{
@@ -86,7 +86,7 @@
                         <a href="staffmanager" class="list-group-item list-group-item-action py-2 ripple">
                             <i class="fas fa-user-circle fa-fw me-3"></i><span>Staff manager</span>
                         </a>
-                        <a href="#" class="list-group-item list-group-item-action py-2 ripple">
+                        <a href="adminmanager" class="list-group-item list-group-item-action py-2 ripple">
                             <i class="fas fa-user-circle fa-fw me-3"></i><span>Admin manager</span>
                         </a>
                         <a href="#" class="list-group-item list-group-item-action py-2 ripple">
