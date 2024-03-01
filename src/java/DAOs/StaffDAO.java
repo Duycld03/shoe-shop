@@ -121,44 +121,6 @@ public class StaffDAO {
             System.out.println(e);
         }
     }
-    public int add(Staff staff) {
-        int count = 0;
-        String sql = "INSERT INTO [dbo].[Staffs]\n"
-                + "           ([StaffID]\n"
-                + "           ,[UserName]\n"
-                + "           ,[Password]\n"
-                + "           ,[Email]\n"
-                + "           ,[FullName]\n"
-                + "           ,[PhoneNumber])\n"
-                + "     VALUES\n"
-                + "           (?,?,?,?,?,?)";
-        try {
-            ps = conn.prepareStatement(sql);
-            ps.setString(1, staff.getStaffId());
-            ps.setString(2, staff.getUsername());
-            ps.setString(3, MD5.getMd5(staff.getPassword()));
-            ps.setString(4, staff.getEmail());
-            ps.setString(5, staff.getFullname());
-            ps.setString(6, staff.getPhoneNumber());
-            count = ps.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(StaffDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return count;
-    }
-
-    //delete staff
-//    public void deleteStaff(String id) {
-//        String sql = "DELETE FROM [dbo].[Staffs]\n"
-//                + "      WHERE StaffID = ?";
-//        try {
-//            PreparedStatement st = conn.prepareStatement(sql);
-//            st.setString(1, id);
-//            st.executeUpdate();
-//        } catch (SQLException e) {
-//            System.out.println(e);
-//        }
-//    }
     public int delete(String staffId) {
         int ketqua = 0;
         String sql = "DELETE FROM [dbo].[Staffs]\n"
@@ -193,29 +155,6 @@ public class StaffDAO {
             st.executeUpdate();
         } catch (SQLException e) {
         }
-    }
-    public int update(Staff staff) {
-        int count = 0;
-        String sql = "UPDATE [dbo].[Staffs]\n"
-                + "   SET [UserName] = ?\n"
-                + "      ,[Password] = ?\n"
-                + "      ,[Email] = ?\n"
-                + "      ,[FullName] = ?\n"
-                + "      ,[PhoneNumber] = ?\n"
-                + " WHERE StaffID = ?";
-        try {
-            ps = conn.prepareStatement(sql);
-            ps.setString(1, staff.getUsername());
-            ps.setString(2, staff.getPassword());
-            ps.setString(3, staff.getEmail());
-            ps.setString(4, staff.getFullname());
-            ps.setString(5, staff.getPhoneNumber());
-            ps.setString(6, staff.getStaffId());
-            count = ps.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(StaffDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return count;
     }
 
     public int getStaffCount() {
