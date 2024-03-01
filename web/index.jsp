@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" %>
 	<!DOCTYPE html>
 	<html lang="en">
 
@@ -6,6 +7,7 @@
 		<%@include file="head.jsp" %>
 			<title>Home Page</title>
 			<script src="assets/js/homePage.js"></script>
+
 	</head>
 
 	<body>
@@ -155,6 +157,12 @@
 			</section> -->
 
 			<!-- footer -->
+			<c:if test="${sessionScope.checkoutSuccess != null}">
+				<script>
+					message("success", "Payment Success!", "Thank you for your purchase")
+				</script>
+				<% session.invalidate(); %>
+			</c:if>
 			<%@include file="footer.jsp" %>
 	</body>
 

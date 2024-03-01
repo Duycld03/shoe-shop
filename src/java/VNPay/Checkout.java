@@ -30,15 +30,15 @@ public class Checkout extends HttpServlet {
 	 * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
 	 * methods.
 	 *
-	 * @param request  servlet request
+	 * @param request servlet request
 	 * @param response servlet response
 	 * @throws ServletException if a servlet-specific error occurs
-	 * @throws IOException      if an I/O error occurs
+	 * @throws IOException if an I/O error occurs
 	 */
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
-		try (PrintWriter out = response.getWriter()) {
+		try ( PrintWriter out = response.getWriter()) {
 			/* TODO output your page here. You may use following sample code. */
 			out.println("<!DOCTYPE html>");
 			out.println("<html>");
@@ -57,10 +57,10 @@ public class Checkout extends HttpServlet {
 	/**
 	 * Handles the HTTP <code>GET</code> method.
 	 *
-	 * @param request  servlet request
+	 * @param request servlet request
 	 * @param response servlet response
 	 * @throws ServletException if a servlet-specific error occurs
-	 * @throws IOException      if an I/O error occurs
+	 * @throws IOException if an I/O error occurs
 	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -71,10 +71,10 @@ public class Checkout extends HttpServlet {
 	/**
 	 * Handles the HTTP <code>POST</code> method.
 	 *
-	 * @param request  servlet request
+	 * @param request servlet request
 	 * @param response servlet response
 	 * @throws ServletException if a servlet-specific error occurs
-	 * @throws IOException      if an I/O error occurs
+	 * @throws IOException if an I/O error occurs
 	 */
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -101,8 +101,12 @@ public class Checkout extends HttpServlet {
 		if (bankCode != null && !bankCode.isEmpty()) {
 			vnp_Params.put("vnp_BankCode", bankCode);
 		}
+
+		//from Cart page
+		String customerId = request.getParameter("customerId");
+
 		vnp_Params.put("vnp_TxnRef", vnp_TxnRef);
-		vnp_Params.put("vnp_OrderInfo", "Payment orders:" + vnp_TxnRef);
+		vnp_Params.put("vnp_OrderInfo", customerId);
 		vnp_Params.put("vnp_OrderType", orderType);
 
 		String locate = request.getParameter("language");
@@ -154,6 +158,7 @@ public class Checkout extends HttpServlet {
 		job.addProperty("code", "00");
 		job.addProperty("message", "success");
 		job.addProperty("data", paymentUrl);
+
 		Gson gson = new Gson();
 		response.getWriter().write(gson.toJson(job));
 	}
