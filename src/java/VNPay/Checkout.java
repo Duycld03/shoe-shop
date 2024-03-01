@@ -83,7 +83,7 @@ public class Checkout extends HttpServlet {
 		String vnp_Version = "2.1.0";
 		String vnp_Command = "pay";
 		String orderType = "other";
-		long amount = Integer.parseInt(request.getParameter("amount")) * 24500;
+		long amount = Integer.parseInt(request.getParameter("amount")) * 24500 * 100;
 		String bankCode = request.getParameter("bankCode");
 
 		String vnp_TxnRef = Config.getRandomNumber(8);
