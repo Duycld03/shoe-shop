@@ -1,25 +1,23 @@
-package Controllers;
+package VNPay;
 
-import DAOs.CartDAO;
-import DAOs.CustomerDAO;
-import DAOs.ProductDAO;
-import Models.Customer;
-import Models.Product;
-import Utils.JwtUtils;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
  * @author Duy
  */
-public class HomeController extends HttpServlet {
+public class VNPayReturn extends HttpServlet {
 
 	/**
 	 * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,10 +36,10 @@ public class HomeController extends HttpServlet {
 			out.println("<!DOCTYPE html>");
 			out.println("<html>");
 			out.println("<head>");
-			out.println("<title>Servlet HomeController</title>");
+			out.println("<title>Servlet VNPayReturn</title>");
 			out.println("</head>");
 			out.println("<body>");
-			out.println("<h1>Servlet HomeController at " + request.getContextPath() + "</h1>");
+			out.println("<h1>Servlet VNPayReturn at " + request.getContextPath() + "</h1>");
 			out.println("</body>");
 			out.println("</html>");
 		}
@@ -60,33 +58,48 @@ public class HomeController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		Cookie[] cookies = request.getCookies();
-		Cookie loginCookie = null;
-		for (Cookie cookie : cookies) {
-			if (cookie.getName().equals("login")) {
-				loginCookie = cookie;
-			}
-		}
-		if (loginCookie != null) {
-			String username = JwtUtils.getUsernameFromToken(loginCookie.getValue());
-			CustomerDAO customerDAO = new CustomerDAO();
-			Customer customer = customerDAO.getCustomerByUsername(username);
-			if (customer != null) {
-				request.setAttribute("customer", customer);
+
+		// Begin process return from VNPAY
+		Map fields = new HashMap();
+		for (Enumeration params = request.getParameterNames(); params.hasMoreElements();) {
+			String fieldName = URLEncoder.encode((String) params.nextElement(), StandardCharsets.US_ASCII.toString());
+			String fieldValue = URLEncoder.encode(request.getParameter(fieldName),
+					StandardCharsets.US_ASCII.toString());
+			if ((fieldValue != null) && (fieldValue.length() > 0)) {
+				fields.put(fieldName, fieldValue);
 			}
 		}
 
-		ProductDAO productDAO = new ProductDAO();
-		List<Product> top3DiscountedProduct = productDAO.getTop3DiscountedProduct();
-		request.setAttribute("top3DiscountedProduct", top3DiscountedProduct);
+		String vnp_SecureHash = request.getParameter("vnp_SecureHash");
+		if (fields.containsKey("vnp_SecureHashType")) {
+			fields.remove("vnp_SecureHashType");
+		}
+		if (fields.containsKey("vnp_SecureHash")) {
+			fields.remove("vnp_SecureHash");
+		}
+		String signValue = Config.hashAllFields(fields);
 
-		List<Product> top8Product = productDAO.getTop8Product();
-		request.setAttribute("top8Product", top8Product);
+		// check signature
+		if (signValue.equals(vnp_SecureHash)) {
+			String amount = request.getParameter("vnp_Amount");
+			String orderInfo = request.getParameter("vnp_OrderInfo");
+			String resCode = request.getParameter("vnp_ResponseCode");
+			String transactionNo = request.getParameter("vnp_TransactionNo");
+			String bankCode = request.getParameter("vnp_BankCode");
+			String payDate = request.getParameter("vnp_PayDate");
 
-		List<Product> top3BestSeller = productDAO.getTop3BestSeller();
-		request.setAttribute("top3BestSeller", top3BestSeller);
+			Gson gson = new Gson();
+			if ("00".equals(request.getParameter("vnp_TransactionStatus"))) {
+				System.out.println("Thành công");
+				response.getWriter().write(gson.toJson(request.getParameterMap()));
+			} else {
+				System.out.println("Không thành công");
+				response.getWriter().write(gson.toJson(request.getParameterMap()));
+			}
 
-		request.getRequestDispatcher("index.jsp").forward(request, response);
+		} else {
+			System.out.println("invalid signature");
+		}
 	}
 
 	/**
@@ -100,6 +113,7 @@ public class HomeController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		processRequest(request, response);
 	}
 
 	/**

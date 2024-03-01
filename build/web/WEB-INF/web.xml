@@ -57,9 +57,33 @@
         <servlet-class>Controllers.LoadMoreController</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>ManagerLoginController</servlet-name>
+        <servlet-class>Controllers.ManagerLoginController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManagerController</servlet-name>
+        <servlet-class>Controllers.ManagerController</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>AdminManager</servlet-name>
         <servlet-class>Controllers.AdminManager</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Checkout</servlet-name>
+        <servlet-class>VNPay.Checkout</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>VNPayReturn</servlet-name>
+        <servlet-class>VNPay.VNPayReturn</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.css</url-pattern>
+        <url-pattern>*.js</url-pattern>
+        <url-pattern>*.jpg</url-pattern>
+        <url-pattern>*.png</url-pattern>
+        <url-pattern>*.svg</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
         <url-pattern/>
@@ -78,7 +102,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>StaffManager</servlet-name>
-        <url-pattern>/staffmanager</url-pattern>
+        <url-pattern>/staffmanager/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GoogleRegisterController</servlet-name>
@@ -117,13 +141,28 @@
         <url-pattern>/loadMore</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>ManagerLoginController</servlet-name>
+        <url-pattern>/managerLogin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManagerController</servlet-name>
+        <url-pattern>/manager</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>AdminManager</servlet-name>
         <url-pattern>/adminmanager</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Checkout</servlet-name>
+        <url-pattern>/checkout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VNPayReturn</servlet-name>
+        <url-pattern>/vnpayReturn</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
-    
 </web-app>

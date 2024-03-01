@@ -4,7 +4,7 @@
 
 	<head>
 		<%@include file="head.jsp" %>
-			<title>Document</title>
+			<title>Home Page</title>
 			<script src="assets/js/homePage.js"></script>
 	</head>
 

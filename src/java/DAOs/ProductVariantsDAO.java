@@ -79,11 +79,20 @@ public class ProductVariantsDAO {
         return null;
     }
 
-    public static void main(String[] args) {
-        ProductVariantsDAO d = new ProductVariantsDAO();
-        List<ProductVariant> list = d.getVariantByProID("P1");
-        for (ProductVariant p : list) {
-            System.out.println(p.getVariantId());
+    //Delect Product Variant
+    public int delectVariantByProID(String ProductID) {
+        int result = 0;
+        String sql = "DELETE FROM [dbo].[ProductVariants]\n"
+                + "      WHERE ProductID = ?";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, ProductID);
+            result = ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(CartDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return result;
     }
+
+   
 }
