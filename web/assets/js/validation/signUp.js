@@ -1,9 +1,9 @@
 function validForm() {
-    let password = document.querySelector("#password")
-    let confirmPassword = document.querySelector("#confirmPassword")
+    let password = document.querySelector("#password").value
+    let confirmPassword = document.querySelector("#confirmPassword").value
 
     if (password !== confirmPassword) {
-        alert("Confirm Password incorrect")
+        message("warning", "Confirm Password incorrect")
         return false
     }
     return true

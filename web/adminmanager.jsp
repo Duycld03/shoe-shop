@@ -12,9 +12,9 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <script type="text/javascript">
-            function doDelete(order_id) {
-                if (confirm("Ban co chac chan xoa adminId = " + order_id)) {
-                    window.location = "delete?adminId=" + order_id;
+            function doDelete(admin_id) {
+                if (confirm("Are you sure delete adminId = " + admin_id + "?")) {
+                    window.location = "deleteAdmin?adminId=" + admin_id;
                 }
 
             }
@@ -118,7 +118,7 @@
                     <div class="row" style="margin-bottom: 15px">
                         <div class="col-sm-3 d-flex align-items-center">
                             <h5 class="mb-0 text-left">
-                                <strong>STAFF MANAGER</strong>
+                                <strong>ADMIN MANAGER</strong>
                             </h5>
                         </div>
                         <div class="col-sm-9 text-right">
@@ -154,11 +154,6 @@
                             <td>${c.phoneNumber}</td>
                             <td>
                                 <div class="btn-group">
-                                    <button class="btn btn-warning" onclick="location.href = 'loadStaff?id=${c.adminId}'">
-                                        <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
-                                    </button>
-
-                                    &nbsp;&nbsp;&nbsp;
                                     <button class="btn btn-danger" onclick="doDelete('${c.adminId}')">
                                         <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
                                     </button>
@@ -174,7 +169,7 @@
         <div id="addEmployeeModal" class="modal fade">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form action="addstaffcontroller" method="post">
+                    <form action="addadmincontroller" method="post">
                         <div class="modal-header">						
                             <h4 class="modal-title">Add Admin</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>

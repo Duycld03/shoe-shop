@@ -1,25 +1,21 @@
 package Controllers;
 
-import DAOs.CartDAO;
 import DAOs.CustomerDAO;
-import DAOs.ProductDAO;
 import Models.Customer;
-import Models.Product;
 import Utils.JwtUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
  * @author Duy
  */
-public class HomeController extends HttpServlet {
+public class ResetPasswordController extends HttpServlet {
 
 	/**
 	 * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,17 +34,16 @@ public class HomeController extends HttpServlet {
 			out.println("<!DOCTYPE html>");
 			out.println("<html>");
 			out.println("<head>");
-			out.println("<title>Servlet HomeController</title>");
+			out.println("<title>Servlet ResetPasswordController</title>");
 			out.println("</head>");
 			out.println("<body>");
-			out.println("<h1>Servlet HomeController at " + request.getContextPath() + "</h1>");
+			out.println("<h1>Servlet ResetPasswordController at " + request.getContextPath() + "</h1>");
 			out.println("</body>");
 			out.println("</html>");
 		}
 	}
 
-	// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the
-	// + sign on the left to edit the code.">
+	// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 	/**
 	 * Handles the HTTP <code>GET</code> method.
 	 *
@@ -60,33 +55,28 @@ public class HomeController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		Cookie[] cookies = request.getCookies();
-		Cookie loginCookie = null;
-		for (Cookie cookie : cookies) {
-			if (cookie.getName().equals("login")) {
-				loginCookie = cookie;
-			}
-		}
-		if (loginCookie != null) {
-			String username = JwtUtils.getContentFromToken(loginCookie.getValue());
+		String token = request.getParameter("token");
+		String otp = JwtUtils.getContentFromToken(token);
+		HttpSession session = request.getSession();
+		try {
+			String resetOtp = (String) session.getAttribute("resetOtp");
+			String resetEmail = (String) session.getAttribute("resetEmail");
+
 			CustomerDAO customerDAO = new CustomerDAO();
-			Customer customer = customerDAO.getCustomerByUsername(username);
-			if (customer != null) {
-				request.setAttribute("customer", customer);
+			Customer customer = customerDAO.getByEmail(resetEmail);
+			if (customer == null) {
+				response.sendRedirect("/");
+				return;
 			}
+			if (resetOtp.equals(otp)) {
+				request.getRequestDispatcher("/resetPassword.jsp").forward(request, response);
+			} else {
+				response.sendRedirect("/");
+			}
+		} catch (Exception e) {
+			response.sendRedirect("/");
 		}
-
-		ProductDAO productDAO = new ProductDAO();
-		List<Product> top3DiscountedProduct = productDAO.getTop3DiscountedProduct();
-		request.setAttribute("top3DiscountedProduct", top3DiscountedProduct);
-
-		List<Product> top8Product = productDAO.getTop8Product();
-		request.setAttribute("top8Product", top8Product);
-
-		List<Product> top3BestSeller = productDAO.getTop3BestSeller();
-		request.setAttribute("top3BestSeller", top3BestSeller);
-
-		request.getRequestDispatcher("index.jsp").forward(request, response);
+		session.removeAttribute("resetOtp");
 	}
 
 	/**
@@ -100,6 +90,32 @@ public class HomeController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		if (request.getParameter("btnReset") != null) {
+			String newPassword = request.getParameter("newPassword");
+
+			HttpSession session = request.getSession();
+			try {
+				String resetEmail = (String) session.getAttribute("resetEmail");
+				CustomerDAO customerDAO = new CustomerDAO();
+				Customer customer = customerDAO.getByEmail(resetEmail);
+				if (customer != null) {
+					customer.setPassword(newPassword);
+					int result = customerDAO.update(customer);
+					if (result >= 1) {
+						session.removeAttribute("resetEmail");
+						session.setAttribute("success", "Reset Password successful!");
+						response.sendRedirect("/customerLogin");
+					} else {
+						session.setAttribute("error", "Reset Password failed!");
+						response.sendRedirect("/customerLogin");
+					}
+				}
+			} catch (Exception e) {
+				response.sendRedirect("/");
+			}
+
+		}
+
 	}
 
 	/**

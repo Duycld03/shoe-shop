@@ -1,12 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package Controllers;
 
-import Auth.UserGoogleDto;
 import DAOs.CustomerDAO;
 import Models.Customer;
+import Models.Email;
+import Utils.EmailUtils;
+import Utils.JwtUtils;
+import VNPay.Config;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,12 +13,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Duy
  */
-public class GoogleRegisterController extends HttpServlet {
+public class ForgotPasswordController extends HttpServlet {
 
 	/**
 	 * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,10 +39,10 @@ public class GoogleRegisterController extends HttpServlet {
 			out.println("<!DOCTYPE html>");
 			out.println("<html>");
 			out.println("<head>");
-			out.println("<title>Servlet GoogleRegisterController</title>");
+			out.println("<title>Servlet ForgotPasswordController</title>");
 			out.println("</head>");
 			out.println("<body>");
-			out.println("<h1>Servlet GoogleRegisterController at " + request.getContextPath() + "</h1>");
+			out.println("<h1>Servlet ForgotPasswordController at " + request.getContextPath() + "</h1>");
 			out.println("</body>");
 			out.println("</html>");
 		}
@@ -59,11 +60,7 @@ public class GoogleRegisterController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		if (request.getSession().getAttribute("user") != null) {
-			request.getRequestDispatcher("/googleRegister.jsp").forward(request, response);
-		} else {
-			response.sendRedirect("/");
-		}
+		request.getRequestDispatcher("/forgotPassword.jsp").forward(request, response);
 	}
 
 	/**
@@ -78,28 +75,41 @@ public class GoogleRegisterController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		if (request.getParameter("btnRegister") != null) {
-			UserGoogleDto user = (UserGoogleDto) request.getSession().getAttribute("user");
-			String username = request.getParameter("username").toLowerCase();
-			String password = request.getParameter("password");
-			String phoneNumber = request.getParameter("phoneNumber");
+		if (request.getParameter("btnForgot") != null) {
+			String forgotEmail = request.getParameter("forgotEmail");
 
 			CustomerDAO customerDAO = new CustomerDAO();
-			if (customerDAO.customerExist(username, username, phoneNumber) != null) {
-				session.setAttribute("error", "Customer already exists");
-				response.sendRedirect("/googleRegister");
-				return;
-			}
-			String customerId = "Cus" + (customerDAO.getCustomerCount() + 1);
-			Customer customer = new Customer(customerId, username, password, user.getEmail(), user.getName(), user.getId(), phoneNumber);
-			int result = customerDAO.add(customer);
-			if (result >= 1) {
-				session.removeAttribute("user");
-				session.setAttribute("success", "Google register successful!");
-				response.sendRedirect("/customerLogin");
+			Customer customer = customerDAO.getByEmail(forgotEmail);
+			if (customer != null) {
+				String otp = Config.getRandomNumber(5);
+				session.setAttribute("resetOtp", otp);
+				session.setAttribute("resetEmail", forgotEmail);
+				String resetToken = JwtUtils.generateToken(otp);
+				String url = "http://localhost:8080/resetPassword?token=" + resetToken;
+				try {
+					Email email = new Email();
+					email.setTo(forgotEmail);
+					email.setSubject("Reset Your Password");
+					StringBuilder sb = new StringBuilder();
+					sb.append("Dear ").append(customer.getFullname()).append("<br>");
+					sb.append("You are receiving this email because you requested to reset your password for your account on Shoes Store. <br> ");
+					sb.append("Please click on the link below to reset your password:. <br> ");
+					sb.append(url + ". <br> ");
+					sb.append("If you did not request to reset your password, you can safely ignore this email. Your account will remain unaffected.. <br> ");
+					sb.append("Thank you,. <br> ");
+					sb.append("Shoes Store.");
+					email.setContent(sb.toString());
+					EmailUtils.send(email);
+					session.setAttribute("success", "Send Mail Sucessful!");
+					response.sendRedirect("/customerLogin");
+				} catch (Exception ex) {
+					Logger.getLogger(ForgotPasswordController.class.getName()).log(Level.SEVERE, null, ex);
+					session.setAttribute("error", "Send Mail failed!");
+					response.sendRedirect("/forgotPassword");
+				}
 			} else {
-				session.setAttribute("error", "Google register failed!");
-				response.sendRedirect("/googleRegister");
+				session.setAttribute("error", "Email does not exist!");
+				response.sendRedirect("/forgotPassword");
 			}
 		}
 	}

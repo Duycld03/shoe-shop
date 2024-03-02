@@ -66,7 +66,7 @@ public class ManagerLoginController extends HttpServlet {
 		}
 
 		if (loginCookie != null) {
-			String username = JwtUtils.getUsernameFromToken(loginCookie.getValue());
+			String username = JwtUtils.getContentFromToken(loginCookie.getValue());
 			AdminDAO adminDAO = new AdminDAO();
 			Admin admin = adminDAO.getAdminByUsername(username);
 
@@ -124,7 +124,7 @@ public class ManagerLoginController extends HttpServlet {
 				return;
 			}
 
-			request.getSession().setAttribute("erorr", "Username and password incorrect");
+			request.getSession().setAttribute("error", "Username and password incorrect");
 			response.sendRedirect("/managerLogin");
 		}
 	}

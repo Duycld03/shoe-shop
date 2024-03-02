@@ -89,6 +89,7 @@ public class test extends HttpServlet {
 //		String token = JwtUtils.generateToken("duycld03");
 //		System.out.println(token);
 //		System.out.println(JwtUtils.getUsernameFromToken(token));
+		System.out.println(cDAO.getCustomerByPhoneNumber("0988309190"));
 
 		System.out.println(cDAO.getCustomerCount());
 	}

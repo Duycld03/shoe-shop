@@ -76,6 +76,26 @@
         <servlet-name>VNPayReturn</servlet-name>
         <servlet-class>VNPay.VNPayReturn</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DeleteStaffController</servlet-name>
+        <servlet-class>Controllers.DeleteStaffController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddAdminController</servlet-name>
+        <servlet-class>Controllers.AddAdminController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteAdmin</servlet-name>
+        <servlet-class>Controllers.DeleteAdmin</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ForgotPasswordController</servlet-name>
+        <servlet-class>Controllers.ForgotPasswordController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ResetPasswordController</servlet-name>
+        <servlet-class>Controllers.ResetPasswordController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>default</servlet-name>
         <url-pattern>*.css</url-pattern>
@@ -102,7 +122,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>StaffManager</servlet-name>
-        <url-pattern>/staffmanager/*</url-pattern>
+        <url-pattern>/staffmanager</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GoogleRegisterController</servlet-name>
@@ -159,6 +179,26 @@
     <servlet-mapping>
         <servlet-name>VNPayReturn</servlet-name>
         <url-pattern>/vnpayReturn</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteStaffController</servlet-name>
+        <url-pattern>/deleteStaff</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddAdminController</servlet-name>
+        <url-pattern>/addadmincontroller</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteAdmin</servlet-name>
+        <url-pattern>/deleteAdmin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ForgotPasswordController</servlet-name>
+        <url-pattern>/forgotPassword</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ResetPasswordController</servlet-name>
+        <url-pattern>/resetPassword</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

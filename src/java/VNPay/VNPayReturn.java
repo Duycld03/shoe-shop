@@ -82,24 +82,26 @@ public class VNPayReturn extends HttpServlet {
         // check signature
         if (signValue.equals(vnp_SecureHash)) {
             String amount = request.getParameter("vnp_Amount");
-            String orderInfo = request.getParameter("vnp_OrderInfo");
+            String customerId = request.getParameter("vnp_OrderInfo");
             String resCode = request.getParameter("vnp_ResponseCode");
             String transactionNo = request.getParameter("vnp_TransactionNo");
             String bankCode = request.getParameter("vnp_BankCode");
             String payDate = request.getParameter("vnp_PayDate");
-            
-             
-            Gson gson = new Gson();
-            if ("00".equals(request.getParameter("vnp_TransactionStatus"))) {
-                System.out.println("Thành công");
-                response.getWriter().write(gson.toJson(request.getParameterMap()));
-            } else {
-                System.out.println("Không thành công");
-                response.getWriter().write(gson.toJson(request.getParameterMap()));
+            int amountDraw = 0;
+            try {
+                amountDraw = Integer.parseInt(amount) / (24500 * 100);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
 
-        } else {
-            System.out.println("invalid signature");
+            if ("00".equals(request.getParameter("vnp_TransactionStatus"))) {
+                System.out.println("Thành công");
+                request.getSession().setAttribute("checkoutSuccess", "success");
+                response.sendRedirect("/");
+            } else {
+                request.getSession().setAttribute("error", "erorr");
+                // chuyen ve cart page
+            }
         }
     }
 
@@ -116,15 +118,5 @@ public class VNPayReturn extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 
 }

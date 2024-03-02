@@ -47,7 +47,8 @@ public class SignUpController extends HttpServlet {
 		}
 	}
 
-	// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+	// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the
+	// + sign on the left to edit the code.">
 	/**
 	 * Handles the HTTP <code>GET</code> method.
 	 *
@@ -68,7 +69,7 @@ public class SignUpController extends HttpServlet {
 		}
 
 		if (loginCookie != null) {
-			String username = JwtUtils.getUsernameFromToken(loginCookie.getValue());
+			String username = JwtUtils.getContentFromToken(loginCookie.getValue());
 			CustomerDAO customerDAO = new CustomerDAO();
 			Customer customer = customerDAO.getCustomerByUsername(username);
 			if (customer != null) {
@@ -93,7 +94,7 @@ public class SignUpController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		HttpSession sesstion = request.getSession();
+		HttpSession session = request.getSession();
 		if (request.getParameter("btnSignUp") != null) {
 			String fullname = request.getParameter("fullname");
 			String email = request.getParameter("email");
@@ -107,14 +108,29 @@ public class SignUpController extends HttpServlet {
 
 			boolean verify = VerifyRecaptcha.verify(recaptcha);
 			if (!verify) {
-				sesstion.setAttribute("error", "Recaptcha verification failed");
+				session.setAttribute("error", "Recaptcha verification failed");
 				response.sendRedirect("/signUp");
 				return;
 			}
 
 			CustomerDAO customerDAO = new CustomerDAO();
-			if (customerDAO.customerExist(email, username, phoneNumber) != null) {
-				sesstion.setAttribute("error", "Customer already exists");
+//			if (customerDAO.customerExist(email, username, phoneNumber) != null) {
+//				session.setAttribute("error", "Customer already exists");
+//				response.sendRedirect("/signUp");
+//				return;
+//			}
+			if (customerDAO.getByEmail(email) != null) {
+				session.setAttribute("error", "Email already exists!");
+				response.sendRedirect("/signUp");
+				return;
+			}
+			if (customerDAO.getCustomerByPhoneNumber(phoneNumber) != null) {
+				session.setAttribute("error", "Phone number already exists!");
+				response.sendRedirect("/signUp");
+				return;
+			}
+			if (customerDAO.getCustomerByUsername(username) != null) {
+				session.setAttribute("error", "Username already exists!");
 				response.sendRedirect("/signUp");
 				return;
 			}
@@ -128,15 +144,15 @@ public class SignUpController extends HttpServlet {
 				Address address = new Address(addressId, city, addressDetail, customerId, true);
 				int addressResult = addressDAO.add(address);
 				if (addressResult >= 1) {
-					System.out.println("add address successful");
+					session.setAttribute("success", "Sign in successful!");
 					response.sendRedirect("/customerLogin");
 				} else {
-					System.out.println("add address failed");
+					session.setAttribute("error", "Sign in failed!");
 					response.sendRedirect("/signUp");
 				}
 
 			} else {
-				System.out.println("add customer failed");
+				session.setAttribute("error", "Sign in failed!");
 				response.sendRedirect("/signUp");
 			}
 		}

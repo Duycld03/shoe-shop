@@ -35,18 +35,18 @@
                                     </div>
                                     <div class="form-group">
                                         <label>UserName</label>
-                                        <input name="username" type="text" class="form-control" required
+                                        <input name="username" type="text" class="form-control" value="${c.username}" required
                                             pattern="[a-zA-Z]+" title="Username must contain only letters">
                                     </div>
                                     <div class="form-group">
                                         <label>FullName</label>
-                                        <input name="Fullname" type="text" class="form-control" required
+                                        <input name="Fullname" type="text" value="${c.fullname}" class="form-control" required
                                             pattern="[a-zA-Z ]+" title="Full Name cannot contain numbers">
                                     </div>
                                     <div class="form-group">
                                         <label>Password</label>
                                         <div class="input-group">
-                                            <input name="password" id="password" type="password" class="form-control"
+                                            <input name="password" id="password" value="${c.password}" type="password" class="form-control"
                                                 required pattern=".{8,}" title="Password must be at least 8 characters">
                                             <div class="input-group-append">
                                                 <button class="btn btn-outline-secondary" type="button"
@@ -59,13 +59,13 @@
 
                                     <div class="form-group">
                                         <label>Email</label>
-                                        <input name="email" type="email" class="form-control" required
+                                        <input name="email" type="email" class="form-control" value="${c.email}" required
                                             pattern="[a-zA-Z0-9._%+-]+@gmail\.com$"
                                             title="Email must be in the format example@gmail.com">
                                     </div>
                                     <div class="form-group">
                                         <label>Phone Number</label>
-                                        <input name="phonenumber" type="tel" class="form-control" required
+                                        <input name="phonenumber" type="tel" class="form-control" value="${c.phoneNumber}" required
                                             pattern="[0-9]{10}" title="Phone number must contain 10 digits">
                                     </div>
                                 </div>

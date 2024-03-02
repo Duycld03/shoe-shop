@@ -9,9 +9,9 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <script type="text/javascript">
-            function doDelete(order_id) {
-                if (confirm("Ban co chac chan xoa staff_id = " + order_id)) {
-                    window.location = "delete?staffId=" + order_id;
+            function doDelete(staff_id) {
+                if (confirm("Are you sure delete staff_id = " + staff_id + "?")) {
+                    window.location = "deleteStaff?staffId=" + staff_id;
                 }
 
             }
@@ -98,7 +98,11 @@
                     <div class="row" style="margin-bottom: 15px">
                         <div class="col-sm-3 d-flex align-items-center">
                             <h5 class="mb-0 text-left">
+<<<<<<< HEAD
                                 <strong>ADMIN MANAGER</strong>
+=======
+                                <strong>STAFF MANAGER</strong>
+>>>>>>> 803b07310cda2578b3f5387318597704a03dfd77
                             </h5>
                         </div>
                         <div class="col-sm-9 text-right">
@@ -134,9 +138,16 @@
                                 <td>${c.phoneNumber}</td>
                                 <td>
                                     <div class="btn-group">
+<<<<<<< HEAD
                                         <button class="btn btn-warning" onclick="location.href = 'loadStaff?id=${c.staffId}'">
                                             <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
                                         </button>
+=======
+                                    <button class="btn btn-warning" onclick="location.href = 'loadStaff?id=${c.staffId}'">
+                                        <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+                                    </button>
+
+>>>>>>> 803b07310cda2578b3f5387318597704a03dfd77
                                         &nbsp;&nbsp;&nbsp;
                                         <button class="btn btn-danger" onclick="doDelete('${c.staffId}')">
                                             <i class="material-icons" data-toggle="tooltip"
@@ -184,6 +195,7 @@
                                     </div>
                                 </div>
                             </div>
+<<<<<<< HEAD
 
                             <div id="addEmployeeModal" class="modal fade">
                                 <div class="modal-dialog">
@@ -238,32 +250,64 @@
                                         document.addEventListener("DOMContentLoaded", function () {
                                             var closeModalButton = document.querySelector("button.close");
                                             var cancelButton = document.querySelector(".modal-footer button[data-dismiss='modal']");
+=======
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input name="email" type="email" class="form-control" required
+                                       pattern="[a-zA-Z0-9._%+-]+@gmail\.com$"
+                                       title="Email must be in the format example@gmail.com">
+                            </div>
+                            <div class="form-group">
+                                <label>Phone Number</label>
+                                <input name="phonenumber" type="tel" class="form-control" required
+                                       pattern="[0-9]{10}" title="Phone number must contain 10 digits">
+                            </div>
+                            <div class="modal-footer">  
+                                <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                                <input type="submit" class="btn btn-success" value="Add">
+                            </div>
 
-                                            closeModalButton.addEventListener("click", function () {
-                                                // Đóng modal khi nút "X" được nhấn
-                                                $("#addEmployeeModal").modal("hide");
-                                            });
 
-                                            cancelButton.addEventListener("click", function () {
-                                                // Đóng modal khi nút "Cancel" được nhấn
-                                                $("#addEmployeeModal").modal("hide");
-                                            });
-                                        });
-                                        document.addEventListener("DOMContentLoaded", function () {
-                                            var togglePassword = document.getElementById("togglePassword");
-                                            var passwordInput = document.getElementById("password");
+                            <script>
+                                document.addEventListener("DOMContentLoaded", function () {
+                                    var closeModalButton = document.querySelector("button.close");
+                                    var cancelButton = document.querySelector(".modal-footer button[data-dismiss='modal']");
+>>>>>>> 803b07310cda2578b3f5387318597704a03dfd77
 
-                                            togglePassword.addEventListener("click", function () {
-                                                var type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
-                                                passwordInput.setAttribute("type", type);
-                                                this.querySelector("i").classList.toggle("fa-eye-slash");
-                                                this.querySelector("i").classList.toggle("fa-eye");
-                                            });
-                                        });
+                                    closeModalButton.addEventListener("click", function () {
+                                        // Đóng modal khi nút "X" được nhấn
+                                        $("#addEmployeeModal").modal("hide");
+                                    });
 
+                                    cancelButton.addEventListener("click", function () {
+                                        // Đóng modal khi nút "Cancel" được nhấn
+                                        $("#addEmployeeModal").modal("hide");
+                                    });
+                                });
+                                document.addEventListener("DOMContentLoaded", function () {
+                                    var togglePassword = document.getElementById("togglePassword");
+                                    var passwordInput = document.getElementById("password");
+
+                                    togglePassword.addEventListener("click", function () {
+                                        var type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+                                        passwordInput.setAttribute("type", type);
+                                        this.querySelector("i").classList.toggle("fa-eye-slash");
+                                        this.querySelector("i").classList.toggle("fa-eye");
+                                    });
+                                });
+
+<<<<<<< HEAD
                                     </script>
                                     <script src="assets/js/validation//manager.js" type="text/javascript"></script>
                                     <script src="assets/js/validation/bootstrap.min.js"></script>
                                     </body>
 
                                     </html>
+=======
+                            </script>
+                            <script src="assets/js/validation//manager.js" type="text/javascript"></script>
+                            <script src="assets/js/validation/bootstrap.min.js"></script>
+                            </body>
+
+                            </html>
+>>>>>>> 803b07310cda2578b3f5387318597704a03dfd77

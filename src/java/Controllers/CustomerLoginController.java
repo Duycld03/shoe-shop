@@ -43,7 +43,8 @@ public class CustomerLoginController extends HttpServlet {
 		}
 	}
 
-	// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+	// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the
+	// + sign on the left to edit the code.">
 	/**
 	 * Handles the HTTP <code>GET</code> method.
 	 *
@@ -63,7 +64,7 @@ public class CustomerLoginController extends HttpServlet {
 			}
 		}
 		if (loginCookie != null) {
-			String username = JwtUtils.getUsernameFromToken(loginCookie.getValue());
+			String username = JwtUtils.getContentFromToken(loginCookie.getValue());
 			CustomerDAO customerDAO = new CustomerDAO();
 			Customer customer = customerDAO.getCustomerByUsername(username);
 			if (customer != null) {
@@ -102,19 +103,11 @@ public class CustomerLoginController extends HttpServlet {
 				response.addCookie(cookie);
 				response.sendRedirect("/");
 			} else {
-				request.getSession().setAttribute("erorr", "Username and password incorrect");
+				request.getSession().setAttribute("error", "Username and password incorrect");
 				response.sendRedirect("/customerLogin");
 			}
 		}
 
-//		if (request.getParameter("btnStaffLogin") != null) {
-		//staff login handler
-//			return;
-//		}
-//		if (request.getParameter("btnAdminLogin") != null) {
-		//Admin login handler
-//			return;
-//		}
 	}
 
 	/**

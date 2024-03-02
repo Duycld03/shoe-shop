@@ -21,7 +21,11 @@
                 $.ajax({
                     type: "POST",
                     url: "/checkout",
-                    data: {amount: 100},
+                    data: {
+						amount: 100,
+						customerId: "Cus1"
+					},
+
                     dataType: 'JSON',
                     success: function (x) {
                         if (x.code === '00') {

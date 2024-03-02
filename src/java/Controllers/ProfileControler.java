@@ -73,7 +73,7 @@ public class ProfileControler extends HttpServlet {
 		CustomerDAO customerDAO = new CustomerDAO();
 		Customer customer = null;
 		if (loginCookie != null) {
-			String username = JwtUtils.getUsernameFromToken(loginCookie.getValue());
+			String username = JwtUtils.getContentFromToken(loginCookie.getValue());
 			customer = customerDAO.getCustomerByUsername(username);
 			if (customer == null) {
 				response.sendRedirect("/customerLogin");

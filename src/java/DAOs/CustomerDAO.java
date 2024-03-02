@@ -97,21 +97,6 @@ public class CustomerDAO {
         return count;
     }
 
-    public int getCustomerCount() {
-        int count = -1;
-        String sql = "SELECT COUNT(*) AS CustomerCount FROM customers";
-        try {
-            ps = conn.prepareStatement(sql);
-            rs = ps.executeQuery();
-            if (rs.next()) {
-                return rs.getInt("CustomerCount");
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return count;
-    }
-
     public Customer getByEmail(String email) {
         String sql = "select * from Customers where email = ?";
         try {
@@ -130,13 +115,45 @@ public class CustomerDAO {
         return null;
     }
 
+    public int getCustomerCount() {
+        int count = -1;
+        String sql = "SELECT COUNT(*) AS CustomerCount FROM customers";
+        try {
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("CustomerCount");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return count;
+    }
+
+    public Customer getCustomerByPhoneNumber(String phoneNumber) {
+        String sql = "select * from Customers where PhoneNumber = ?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, phoneNumber);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                Customer customer = new Customer(rs.getString("CustomerID"), rs.getString("UserName"),
+                        rs.getString("Password"), rs.getString("Email"), rs.getString("FullName"), rs.getString("SocialID"), phoneNumber);
+                return customer;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
     public int update(Customer customer) {
         int count = 0;
         String sql = "update Customers set UserName = ?, Password = ?, Email = ?, FullName = ?, SocialID =? where CustomerID = ?";
         try {
             ps = conn.prepareStatement(sql);
             ps.setString(1, customer.getUsername());
-            ps.setString(2, customer.getPassword());
+            ps.setString(2, MD5.getMd5(customer.getPassword()));
             ps.setString(3, customer.getEmail());
             ps.setString(4, customer.getFullname());
             ps.setString(5, customer.getSocialId());
@@ -149,6 +166,7 @@ public class CustomerDAO {
     }
     // get Admins by ID
 
+    // get Admins by ID
     public Customer getCustomerById(String id) {
         String sql = "Select * from Customers where CustomerID = ?";
         try {

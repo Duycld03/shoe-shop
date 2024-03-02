@@ -21,7 +21,7 @@
                     <input type="password" name="password" id="password" placeholder="Password"
 						   class="w-full px-4 py-3 rounded-md focus:dark:border-violet-400" required>
                     <div class="flex justify-end text-xs">
-                        <a rel="noopener noreferrer" href="#" class="text-[#40BFFF] font-bold hover:underline">Forgot
+                        <a rel="noopener noreferrer" href="/forgotPassword" class="text-[#40BFFF] font-bold hover:underline">Forgot
                             Password?</a>
                     </div>
                 </div>

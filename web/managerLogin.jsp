@@ -36,5 +36,17 @@
             </form>
             
         </div>
+		<c:if test="${sessionScope.error != null}">
+			<script>
+				message("error", "${sessionScope.error}")
+			</script>
+			<% session.removeAttribute("error");%>
+		</c:if>
+		<c:if test="${sessionScope.success != null}">
+			<script>
+				message("success", "${sessionScope.success}")
+			</script>
+			<% session.removeAttribute("success");%>
+		</c:if>
     </body>
 </html>
