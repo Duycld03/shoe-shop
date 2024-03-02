@@ -9,9 +9,9 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <script type="text/javascript">
-            function doDelete(order_id) {
-                if (confirm("Are you sure delete staff_id = " + order_id)) {
-                    window.location = "deleteStaff?staffId=" + order_id;
+            function doDelete(staff_id) {
+                if (confirm("Are you sure delete staff_id = " + staff_id + "?")) {
+                    window.location = "deleteStaff?staffId=" + staff_id;
                 }
 
             }

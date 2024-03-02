@@ -80,6 +80,14 @@
         <servlet-name>DeleteStaffController</servlet-name>
         <servlet-class>Controllers.DeleteStaffController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddAdminController</servlet-name>
+        <servlet-class>Controllers.AddAdminController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteAdmin</servlet-name>
+        <servlet-class>Controllers.DeleteAdmin</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>default</servlet-name>
         <url-pattern>*.css</url-pattern>
@@ -167,6 +175,14 @@
     <servlet-mapping>
         <servlet-name>DeleteStaffController</servlet-name>
         <url-pattern>/deleteStaff</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddAdminController</servlet-name>
+        <url-pattern>/addadmincontroller</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteAdmin</servlet-name>
+        <url-pattern>/deleteAdmin</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

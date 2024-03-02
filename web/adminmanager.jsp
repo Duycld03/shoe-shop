@@ -12,9 +12,9 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <script type="text/javascript">
-            function doDelete(order_id) {
-                if (confirm("Ban co chac chan xoa adminId = " + order_id)) {
-                    window.location = "delete?adminId=" + order_id;
+            function doDelete(admin_id) {
+                if (confirm("Are you sure delete adminId = " + admin_id + "?")) {
+                    window.location = "deleteAdmin?adminId=" + admin_id;
                 }
 
             }
@@ -154,11 +154,6 @@
                             <td>${c.phoneNumber}</td>
                             <td>
                                 <div class="btn-group">
-                                    <button class="btn btn-warning" onclick="location.href = 'loadStaff?id=${c.adminId}'">
-                                        <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
-                                    </button>
-
-                                    &nbsp;&nbsp;&nbsp;
                                     <button class="btn btn-danger" onclick="doDelete('${c.adminId}')">
                                         <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
                                     </button>
