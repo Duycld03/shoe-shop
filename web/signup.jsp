@@ -7,7 +7,7 @@
         <%@include file="head.jsp" %>
         <script src="https://www.google.com/recaptcha/api.js" async defer></script>
         <script src="assets/js/validation/signUp.js"></script>
-        <title>JSP Page</title>
+        <title>Sign Up</title>
     </head>
     <body>
         <%@include file="header.jsp" %>
@@ -16,12 +16,12 @@
             <form action="/signUp" method="POST" onsubmit="return validForm()" class="space-y-6">
                 <div class="space-y-1 text-sm">
                     <label for="Fullname" class="block">Fullname</label>
-                    <input type="text" name="fullname" id="fullname" placeholder="Fullname"
+                    <input type="text" name="fullname" id="fullname" placeholder="Fullname" minlength="5" maxlength="50"
                            class="w-full px-4 py-3 rounded-md focus:dark:border-violet-400" required>
                 </div>
                 <div class="space-y-1 text-sm">
-                    <label for="emal" class="block">Email</label>
-                    <input type="email" name="email" id="email" placeholder="Email"
+                    <label for="email" class="block">Email</label>
+                    <input type="email" name="email" id="email" placeholder="Email" maxlength="50"
                            class="w-full px-4 py-3 rounded-md focus:dark:border-violet-400" required>
                 </div>
                 <div class="space-y-1 text-sm">
@@ -32,23 +32,23 @@
                 </div>
                 <div class="space-y-1 text-sm">
                     <label for="username" class="block">Username</label>
-                    <input type="text" name="username" id="username" placeholder="Username"
+                    <input type="text" name="username" id="username" placeholder="Username" minlength="5" maxlength="50"
                            class="w-full px-4 py-3 rounded-md focus:dark:border-violet-400" required>
                 </div>
                 <div class="space-y-1 text-sm">
                     <label for="password" class="block">password</label>
-                    <input type="password" name="password" id="password" placeholder="Password"
+                    <input type="password" name="password" id="password" placeholder="Password" minlength="5" maxlength="50"
                            class="w-full px-4 py-3 rounded-md focus:dark:border-violet-400" required>
                 </div>
                 <div class="space-y-1 text-sm">
                     <label for="confirmPassword" class="block">Confirm Password</label>
-                    <input type="password" name="confirmPassword" id="confirmPassword"
+                    <input type="password" name="confirmPassword" id="confirmPassword" minlength="5" maxlength="50"
                            placeholder="Confirm Password"
                            class="w-full px-4 py-3 rounded-md focus:dark:border-violet-400" required>
                 </div>
                 <div class="space-y-1 text-sm">
                     <label for="city" class="block">Your City</label>
-                    <input type="text" name="city" id="city" placeholder="Your City"
+                    <input type="text" name="city" id="city" placeholder="Your City" minlength="2" maxlength="50"
                            class="w-full px-4 py-3 rounded-md focus:dark:border-violet-400" required>
                 </div>
                 <div class="space-y-1 text-sm">
@@ -58,8 +58,7 @@
                 </div>
                 <div class="g-recaptcha" data-sitekey="6LdYbLYZAAAAAOrln1pQOTOAUGDKZhfwVoZnMYr3"></div>
                 <button name="btnSignUp"
-                        class="block w-full p-3 text-center rounded-sm text-[#FFFFFF] font-bold bg-[#40BFFF] hover:bg-[#BCDDFE]">Sign
-                    up</button>
+                        class="block w-full p-3 text-center rounded-sm text-[#FFFFFF] font-bold bg-[#40BFFF] hover:bg-[#BCDDFE]">Sign up</button>
             </form>
 
 
@@ -70,80 +69,12 @@
             </p>
         </div>
         <%@include file="footer.jsp" %>
-        <!-- <script>
-                document.addEventListener('DOMContentLoaded', function () {
-                        const form = document.querySelector('form');
-                        form.addEventListener('submit', function (event) {
-                                event.preventDefault(); // Ng?n ch?n vi?c g?i form ?i ?? th?c hi?n ki?m tra tr??ng h?p
-                                let errors = [];
-
-                                const username = document.getElementById('username').value.trim();
-                                const fullname = document.getElementById('fullname').value.trim();
-                                const phonenumber = document.getElementById('phonenumber').value.trim();
-                                const youremail = document.getElementById('youremail').value.trim();
-                                const city = document.getElementById('city').value.trim();
-                                const addressdetail = document.getElementById('addressdetail').value.trim();
-                                const password = document.getElementById('password').value;
-                                const passwordagain = document.getElementById('passwordagain').value;
-
-                                // Ki?m tra c�c tr??ng d? li?u n?u r?ng
-                                if (username === '') {
-                                        errors.push('Please enter your username.');
-                                }
-                                if (fullname === '') {
-                                        errors.push('Please enter your fullname.');
-                                }
-                                if (phonenumber === '') {
-                                        errors.push('Please enter your phone number.');
-                                }
-                                if (youremail === '') {
-                                        errors.push('Please enter your email.');
-                                }
-                                if (city === '') {
-                                        errors.push('Please enter your city.');
-                                }
-                                if (addressdetail === '') {
-                                        errors.push('Please enter your address detail.');
-                                }
-                                if (password === '') {
-                                        errors.push('Please enter your password.');
-                                }
-                                if (passwordagain === '') {
-                                        errors.push('Please re-enter your password.');
-                                }
-                                let errors = [];
-
-                                const phoneNumber = document.getElementById('phonenumber').value.trim();
-
-                                // Ki?m tra s? ?i?n tho?i v?i bi?u th?c ch�nh quy
-                                const phoneRegex = /^\d{10}$/; // ?�y l� m?t v� d? bi?u th?c ch�nh quy cho s? ?i?n tho?i 10 ch? s?
-
-                                if (!phoneRegex.test(phoneNumber)) {
-                                        errors.push('Please enter a valid phone number.');
-                                }
-
-                                // Hi?n th? th�ng b�o l?i n?u c�
-                                if (errors.length > 0) {
-                                        alert(errors.join('\n'));
-                                } else {
-                                        // N?u kh�ng c� l?i, g?i form ?i
-                                        form.submit();
-                                }
-                                // Ki?m tra xem m?t kh?u c� kh?p nhau kh�ng
-                                if (password !== passwordagain) {
-                                        errors.push('Passwords do not match.');
-                                }
-
-                                // Hi?n th? th�ng b�o l?i n?u c�
-                                if (errors.length > 0) {
-                                        alert(errors.join('\n'));
-                                } else {
-                                        // N?u kh�ng c� l?i, g?i form ?i
-                                        form.submit();
-                                }
-                        });
-                });
-        </script> -->
+		<c:if test="${sessionScope.error != null}">
+			<script>
+				message("error", "${sessionScope.error}")
+			</script>
+			<% session.removeAttribute("error");%>
+		</c:if>
     </body>
 
 </html>
