@@ -12,7 +12,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -147,5 +150,21 @@ public class AddressDAO {
         return result;
     }
 
+        public static void main(String[] args) {
+        String inputString = "20240301155429";
+        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+
+        try {
+            Date date = inputFormat.parse(inputString);
+
+            // Định dạng lại ngày theo định dạng mới nếu cần
+            SimpleDateFormat outputFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            String formattedDate = outputFormat.format(date);
+
+            System.out.println("Ngày đã chuyển đổi: " + formattedDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

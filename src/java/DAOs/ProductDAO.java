@@ -1,8 +1,10 @@
 package DAOs;
 
 import DBConnection.DBConnection;
+import Models.Admin;
 import Models.Product;
 import Models.ProductImage;
+import Utils.MD5;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.print.attribute.standard.MediaSize;
 
 /**
  *
@@ -163,14 +166,6 @@ public class ProductDAO {
         return products;
     }
 
-    public static void main(String[] args) {
-        ProductDAO d = new ProductDAO();
-        List<Product> L = d.getTop4RelatePro("Br2");
-        for (Product product : L) {
-            System.out.println(product.getProductId());
-        }
-    }
-
     public List<Product> getTop8Product() {
         List<Product> products = new ArrayList<>();
         String sql = "select top(8) * from products p inner join ProductImages i on p.ProductID = i.ProductID where p.isDeleted = 0 and i.isPrimary = 1";
@@ -261,6 +256,102 @@ public class ProductDAO {
             Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+
+    public List<Product> searchProductByName(String name) {
+        List<Product> products = new ArrayList<>();
+        String sql = "select * from Products p\n"
+                + "inner join ProductImages i on p.ProductID = i.ProductID\n"
+                + "where 1 = 1 and p.isDeleted = 0 and i.IsPrimary = 1";
+        if (!name.equals("")) {
+            sql += " AND ProductName LIKE '%" + name + "%'";
+        }
+        try {
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                ProductImage productImage = new ProductImage(rs.getString("ImageID"), rs.getString("ImageURL"), true,
+                        rs.getString("ProductID"));
+                Product product = new Product(rs.getString("ProductID"), rs.getString("ProductName"),
+                        rs.getFloat("Price"), rs.getFloat("Discount"), rs.getString("Description"),
+                        rs.getString("BrandID"), false, productImage);
+                products.add(product);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return products;
+    }
+
+    public boolean checkProNameExit(String proName) {
+        String sql = "Select * from Products\n"
+                + "where ProductName = ?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, proName);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+        } catch (Exception e) {
+        }
+        return false;
+    }
+
+    // add new admin
+    public boolean addProduct(Product pro) {
+        String sql = "INSERT INTO [dbo].[Products] "
+                + "([ProductID], [ProductName], [Price], [Discount], [Description], [isDeleted], [BrandID]) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+        ProductDAO d = new ProductDAO();
+        BrandDAO br = new BrandDAO();
+
+        try ( PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, (pro.getProductId() != null) ? pro.getProductId() : "default_value");
+
+            if (!d.checkProNameExit(pro.getProductName())) {
+                ps.setString(2, pro.getProductName());
+            } else {
+                return false;
+            }
+
+            if (pro.getPrice() < 1) {
+                return false;
+            } else {
+                ps.setFloat(3, pro.getPrice());
+            }
+
+            if (pro.getDiscount() < 0) {
+                return false;
+            } else {
+                ps.setFloat(4, pro.getDiscount());
+            }
+
+            ps.setString(5, pro.getDescription());
+            ps.setBoolean(6, false);
+
+            // Kiểm tra và gán BrandId
+            ps.setString(7, (pro.getBrandId() != null) ? pro.getBrandId() : "default_brand_value");
+
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            // Ghi log hoặc xử lý ngoại lệ theo yêu cầu của bạn
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public static void main(String[] args) {
+        ProductDAO d = new ProductDAO();
+        Product newP = new Product("P24", "", 0, 0, "", "", false);
+        if (d.addProduct(newP) == true) {
+            System.out.println("succes");
+        } else {
+            System.out.println("false");
+        }
+
     }
 
 }
