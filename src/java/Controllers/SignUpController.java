@@ -114,8 +114,23 @@ public class SignUpController extends HttpServlet {
 			}
 
 			CustomerDAO customerDAO = new CustomerDAO();
-			if (customerDAO.customerExist(email, username, phoneNumber) != null) {
-				session.setAttribute("error", "Customer already exists");
+//			if (customerDAO.customerExist(email, username, phoneNumber) != null) {
+//				session.setAttribute("error", "Customer already exists");
+//				response.sendRedirect("/signUp");
+//				return;
+//			}
+			if (customerDAO.getByEmail(email) != null) {
+				session.setAttribute("error", "Email already exists!");
+				response.sendRedirect("/signUp");
+				return;
+			}
+			if (customerDAO.getCustomerByPhoneNumber(phoneNumber) != null) {
+				session.setAttribute("error", "Phone number already exists!");
+				response.sendRedirect("/signUp");
+				return;
+			}
+			if (customerDAO.getCustomerByUsername(username) != null) {
+				session.setAttribute("error", "Username already exists!");
 				response.sendRedirect("/signUp");
 				return;
 			}

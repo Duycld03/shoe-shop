@@ -115,6 +115,23 @@ public class CustomerDAO {
 		return null;
 	}
 
+	public Customer getCustomerByPhoneNumber(String phoneNumber) {
+		String sql = "select * from Customers where PhoneNumber = ?";
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, phoneNumber);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				Customer customer = new Customer(rs.getString("CustomerID"), rs.getString("UserName"),
+						rs.getString("Password"), rs.getString("Email"), rs.getString("FullName"), rs.getString("SocialID"), phoneNumber);
+				return customer;
+			}
+		} catch (SQLException ex) {
+			Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		return null;
+	}
+
 	public int update(Customer customer) {
 		int count = 0;
 		String sql = "update Customers set UserName = ?, Password = ?, Email = ?, FullName = ?, SocialID =? where CustomerID = ?";
