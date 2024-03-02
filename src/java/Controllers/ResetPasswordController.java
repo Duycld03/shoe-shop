@@ -76,6 +76,7 @@ public class ResetPasswordController extends HttpServlet {
 		} catch (Exception e) {
 			response.sendRedirect("/");
 		}
+		session.removeAttribute("resetOtp");
 	}
 
 	/**
@@ -101,10 +102,10 @@ public class ResetPasswordController extends HttpServlet {
 					customer.setPassword(newPassword);
 					int result = customerDAO.update(customer);
 					if (result >= 1) {
+						session.removeAttribute("resetEmail");
 						session.setAttribute("success", "Reset Password successful!");
 						response.sendRedirect("/customerLogin");
 					} else {
-
 						session.setAttribute("error", "Reset Password failed!");
 						response.sendRedirect("/customerLogin");
 					}
