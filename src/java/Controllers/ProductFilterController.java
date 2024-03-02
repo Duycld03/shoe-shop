@@ -64,7 +64,7 @@ public class ProductFilterController extends HttpServlet {
 		}
 
 		if (loginCookie != null) {
-			String username = JwtUtils.getUsernameFromToken(loginCookie.getValue());
+			String username = JwtUtils.getContentFromToken(loginCookie.getValue());
 			CustomerDAO customerDAO = new CustomerDAO();
 			Customer customer = customerDAO.getCustomerByUsername(username);
 			request.setAttribute("customer", customer);

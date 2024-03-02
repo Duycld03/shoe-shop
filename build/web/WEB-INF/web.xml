@@ -88,6 +88,14 @@
         <servlet-name>DeleteAdmin</servlet-name>
         <servlet-class>Controllers.DeleteAdmin</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ForgotPasswordController</servlet-name>
+        <servlet-class>Controllers.ForgotPasswordController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ResetPasswordController</servlet-name>
+        <servlet-class>Controllers.ResetPasswordController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>default</servlet-name>
         <url-pattern>*.css</url-pattern>
@@ -183,6 +191,14 @@
     <servlet-mapping>
         <servlet-name>DeleteAdmin</servlet-name>
         <url-pattern>/deleteAdmin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ForgotPasswordController</servlet-name>
+        <url-pattern>/forgotPassword</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ResetPasswordController</servlet-name>
+        <url-pattern>/resetPassword</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

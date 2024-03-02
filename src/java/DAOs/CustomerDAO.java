@@ -121,7 +121,7 @@ public class CustomerDAO {
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, customer.getUsername());
-			ps.setString(2, customer.getPassword());
+			ps.setString(2, MD5.getMd5(customer.getPassword()));
 			ps.setString(3, customer.getEmail());
 			ps.setString(4, customer.getFullname());
 			ps.setString(5, customer.getSocialId());

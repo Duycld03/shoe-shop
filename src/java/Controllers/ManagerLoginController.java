@@ -66,7 +66,7 @@ public class ManagerLoginController extends HttpServlet {
 		}
 
 		if (loginCookie != null) {
-			String username = JwtUtils.getUsernameFromToken(loginCookie.getValue());
+			String username = JwtUtils.getContentFromToken(loginCookie.getValue());
 			AdminDAO adminDAO = new AdminDAO();
 			Admin admin = adminDAO.getAdminByUsername(username);
 
