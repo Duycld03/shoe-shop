@@ -185,12 +185,30 @@ public class OrderDAO {
         return total;
     }
 
+    public int updateOrderbyStaffID(String staffID) {
+        int count = 0;
+        String sql = "UPDATE orders\n"
+                + "SET staffid = NULL\n"
+                + "WHERE staffid = ?;";
+        try {
+            PreparedStatement st = conn.prepareCall(sql);
+            st.setString(1, staffID);
+           count = st.executeUpdate();
+        } catch (SQLException e) {
+        }
+        return count;
+    }
+
     public static void main(String[] args) {
         OrderDAO d = new OrderDAO();
+        String id = "ST3";
+        int result = d.updateOrderbyStaffID(id);
+        if(result >= 1){
+            System.out.println("Thanh cong");
+        }
+        
 
-        String oderID = "Order004";
-        String oderStaus = "Processing";
-        d.updateOrderStatus(oderID, oderStaus);
+        
     }
 
 }

@@ -174,7 +174,7 @@
         <div id="addEmployeeModal" class="modal fade">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form action="addstaffcontroller" method="post">
+                    <form action="addadmincontroller" method="post">
                         <div class="modal-header">						
                             <h4 class="modal-title">Add Admin</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>

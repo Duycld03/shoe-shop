@@ -4,8 +4,8 @@
  */
 package Controllers;
 
+import DAOs.OrderDAO;
 import DAOs.StaffDAO;
-import Models.Staff;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -17,7 +17,7 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author To Do Hong Y - CE171148
  */
-public class UpdateStaffController extends HttpServlet {
+public class DeleteStaffController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,10 +36,10 @@ public class UpdateStaffController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet UpdateStaffController</title>");
+            out.println("<title>Servlet DeleteStaffController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet UpdateStaffController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet DeleteStaffController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -57,11 +57,13 @@ public class UpdateStaffController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String id_raw = request.getParameter("id");
-        StaffDAO sDAO = new StaffDAO();
-        Staff s = sDAO.getStaffById(id_raw);
-        request.setAttribute("category", s);
-        request.getRequestDispatcher("updatestaff.jsp").forward(request, response);
+        String id_raw = request.getParameter("staffId");
+        OrderDAO oderDao = new OrderDAO();
+        oderDao.updateOrderbyStaffID(id_raw);
+        StaffDAO staffDAO = new StaffDAO();
+        staffDAO.delete(id_raw);
+        response.sendRedirect("staffmanager");
+        
     }
 
     /**
@@ -75,18 +77,7 @@ public class UpdateStaffController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String id_raw = request.getParameter("id");
-        String susername = request.getParameter("username");
-        String sfullname = request.getParameter("Fullname");
-        String spassword = request.getParameter("password");
-        String semail = request.getParameter("email");
-        String sphonenumber = request.getParameter("phonenumber");
-        StaffDAO staffDAO = new StaffDAO();
-        Staff staff = new Staff(id_raw, susername,spassword, semail,sfullname, sphonenumber);
-        staffDAO.updateStaff(staff);
-        request.setAttribute("mess", "Update successful!");
-        request.getRequestDispatcher("staffmanager").forward(request, response);
-        
+        processRequest(request, response);
     }
 
     /**
