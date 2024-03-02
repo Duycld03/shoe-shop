@@ -87,21 +87,20 @@ public class GoogleRegisterController extends HttpServlet {
 			CustomerDAO customerDAO = new CustomerDAO();
 			if (customerDAO.customerExist(username, username, phoneNumber) != null) {
 				session.setAttribute("error", "Customer already exists");
-				response.sendRedirect("/customerLogin");
+				response.sendRedirect("/googleRegister");
 				return;
 			}
 			String customerId = "Cus" + (customerDAO.getCustomerCount() + 1);
 			Customer customer = new Customer(customerId, username, password, user.getEmail(), user.getName(), user.getId(), phoneNumber);
 			int result = customerDAO.add(customer);
 			if (result >= 1) {
-				System.out.println("Register successful");
+				session.removeAttribute("user");
 				session.setAttribute("success", "Google register successful!");
+				response.sendRedirect("/customerLogin");
 			} else {
-				System.out.println("Register failed");
 				session.setAttribute("error", "Google register failed!");
+				response.sendRedirect("/googleRegister");
 			}
-			request.getSession().invalidate();
-			response.sendRedirect("/customerLogin");
 		}
 	}
 

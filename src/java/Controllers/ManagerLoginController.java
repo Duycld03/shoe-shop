@@ -124,7 +124,7 @@ public class ManagerLoginController extends HttpServlet {
 				return;
 			}
 
-			request.getSession().setAttribute("erorr", "Username and password incorrect");
+			request.getSession().setAttribute("error", "Username and password incorrect");
 			response.sendRedirect("/managerLogin");
 		}
 	}

@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <footer class="bg-[#BCDDFE] md:px-32 py-16 md:pt-36 md:pb-14 px-4">
     <div class="grid md:grid-cols-3 md:gap-80 mb-8 md:mb-16 grid-cols-1 gap-8">
         <div>
@@ -34,3 +35,15 @@
         </div>
     </div>
 </footer>
+		<c:if test="${sessionScope.error != null}">
+			<script>
+				message("error", "${sessionScope.error}")
+			</script>
+			<% session.removeAttribute("error");%>
+		</c:if>
+		<c:if test="${sessionScope.success != null}">
+			<script>
+				message("success", "${sessionScope.success}")
+			</script>
+			<% session.removeAttribute("success");%>
+		</c:if>

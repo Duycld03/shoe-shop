@@ -69,12 +69,7 @@
             </p>
         </div>
         <%@include file="footer.jsp" %>
-		<c:if test="${sessionScope.error != null}">
-			<script>
-				message("error", "${sessionScope.error}")
-			</script>
-			<% session.removeAttribute("error");%>
-		</c:if>
+		
     </body>
 
 </html>
