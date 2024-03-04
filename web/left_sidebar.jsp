@@ -89,13 +89,20 @@
                         <a href="adminmanager" class="list-group-item list-group-item-action py-2 ripple">
                             <i class="fas fa-user-circle fa-fw me-3"></i><span>Admin manager</span>
                         </a>
-                        <a href="#" class="list-group-item list-group-item-action py-2 ripple">
+                        <a href="customermanager" class="list-group-item list-group-item-action py-2 ripple">
                             <i class="fas fa-user-circle fa-fw me-3"></i><span>Customer manager</span>
                         </a>
                     </div>
-                    <a href="" class="list-group-item list-group-item-action py-2 ripple">
+                    <a href="#" class="list-group-item list-group-item-action py-2 ripple">
                         <i class="fas fa-shoe-prints fa-fw me-3"></i><span>Product manager</span>
                     </a>
+                    <a href="#" class="list-group-item list-group-item-action py-2 ripple">
+                        <i class="fas fa-tag fa-fw me-3"></i><span>Brand manager</span>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action py-2 ripple">
+                        <i class="fas fa-clipboard-list fa-fw me-3"></i><span>Order manager</span>
+                    </a>
+
                 </div>
             </div>
         </nav>

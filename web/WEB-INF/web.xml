@@ -96,6 +96,22 @@
         <servlet-name>ResetPasswordController</servlet-name>
         <servlet-class>Controllers.ResetPasswordController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CustomerManager</servlet-name>
+        <servlet-class>Controllers.CustomerManager</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddCustomerController</servlet-name>
+        <servlet-class>Controllers.AddCustomerController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateCustomerController</servlet-name>
+        <servlet-class>Controllers.UpdateCustomerController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteCustomer</servlet-name>
+        <servlet-class>Controllers.DeleteCustomer</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>default</servlet-name>
         <url-pattern>*.css</url-pattern>
@@ -199,6 +215,22 @@
     <servlet-mapping>
         <servlet-name>ResetPasswordController</servlet-name>
         <url-pattern>/resetPassword</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CustomerManager</servlet-name>
+        <url-pattern>/customermanager</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddCustomerController</servlet-name>
+        <url-pattern>/addcustomercontroller</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateCustomerController</servlet-name>
+        <url-pattern>/loadCustomer</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteCustomer</servlet-name>
+        <url-pattern>/deleteCustomer</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
