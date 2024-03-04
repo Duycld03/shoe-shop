@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.print.attribute.standard.MediaSize;
 
 /**
@@ -283,6 +285,16 @@ public class ProductDAO {
         return products;
     }
 
+    public boolean isValidProductID(String productID) {
+        // Sử dụng biểu thức chính quy để kiểm tra định dạng
+        String regex = "^P\\d+$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(productID);
+
+        // Kiểm tra nếu chuỗi productID khớp với biểu thức chính quy
+        return matcher.matches();
+    }
+
     public boolean checkProNameExit(String proName) {
         String sql = "Select * from Products\n"
                 + "where ProductName = ?";
@@ -308,12 +320,17 @@ public class ProductDAO {
         BrandDAO br = new BrandDAO();
 
         try ( PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, (pro.getProductId() != null) ? pro.getProductId() : "default_value");
 
-            if (!d.checkProNameExit(pro.getProductName())) {
-                ps.setString(2, pro.getProductName());
-            } else {
+            if (d.isValidProductID(pro.getProductId()) == false) {
                 return false;
+            } else {
+                ps.setString(1, pro.getProductId());
+            }
+            if (d.checkProNameExit(pro.getProductName()) || pro.getProductName().trim().equals("")) {
+                return false;
+
+            } else {
+                ps.setString(2, pro.getProductName());
             }
 
             if (pro.getPrice() < 1) {
@@ -337,15 +354,13 @@ public class ProductDAO {
             ps.executeUpdate();
             return true;
         } catch (SQLException e) {
-            // Ghi log hoặc xử lý ngoại lệ theo yêu cầu của bạn
-            e.printStackTrace();
         }
         return false;
     }
 
     public static void main(String[] args) {
         ProductDAO d = new ProductDAO();
-        Product newP = new Product("P24", "", 0, 0, "", "", false);
+        Product newP = new Product("P24", "adidas adios pro 3_A2", 1, 0, "", "Br2", false);
         if (d.addProduct(newP) == true) {
             System.out.println("succes");
         } else {

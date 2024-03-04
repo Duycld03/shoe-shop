@@ -22,22 +22,6 @@ public class CustomerDAOTest {
     public CustomerDAOTest() {
     }
 
-    /**
-     * Test of checkLogin method, of class CustomerDAO.
-     */
-//    @Test
-//    public void testCheckLogin() {
-//        String username = "TienDM";
-//        String password = "TienDM";
-//        CustomerDAO instance = new CustomerDAO();
-//        Customer expResult = new Customer(username, "e9533cb82b754d3dd78e749bf0a74c12");
-//        Customer result = instance.checkLogin(username, password);
-//        System.out.println("expResult");
-//        System.out.println(expResult.getFullname() + " " + expResult.getPassword());
-//        System.out.println("result");
-//        System.out.println(result.getFullname() + " " + result.getPassword());
-//        assertEquals(expResult, result);
-//    }
     //User Name and password both valid
     @Test
     public void testCheckUserLogin_test_1() {
