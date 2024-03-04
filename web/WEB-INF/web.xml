@@ -113,17 +113,14 @@
         <servlet-class>Controllers.DeleteCustomer</servlet-class>
     </servlet>
     <servlet>
-<<<<<<< HEAD
         <servlet-name>orderManagement</servlet-name>
         <servlet-class>Controllers.orderManagement</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UpdateTakeCareStaff</servlet-name>
         <servlet-class>Controllers.UpdateTakeCareStaff</servlet-class>
-=======
         <servlet-name>StaffManagerController</servlet-name>
         <servlet-class>Controllers.StaffManagerController</servlet-class>
->>>>>>> 3107db739b7525629712c97097dc28dff95c9e6b
     </servlet>
     <servlet-mapping>
         <servlet-name>default</servlet-name>
@@ -246,17 +243,14 @@
         <url-pattern>/deleteCustomer</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-<<<<<<< HEAD
         <servlet-name>orderManagement</servlet-name>
         <url-pattern>/ordermanagement</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UpdateTakeCareStaff</servlet-name>
         <url-pattern>/updatetakecarestaff</url-pattern>
-=======
         <servlet-name>StaffManagerController</servlet-name>
         <url-pattern>/staffManager</url-pattern>
->>>>>>> 3107db739b7525629712c97097dc28dff95c9e6b
     </servlet-mapping>
     <session-config>
         <session-timeout>
