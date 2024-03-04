@@ -1,7 +1,9 @@
 package Controllers;
 
 import DAOs.AddressDAO;
+import DAOs.AdminDAO;
 import DAOs.CustomerDAO;
+import DAOs.StaffDAO;
 import Models.Address;
 import Models.Customer;
 import Utils.JwtUtils;
@@ -114,22 +116,20 @@ public class SignUpController extends HttpServlet {
 			}
 
 			CustomerDAO customerDAO = new CustomerDAO();
-//			if (customerDAO.customerExist(email, username, phoneNumber) != null) {
-//				session.setAttribute("error", "Customer already exists");
-//				response.sendRedirect("/signUp");
-//				return;
-//			}
-			if (customerDAO.getByEmail(email) != null) {
+			StaffDAO staffDAO = new StaffDAO();
+			AdminDAO adminDAO = new AdminDAO();
+
+			if (customerDAO.getByEmail(email) != null || staffDAO.getStaffByEmail(email) != null || adminDAO.getAdminByEmail(email) != null) {
 				session.setAttribute("error", "Email already exists!");
 				response.sendRedirect("/signUp");
 				return;
 			}
-			if (customerDAO.getCustomerByPhoneNumber(phoneNumber) != null) {
+			if (customerDAO.getCustomerByPhoneNumber(phoneNumber) != null || staffDAO.getStaffByPhoneNumber(phoneNumber) != null || adminDAO.getAdminByPhoneNumber(phoneNumber) != null) {
 				session.setAttribute("error", "Phone number already exists!");
 				response.sendRedirect("/signUp");
 				return;
 			}
-			if (customerDAO.getCustomerByUsername(username) != null) {
+			if (customerDAO.getCustomerByUsername(username) != null || staffDAO.getStaffByUsername(username) != null || adminDAO.getAdminByUsername(username) != null) {
 				session.setAttribute("error", "Username already exists!");
 				response.sendRedirect("/signUp");
 				return;

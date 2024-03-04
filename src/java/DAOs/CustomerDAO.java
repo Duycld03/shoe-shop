@@ -78,6 +78,34 @@ public class CustomerDAO {
         return false;
     }
 
+    public List<Customer> getAllCustomer() {
+        List<Customer> list = new ArrayList<>();
+        String sql = "SELECT [CustomerID]\n"
+                + "      ,[UserName]\n"
+                + "      ,[Password]\n"
+                + "      ,[Email]\n"
+                + "      ,[FullName]\n"
+                + "      ,[SocialID]\n"
+                + "      ,[PhoneNumber]\n"
+                + "  FROM [dbo].[Customers]";
+        try {
+            // Đảm bảo cSonnection đã được khởi tạo và mở
+            if (conn != null && !conn.isClosed()) {
+                PreparedStatement st = conn.prepareStatement(sql);
+                ResultSet rs = st.executeQuery();
+                while (rs.next()) {
+                    Customer customer = new Customer(rs.getString("CustomerID"), rs.getString("UserName"), rs.getString("Password"), rs.getString("Email"), rs.getString("FullName"), rs.getString("SocialID"), rs.getString("PhoneNumber"));
+                    list.add(customer);
+                }
+            } else {
+                System.out.println("Kết nối đến cơ sở dữ liệu không hợp lệ.");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
     public int add(Customer customer) {
         int count = 0;
         String sql = "insert into customers values(?,?,?,?,?,?,?)";
@@ -243,6 +271,20 @@ public class CustomerDAO {
             Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
+    }
+
+    public int delete(String customerId) {
+        int ketqua = 0;
+        String sql = "DELETE FROM [dbo].[Customers]\n"
+                + "      WHERE CustomerID = ?";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, customerId);
+            ketqua = ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ketqua;
     }
 
     public static void main(String[] args) {

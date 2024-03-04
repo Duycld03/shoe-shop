@@ -193,7 +193,21 @@ public class OrderDAO {
         try {
             PreparedStatement st = conn.prepareCall(sql);
             st.setString(1, staffID);
-           count = st.executeUpdate();
+            count = st.executeUpdate();
+        } catch (SQLException e) {
+        }
+        return count;
+    }
+
+    public int updateOrderbyCustomerID(String customerID) {
+        int count = 0;
+        String sql = "UPDATE [dbo].[Orders]\n"
+                + "   SET [CustomerID] = NULL\n"
+                + " WHERE CustomerID  = ?";
+        try {
+            PreparedStatement st = conn.prepareCall(sql);
+            st.setString(1, customerID);
+            count = st.executeUpdate();
         } catch (SQLException e) {
         }
         return count;
@@ -203,12 +217,10 @@ public class OrderDAO {
         OrderDAO d = new OrderDAO();
         String id = "ST3";
         int result = d.updateOrderbyStaffID(id);
-        if(result >= 1){
+        if (result >= 1) {
             System.out.println("Thanh cong");
         }
-        
 
-        
     }
 
 }
