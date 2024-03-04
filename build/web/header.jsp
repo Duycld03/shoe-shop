@@ -85,7 +85,7 @@
         <div>
             <ul class="flex items-center md:space-x-24 md:text-2xl font-medium space-x-4">
                 <li class="text-[#40BFFF] hover:text-sky-400 transition-all duration-200"><a href="#">HOME</a></li>
-                <li class="hover:text-sky-400 transition-all duration-200"><a href="left_sidebar.jsp">MANAGER</a></li>
+                <li class="hover:text-sky-400 transition-all duration-200"><a href="/managerLogin">MANAGER</a></li>
                 <li class="hover:text-sky-400 transition-all duration-200"><a href="/productFilter">SNEAKERS</a></li>
                 <li class="hover:text-sky-400 transition-all duration-200"><a href="productDetail.jsp">BELT</a></li>
                 <li class="hover:text-sky-400 transition-all duration-200"><a href="#">CONTACT</a></li>

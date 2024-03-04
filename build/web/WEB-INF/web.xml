@@ -18,7 +18,7 @@
     </servlet>
     <servlet>
         <servlet-name>StaffManager</servlet-name>
-        <servlet-class>Controllers.StaffManager</servlet-class>
+        <servlet-class>Controllers.StaffAccountManager</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>GoogleRegisterController</servlet-name>
@@ -66,7 +66,7 @@
     </servlet>
     <servlet>
         <servlet-name>AdminManager</servlet-name>
-        <servlet-class>Controllers.AdminManager</servlet-class>
+        <servlet-class>Controllers.AdminAccountManager</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Checkout</servlet-name>
@@ -98,7 +98,7 @@
     </servlet>
     <servlet>
         <servlet-name>CustomerManager</servlet-name>
-        <servlet-class>Controllers.CustomerManager</servlet-class>
+        <servlet-class>Controllers.CustomerAccountManager</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AddCustomerController</servlet-name>

@@ -4,6 +4,8 @@
  */
 package Controllers;
 
+import DAOs.AdminDAO;
+import DAOs.CustomerDAO;
 import DAOs.StaffDAO;
 import Models.Staff;
 import java.io.IOException;
@@ -12,6 +14,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
@@ -75,18 +78,47 @@ public class UpdateStaffController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String id_raw = request.getParameter("id");
-        String susername = request.getParameter("username");
-        String sfullname = request.getParameter("Fullname");
-        String spassword = request.getParameter("password");
-        String semail = request.getParameter("email");
-        String sphonenumber = request.getParameter("phonenumber");
-        StaffDAO staffDAO = new StaffDAO();
-        Staff staff = new Staff(id_raw, susername,spassword, semail,sfullname, sphonenumber);
-        staffDAO.updateStaff(staff);
-        request.setAttribute("mess", "Update successful!");
-        request.getRequestDispatcher("staffmanager").forward(request, response);
-        
+        if (request.getParameter("btnSave") != null) {
+            HttpSession session = request.getSession();
+            String id_raw = request.getParameter("id");
+            String susername = request.getParameter("username");
+            String sfullname = request.getParameter("Fullname");
+            String spassword = request.getParameter("password");
+            String semail = request.getParameter("email");
+            String sphonenumber = request.getParameter("phonenumber");
+            StaffDAO staffDAO = new StaffDAO();
+            CustomerDAO customerDAO = new CustomerDAO();
+            AdminDAO adminDAO = new AdminDAO();
+            Staff staff = staffDAO.getStaffById(id_raw);
+            if (!staff.getEmail().equals(semail) && (customerDAO.getByEmail(semail) != null || staffDAO.getStaffByEmail(semail) != null || adminDAO.getAdminByEmail(semail) != null)) {
+                session.setAttribute("error", "Email already exists!");
+                response.sendRedirect("/staffmanager");
+                return;
+            }
+            if ( !staff.getPhoneNumber().equals(sphonenumber) &&(customerDAO.getCustomerByPhoneNumber(sphonenumber) != null || staffDAO.getStaffByPhoneNumber(sphonenumber) != null || adminDAO.getAdminByPhoneNumber(sphonenumber) != null)) {
+                session.setAttribute("error", "Phone number already exists!");
+                response.sendRedirect("/staffmanager");
+                return;
+            }
+            if ( !staff.getUsername().equals(susername) && (customerDAO.getCustomerByUsername(susername) != null || staffDAO.getStaffByUsername(susername) != null || adminDAO.getAdminByUsername(susername) != null)) {
+                session.setAttribute("error", "Username already exists!");
+                response.sendRedirect("/staffmanager");
+                return;
+            }
+            
+            Staff newStaff = new Staff(id_raw, susername, spassword, semail, sfullname, sphonenumber);
+            if (spassword.isEmpty()) {
+                staffDAO.updateStaffWithoutPassword(newStaff);
+                session.setAttribute("success", "Update successful!");
+                response.sendRedirect("/staffmanager");
+            }else{
+                staffDAO.updateStaff(newStaff);
+                session.setAttribute("success", "Update successful!");
+                response.sendRedirect("/staffmanager");
+            }
+
+        }
+
     }
 
     /**

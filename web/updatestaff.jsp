@@ -15,7 +15,6 @@
                 <script src="assets/js/validation//manager.js" type="text/javascript"></script>
                 <script src="assets/js/validation/bootstrap.min.js"></script>
             </head>
-
             <body>
                 <div id="editEmployeeModal" class="modal fade">
                     <div class="modal-dialog">
@@ -28,8 +27,8 @@
                                         aria-hidden="true">&times;</button>
                                 </div>
                                 <div class="modal-body">
-                                    <div class="form-group">
-                                        <label for="id">Enter ID:</label>
+                                    <div class="form-group d-none" >
+                                        <label for="id">ID:</label>
                                         <input type="text" name="id" readonly value="${c.staffId}"
                                             class="form-control" />
                                     </div>
@@ -46,8 +45,7 @@
                                     <div class="form-group">
                                         <label>Password</label>
                                         <div class="input-group">
-                                            <input name="password" id="password" value="${c.password}" type="password" class="form-control"
-                                                required pattern=".{8,}" title="Password must be at least 8 characters">
+                                            <input name="password" id="password" type="password" class="form-control">
                                             <div class="input-group-append">
                                                 <button class="btn btn-outline-secondary" type="button"
                                                     id="togglePassword">
@@ -71,7 +69,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                    <input type="submit" class="btn btn-success" value="Save">
+                                    <input type="submit" name="btnSave" class="btn btn-success" value="Save">
                                 </div>
                             </form>
                         </div>

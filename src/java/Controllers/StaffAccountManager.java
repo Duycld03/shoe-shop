@@ -19,7 +19,7 @@ import java.util.List;
  *
  * @author To Do Hong Y - CE171148
  */
-public class StaffManager extends HttpServlet {
+public class StaffAccountManager extends HttpServlet {
 
 	/**
 	 * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

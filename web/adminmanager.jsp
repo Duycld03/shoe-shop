@@ -24,6 +24,8 @@
         <link rel="stylesheet" href="assets/css/icon.css">
         <link rel="stylesheet" href="assets/css/bootstrap.min.css">
         <script src="assets/js/validation/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="assets/js/script.js"></script>
         <style>
             img{
                 width: 200px;
@@ -125,12 +127,6 @@
                             <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i></a>
                         </div>
                     </div>
-                <c:if test="${mess!=null }">
-                    <div class="alert alert-success" role="alert">
-                        ${mess}
-                    </div>
-                </c:if>
-
                 <table class="table table-bordered table-striped mt-3">
                     <thead class="thead-dark">
                         <tr>
@@ -209,7 +205,7 @@
 
                         <div class="modal-footer">  
                             <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                            <input type="submit" class="btn btn-success" value="Add">
+                            <input type="submit" name="btnAdd" class="btn btn-success" value="Add">
                         </div>
                     </form>
                 </div>
@@ -245,6 +241,18 @@
         </script>
         <script src="assets/js/validation//manager.js" type="text/javascript"></script>
         <script src="assets/js/validation/bootstrap.min.js"></script>
+        <c:if test="${sessionScope.error != null}">
+            <script>
+            message("error", "${sessionScope.error}")
+            </script>
+            <% session.removeAttribute("error");%>
+        </c:if>
+        <c:if test="${sessionScope.success != null}">
+            <script>
+                message("success", "${sessionScope.success}")
+            </script>
+            <% session.removeAttribute("success");%>
+        </c:if>
     </body>
 </html>
 

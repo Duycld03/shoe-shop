@@ -12,6 +12,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
@@ -54,11 +55,12 @@ public class DeleteAdmin extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+         HttpSession session = request.getSession();
          String id_raw = request.getParameter("adminId");
         AdminDAO adminDAO = new AdminDAO();
         adminDAO.deleteAdmin(id_raw);
-        request.setAttribute("mess", "Admin deleted successfully!");
-        request.getRequestDispatcher("adminmanager").forward(request, response);
+        session.setAttribute("success", "Admin deleted successfully!");
+       response.sendRedirect("/adminmanager");
     } 
 
     /** 

@@ -24,6 +24,8 @@
         <link rel="stylesheet" href="assets/css/icon.css">
         <link rel="stylesheet" href="assets/css/bootstrap.min.css">
         <script src="assets/js/validation/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="assets/js/script.js"></script>
         <style>
             img{
                 width: 200px;
@@ -164,7 +166,6 @@
                                 <th>FullName</th>
                                 <th>Password</th>
                                 <th>Email</th>
-                                <th>SocialID</th>
                                 <th>Phone Number</th>
                                 <th>Action</th>
                             </tr>
@@ -177,12 +178,11 @@
                                 <td>${c.fullname}</td>
                                 <td>${c.password}</td>
                                 <td>${c.email}</td>
-                                <td>${c.socialId}</td>
                                 <td>${c.phoneNumber}</td>
                                 <td>
                                     <div class="btn-group">
                                         <button class="btn btn-warning" onclick="location.href = 'loadCustomer?id=${c.customerId}'">
-                                            <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+                                            <i class="material-icons" data-toggle="tooltip" title="Edit Customer">&#xE254;</i>
                                         </button>
                                         &nbsp;&nbsp;&nbsp;
                                         <button class="btn btn-danger" onclick="doDelete('${c.customerId}')">
@@ -235,10 +235,6 @@
                                 <input name="email" type="email" class="form-control" required pattern="[a-zA-Z0-9._%+-]+@gmail\.com$" title="Email must be in the format example@gmail.com">
                             </div>
                             <div class="form-group">
-                                <label>SocialID</label>
-                                <input name="socialID" type="tel" class="form-control" required title="Phone number must contain 10 digits">
-                            </div>
-                            <div class="form-group">
                                 <label>Phone Number</label>
                                 <input name="phonenumber" type="tel" class="form-control" required pattern="[0-9]{10}" title="Phone number must contain 10 digits">
                             </div>
@@ -247,7 +243,7 @@
 
                         <div class="modal-footer">  
                             <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                            <input type="submit" class="btn btn-success" value="Add">
+                            <input type="submit" name="btnAdd" class="btn btn-success" value="Add">
                         </div>
                     </form>
                 </div>
@@ -283,6 +279,18 @@
         </script>
         <script src="assets/js/validation//manager.js" type="text/javascript"></script>
         <script src="assets/js/validation/bootstrap.min.js"></script>
+         <c:if test="${sessionScope.error != null}">
+            <script>
+            message("error", "${sessionScope.error}")
+            </script>
+            <% session.removeAttribute("error");%>
+        </c:if>
+        <c:if test="${sessionScope.success != null}">
+            <script>
+                message("success", "${sessionScope.success}")
+            </script>
+            <% session.removeAttribute("success");%>
+        </c:if>
     </body>
 </html>
 

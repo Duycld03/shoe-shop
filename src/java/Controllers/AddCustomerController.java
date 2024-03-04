@@ -5,7 +5,9 @@
 
 package Controllers;
 
+import DAOs.AdminDAO;
 import DAOs.CustomerDAO;
+import DAOs.StaffDAO;
 import Models.Customer;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,6 +15,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
@@ -68,18 +71,42 @@ public class AddCustomerController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-         String susername = request.getParameter("username");
+        if(request.getParameter("btnAdd")!= null){
+        HttpSession session = request.getSession();
+        String susername = request.getParameter("username");
         String sfullname = request.getParameter("Fullname");
         String spassword = request.getParameter("password");
         String semail = request.getParameter("email");
-        String ssocialId = request.getParameter("socialID");
         String sphonenumber = request.getParameter("phonenumber");
+        
+        
         CustomerDAO customerDAO = new CustomerDAO();
+        AdminDAO adminDAO = new AdminDAO();
+        StaffDAO staffDAO = new StaffDAO();
+        
+        
         String customerID = "Cus" + (customerDAO.getCustomerCount() + 1);
-        Customer customer = new Customer(customerID, susername,spassword, semail,sfullname,ssocialId, sphonenumber);
-        customerDAO.add(customer);
-        request.setAttribute("mess", "Customer Added!");
-        request.getRequestDispatcher("customermanager").forward(request, response);
+        Customer customer = new Customer(customerID, susername, spassword, semail, sfullname, sphonenumber);
+        if (customerDAO.getByEmail(semail) != null || staffDAO.getStaffByEmail(semail) != null || adminDAO.getAdminByEmail(semail) != null) {
+                session.setAttribute("error", "Email already exists!");
+                response.sendRedirect("/customermanager");
+                return;
+            }
+            if (customerDAO.getCustomerByPhoneNumber(sphonenumber) != null || staffDAO.getStaffByPhoneNumber(sphonenumber) != null || adminDAO.getAdminByPhoneNumber(sphonenumber) != null) {
+                session.setAttribute("error", "Phone number already exists!");
+                response.sendRedirect("/customermanager");
+                return;
+            }
+            if (customerDAO.getCustomerByUsername(susername) != null || staffDAO.getStaffByUsername(susername) != null || adminDAO.getAdminByUsername(susername) != null) {
+                session.setAttribute("error", "Username already exists!");
+                response.sendRedirect("/customermanager");
+                return;
+            }
+            customerDAO.addCustomerWithoutSociaiid(customer);
+            session.setAttribute("success", "Customer Added!");
+            response.sendRedirect("/customermanager");
+        }
+        
     }
 
     /** 

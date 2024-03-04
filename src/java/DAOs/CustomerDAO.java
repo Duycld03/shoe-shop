@@ -85,7 +85,6 @@ public class CustomerDAO {
                 + "      ,[Password]\n"
                 + "      ,[Email]\n"
                 + "      ,[FullName]\n"
-                + "      ,[SocialID]\n"
                 + "      ,[PhoneNumber]\n"
                 + "  FROM [dbo].[Customers]";
         try {
@@ -94,7 +93,7 @@ public class CustomerDAO {
                 PreparedStatement st = conn.prepareStatement(sql);
                 ResultSet rs = st.executeQuery();
                 while (rs.next()) {
-                    Customer customer = new Customer(rs.getString("CustomerID"), rs.getString("UserName"), rs.getString("Password"), rs.getString("Email"), rs.getString("FullName"), rs.getString("SocialID"), rs.getString("PhoneNumber"));
+                    Customer customer = new Customer(rs.getString("CustomerID"), rs.getString("UserName"), rs.getString("Password"), rs.getString("Email"), rs.getString("FullName"), rs.getString("PhoneNumber"));
                     list.add(customer);
                 }
             } else {
@@ -105,6 +104,7 @@ public class CustomerDAO {
         }
         return list;
     }
+
 
     public int add(Customer customer) {
         int count = 0;
@@ -118,6 +118,31 @@ public class CustomerDAO {
             ps.setString(5, customer.getFullname());
             ps.setString(6, customer.getSocialId());
             ps.setString(7, customer.getPhoneNumber());
+            count = ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return count;
+    }
+
+    public int addCustomerWithoutSociaiid(Customer customer) {
+        int count = 0;
+        String sql = "INSERT INTO [dbo].[Customers]\n"
+                + "           ([CustomerID]\n"
+                + "           ,[UserName]\n"
+                + "           ,[Password]\n"
+                + "           ,[Email]\n"
+                + "           ,[FullName]\n"
+                + "           ,[PhoneNumber])\n"
+                + "     VALUES(?,?,?,?,?,?)";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, customer.getCustomerId());
+            ps.setString(2, customer.getUsername());
+            ps.setString(3, MD5.getMd5(customer.getPassword()));
+            ps.setString(4, customer.getEmail());
+            ps.setString(5, customer.getFullname());
+            ps.setString(6, customer.getPhoneNumber());
             count = ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -186,6 +211,37 @@ public class CustomerDAO {
             ps.setString(4, customer.getFullname());
             ps.setString(5, customer.getSocialId());
             ps.setString(6, customer.getCustomerId());
+            count = ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return count;
+    }
+     public int updateCustomerWithoutPassword(Customer customer) {
+        int count = 0;
+        String sql = "update Customers set UserName = ?, Email = ?, FullName = ? where CustomerID = ?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, customer.getUsername());
+            ps.setString(2, customer.getEmail());
+            ps.setString(3, customer.getFullname());
+            ps.setString(4, customer.getCustomerId());
+            count = ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return count;
+    }
+     public int updateCustomerwithoutSociaID(Customer customer) {
+        int count = 0;
+        String sql = "update Customers set UserName = ?, Password = ?, Email = ?, FullName = ? where CustomerID = ?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, customer.getUsername());
+            ps.setString(2, MD5.getMd5(customer.getPassword()));
+            ps.setString(3, customer.getEmail());
+            ps.setString(4, customer.getFullname());
+            ps.setString(5, customer.getCustomerId());
             count = ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);

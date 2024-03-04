@@ -15,6 +15,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
@@ -57,7 +58,8 @@ public class DeleteCustomer extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-         String id_raw = request.getParameter("customerId");
+        HttpSession session = request.getSession();
+        String id_raw = request.getParameter("customerId");
         OrderDAO oderDao = new OrderDAO();
         oderDao.updateOrderbyCustomerID(id_raw);
         CartDAO cartDao = new CartDAO();
@@ -66,8 +68,8 @@ public class DeleteCustomer extends HttpServlet {
         aDao.updateAddressbyCustomerID(id_raw);
         CustomerDAO cDAO = new CustomerDAO();
         cDAO.delete(id_raw);
-         request.setAttribute("mess", "Customer deleted successfully!");
-        request.getRequestDispatcher("customermanager").forward(request, response);
+        session.setAttribute("success", "Customer deleted successfully!");
+        response.sendRedirect("/customermanager");
     } 
 
     /** 

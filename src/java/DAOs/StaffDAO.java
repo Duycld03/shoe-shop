@@ -158,6 +158,26 @@ public class StaffDAO {
 		}
 		return count;
 	}
+        public int updateStaffWithoutPassword(Staff c) {
+		int count = 0;
+		String sql = "UPDATE [dbo].[Staffs]\n"
+				+ "   SET [UserName] = ?\n"
+				+ "      ,[Email] = ?\n"
+				+ "      ,[FullName] = ?\n"
+				+ "      ,[PhoneNumber] = ?\n"
+				+ " WHERE StaffID = ?";
+		try {
+			PreparedStatement st = conn.prepareStatement(sql);
+			st.setString(1, c.getUsername());
+			st.setString(2, c.getEmail());
+			st.setString(3, c.getFullname());
+			st.setString(4, c.getPhoneNumber());
+			st.setString(5, c.getStaffId());
+			count = st.executeUpdate();
+		} catch (SQLException e) {
+		}
+		return count;
+	}
 
 	public int getStaffCount() {
 		int count = -1;

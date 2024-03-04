@@ -12,6 +12,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
@@ -57,14 +58,16 @@ public class DeleteStaffController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String id_raw = request.getParameter("staffId");
-        OrderDAO oderDao = new OrderDAO();
-        oderDao.updateOrderbyStaffID(id_raw);
-        StaffDAO staffDAO = new StaffDAO();
-        staffDAO.delete(id_raw);
-         request.setAttribute("mess", "Staff deleted successfully!");
-        request.getRequestDispatcher("staffmanager").forward(request, response);
+            HttpSession session = request.getSession();
+            String id_raw = request.getParameter("staffId");
+            OrderDAO oderDao = new OrderDAO();
+            oderDao.updateOrderbyStaffID(id_raw);
+            StaffDAO staffDAO = new StaffDAO();
+            staffDAO.delete(id_raw);
+            session.setAttribute("success", "Staff deleted successfully!");
+            response.sendRedirect("/staffmanager");
         
+
     }
 
     /**
