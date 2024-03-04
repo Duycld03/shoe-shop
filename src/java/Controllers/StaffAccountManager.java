@@ -4,12 +4,16 @@
  */
 package Controllers;
 
+import DAOs.AdminDAO;
 import DAOs.StaffDAO;
+import Models.Admin;
 import Models.Staff;
+import Utils.JwtUtils;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -33,8 +37,29 @@ public class StaffAccountManager extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        Cookie[] cookies = request.getCookies();
+        Cookie managerCookie = null;
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("manager")) {
+                managerCookie = cookie;
+            }
+        }
+        if (managerCookie == null) {
+            response.sendRedirect("/managerLogin");
+            return;
+        }
+        String username = JwtUtils.getContentFromToken(managerCookie.getValue());
+        AdminDAO adminDAO = new AdminDAO();
+        Admin admin = adminDAO.getAdminByUsername(username);
+        if (admin == null) {
+            response.sendRedirect("/managerLogin");
+            return;
+        }
+        request.setAttribute("admin", admin);
+
         StaffDAO c = new StaffDAO();
         List<Staff> list = c.getAllStaff();
+
         request.setAttribute("data", list);
         request.getRequestDispatcher("staffmanager.jsp").forward(request, response);
     }

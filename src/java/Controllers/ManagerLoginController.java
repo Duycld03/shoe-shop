@@ -45,7 +45,8 @@ public class ManagerLoginController extends HttpServlet {
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the
+    // + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -101,6 +102,17 @@ public class ManagerLoginController extends HttpServlet {
         if (request.getParameter("btnManagerLogin") != null) {
             String username = request.getParameter("username").toLowerCase();
             String password = request.getParameter("password");
+            StaffDAO staffDAO = new StaffDAO();
+            Staff staff = staffDAO.checkLogin(username, password);
+            if (staff != null) {
+                String token = JwtUtils.generateToken(username);
+                Cookie cookie = new Cookie("manager", token);
+                cookie.setMaxAge(3 * 24 * 60 * 60);
+                cookie.setPath("/");
+                response.addCookie(cookie);
+                response.sendRedirect("/staffManager");
+                return;
+            }
 
             AdminDAO adminDAO = new AdminDAO();
             Admin admin = adminDAO.checkLogin(username, password);
@@ -114,8 +126,6 @@ public class ManagerLoginController extends HttpServlet {
                 return;
             }
 
-            StaffDAO staffDAO = new StaffDAO();
-            Staff staff = staffDAO.checkLogin(username, password);
             if (staff != null) {
                 String token = JwtUtils.generateToken(username);
                 Cookie cookie = new Cookie("manager", token);

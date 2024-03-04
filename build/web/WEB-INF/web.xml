@@ -119,6 +119,8 @@
     <servlet>
         <servlet-name>UpdateTakeCareStaff</servlet-name>
         <servlet-class>Controllers.UpdateTakeCareStaff</servlet-class>
+        <servlet-name>StaffManagerController</servlet-name>
+        <servlet-class>Controllers.StaffManagerController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>default</servlet-name>
@@ -247,6 +249,8 @@
     <servlet-mapping>
         <servlet-name>UpdateTakeCareStaff</servlet-name>
         <url-pattern>/updatetakecarestaff</url-pattern>
+        <servlet-name>StaffManagerController</servlet-name>
+        <url-pattern>/staffManager</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
