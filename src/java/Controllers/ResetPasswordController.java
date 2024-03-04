@@ -1,7 +1,11 @@
 package Controllers;
 
+import DAOs.AdminDAO;
 import DAOs.CustomerDAO;
+import DAOs.StaffDAO;
+import Models.Admin;
 import Models.Customer;
+import Models.Staff;
 import Utils.JwtUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -63,11 +67,17 @@ public class ResetPasswordController extends HttpServlet {
 			String resetEmail = (String) session.getAttribute("resetEmail");
 
 			CustomerDAO customerDAO = new CustomerDAO();
+			StaffDAO staffDAO = new StaffDAO();
+			AdminDAO adminDAO = new AdminDAO();
+
 			Customer customer = customerDAO.getByEmail(resetEmail);
-			if (customer == null) {
+			Staff staff = staffDAO.getStaffByEmail(resetEmail);
+			Admin admin = adminDAO.getAdminByEmail(resetEmail);
+			if (customer == null && staff == null && admin == null) {
 				response.sendRedirect("/");
 				return;
 			}
+
 			if (resetOtp.equals(otp)) {
 				request.getRequestDispatcher("/resetPassword.jsp").forward(request, response);
 			} else {
@@ -96,6 +106,7 @@ public class ResetPasswordController extends HttpServlet {
 			HttpSession session = request.getSession();
 			try {
 				String resetEmail = (String) session.getAttribute("resetEmail");
+
 				CustomerDAO customerDAO = new CustomerDAO();
 				Customer customer = customerDAO.getByEmail(resetEmail);
 				if (customer != null) {
@@ -108,6 +119,38 @@ public class ResetPasswordController extends HttpServlet {
 					} else {
 						session.setAttribute("error", "Reset Password failed!");
 						response.sendRedirect("/customerLogin");
+					}
+					return;
+				}
+
+				StaffDAO staffDAO = new StaffDAO();
+				Staff staff = staffDAO.getStaffByEmail(resetEmail);
+				if (staff != null) {
+					staff.setPassword(newPassword);
+					int result = staffDAO.updateStaff(staff);
+					if (result >= 1) {
+						session.removeAttribute("resetEmail");
+						session.setAttribute("success", "Reset Password successful!");
+						response.sendRedirect("/managerLogin");
+					} else {
+						session.setAttribute("error", "Reset Password failed!");
+						response.sendRedirect("/managerLogin");
+					}
+					return;
+				}
+
+				AdminDAO adminDAO = new AdminDAO();
+				Admin admin = adminDAO.getAdminByEmail(resetEmail);
+				if (admin != null) {
+					admin.setPassword(newPassword);
+					int result = adminDAO.updateAdmin(admin);
+					if (result >= 1) {
+						session.removeAttribute("resetEmail");
+						session.setAttribute("success", "Reset Password successful!");
+						response.sendRedirect("/managerLogin");
+					} else {
+						session.setAttribute("error", "Reset Password failed!");
+						response.sendRedirect("/managerLogin");
 					}
 				}
 			} catch (Exception e) {

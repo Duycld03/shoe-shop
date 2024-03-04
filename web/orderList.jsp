@@ -1,4 +1,8 @@
-<%-- Document : staffmanager Created on : Feb 26, 2024, 7:39:02 PM Author : To Do Hong Y - CE171148 --%>
+<%-- 
+    Document   : orderList
+    Created on : Mar 4, 2024, 8:27:44 PM
+    Author     : Doan Thanh Phuc - CE170580
+--%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -7,11 +11,11 @@
 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Order management</title>
         <script type="text/javascript">
-            function doDelete(staff_id) {
-                if (confirm("Are you sure delete staff_id = " + staff_id + "?")) {
-                    window.location = "deleteStaff?staffId=" + staff_id;
+            function doDelete(Order_ID) {
+                if (confirm("Are you sure delete Order ID = " + Order_ID + "?")) {
+                    window.location = "deleteOrder?OrderID=" + Order_ID;
                 }
 
             }
@@ -20,6 +24,7 @@
               href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
         <link rel="stylesheet" href="assets/css/icon.css">
         <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
         <script src="assets/js/validation/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="assets/js/script.js"></script>
@@ -98,7 +103,7 @@
                     <div class="row" style="margin-bottom: 15px">
                         <div class="col-sm-3 d-flex align-items-center">
                             <h5 class="mb-0 text-left">
-                                <strong>STAFF MANAGER</strong>
+                                <strong>ORDER MANAGEMENT</strong>
                             </h5>
                         </div>
                         <div class="col-sm-9 text-right">
@@ -109,36 +114,46 @@
                             <thead class="thead-dark">
                                 <tr>
                                     <th>ID</th>
-                                    <th>User Name</th>
-                                    <th>FullName</th>
-                                    <th>Password</th>
-                                    <th>Email</th>
-                                    <th>Phone Number</th>
+                                    <th>Order Date</th>
+                                    <th>Payment status</th>
+                                    <th>Order status</th>
+                                    <th>Customer ID</th>
+                                    <th>Payment Method</th>
+                                    <th>Total Amount</th>
+                                    <th>Staff take care for</th>                                   
                                     <th>Action</th>
                                 </tr>
                             </thead>
-                        <c:forEach items="${requestScope.data}" var="c">
-                            <c:set var="order_id" value="${c.staffId}" />
+                        <c:forEach items="${requestScope.Orders}" var="c">
                             <tr>
-                                <td>${order_id}</td>
-                                <td>${c.username}</td>
-                                <td>${c.fullname}</td>
-                                <td>${c.password}</td>
-                                <td>${c.email}</td>
-                                <td>${c.phoneNumber}</td>
+                                <td>${c.orderId}</td>
+                                <td>${c.orderDate}</td>
+                                <td>${c.paymentStatus}</td>
+                                <td>${c.orderStatus}</td>
+                                <td>${c.customerId}</td>
+                                <td>${c.methodId}</td>
+                                <td>${c.totalAmount}</td>
+                                <td>${c.staffID}</td>
+
                                 <td>
                                     <div class="btn-group">
-                                        <button class="btn btn-warning"
-                                                onclick="location.href = 'loadStaff?id=${c.staffId}'">
-                                            <i class="material-icons" data-toggle="tooltip"
-                                               title="Edit">&#xE254;</i>
-                                        </button>
+                                        <c:if test="${StaffID_Check ne c.staffID && c.staffID ne param.StaffID && c.staffID == null}">
+                                            <button class="btn btn-success" onclick="location.href = 'updatetakecarestaff?OrderID=${c.orderId}&StaffID=${param.StaffID}'">
+                                                <i class='bx bx-check'></i>
+                                            </button>
+                                        </c:if>
+                                        <c:if test="${StaffID_Check eq c.staffID || c.staffID eq param.StaffID}">
+                                            <button class="btn btn-warning"
+                                                    onclick="location.href = 'updateOrder?OrderID=${c.orderId}'">
+                                                <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+                                            </button>
+                                        </c:if>
+
                                         &nbsp;&nbsp;&nbsp;
-                                        <button class="btn btn-danger" onclick="doDelete('${c.staffId}')">
+                                        <button class="btn btn-danger" onclick="doDelete('${c.orderId}')">
                                             <i class="material-icons" data-toggle="tooltip"
                                                title="Delete">&#xE872;</i>
                                         </button>
-
                                     </div>
                                 </td>
                             </tr>
@@ -146,69 +161,6 @@
                     </table>
                 </div>
         </main>
-
-        <div id="addEmployeeModal" class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <form action="addstaffcontroller" method="post">
-                        <div class="modal-header">
-                            <h4 class="modal-title">Add Staff</h4>
-                            <button type="button" class="close" data-dismiss="modal"
-                                    aria-hidden="true">&times;</button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label>UserName</label>
-                                <input name="username" type="text" class="form-control" required
-                                       pattern="[a-zA-Z]+" title="Username must contain only letters">
-                            </div>
-                            <div class="form-group">
-                                <label>FullName</label>
-                                <input name="Fullname" type="text" class="form-control" required
-                                       pattern="[a-zA-Z ]+"
-                                       title="Full Name cannot contain numbers or special characters">
-                            </div>
-
-                            <div class="form-group">
-                                <label>Password</label>
-                                <div class="input-group">
-                                    <input name="password" id="password" type="password" class="form-control"
-                                           required pattern=".{8,}" title="Password must be at least 8 characters">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-outline-secondary" type="button"
-                                                id="togglePassword">
-                                            <i class="fa fa-eye-slash" aria-hidden="true"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label>Email</label>
-                                <input name="email" type="email" class="form-control" required
-                                       pattern="[a-zA-Z0-9._%+-]+@gmail\.com$"
-                                       title="Email must be in the format example@gmail.com">
-                            </div>
-                            <div class="form-group">
-                                <label>Phone Number</label>
-                                <input name="phonenumber" type="tel" class="form-control" required
-                                       pattern="[0-9]{10}" title="Phone number must contain 10 digits">
-                            </div>
-                        </div>
-                        <script>
-                            closeModalButton.addEventListener("click", function () {
-                                // Đóng modal khi nút "X" được nhấn
-                                $("#addEmployeeModal").modal("hide");
-                            });
-                        </script>
-                        <div class="modal-footer">
-                            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                            <input type="submit" name="btnAdd" class="btn btn-success" value="Add">
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
         <script>
             document.addEventListener("DOMContentLoaded", function () {
                 var closeModalButton = document.querySelector("button.close");

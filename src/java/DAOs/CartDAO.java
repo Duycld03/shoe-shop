@@ -190,10 +190,23 @@ public class CartDAO {
 
     public List<Cart> getCartByCusID(String CusID) {
         List<Cart> carts = new ArrayList<>();
-        
+
         return carts;
     }
-    
+
+    public int updateCartbyCustomerID(String customerID) {
+        int count = 0;
+        String sql = "UPDATE [dbo].[Carts]\n"
+                + "   SET[CustomerID] = NULL\n"
+                + " WHERE CustomerID = ?";
+        try {
+            PreparedStatement st = conn.prepareCall(sql);
+            st.setString(1, customerID);
+            count = st.executeUpdate();
+        } catch (SQLException e) {
+        }
+        return count;
+    }
 
     public static void main(String[] args) {
         CartDAO a = new CartDAO();

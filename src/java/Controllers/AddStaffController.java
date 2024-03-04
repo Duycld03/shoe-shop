@@ -4,6 +4,8 @@
  */
 package Controllers;
 
+import DAOs.AdminDAO;
+import DAOs.CustomerDAO;
 import DAOs.StaffDAO;
 import Models.Staff;
 import java.io.IOException;
@@ -31,7 +33,7 @@ public class AddStaffController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -59,18 +61,39 @@ public class AddStaffController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        String susername = request.getParameter("username");
-        String sfullname = request.getParameter("Fullname");
-        String spassword = request.getParameter("password");
-        String semail = request.getParameter("email");
-        String sphonenumber = request.getParameter("phonenumber");
-        StaffDAO staffDAO = new StaffDAO();
-        String staffID = "ST" + (staffDAO.getStaffCount() + 1);
-        Staff staff = new Staff(staffID, susername,spassword, semail,sfullname, sphonenumber);
-        staffDAO.addStaff(staff);
-        request.setAttribute("mess", "Staff Added!");
-        request.getRequestDispatcher("staffmanager").forward(request, response);
+        if (request.getParameter("btnAdd") != null) {
+            HttpSession session = request.getSession();
+            response.setContentType("text/html;charset=UTF-8");
+            String susername = request.getParameter("username");
+            String sfullname = request.getParameter("Fullname");
+            String spassword = request.getParameter("password");
+            String semail = request.getParameter("email");
+            String sphonenumber = request.getParameter("phonenumber");
+            StaffDAO staffDAO = new StaffDAO();
+            CustomerDAO customerDAO = new CustomerDAO();
+            AdminDAO adminDAO = new AdminDAO();
+            String staffID = "ST" + (staffDAO.getStaffCount() + 1);
+            Staff staff = new Staff(staffID, susername, spassword, semail, sfullname, sphonenumber);
+            if (customerDAO.getByEmail(semail) != null || staffDAO.getStaffByEmail(semail) != null || adminDAO.getAdminByEmail(semail) != null) {
+                session.setAttribute("error", "Email already exists!");
+                response.sendRedirect("/staffmanager");
+                return;
+            }
+            if (customerDAO.getCustomerByPhoneNumber(sphonenumber) != null || staffDAO.getStaffByPhoneNumber(sphonenumber) != null || adminDAO.getAdminByPhoneNumber(sphonenumber) != null) {
+                session.setAttribute("error", "Phone number already exists!");
+                response.sendRedirect("/staffmanager");
+                return;
+            }
+            if (customerDAO.getCustomerByUsername(susername) != null || staffDAO.getStaffByUsername(susername) != null || adminDAO.getAdminByUsername(susername) != null) {
+                session.setAttribute("error", "Username already exists!");
+                response.sendRedirect("/staffmanager");
+                return;
+            }
+            staffDAO.addStaff(staff);
+            session.setAttribute("success", "Staff Added!");
+            response.sendRedirect("/staffmanager");
+        }
+
     }
 
     /**

@@ -7,7 +7,7 @@ package Controllers;
 import DAOs.AdminDAO;
 import DAOs.CustomerDAO;
 import DAOs.StaffDAO;
-import Models.Admin;
+import Models.Customer;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -20,7 +20,7 @@ import jakarta.servlet.http.HttpSession;
  *
  * @author To Do Hong Y - CE171148
  */
-public class AddAdminController extends HttpServlet {
+public class UpdateCustomerController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,10 +39,10 @@ public class AddAdminController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AddAdminController</title>");
+            out.println("<title>Servlet UpdateCustomerController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AddAdminController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet UpdateCustomerController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -60,7 +60,11 @@ public class AddAdminController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String id_raw = request.getParameter("id");
+        CustomerDAO cDAO = new CustomerDAO();
+        Customer c = cDAO.getCustomerById(id_raw);
+        request.setAttribute("category", c);
+        request.getRequestDispatcher("updatecustomer.jsp").forward(request, response);
     }
 
     /**
@@ -74,38 +78,45 @@ public class AddAdminController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        if (request.getParameter("btnAdd") != null) {
+        if (request.getParameter("btnSave") != null) {
             HttpSession session = request.getSession();
+            String id_raw = request.getParameter("id");
             String susername = request.getParameter("username");
             String sfullname = request.getParameter("Fullname");
             String spassword = request.getParameter("password");
             String semail = request.getParameter("email");
             String sphonenumber = request.getParameter("phonenumber");
-            AdminDAO adminDAO = new AdminDAO();
-            StaffDAO staffDAO = new StaffDAO();
             CustomerDAO customerDAO = new CustomerDAO();
-            String adminID = "A" + (adminDAO.getAdminsCount() + 1);
-            Admin admin = new Admin(adminID, susername, spassword, semail, sfullname, sphonenumber);
-            if (customerDAO.getByEmail(semail) != null || staffDAO.getStaffByEmail(semail) != null || adminDAO.getAdminByEmail(semail) != null) {
+            AdminDAO adminDAO = new AdminDAO();
+             StaffDAO staffDAO = new StaffDAO();
+            Customer customer = customerDAO.getCustomerById(id_raw);
+            if (!customer.getEmail().equals(semail) && (customerDAO.getByEmail(semail) != null || staffDAO.getStaffByEmail(semail) != null || adminDAO.getAdminByEmail(semail) != null)) {
                 session.setAttribute("error", "Email already exists!");
-                response.sendRedirect("/adminmanager");
+                response.sendRedirect("/customermanager");
                 return;
             }
-            if (customerDAO.getCustomerByPhoneNumber(sphonenumber) != null || staffDAO.getStaffByPhoneNumber(sphonenumber) != null || adminDAO.getAdminByPhoneNumber(sphonenumber) != null) {
+            if (!customer.getPhoneNumber().equals(sphonenumber) && (customerDAO.getCustomerByPhoneNumber(sphonenumber) != null || staffDAO.getStaffByPhoneNumber(sphonenumber) != null || adminDAO.getAdminByPhoneNumber(sphonenumber) != null)) {
                 session.setAttribute("error", "Phone number already exists!");
-                response.sendRedirect("/adminmanager");
+                response.sendRedirect("/customermanager");
                 return;
             }
-            if (customerDAO.getCustomerByUsername(susername) != null || staffDAO.getStaffByUsername(susername) != null || adminDAO.getAdminByUsername(susername) != null) {
+            if (!customer.getUsername().equals(susername) && (customerDAO.getCustomerByUsername(susername) != null || staffDAO.getStaffByUsername(susername) != null || adminDAO.getAdminByUsername(susername) != null)) {
                 session.setAttribute("error", "Username already exists!");
-                response.sendRedirect("/adminmanager");
+                response.sendRedirect("/customermanager");
                 return;
             }
-            adminDAO.addAdmin(admin);
-            session.setAttribute("success", "Admin Added!");
-            response.sendRedirect("/adminmanager");
-
+            Customer newCustomer = new Customer(id_raw, susername, spassword, semail, sfullname, sphonenumber);
+            if (spassword.isEmpty()) {
+                customerDAO.updateCustomerWithoutPassword(newCustomer);
+                session.setAttribute("success", "Update successful!");
+                response.sendRedirect("/customermanager");
+            }else{
+                customerDAO.updateCustomerwithoutSociaID(newCustomer);
+                session.setAttribute("success", "Update successful!");
+                response.sendRedirect("/customermanager");
+            }
         }
+
     }
 
     /**

@@ -78,6 +78,34 @@ public class CustomerDAO {
         return false;
     }
 
+    public List<Customer> getAllCustomer() {
+        List<Customer> list = new ArrayList<>();
+        String sql = "SELECT [CustomerID]\n"
+                + "      ,[UserName]\n"
+                + "      ,[Password]\n"
+                + "      ,[Email]\n"
+                + "      ,[FullName]\n"
+                + "      ,[PhoneNumber]\n"
+                + "  FROM [dbo].[Customers]";
+        try {
+            // Đảm bảo cSonnection đã được khởi tạo và mở
+            if (conn != null && !conn.isClosed()) {
+                PreparedStatement st = conn.prepareStatement(sql);
+                ResultSet rs = st.executeQuery();
+                while (rs.next()) {
+                    Customer customer = new Customer(rs.getString("CustomerID"), rs.getString("UserName"), rs.getString("Password"), rs.getString("Email"), rs.getString("FullName"), rs.getString("PhoneNumber"));
+                    list.add(customer);
+                }
+            } else {
+                System.out.println("Kết nối đến cơ sở dữ liệu không hợp lệ.");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
+
     public int add(Customer customer) {
         int count = 0;
         String sql = "insert into customers values(?,?,?,?,?,?,?)";
@@ -90,6 +118,31 @@ public class CustomerDAO {
             ps.setString(5, customer.getFullname());
             ps.setString(6, customer.getSocialId());
             ps.setString(7, customer.getPhoneNumber());
+            count = ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return count;
+    }
+
+    public int addCustomerWithoutSociaiid(Customer customer) {
+        int count = 0;
+        String sql = "INSERT INTO [dbo].[Customers]\n"
+                + "           ([CustomerID]\n"
+                + "           ,[UserName]\n"
+                + "           ,[Password]\n"
+                + "           ,[Email]\n"
+                + "           ,[FullName]\n"
+                + "           ,[PhoneNumber])\n"
+                + "     VALUES(?,?,?,?,?,?)";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, customer.getCustomerId());
+            ps.setString(2, customer.getUsername());
+            ps.setString(3, MD5.getMd5(customer.getPassword()));
+            ps.setString(4, customer.getEmail());
+            ps.setString(5, customer.getFullname());
+            ps.setString(6, customer.getPhoneNumber());
             count = ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -158,6 +211,37 @@ public class CustomerDAO {
             ps.setString(4, customer.getFullname());
             ps.setString(5, customer.getSocialId());
             ps.setString(6, customer.getCustomerId());
+            count = ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return count;
+    }
+     public int updateCustomerWithoutPassword(Customer customer) {
+        int count = 0;
+        String sql = "update Customers set UserName = ?, Email = ?, FullName = ? where CustomerID = ?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, customer.getUsername());
+            ps.setString(2, customer.getEmail());
+            ps.setString(3, customer.getFullname());
+            ps.setString(4, customer.getCustomerId());
+            count = ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return count;
+    }
+     public int updateCustomerwithoutSociaID(Customer customer) {
+        int count = 0;
+        String sql = "update Customers set UserName = ?, Password = ?, Email = ?, FullName = ? where CustomerID = ?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, customer.getUsername());
+            ps.setString(2, MD5.getMd5(customer.getPassword()));
+            ps.setString(3, customer.getEmail());
+            ps.setString(4, customer.getFullname());
+            ps.setString(5, customer.getCustomerId());
             count = ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -243,6 +327,20 @@ public class CustomerDAO {
             Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
+    }
+
+    public int delete(String customerId) {
+        int ketqua = 0;
+        String sql = "DELETE FROM [dbo].[Customers]\n"
+                + "      WHERE CustomerID = ?";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, customerId);
+            ketqua = ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ketqua;
     }
 
     public static void main(String[] args) {

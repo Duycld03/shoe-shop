@@ -5,20 +5,20 @@
 package Controllers;
 
 import DAOs.OrderDAO;
-import DAOs.StaffDAO;
+import Models.Order;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import java.util.List;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 /**
  *
- * @author To Do Hong Y - CE171148
+ * @author Doan Thanh Phuc - CE170580
  */
-public class DeleteStaffController extends HttpServlet {
+public class orderManagement extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,10 +37,10 @@ public class DeleteStaffController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet DeleteStaffController</title>");
+            out.println("<title>Servlet orderManagement</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet DeleteStaffController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet orderManagement at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -58,16 +58,10 @@ public class DeleteStaffController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            HttpSession session = request.getSession();
-            String id_raw = request.getParameter("staffId");
-            OrderDAO oderDao = new OrderDAO();
-            oderDao.updateOrderbyStaffID(id_raw);
-            StaffDAO staffDAO = new StaffDAO();
-            staffDAO.delete(id_raw);
-            session.setAttribute("success", "Staff deleted successfully!");
-            response.sendRedirect("/staffmanager");
-        
-
+        OrderDAO orderD = new OrderDAO();
+        List<Order> list = orderD.getAllOrder();
+        request.setAttribute("Orders", list);
+        request.getRequestDispatcher("orderList.jsp").forward(request, response);
     }
 
     /**

@@ -193,22 +193,76 @@ public class OrderDAO {
         try {
             PreparedStatement st = conn.prepareCall(sql);
             st.setString(1, staffID);
-           count = st.executeUpdate();
+            count = st.executeUpdate();
         } catch (SQLException e) {
         }
         return count;
     }
 
+    public boolean updateTakeCareStaff(String StaffID, String OrderID) {
+        String sql = "Update Orders\n"
+                + "set StaffID = ?\n"
+                + "where OrderID = ?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, StaffID);
+            ps.setString(2, OrderID);
+            ps.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
+
+    public int updateOrderbyCustomerID(String customerID) {
+        int count = 0;
+        String sql = "UPDATE [dbo].[Orders]\n"
+                + "   SET [CustomerID] = NULL\n"
+                + " WHERE CustomerID  = ?";
+        try {
+            PreparedStatement st = conn.prepareCall(sql);
+            st.setString(1, customerID);
+            count = st.executeUpdate();
+        } catch (SQLException e) {
+        }
+        return count;
+    }
+
+    public List<Order> getOrderbyStaffID(String staffID) {
+        List<Order> list = new ArrayList<>();
+        String sql = "Select * from Orders\n"
+                + "where StaffID is null or StaffID = ?";
+        try {
+            // Đảm bảo cSonnection đã được khởi tạo và mở
+            if (conn != null && !conn.isClosed()) {
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, staffID);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    Order order = new Order(rs.getString("OrderID"), rs.getFloat("TotalAmount"),
+                            rs.getTimestamp("OrderDate"), rs.getString("PaymentStatus"), rs.getString("OrderStatus"),
+                            rs.getString("CustomerID"), rs.getString("MenthodID"), rs.getString("StaffID"));
+                    list.add(order);
+                }
+            } else {
+                System.out.println("Kết nối đến cơ sở dữ liệu không hợp lệ.");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
     public static void main(String[] args) {
         OrderDAO d = new OrderDAO();
         String id = "ST3";
-        int result = d.updateOrderbyStaffID(id);
-        if(result >= 1){
-            System.out.println("Thanh cong");
+        String cusID = "Order6";
+        List<Order> list = d.getOrderbyStaffID(id);
+        for (Order order : list) {
+            System.out.println(order.getStaffID());
         }
-        
 
-        
     }
 
 }

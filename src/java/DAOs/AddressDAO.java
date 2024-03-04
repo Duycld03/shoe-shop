@@ -150,7 +150,21 @@ public class AddressDAO {
         return result;
     }
 
-        public static void main(String[] args) {
+    public int updateAddressbyCustomerID(String customerID) {
+        int count = 0;
+        String sql = "UPDATE [dbo].[Addresses]\n"
+                + "   SET [CustomerID] = NULL\n"
+                + " WHERE CustomerID  = ?";
+        try {
+            PreparedStatement st = conn.prepareCall(sql);
+            st.setString(1, customerID);
+            count = st.executeUpdate();
+        } catch (SQLException e) {
+        }
+        return count;
+    }
+
+    public static void main(String[] args) {
         String inputString = "20240301155429";
         SimpleDateFormat inputFormat = new SimpleDateFormat("yyyyMMddHHmmss");
 

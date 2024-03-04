@@ -129,7 +129,8 @@ public class AdminDAO {
 	}
 
 	// update staff
-	public void updateAdmin(Admin c) {
+	public int updateAdmin(Admin c) {
+		int count = 0;
 		String sql = "UPDATE [dbo].[Admins]\n"
 				+ "   SET [UserName] = ?\n"
 				+ "      ,[Password] = ?\n"
@@ -140,14 +141,15 @@ public class AdminDAO {
 		try {
 			PreparedStatement st = conn.prepareStatement(sql);
 			st.setString(1, c.getUsername());
-			st.setString(2, c.getPassword());
+			st.setString(2, MD5.getMd5(c.getPassword()));
 			st.setString(3, c.getEmail());
 			st.setString(4, c.getFullname());
 			st.setString(5, c.getPhoneNumber());
 			st.setString(6, c.getAdminId());
-			st.executeUpdate();
+			count = st.executeUpdate();
 		} catch (SQLException e) {
 		}
+		return count;
 	}
 
 	public int getAdminsCount() {
@@ -179,6 +181,41 @@ public class AdminDAO {
 
 		} catch (Exception e) {
 			System.out.println(e);
+		}
+		return null;
+	}
+
+	public Admin getAdminByEmail(String email) {
+		String sql = "Select * from Admins where Email = ?";
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, email);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				Admin admin = new Admin(rs.getString("AdminID"), rs.getString("UserName"), rs.getString("Password"),
+						rs.getString("Email"), rs.getString("FullName"), rs.getString("PhoneNumber"));
+				return admin;
+			}
+
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return null;
+	}
+
+	public Admin getAdminByPhoneNumber(String phoneNumber) {
+		String sql = "select * from Admins where PhoneNumber = ?";
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, phoneNumber);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				Admin admin = new Admin(rs.getString("AdminID"), rs.getString("UserName"), rs.getString("Password"),
+						rs.getString("Email"), rs.getString("FullName"), rs.getString("PhoneNumber"));
+				return admin;
+			}
+		} catch (SQLException ex) {
+			Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		return null;
 	}

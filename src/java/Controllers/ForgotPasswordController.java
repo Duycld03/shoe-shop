@@ -1,8 +1,12 @@
 package Controllers;
 
+import DAOs.AdminDAO;
 import DAOs.CustomerDAO;
+import DAOs.StaffDAO;
+import Models.Admin;
 import Models.Customer;
 import Models.Email;
+import Models.Staff;
 import Utils.EmailUtils;
 import Utils.JwtUtils;
 import VNPay.Config;
@@ -79,8 +83,13 @@ public class ForgotPasswordController extends HttpServlet {
 			String forgotEmail = request.getParameter("forgotEmail");
 
 			CustomerDAO customerDAO = new CustomerDAO();
+			StaffDAO staffDAO = new StaffDAO();
+			AdminDAO adminDAO = new AdminDAO();
+
 			Customer customer = customerDAO.getByEmail(forgotEmail);
-			if (customer != null) {
+			Staff staff = staffDAO.getStaffByEmail(forgotEmail);
+			Admin admin = adminDAO.getAdminByEmail(forgotEmail);
+			if (customer != null || staff != null || admin != null) {
 				String otp = Config.getRandomNumber(5);
 				session.setAttribute("resetOtp", otp);
 				session.setAttribute("resetEmail", forgotEmail);
@@ -91,7 +100,13 @@ public class ForgotPasswordController extends HttpServlet {
 					email.setTo(forgotEmail);
 					email.setSubject("Reset Your Password");
 					StringBuilder sb = new StringBuilder();
-					sb.append("Dear ").append(customer.getFullname()).append("<br>");
+					if (customer != null) {
+						sb.append("Dear ").append(customer.getFullname()).append("<br>");
+					} else if (staff != null) {
+						sb.append("Dear ").append(staff.getFullname()).append("<br>");
+					} else {
+						sb.append("Dear ").append(admin.getFullname()).append("<br>");
+					}
 					sb.append("You are receiving this email because you requested to reset your password for your account on Shoes Store. <br> ");
 					sb.append("Please click on the link below to reset your password:. <br> ");
 					sb.append(url + ". <br> ");
@@ -101,7 +116,7 @@ public class ForgotPasswordController extends HttpServlet {
 					email.setContent(sb.toString());
 					EmailUtils.send(email);
 					session.setAttribute("success", "Send Mail Sucessful!");
-					response.sendRedirect("/customerLogin");
+					response.sendRedirect("/forgotPassword");
 				} catch (Exception ex) {
 					Logger.getLogger(ForgotPasswordController.class.getName()).log(Level.SEVERE, null, ex);
 					session.setAttribute("error", "Send Mail failed!");

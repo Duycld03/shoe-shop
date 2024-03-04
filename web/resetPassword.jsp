@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 
@@ -7,7 +8,6 @@
 </head>
 
 <body>
-    <%@include file="header.jsp" %>
         <div class="w-full max-w-md p-8 space-y-3 rounded-xl mx-auto bg-gray-100 m-8">
             <h1 class="text-2xl font-bold text-center mb-4">Reset Password</h1>
             <form action="/resetPassword" method="POST" class="space-y-6">
@@ -22,7 +22,18 @@
             </form>
             
         </div>
-        <%@include file="footer.jsp" %>
+		<c:if test="${sessionScope.error != null}">
+			<script>
+				message("error", "${sessionScope.error}")
+			</script>
+			<% session.removeAttribute("error");%>
+		</c:if>
+		<c:if test="${sessionScope.success != null}">
+			<script>
+				message("success", "${sessionScope.success}")
+			</script>
+			<% session.removeAttribute("success");%>
+		</c:if>
 </body>
 
 </html>

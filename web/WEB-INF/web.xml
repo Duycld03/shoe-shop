@@ -18,7 +18,7 @@
     </servlet>
     <servlet>
         <servlet-name>StaffManager</servlet-name>
-        <servlet-class>Controllers.StaffManager</servlet-class>
+        <servlet-class>Controllers.StaffAccountManager</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>GoogleRegisterController</servlet-name>
@@ -66,7 +66,7 @@
     </servlet>
     <servlet>
         <servlet-name>AdminManager</servlet-name>
-        <servlet-class>Controllers.AdminManager</servlet-class>
+        <servlet-class>Controllers.AdminAccountManager</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Checkout</servlet-name>
@@ -95,6 +95,30 @@
     <servlet>
         <servlet-name>ResetPasswordController</servlet-name>
         <servlet-class>Controllers.ResetPasswordController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CustomerManager</servlet-name>
+        <servlet-class>Controllers.CustomerAccountManager</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddCustomerController</servlet-name>
+        <servlet-class>Controllers.AddCustomerController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateCustomerController</servlet-name>
+        <servlet-class>Controllers.UpdateCustomerController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteCustomer</servlet-name>
+        <servlet-class>Controllers.DeleteCustomer</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>orderManagement</servlet-name>
+        <servlet-class>Controllers.orderManagement</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateTakeCareStaff</servlet-name>
+        <servlet-class>Controllers.UpdateTakeCareStaff</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>default</servlet-name>
@@ -199,6 +223,30 @@
     <servlet-mapping>
         <servlet-name>ResetPasswordController</servlet-name>
         <url-pattern>/resetPassword</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CustomerManager</servlet-name>
+        <url-pattern>/customermanager</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddCustomerController</servlet-name>
+        <url-pattern>/addcustomercontroller</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateCustomerController</servlet-name>
+        <url-pattern>/loadCustomer</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteCustomer</servlet-name>
+        <url-pattern>/deleteCustomer</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>orderManagement</servlet-name>
+        <url-pattern>/ordermanagement</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateTakeCareStaff</servlet-name>
+        <url-pattern>/updatetakecarestaff</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -4,21 +4,22 @@
  */
 package Controllers;
 
-import DAOs.OrderDAO;
 import DAOs.StaffDAO;
+import Models.Staff;
+import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  *
  * @author To Do Hong Y - CE171148
  */
-public class DeleteStaffController extends HttpServlet {
+public class StaffAccountManager extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,18 +33,10 @@ public class DeleteStaffController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet DeleteStaffController</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet DeleteStaffController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        StaffDAO c = new StaffDAO();
+        List<Staff> list = c.getAllStaff();
+        request.setAttribute("data", list);
+        request.getRequestDispatcher("staffmanager.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -58,16 +51,7 @@ public class DeleteStaffController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            HttpSession session = request.getSession();
-            String id_raw = request.getParameter("staffId");
-            OrderDAO oderDao = new OrderDAO();
-            oderDao.updateOrderbyStaffID(id_raw);
-            StaffDAO staffDAO = new StaffDAO();
-            staffDAO.delete(id_raw);
-            session.setAttribute("success", "Staff deleted successfully!");
-            response.sendRedirect("/staffmanager");
-        
-
+        processRequest(request, response);
     }
 
     /**

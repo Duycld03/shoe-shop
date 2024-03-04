@@ -1,6 +1,6 @@
 <%-- 
-    Document   : adminmanager
-    Created on : Feb 29, 2024, 10:38:09 AM
+    Document   : customermanager
+    Created on : Mar 4, 2024, 7:18:01 AM
     Author     : To Do Hong Y - CE171148
 --%>
 
@@ -12,9 +12,9 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <script type="text/javascript">
-            function doDelete(admin_id) {
-                if (confirm("Are you sure delete adminId = " + admin_id + "?")) {
-                    window.location = "deleteAdmin?adminId=" + admin_id;
+            function doDelete(customer_id) {
+                if (confirm("Are you sure delete customerId = " + customer_id + "?")) {
+                    window.location = "deleteCustomer?customerId=" + customer_id;
                 }
 
             }
@@ -108,6 +108,31 @@
                     max-width: 1140px;
                 }
             }
+            #table-container {
+                width: 100%; /* Thiết lập chiều rộng của phần tử cha */
+            }
+
+            .table {
+                width: 100%;
+                table-layout: fixed; /* Đảm bảo rằng các cột có chiều rộng cố định */
+            }
+
+            .table th, .table td {
+                max-width: 200px; /* Thiết lập độ rộng tối đa cho các cột */
+                white-space: nowrap; /* Ngăn chặn văn bản tràn ra ngoài ô */
+                overflow: hidden; /* Ẩn nội dung tràn ra ngoài ô */
+                text-overflow: ellipsis; /* Hiển thị dấu chấm ba (...) khi có nội dung tràn ra ngoài */
+            }
+            .table th:first-child,
+            .table td:first-child {
+                width: 80px; /* Đặt kích thước cố định cho cột ID */
+            }
+
+            /* Thiết lập kích thước cho cột FullName */
+            .table th:nth-child(3),
+            .table td:nth-child(3) {
+                width: auto; /* Thiết lập kích thước linh hoạt cho cột FullName */
+            }
 
         </style>
     </head>
@@ -120,54 +145,67 @@
                     <div class="row" style="margin-bottom: 15px">
                         <div class="col-sm-3 d-flex align-items-center">
                             <h5 class="mb-0 text-left">
-                                <strong>ADMIN MANAGER</strong>
+                                <strong>CUSTOMER MANAGER</strong>
                             </h5>
                         </div>
                         <div class="col-sm-9 text-right">
                             <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i></a>
                         </div>
                     </div>
-                <table class="table table-bordered table-striped mt-3">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th>ID</th>
-                            <th>User Name</th>
-                            <th>FullName</th>
-                            <th>Password</th>
-                            <th>Email</th>
-                            <th>Phone Number</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <c:forEach items="${requestScope.data}" var="c">
-                        <c:set var="order_id" value="${c.adminId}" />
-                        <tr>
-                            <td>${order_id}</td>
-                            <td>${c.username}</td>
-                            <td>${c.fullname}</td>
-                            <td>${c.password}</td>
-                            <td>${c.email}</td>
-                            <td>${c.phoneNumber}</td>
-                            <td>
-                                <div class="btn-group">
-                                    <button class="btn btn-danger" onclick="doDelete('${c.adminId}')">
-                                        <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
-                                    </button>
+                <c:if test="${mess!=null }">
+                    <div class="alert alert-success" role="alert">
+                        ${mess}
+                    </div>
+                </c:if>
+                <div id="table-container">
+                    <table class="table table-bordered table-striped mt-3">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>ID</th>
+                                <th>User Name</th>
+                                <th>FullName</th>
+                                <th>Password</th>
+                                <th>Email</th>
+                                <th>Phone Number</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <c:forEach items="${requestScope.data}" var="c">
+                            <c:set var="order_id" value="${c.customerId}" />
+                            <tr>
+                                <td>${order_id}</td>
+                                <td>${c.username}</td>
+                                <td>${c.fullname}</td>
+                                <td>${c.password}</td>
+                                <td>${c.email}</td>
+                                <td>${c.phoneNumber}</td>
+                                <td>
+                                    <div class="btn-group">
+                                        <button class="btn btn-warning" onclick="location.href = 'loadCustomer?id=${c.customerId}'">
+                                            <i class="material-icons" data-toggle="tooltip" title="Edit Customer">&#xE254;</i>
+                                        </button>
+                                        &nbsp;&nbsp;&nbsp;
+                                        <button class="btn btn-danger" onclick="doDelete('${c.customerId}')">
+                                            <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
+                                        </button>
 
-                                </div>
-                            </td>
-                        </tr>
-                    </c:forEach>
-                </table>
+                                    </div>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                </div>
+
+
             </div>   
         </main>
 
         <div id="addEmployeeModal" class="modal fade">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form action="addadmincontroller" method="post">
+                    <form action="addcustomercontroller" method="post">
                         <div class="modal-header">						
-                            <h4 class="modal-title">Add Admin</h4>
+                            <h4 class="modal-title">Add Customer</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         </div>
                         <div class="modal-body">					
@@ -241,7 +279,7 @@
         </script>
         <script src="assets/js/validation//manager.js" type="text/javascript"></script>
         <script src="assets/js/validation/bootstrap.min.js"></script>
-        <c:if test="${sessionScope.error != null}">
+         <c:if test="${sessionScope.error != null}">
             <script>
             message("error", "${sessionScope.error}")
             </script>
@@ -255,4 +293,5 @@
         </c:if>
     </body>
 </html>
+
 
