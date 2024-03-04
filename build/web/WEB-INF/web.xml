@@ -112,6 +112,10 @@
         <servlet-name>DeleteCustomer</servlet-name>
         <servlet-class>Controllers.DeleteCustomer</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>StaffManagerController</servlet-name>
+        <servlet-class>Controllers.StaffManagerController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>default</servlet-name>
         <url-pattern>*.css</url-pattern>
@@ -231,6 +235,10 @@
     <servlet-mapping>
         <servlet-name>DeleteCustomer</servlet-name>
         <url-pattern>/deleteCustomer</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffManagerController</servlet-name>
+        <url-pattern>/staffManager</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

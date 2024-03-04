@@ -120,7 +120,7 @@ public class ManagerLoginController extends HttpServlet {
 				cookie.setMaxAge(3 * 24 * 60 * 60);
 				cookie.setPath("/");
 				response.addCookie(cookie);
-				response.sendRedirect("/staffmanager");
+				response.sendRedirect("/staffManager");
 				return;
 			}
 
