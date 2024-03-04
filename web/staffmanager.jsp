@@ -98,11 +98,7 @@
                     <div class="row" style="margin-bottom: 15px">
                         <div class="col-sm-3 d-flex align-items-center">
                             <h5 class="mb-0 text-left">
-<<<<<<< HEAD
-                                <strong>ADMIN MANAGER</strong>
-=======
                                 <strong>STAFF MANAGER</strong>
->>>>>>> 803b07310cda2578b3f5387318597704a03dfd77
                             </h5>
                         </div>
                         <div class="col-sm-9 text-right">
@@ -138,16 +134,9 @@
                                 <td>${c.phoneNumber}</td>
                                 <td>
                                     <div class="btn-group">
-<<<<<<< HEAD
                                         <button class="btn btn-warning" onclick="location.href = 'loadStaff?id=${c.staffId}'">
                                             <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
                                         </button>
-=======
-                                    <button class="btn btn-warning" onclick="location.href = 'loadStaff?id=${c.staffId}'">
-                                        <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
-                                    </button>
-
->>>>>>> 803b07310cda2578b3f5387318597704a03dfd77
                                         &nbsp;&nbsp;&nbsp;
                                         <button class="btn btn-danger" onclick="doDelete('${c.staffId}')">
                                             <i class="material-icons" data-toggle="tooltip"
@@ -161,153 +150,84 @@
                     </table>
                 </div>
         </main>
-
         <div id="addEmployeeModal" class="modal fade">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <form action="addstaffcontroller" method="post">
-                        <div class="modal-header">
-                            <h4 class="modal-title">Add Staff</h4>
-                            <button type="button" class="close" data-dismiss="modal"
-                                    aria-hidden="true">&times;</button>
+                        <div class="modal-header">						
+                            <h4 class="modal-title">Add Admin</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         </div>
-                        <div class="modal-body">
+                        <div class="modal-body">					
                             <div class="form-group">
                                 <label>UserName</label>
-                                <input name="username" type="text" class="form-control" required
-                                       pattern="[a-zA-Z]+" title="Username must contain only letters">
+                                <input name="username" type="text" class="form-control" required pattern="[a-zA-Z]+" title="Username must contain only letters">
                             </div>
                             <div class="form-group">
                                 <label>FullName</label>
-                                <input name="Fullname" type="text" class="form-control" required
-                                       pattern="[a-zA-Z ]+" title="Full Name cannot contain numbers">
+                                <input name="Fullname" type="text" class="form-control" required pattern="[a-zA-Z ]+" title="Full Name cannot contain numbers or special characters">
                             </div>
+
                             <div class="form-group">
                                 <label>Password</label>
                                 <div class="input-group">
-                                    <input name="password" id="password" type="password" class="form-control"
-                                           required pattern=".{8,}" title="Password must be at least 8 characters">
+                                    <input name="password" id="password" type="password" class="form-control" required pattern=".{8,}" title="Password must be at least 8 characters">
                                     <div class="input-group-append">
-                                        <button class="btn btn-outline-secondary" type="button"
-                                                id="togglePassword">
+                                        <button class="btn btn-outline-secondary" type="button" id="togglePassword">
                                             <i class="fa fa-eye-slash" aria-hidden="true"></i>
                                         </button>
                                     </div>
                                 </div>
                             </div>
-<<<<<<< HEAD
 
-                            <div id="addEmployeeModal" class="modal fade">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <form action="addstaffcontroller" method="post">
-                                            <div class="modal-header">
-                                                <h4 class="modal-title">Add Staff</h4>
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                        aria-hidden="true">&times;</button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="form-group">
-                                                    <label>UserName</label>
-                                                    <input name="username" type="text" class="form-control"
-                                                           required pattern="[a-zA-Z]+"
-                                                           title="Username must contain only letters">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>FullName</label>
-                                                    <input name="Fullname" type="text" class="form-control"
-                                                           required pattern="[a-zA-Z ]+"
-                                                           title="Full Name cannot contain numbers or special characters">
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label>Password</label>
-                                                    <div class="input-group">
-                                                        <input name="password" id="password" type="password"
-                                                               class="form-control" required pattern=".{8,}"
-                                                               title="Password must be at least 8 characters">
-                                                        <div class="input-group-append">
-                                                            <button class="btn btn-outline-secondary"
-                                                                    type="button" id="togglePassword">
-                                                                <i class="fa fa-eye-slash"
-                                                                   aria-hidden="true"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-
-
-                                                    <div class="modal-footer">
-                                                        <input type="button" class="btn btn-default"
-                                                               data-dismiss="modal" value="Cancel">
-                                                        <input type="submit" class="btn btn-success"
-                                                               value="Add">
-                                                    </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                    </div>
-                                    <script>
-                                        document.addEventListener("DOMContentLoaded", function () {
-                                            var closeModalButton = document.querySelector("button.close");
-                                            var cancelButton = document.querySelector(".modal-footer button[data-dismiss='modal']");
-=======
                             <div class="form-group">
                                 <label>Email</label>
-                                <input name="email" type="email" class="form-control" required
-                                       pattern="[a-zA-Z0-9._%+-]+@gmail\.com$"
-                                       title="Email must be in the format example@gmail.com">
+                                <input name="email" type="email" class="form-control" required pattern="[a-zA-Z0-9._%+-]+@gmail\.com$" title="Email must be in the format example@gmail.com">
                             </div>
                             <div class="form-group">
                                 <label>Phone Number</label>
-                                <input name="phonenumber" type="tel" class="form-control" required
-                                       pattern="[0-9]{10}" title="Phone number must contain 10 digits">
+                                <input name="phonenumber" type="tel" class="form-control" required pattern="[0-9]{10}" title="Phone number must contain 10 digits">
                             </div>
-                            <div class="modal-footer">  
-                                <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                                <input type="submit" class="btn btn-success" value="Add">
-                            </div>
+                        </div>
 
 
-                            <script>
-                                document.addEventListener("DOMContentLoaded", function () {
-                                    var closeModalButton = document.querySelector("button.close");
-                                    var cancelButton = document.querySelector(".modal-footer button[data-dismiss='modal']");
->>>>>>> 803b07310cda2578b3f5387318597704a03dfd77
+                        <div class="modal-footer">  
+                            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                            <input type="submit" class="btn btn-success" value="Add">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                var closeModalButton = document.querySelector("button.close");
+                var cancelButton = document.querySelector(".modal-footer button[data-dismiss='modal']");
 
-                                    closeModalButton.addEventListener("click", function () {
-                                        // Đóng modal khi nút "X" được nhấn
-                                        $("#addEmployeeModal").modal("hide");
-                                    });
+                closeModalButton.addEventListener("click", function () {
+                    // Đóng modal khi nút "X" được nhấn
+                    $("#addEmployeeModal").modal("hide");
+                });
+                cancelButton.addEventListener("click", function () {
+                    // Đóng modal khi nút "Cancel" được nhấn
+                    $("#addEmployeeModal").modal("hide");
+                });
+            });
+            document.addEventListener("DOMContentLoaded", function () {
+                var togglePassword = document.getElementById("togglePassword");
+                var passwordInput = document.getElementById("password");
 
-                                    cancelButton.addEventListener("click", function () {
-                                        // Đóng modal khi nút "Cancel" được nhấn
-                                        $("#addEmployeeModal").modal("hide");
-                                    });
-                                });
-                                document.addEventListener("DOMContentLoaded", function () {
-                                    var togglePassword = document.getElementById("togglePassword");
-                                    var passwordInput = document.getElementById("password");
+                togglePassword.addEventListener("click", function () {
+                    var type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+                    passwordInput.setAttribute("type", type);
+                    this.querySelector("i").classList.toggle("fa-eye-slash");
+                    this.querySelector("i").classList.toggle("fa-eye");
+                });
+            });
+        </script>
+        <script src="assets/js/validation//manager.js" type="text/javascript"></script>
+        <script src="assets/js/validation/bootstrap.min.js"></script>
+    </body>
 
-                                    togglePassword.addEventListener("click", function () {
-                                        var type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
-                                        passwordInput.setAttribute("type", type);
-                                        this.querySelector("i").classList.toggle("fa-eye-slash");
-                                        this.querySelector("i").classList.toggle("fa-eye");
-                                    });
-                                });
+</html>
 
-<<<<<<< HEAD
-                                    </script>
-                                    <script src="assets/js/validation//manager.js" type="text/javascript"></script>
-                                    <script src="assets/js/validation/bootstrap.min.js"></script>
-                                    </body>
-
-                                    </html>
-=======
-                            </script>
-                            <script src="assets/js/validation//manager.js" type="text/javascript"></script>
-                            <script src="assets/js/validation/bootstrap.min.js"></script>
-                            </body>
-
-                            </html>
->>>>>>> 803b07310cda2578b3f5387318597704a03dfd77
