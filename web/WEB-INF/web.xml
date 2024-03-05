@@ -116,6 +116,22 @@
         <servlet-name>StaffManagerController</servlet-name>
         <servlet-class>Controllers.StaffManagerController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>BrandManager</servlet-name>
+        <servlet-class>Controllers.BrandManager</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddBrandController</servlet-name>
+        <servlet-class>Controllers.AddBrandController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateBrandController</servlet-name>
+        <servlet-class>Controllers.UpdateBrandController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteBrandController</servlet-name>
+        <servlet-class>Controllers.DeleteBrandController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>default</servlet-name>
         <url-pattern>*.css</url-pattern>
@@ -239,6 +255,22 @@
     <servlet-mapping>
         <servlet-name>StaffManagerController</servlet-name>
         <url-pattern>/staffManager</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BrandManager</servlet-name>
+        <url-pattern>/brandmanager</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddBrandController</servlet-name>
+        <url-pattern>/addbrandcontroller</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateBrandController</servlet-name>
+        <url-pattern>/loadBrand</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteBrandController</servlet-name>
+        <url-pattern>/deleteBrand</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

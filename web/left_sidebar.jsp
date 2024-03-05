@@ -98,7 +98,7 @@
                     <a href="#" class="list-group-item list-group-item-action py-2 ripple">
                         <i class="fas fa-shoe-prints fa-fw me-3"></i><span>Product manager</span>
                     </a>
-                    <a href="#" class="list-group-item list-group-item-action py-2 ripple">
+                    <a href="brandmanager" class="list-group-item list-group-item-action py-2 ripple">
                         <i class="fas fa-tag fa-fw me-3"></i><span>Brand manager</span>
                     </a>
                     <a href="#" class="list-group-item list-group-item-action py-2 ripple">
