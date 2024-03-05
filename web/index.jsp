@@ -159,9 +159,9 @@
 			<!-- footer -->
 			<c:if test="${sessionScope.checkoutSuccess != null}">
 				<script>
-					message("success", "Payment Success!", "Thank you for your purchase")
+					message("success", "${sessionScope.checkoutSuccess}", "Thank you for your purchase")
 				</script>
-				<% session.invalidate(); %>
+				<% session.removeAttribute("checkoutSuccess"); %>
 			</c:if>
 			<%@include file="footer.jsp" %>
 	</body>

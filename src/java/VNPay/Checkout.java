@@ -1,5 +1,7 @@
 package VNPay;
 
+import DAOs.OrderDAO;
+import Models.Order;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import java.io.IOException;
@@ -10,10 +12,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -79,6 +83,28 @@ public class Checkout extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		//from Cart page
+		String paymentMethod = request.getParameter("paymentMethod");
+		String customerId = request.getParameter("customerId");
+		if (paymentMethod.equals("COD")) {
+			long amountCOD = Integer.parseInt(request.getParameter("amount"));
+			Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
+			Timestamp timestamp = new Timestamp(cld.getTimeInMillis());
+
+			OrderDAO orderDAO = new OrderDAO();
+			String transactionNo = Config.getRandomNumber(8);
+			Order newOrder = new Order(transactionNo, amountCOD, timestamp, "Pending", "Processing", customerId, "COD", null);
+			orderDAO.addOrder(newOrder);
+			request.getSession().setAttribute("checkoutSuccess", "Order successful!");
+
+			com.google.gson.JsonObject job = new JsonObject();
+			job.addProperty("paymentMethod", "COD");
+			job.addProperty("message", "success");
+
+			Gson gson = new Gson();
+			response.getWriter().write(gson.toJson(job));
+			return;
+		}
 
 		String vnp_Version = "2.1.0";
 		String vnp_Command = "pay";
@@ -101,9 +127,6 @@ public class Checkout extends HttpServlet {
 		if (bankCode != null && !bankCode.isEmpty()) {
 			vnp_Params.put("vnp_BankCode", bankCode);
 		}
-
-		//from Cart page
-		String customerId = request.getParameter("customerId");
 
 		vnp_Params.put("vnp_TxnRef", vnp_TxnRef);
 		vnp_Params.put("vnp_OrderInfo", customerId);
@@ -156,6 +179,7 @@ public class Checkout extends HttpServlet {
 		String paymentUrl = Config.vnp_PayUrl + "?" + queryUrl;
 		com.google.gson.JsonObject job = new JsonObject();
 		job.addProperty("code", "00");
+		job.addProperty("paymentMethod", "VNPay");
 		job.addProperty("message", "success");
 		job.addProperty("data", paymentUrl);
 
