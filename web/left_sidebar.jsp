@@ -77,14 +77,11 @@
         <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white" style="padding: 0px;">
             <div class="position-sticky">
                 <div class="list-group list-group-flush mx-3 mt-4">
-<<<<<<< HEAD
                     <a class="d-block text-lg font-weight-bold text-dark mb-4">Menu</a>
-                    <c:if test="${admin != null}">
-                        <a href="#manager" id="accountManager" class="list-group-item list-group-item-action py-2 ripple">
-                            <i class="fas fa-user-circle fa-fw me-3"></i><span>Account manager</span>
-                        </a>
+                    <a href="#manager" id="accountManager" class="list-group-item list-group-item-action py-2 ripple">
+                        <i class="fas fa-user-circle fa-fw me-3"></i><span>Account manager</span>
+                    </a>
 
-=======
                     <a class="d-block text-lg font-weight-bold text-dark mb-4">
                         <c:choose>
                             <c:when test="${admin != null}">
@@ -100,8 +97,6 @@
                         <a href="#manager" id="accountManager" class="list-group-item list-group-item-action py-2 ripple">
                             <i class="fas fa-user-circle fa-fw me-3"></i><span>Account manager</span>
                         </a>
-
->>>>>>> 3bc8fdbeb19cf6fefe25a86403faf516d538d5e1
                         <div id="manager" style="display: none;">
                             <a href="staffmanager" class="list-group-item list-group-item-action py-2 ripple">
                                 <i class="fas fa-user-circle fa-fw me-3"></i><span>Staff manager</span>
@@ -114,11 +109,8 @@
                             </a>
                         </div>
                     </c:if>
-<<<<<<< HEAD
                     <a href="productmanagement" class="list-group-item list-group-item-action py-2 ripple">
-=======
-                    <a href="#" class="list-group-item list-group-item-action py-2 ripple">
->>>>>>> 3bc8fdbeb19cf6fefe25a86403faf516d538d5e1
+
                         <i class="fas fa-shoe-prints fa-fw me-3"></i><span>Product manager</span>
                     </a>
                     <a href="brandmanager" class="list-group-item list-group-item-action py-2 ripple">

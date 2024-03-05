@@ -121,7 +121,6 @@
         <servlet-class>Controllers.StaffManagerController</servlet-class>
     </servlet>
     <servlet>
-<<<<<<< HEAD
         <servlet-name>UpdateOrder</servlet-name>
         <servlet-class>Controllers.UpdateOrder</servlet-class>
     </servlet>
@@ -136,7 +135,8 @@
     <servlet>
         <servlet-name>ProductDetailInfor</servlet-name>
         <servlet-class>Controllers.ProductDetailInfor</servlet-class>
-=======
+    </servlet>
+    <servlet>
         <servlet-name>BrandManager</servlet-name>
         <servlet-class>Controllers.BrandManager</servlet-class>
     </servlet>
@@ -151,7 +151,6 @@
     <servlet>
         <servlet-name>DeleteBrandController</servlet-name>
         <servlet-class>Controllers.DeleteBrandController</servlet-class>
->>>>>>> 3bc8fdbeb19cf6fefe25a86403faf516d538d5e1
     </servlet>
     <servlet-mapping>
         <servlet-name>default</servlet-name>
@@ -282,7 +281,6 @@
         <url-pattern>/staffManager</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-<<<<<<< HEAD
         <servlet-name>UpdateOrder</servlet-name>
         <url-pattern>/Updateorder</url-pattern>
     </servlet-mapping>
@@ -297,7 +295,8 @@
     <servlet-mapping>
         <servlet-name>ProductDetailInfor</servlet-name>
         <url-pattern>/productDetailInfor</url-pattern>
-=======
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>BrandManager</servlet-name>
         <url-pattern>/brandmanager</url-pattern>
     </servlet-mapping>
@@ -312,7 +311,6 @@
     <servlet-mapping>
         <servlet-name>DeleteBrandController</servlet-name>
         <url-pattern>/deleteBrand</url-pattern>
->>>>>>> 3bc8fdbeb19cf6fefe25a86403faf516d538d5e1
     </servlet-mapping>
     <session-config>
         <session-timeout>
