@@ -178,6 +178,34 @@ public class AddressDAO {
 		return count;
 	}
 
+	public int removePrimaryByCustomerId(String customerID) {
+		int count = 0;
+		String sql = "UPDATE [dbo].[Addresses]\n"
+				+ "   SET [isPrimary] = 0\n"
+				+ " WHERE CustomerID  = ?";
+		try {
+			PreparedStatement st = conn.prepareCall(sql);
+			st.setString(1, customerID);
+			count = st.executeUpdate();
+		} catch (SQLException e) {
+		}
+		return count;
+	}
+
+	public int setPrimaryByAddressId(String addressId) {
+		int count = 0;
+		String sql = "UPDATE [dbo].[Addresses]\n"
+				+ "   SET [isPrimary] = 1\n"
+				+ " WHERE AddressID  = ?";
+		try {
+			PreparedStatement st = conn.prepareCall(sql);
+			st.setString(1, addressId);
+			count = st.executeUpdate();
+		} catch (SQLException e) {
+		}
+		return count;
+	}
+
 	public List<Address> getAddressesByCusId(String id) {
 		List<Address> addresses = new ArrayList<>();
 		String sql = "Select * from Addresses where CustomerID = ?";

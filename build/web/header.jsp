@@ -28,7 +28,7 @@
                     <c:when test="${customer != null}">
                         <li>
                             <a href="/profile" class="flex space-x-2 items-center">
-                                <img src="assets/img/svg/profile_close_2.svg" alt="profile">
+                                <img src="/assets/img/svg/profile_close_2.svg" alt="profile">
                                 <span>${customer.username}</span>
                             </a>
                         </li>
@@ -68,7 +68,7 @@
 
                 <li>
                     <a href="#">
-                        <img src="assets/img/svg/search-icon.svg" alt="">
+                        <img src="/assets/img/svg/search-icon.svg" alt="">
                     </a>
                 </li>
             </ul>
@@ -78,7 +78,7 @@
     <div class="px-4 md:px-24 flex md:justify-between items-center py-4 flex-col md:flex-row">
         <div class="mb-4 md:mb-0">
             <a href="#" class="flex items-center space-x-2">
-                <img src="assets/img/svg/Icon.svg" alt="">
+                <img src="/assets/img/svg/Icon.svg" alt="">
                 <span class="font-bold text-lg">E-Comm</span>
             </a>
         </div>

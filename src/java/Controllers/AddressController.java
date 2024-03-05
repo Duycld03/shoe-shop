@@ -81,17 +81,21 @@ public class AddressController extends HttpServlet {
 
 		String path = request.getRequestURI();
 		HttpSession session = request.getSession();
+		AddressDAO addressDAO = new AddressDAO();
 		if (path.endsWith("/delete")) {
 			String id = request.getParameter("id");
-			AddressDAO addressDAO = new AddressDAO();
 			int result = addressDAO.deleteById(id);
 			if (result >= 1) {
 				session.setAttribute("success", "Delete Address Successful!");
-				response.sendRedirect("/profile/address");
 			} else {
-				session.setAttribute("error", "Delete Address failed!");
-				response.sendRedirect("/profile/address");
+				session.setAttribute("error", "Delete Address Failed!");
 			}
+			response.sendRedirect("/profile/address");
+		} else if (path.endsWith("setPrimary")) {
+			String addressId = request.getParameter("id");
+			addressDAO.removePrimaryByCustomerId(customer.getCustomerId());
+			addressDAO.setPrimaryByAddressId(addressId);
+			response.sendRedirect("/profile/address");
 		} else {
 			response.sendRedirect("/profile/address");
 		}
@@ -134,13 +138,13 @@ public class AddressController extends HttpServlet {
 			String addressId = request.getParameter("addressId");
 
 			AddressDAO addressDAO = new AddressDAO();
-			Address address = new Address(addressId, city, addressDetail, customerId, false);
-			int result = addressDAO.add(address);
-			if (result >= 1) {
-				session.setAttribute("success", "Add Address Successful!");
-			} else {
-				session.setAttribute("error", "Add Address Failed!");
-			}
+//			Address address = new Address(addressId, city, addressDetail, customerId, false);
+//			int result = addressDAO.add(address);
+//			if (result >= 1) {
+//				session.setAttribute("success", "Add Address Successful!");
+//			} else {
+//				session.setAttribute("error", "Add Address Failed!");
+//			}
 			response.sendRedirect("/profile/address");
 			return;
 		}
