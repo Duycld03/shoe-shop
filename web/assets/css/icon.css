@@ -27,7 +27,7 @@
     font-size: 24px; /* Kích thước chữ là 24px */
     /* Thêm các thuộc tính CSS khác nếu cần */
 }
-.bx-check {
+.bx-check, .bx-x-circle {
     font-size: 30px;
     font-weight: bold;
 }

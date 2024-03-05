@@ -16,9 +16,9 @@
                 if (confirm("Are you sure delete adminId = " + admin_id + "?")) {
                     window.location = "deleteAdmin?adminId=" + admin_id;
                 }
-
+                
             }
-
+            
         </script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
         <link rel="stylesheet" href="assets/css/icon.css">
@@ -26,90 +26,7 @@
         <script src="assets/js/validation/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="assets/js/script.js"></script>
-        <style>
-            img{
-                width: 200px;
-                height: 120px;
-            }
-        </style>
-        <style>
-            body {
-                margin: 0;
-                padding: 0;
-            }
-        </style>
-        <style>
-            body {
-                background-color: #fbfbfb;
-            }
-            @media (min-width: 991.98px) {
-                main {
-                    padding-left: 240px;
-                }
-            }
-
-            /* Sidebar */
-            .sidebar {
-                position: fixed;
-                top: 0;
-                bottom: 0;
-                left: 0;
-                padding: 58px 0 0; /* Height of navbar */
-                box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
-                width: 240px;
-                z-index: 600;
-            }
-
-            @media (max-width: 991.98px) {
-                .sidebar {
-                    width: 100%;
-                }
-            }
-            .sidebar .active {
-                border-radius: 5px;
-                box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
-            }
-
-            .sidebar-sticky {
-                position: relative;
-                top: 0;
-                height: calc(100vh - 48px);
-                padding-top: 0.5rem;
-                overflow-x: hidden;
-                overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-            }
-            .container {
-                padding-right: 15px;
-                padding-left: 15px;
-                margin-right: auto;
-                margin-left: auto;
-            }
-
-            @media (min-width: 576px) {
-                .container {
-                    max-width: 540px;
-                }
-            }
-
-            @media (min-width: 768px) {
-                .container {
-                    max-width: 972px;
-                }
-            }
-
-            @media (min-width: 992px) {
-                .container {
-                    max-width: 960px;
-                }
-            }
-
-            @media (min-width: 1200px) {
-                .container {
-                    max-width: 1140px;
-                }
-            }
-
-        </style>
+        <link rel="stylesheet" href="assets/css/manager.css"/>
     </head>
     <body>
         <header>
@@ -127,18 +44,18 @@
                             <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i></a>
                         </div>
                     </div>
-                <table class="table table-bordered table-striped mt-3">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th>ID</th>
-                            <th>User Name</th>
-                            <th>FullName</th>
-                            <th>Password</th>
-                            <th>Email</th>
-                            <th>Phone Number</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
+                    <table class="table table-bordered table-striped mt-3">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>ID</th>
+                                <th>User Name</th>
+                                <th>FullName</th>
+                                <th>Password</th>
+                                <th>Email</th>
+                                <th>Phone Number</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
                     <c:forEach items="${requestScope.data}" var="c">
                         <c:set var="order_id" value="${c.adminId}" />
                         <tr>
@@ -191,7 +108,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="form-group">
                                 <label>Email</label>
                                 <input name="email" type="email" class="form-control" required pattern="[a-zA-Z0-9._%+-]+@gmail\.com$" title="Email must be in the format example@gmail.com">
@@ -215,12 +131,12 @@
             document.addEventListener("DOMContentLoaded", function () {
                 var closeModalButton = document.querySelector("button.close");
                 var cancelButton = document.querySelector(".modal-footer button[data-dismiss='modal']");
-
+                
                 closeModalButton.addEventListener("click", function () {
                     // Đóng modal khi nút "X" được nhấn
                     $("#addEmployeeModal").modal("hide");
                 });
-
+                
                 cancelButton.addEventListener("click", function () {
                     // Đóng modal khi nút "Cancel" được nhấn
                     $("#addEmployeeModal").modal("hide");
@@ -229,7 +145,7 @@
             document.addEventListener("DOMContentLoaded", function () {
                 var togglePassword = document.getElementById("togglePassword");
                 var passwordInput = document.getElementById("password");
-
+                
                 togglePassword.addEventListener("click", function () {
                     var type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
                     passwordInput.setAttribute("type", type);
@@ -237,7 +153,7 @@
                     this.querySelector("i").classList.toggle("fa-eye");
                 });
             });
-
+            
         </script>
         <script src="assets/js/validation//manager.js" type="text/javascript"></script>
         <script src="assets/js/validation/bootstrap.min.js"></script>

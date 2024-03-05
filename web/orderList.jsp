@@ -6,20 +6,13 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Order management</title>
-        <script type="text/javascript">
-            function doDelete(Order_ID) {
-                if (confirm("Are you sure delete Order ID = " + Order_ID + "?")) {
-                    window.location = "deleteOrder?OrderID=" + Order_ID;
-                }
-
-            }
-        </script>
         <link rel="stylesheet"
               href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
         <link rel="stylesheet" href="assets/css/icon.css">
@@ -28,70 +21,7 @@
         <script src="assets/js/validation/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="assets/js/script.js"></script>
-        <style>
-            img {
-                width: 200px;
-                height: 120px;
-            }
-        </style>
-        <style>
-            body {
-                margin: 0;
-                padding: 0;
-            }
-        </style>
-        <style>
-            body {
-                background-color: #fbfbfb;
-            }
-
-            @media (min-width: 991.98px) {
-                main {
-                    padding-left: 240px;
-                }
-            }
-
-            /* Sidebar */
-            .sidebar {
-                position: fixed;
-                top: 0;
-                bottom: 0;
-                left: 0;
-                padding: 58px 0 0;
-                /* Height of navbar */
-                box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
-                width: 240px;
-                z-index: 600;
-            }
-
-            @media (max-width: 991.98px) {
-                .sidebar {
-                    width: 100%;
-                }
-            }
-
-            .sidebar .active {
-                border-radius: 5px;
-                box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
-            }
-
-            .sidebar-sticky {
-                position: relative;
-                top: 0;
-                height: calc(100vh - 48px);
-                padding-top: 0.5rem;
-                overflow-x: hidden;
-                overflow-y: auto;
-                /* Scrollable contents if viewport is shorter than content. */
-            }
-
-            .container {
-                padding-right: 15px;
-                padding-left: 15px;
-                margin-right: auto;
-                margin-left: auto;
-            }
-        </style>
+        <link rel="stylesheet" href="assets/css/manager.css"/>
     </head>
 
     <body>
@@ -105,10 +35,6 @@
                             <h5 class="mb-0 text-left">
                                 <strong>ORDER MANAGEMENT</strong>
                             </h5>
-                        </div>
-                        <div class="col-sm-9 text-right">
-                            <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i
-                                    class="material-icons">&#xE147;</i></a>
                         </div>
                         <table class="table table-bordered table-striped mt-3">
                             <thead class="thead-dark">
@@ -136,24 +62,31 @@
                                 <td>${c.staffID}</td>
 
                                 <td>
-                                    <div class="btn-group">
-                                        <c:if test="${StaffID_Check ne c.staffID && c.staffID ne param.StaffID && c.staffID == null}">
-                                            <button class="btn btn-success" onclick="location.href = 'updatetakecarestaff?OrderID=${c.orderId}&StaffID=${param.StaffID}'">
-                                                <i class='bx bx-check'></i>
+                                    <div class="btn-group d-flex justify-content-center align-items-center">
+                                        <c:if test="${c.staffID == null}">
+                                            <button class="btn btn-warning text-white" 
+                                                    onclick="messageConfirm('Accept this order', () => {
+                                                                location.href = 'ordermanagement?OrderID=${c.orderId}&StaffID=${param.StaffID}'
+                                                            })">
+                                                Accept
                                             </button>
                                         </c:if>
-                                        <c:if test="${StaffID_Check eq c.staffID || c.staffID eq param.StaffID}">
-                                            <button class="btn btn-warning"
-                                                    onclick="location.href = 'updateOrder?OrderID=${c.orderId}'">
-                                                <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+                                        <c:if test="${c.staffID != null && c.orderStatus ne 'Processing' && c.orderStatus ne 'Success' && c.orderStatus ne 'Cancel'}">
+                                            <button class="btn btn-success"
+                                                    onclick="messageConfirm('Order completed', () => {
+                                                                location.href = '/ordermanagement?OrderID=${c.orderId}&status=Success'
+                                                            })">
+                                                <i class='bx bx-check'></i>
+                                            </button>
+                                            &nbsp;&nbsp;&nbsp;
+                                            <button class="btn btn-danger" 
+                                                    onclick="messageConfirm('Order cancel', () => {
+                                                                location.href = '/ordermanagement?OrderID=${c.orderId}&status=Cancel'
+                                                            })">
+                                                <i class='bx bx-x-circle'></i>
                                             </button>
                                         </c:if>
 
-                                        &nbsp;&nbsp;&nbsp;
-                                        <button class="btn btn-danger" onclick="doDelete('${c.orderId}')">
-                                            <i class="material-icons" data-toggle="tooltip"
-                                               title="Delete">&#xE872;</i>
-                                        </button>
                                     </div>
                                 </td>
                             </tr>

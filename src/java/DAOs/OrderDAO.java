@@ -155,17 +155,21 @@ public class OrderDAO {
     }
 
     //update Order Status
-    public void updateOrderStatus(String orderID, String Processing) {
+    public boolean updateOrderStatus(String orderID, String status) {
         String sql = "UPDATE [dbo].[Orders]\n"
-                + "   SET [OrderStatus] = ? \n"
-                + " WHERE [OrderID] = ?\n";
+                + "                SET [OrderStatus] = ? ,\n"
+                + "		   PaymentStatus = 'Paid'\n"
+                + "                WHERE [OrderID] = ?\n";
         try {
             PreparedStatement st = conn.prepareCall(sql);
-            st.setString(1, Processing);
+            st.setString(1, status);
             st.setString(2, orderID);
             st.executeUpdate();
+            return true;
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
+        return false;
     }
 
     public int getTotalPriceByM(int month) {
@@ -201,7 +205,8 @@ public class OrderDAO {
 
     public boolean updateTakeCareStaff(String StaffID, String OrderID) {
         String sql = "Update Orders\n"
-                + "set StaffID = ?\n"
+                + "set StaffID = ?,\n"
+                + "    OrderStatus = 'Accepted'\n"
                 + "where OrderID = ?";
         try {
             ps = conn.prepareStatement(sql);
@@ -256,11 +261,12 @@ public class OrderDAO {
 
     public static void main(String[] args) {
         OrderDAO d = new OrderDAO();
-        String id = "ST3";
         String cusID = "Order6";
-        List<Order> list = d.getOrderbyStaffID(id);
-        for (Order order : list) {
-            System.out.println(order.getStaffID());
+        String status = "Sucess";
+        if (d.updateOrderStatus(cusID, status) == false) {
+            System.out.println("faid");
+        }else {
+            System.out.println("done");
         }
 
     }

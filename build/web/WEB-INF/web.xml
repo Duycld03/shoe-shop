@@ -117,12 +117,24 @@
         <servlet-class>Controllers.orderManagement</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>UpdateTakeCareStaff</servlet-name>
-        <servlet-class>Controllers.UpdateTakeCareStaff</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>StaffManagerController</servlet-name>
         <servlet-class>Controllers.StaffManagerController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateOrder</servlet-name>
+        <servlet-class>Controllers.UpdateOrder</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProductManagement</servlet-name>
+        <servlet-class>Controllers.ProductManagement</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateProduct</servlet-name>
+        <servlet-class>Controllers.UpdateProduct</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProductDetailInfor</servlet-name>
+        <servlet-class>Controllers.ProductDetailInfor</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>default</servlet-name>
@@ -249,12 +261,24 @@
         <url-pattern>/ordermanagement</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>UpdateTakeCareStaff</servlet-name>
-        <url-pattern>/updatetakecarestaff</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>StaffManagerController</servlet-name>
         <url-pattern>/staffManager</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateOrder</servlet-name>
+        <url-pattern>/Updateorder</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProductManagement</servlet-name>
+        <url-pattern>/productmanagement</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateProduct</servlet-name>
+        <url-pattern>/updateproduct</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProductDetailInfor</servlet-name>
+        <url-pattern>/productDetailInfor</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -4,8 +4,10 @@
  */
 package Controllers;
 
+import DAOs.MethodDAO;
 import DAOs.OrderDAO;
 import Models.Order;
+import Models.PaymentMethod;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -18,7 +20,7 @@ import java.util.List;
  *
  * @author Doan Thanh Phuc - CE170580
  */
-public class UpdateTakeCareStaff extends HttpServlet {
+public class UpdateOrder extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,10 +39,10 @@ public class UpdateTakeCareStaff extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet UpdateTakeCareStaff</title>");
+            out.println("<title>Servlet UpdateOrder</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet UpdateTakeCareStaff at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet UpdateOrder at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -58,15 +60,14 @@ public class UpdateTakeCareStaff extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        OrderDAO orderD = new OrderDAO();
-        String orderID = request.getParameter("OrderID");
-        String staffID = request.getParameter("StaffID");
-        if (orderD.updateTakeCareStaff(staffID, orderID) == true) {
-            request.setAttribute("StaffID_Check", staffID);
-        } else {
-            request.setAttribute("error", "false");
-        }
-        request.getRequestDispatcher("/ordermanagement").forward(request, response);
+        String OrderId = request.getParameter("OrderID");
+        OrderDAO d = new OrderDAO();
+        MethodDAO md = new MethodDAO();
+        Order order = d.getOrderById(OrderId);
+        List<PaymentMethod> methods = md.getAllMethod();
+        request.setAttribute("order", order);
+        request.setAttribute("methods", methods);
+        request.getRequestDispatcher("updateOrder.jsp").forward(request, response);
     }
 
     /**
@@ -80,7 +81,16 @@ public class UpdateTakeCareStaff extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        if (request.getParameter("btnSave") != null) {
+            String orderid = request.getParameter("OrderID");
+            String total = request.getParameter("TotalAmount");
+            String OrderDate = request.getParameter("orderDate");
+            String paymentStatus = request.getParameter("paymentstatus");
+            String customerID = request.getParameter("CustomerID");
+            String method = request.getParameter("method");
+            String staffDi = request.getParameter("StaffID");
+
+        }
     }
 
     /**

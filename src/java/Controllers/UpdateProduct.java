@@ -4,26 +4,25 @@
  */
 package Controllers;
 
-import DAOs.OrderDAO;
-import DAOs.StaffDAO;
-import Models.Order;
-import Models.Staff;
-import Utils.JwtUtils;
+import DAOs.BrandDAO;
+import DAOs.ProductDAO;
+import Models.Brand;
+import Models.Product;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.Cookie;
-import java.util.List;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.List;
+import javax.mail.Session;
 
 /**
  *
  * @author Doan Thanh Phuc - CE170580
  */
-public class orderManagement extends HttpServlet {
+public class UpdateProduct extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,10 +41,10 @@ public class orderManagement extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet orderManagement</title>");
+            out.println("<title>Servlet UpdateProduct</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet orderManagement at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet UpdateProduct at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -63,51 +62,17 @@ public class orderManagement extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        OrderDAO orderD = new OrderDAO();
-        Cookie[] cookies = request.getCookies();
-        Cookie managerCookie = null;
-        HttpSession session = request.getSession();
-
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals("manager")) {
-                managerCookie = cookie;
-            }
+        ProductDAO dao = new ProductDAO();
+        BrandDAO d = new BrandDAO();
+        List<Brand> brands = d.getAllBrand();
+        String proID = request.getParameter("ProID");
+        Product pro = dao.getProductByID2(proID);
+        if (pro == null) {
+            request.setAttribute("error", "pro is null");
         }
-        if (managerCookie == null) {
-            response.sendRedirect("/managerLogin");
-            return;
-        }
-        String username = JwtUtils.getContentFromToken(managerCookie.getValue());
-        StaffDAO staffDAO = new StaffDAO();
-        Staff staff = staffDAO.getStaffByUsername(username);
-        String staffID = staff.getStaffId();
-        if (staff == null) {
-            response.sendRedirect("/managerLogin");
-            return;
-        }
-        request.setAttribute("Staff", staff);
-        String orderID = request.getParameter("OrderID");
-        if (orderD.updateTakeCareStaff(staffID, orderID) == true) {
-            request.setAttribute("StaffID_Check", staffID);
-        } else {
-            request.setAttribute("error", "false");
-        }
-        //Lay orderID khi order thanh cong
-        String orderID_draw = request.getParameter("OrderID");
-        String status = request.getParameter("status");
-        if (orderID_draw != null && status != null) {
-            orderD.updateOrderStatus(orderID_draw, status);
-            if (status.equalsIgnoreCase("Success")) {
-                session.setAttribute("success", "The order has been successful");
-            } else {
-                session.setAttribute("error", "The order has been cancelled");
-            }
-        } else if (orderID_draw != null) {
-            orderD.updateTakeCareStaff(staffID, orderID);
-        }
-        List<Order> list = orderD.getOrderbyStaffID(staffID);
-        request.setAttribute("Orders", list);
-        request.getRequestDispatcher("orderList.jsp").forward(request, response);
+        request.setAttribute("Brands", brands);
+        request.setAttribute("Product", pro);
+        request.getRequestDispatcher("UpdateProduct.jsp").forward(request, response);
     }
 
     /**
@@ -121,7 +86,32 @@ public class orderManagement extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession();
+        if (request.getParameter("btnSave") != null) {
+            ProductDAO dao = new ProductDAO();
+            String productId = request.getParameter("id");
+            String productName = request.getParameter("productName");
+            String price = request.getParameter("price");
+            String discount = request.getParameter("discount");
+            String description = request.getParameter("description");
+            String brandId = request.getParameter("brandID");
+            String isDeleted = request.getParameter("isDelete");
+            try {
+                boolean isDelecte_draw = Boolean.parseBoolean(isDeleted);
+                float price_draw = Float.parseFloat(price);
+                float discount_draw = Float.parseFloat(discount);
+                Product pro = new Product(productId, productName, price_draw, discount_draw, description, brandId, isDelecte_draw);
+                if (dao.UpdateProduct(pro) == true) {
+                    session.setAttribute("success", "success");
+                } else {
+                    session.setAttribute("error", "error");
+                }
+            } catch (Exception e) {
+
+            }
+            response.sendRedirect("/productmanagement");
+
+        }
     }
 
     /**

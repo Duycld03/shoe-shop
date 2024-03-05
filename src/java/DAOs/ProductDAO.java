@@ -145,6 +145,25 @@ public class ProductDAO {
 
     }
 
+    public Product getProductByID2(String proID) {
+        String sql = " Select * from Products\n"
+                + " where ProductID = ?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, proID);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Product pro = new Product(rs.getString(1), rs.getString(2),
+                        rs.getFloat(3), rs.getFloat(4), rs.getString(5), rs.getString(7), rs.getBoolean(6));
+                return pro;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+
+    }
+
     public List<Product> getTop4RelatePro(String BrandId) {
         List<Product> products = new ArrayList<>();
         String sql = "SELECT Top 4 * FROM Products p \n"
@@ -358,15 +377,73 @@ public class ProductDAO {
         return false;
     }
 
+    public List<Product> getAllProManagement() {
+        List<Product> pros = new ArrayList<>();
+        String sql = "select * from Products";
+        try {
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Product pro = new Product(rs.getString(1), rs.getString(2),
+                        rs.getFloat(3), rs.getFloat(4), rs.getString(5), rs.getString(7), rs.getBoolean(6));
+                pros.add(pro);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+
+        }
+
+        return pros;
+    }
+
+    public boolean softDeletePro(String proID) {
+        String sql = " Update Products \n"
+                + " set isDeleted = 1\n"
+                + " where ProductID = ?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, proID);
+            ps.executeUpdate();
+            return true;
+        } catch (Exception e) {
+        }
+        return false;
+    }
+
+    public boolean UpdateProduct(Product pro) {
+        String sql = "UPDATE [dbo].[Products]\n"
+                + "   SET \n"
+                + "      [ProductName] = ?\n"
+                + "      ,[Price] = ?\n"
+                + "      ,[Discount] = ?\n"
+                + "      ,[Description] = ?\n"
+                + "      ,[isDeleted] = ?\n"
+                + "      ,[BrandID] = ?\n"
+                + " WHERE [ProductID] = ? ";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, pro.getProductName());
+            ps.setFloat(2, pro.getPrice());
+            ps.setFloat(3, pro.getDiscount());
+            ps.setString(4, pro.getDescription());
+            ps.setBoolean(5, pro.getIsDelete());
+            ps.setString(6, pro.getBrandId());
+            ps.setString(7, pro.getProductId());
+            ps.executeUpdate();
+            return true;
+        } catch (Exception e) {
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
         ProductDAO d = new ProductDAO();
-        Product newP = new Product("P24", "adidas adios pro 3_A2", 1, 0, "", "Br2", false);
-        if (d.addProduct(newP) == true) {
-            System.out.println("succes");
+        String proID = "P2";
+        if (d.softDeletePro(proID)) {
+            System.out.println("success");
         } else {
             System.out.println("false");
         }
-
     }
 
 }
