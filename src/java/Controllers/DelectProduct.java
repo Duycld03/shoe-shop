@@ -4,28 +4,22 @@
  */
 package Controllers;
 
-import DAOs.AdminDAO;
-import DAOs.BrandDAO;
-import DAOs.StaffDAO;
-import Models.Admin;
-import Models.Brand;
-import Models.Staff;
-import Utils.JwtUtils;
-import jakarta.servlet.RequestDispatcher;
+import DAOs.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.Cookie;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
- * @author To Do Hong Y - CE171148
+ * @author Doan Thanh Phuc - CE170580
  */
-public class BrandManager extends HttpServlet {
+@WebServlet(name = "DelectProduct", urlPatterns = {"/delectproduct"})
+public class DelectProduct extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,33 +32,19 @@ public class BrandManager extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Cookie[] cookies = request.getCookies();
-        Cookie managerCookie = null;
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals("manager")) {
-                managerCookie = cookie;
-            }
+        response.setContentType("text/html;charset=UTF-8");
+        try ( PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet DelectProduct</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet DelectProduct at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
-        if (managerCookie == null) {
-            response.sendRedirect("/managerLogin");
-            return;
-        }
-        String username = JwtUtils.getContentFromToken(managerCookie.getValue());
-        AdminDAO adminDAO = new AdminDAO();
-        Admin admin = adminDAO.getAdminByUsername(username);
-        StaffDAO staffDAO = new StaffDAO();
-        Staff staff = staffDAO.getStaffByUsername(username);
-        if (admin == null && staff == null) {
-            response.sendRedirect("/managerLogin");
-            return;
-        }
-        request.setAttribute("admin", admin);
-        request.setAttribute("staff", staff);
-        BrandDAO c = new BrandDAO();
-        List<Brand> list = c.getAllBrand();
-        request.setAttribute("data", list);
-        RequestDispatcher r = request.getRequestDispatcher("brandmanager.jsp");
-        r.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -79,7 +59,15 @@ public class BrandManager extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession();
+        String proID = request.getParameter("ProID");
+        ProductDAO dao = new ProductDAO();
+        if (dao.softDeletePro(proID)) {
+            session.setAttribute("success", "success");
+        } else {
+            session.setAttribute("error", "error");
+        }
+        response.sendRedirect("/productmanagement");
     }
 
     /**

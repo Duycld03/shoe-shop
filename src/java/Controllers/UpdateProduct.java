@@ -6,6 +6,8 @@ package Controllers;
 
 import DAOs.BrandDAO;
 import DAOs.ProductDAO;
+import Models.Brand;
+import Models.Product;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,12 +15,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.List;
+import javax.mail.Session;
 
 /**
  *
- * @author To Do Hong Y - CE171148
+ * @author Doan Thanh Phuc - CE170580
  */
-public class DeleteBrandController extends HttpServlet {
+public class UpdateProduct extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,10 +41,10 @@ public class DeleteBrandController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet DeleteBrandController</title>");
+            out.println("<title>Servlet UpdateProduct</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet DeleteBrandController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet UpdateProduct at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -58,14 +62,17 @@ public class DeleteBrandController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        String id_raw = request.getParameter("brandId");
-        ProductDAO pDao = new ProductDAO();
-        pDao.updateProductbyBrandID(id_raw);
-        BrandDAO bDAO = new BrandDAO();
-        bDAO.delete(id_raw);
-        session.setAttribute("success", "Brand deleted successfully!");
-        response.sendRedirect("/brandmanager");
+        ProductDAO dao = new ProductDAO();
+        BrandDAO d = new BrandDAO();
+        List<Brand> brands = d.getAllBrand();
+        String proID = request.getParameter("ProID");
+        Product pro = dao.getProductByID2(proID);
+        if (pro == null) {
+            request.setAttribute("error", "pro is null");
+        }
+        request.setAttribute("Brands", brands);
+        request.setAttribute("Product", pro);
+        request.getRequestDispatcher("UpdateProduct.jsp").forward(request, response);
     }
 
     /**
@@ -79,7 +86,32 @@ public class DeleteBrandController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession();
+        if (request.getParameter("btnSave") != null) {
+            ProductDAO dao = new ProductDAO();
+            String productId = request.getParameter("id");
+            String productName = request.getParameter("productName");
+            String price = request.getParameter("price");
+            String discount = request.getParameter("discount");
+            String description = request.getParameter("description");
+            String brandId = request.getParameter("brandID");
+            String isDeleted = request.getParameter("isDelete");
+            try {
+                boolean isDelecte_draw = Boolean.parseBoolean(isDeleted);
+                float price_draw = Float.parseFloat(price);
+                float discount_draw = Float.parseFloat(discount);
+                Product pro = new Product(productId, productName, price_draw, discount_draw, description, brandId, isDelecte_draw);
+                if (dao.UpdateProduct(pro) == true) {
+                    session.setAttribute("success", "success");
+                } else {
+                    session.setAttribute("error", "error");
+                }
+            } catch (Exception e) {
+
+            }
+            response.sendRedirect("/productmanagement");
+
+        }
     }
 
     /**

@@ -105,18 +105,18 @@
                             <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i
                                     class="material-icons">&#xE147;</i></a>
                         </div>
-                    <table class="table table-bordered table-striped mt-3">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th>ID</th>
-                                <th>User Name</th>
-                                <th>FullName</th>
-                                <th>Password</th>
-                                <th>Email</th>
-                                <th>Phone Number</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
+                        <table class="table table-bordered table-striped mt-3">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>User Name</th>
+                                    <th>FullName</th>
+                                    <th>Password</th>
+                                    <th>Email</th>
+                                    <th>Phone Number</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
                         <c:forEach items="${requestScope.data}" var="c">
                             <c:set var="order_id" value="${c.staffId}" />
                             <tr>
@@ -128,8 +128,10 @@
                                 <td>${c.phoneNumber}</td>
                                 <td>
                                     <div class="btn-group">
-                                        <button class="btn btn-warning" onclick="location.href = 'loadStaff?id=${c.staffId}'">
-                                            <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+                                        <button class="btn btn-warning"
+                                                onclick="location.href = 'loadStaff?id=${c.staffId}'">
+                                            <i class="material-icons" data-toggle="tooltip"
+                                               title="Edit">&#xE254;</i>
                                         </button>
                                         &nbsp;&nbsp;&nbsp;
                                         <button class="btn btn-danger" onclick="doDelete('${c.staffId}')">
@@ -144,31 +146,37 @@
                     </table>
                 </div>
         </main>
-            
+
         <div id="addEmployeeModal" class="modal fade">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <form action="addstaffcontroller" method="post">
-                        <div class="modal-header">						
+                        <div class="modal-header">
                             <h4 class="modal-title">Add Staff</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <button type="button" class="close" data-dismiss="modal"
+                                    aria-hidden="true">&times;</button>
                         </div>
-                        <div class="modal-body">					
+                        <div class="modal-body">
                             <div class="form-group">
                                 <label>UserName</label>
-                                <input name="username" type="text" class="form-control" required pattern="[a-zA-Z]+" title="Username must contain only letters">
+                                <input name="username" type="text" class="form-control" required
+                                       pattern="[a-zA-Z]+" title="Username must contain only letters">
                             </div>
                             <div class="form-group">
                                 <label>FullName</label>
-                                <input name="Fullname" type="text" class="form-control" required pattern="[a-zA-Z ]+" title="Full Name cannot contain numbers or special characters">
+                                <input name="Fullname" type="text" class="form-control" required
+                                       pattern="[a-zA-Z ]+"
+                                       title="Full Name cannot contain numbers or special characters">
                             </div>
 
                             <div class="form-group">
                                 <label>Password</label>
                                 <div class="input-group">
-                                    <input name="password" id="password" type="password" class="form-control" required pattern=".{8,}" title="Password must be at least 8 characters">
+                                    <input name="password" id="password" type="password" class="form-control"
+                                           required pattern=".{8,}" title="Password must be at least 8 characters">
                                     <div class="input-group-append">
-                                        <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                                        <button class="btn btn-outline-secondary" type="button"
+                                                id="togglePassword">
                                             <i class="fa fa-eye-slash" aria-hidden="true"></i>
                                         </button>
                                     </div>
@@ -177,16 +185,23 @@
 
                             <div class="form-group">
                                 <label>Email</label>
-                                <input name="email" type="email" class="form-control" required pattern="[a-zA-Z0-9._%+-]+@gmail\.com$" title="Email must be in the format example@gmail.com">
+                                <input name="email" type="email" class="form-control" required
+                                       pattern="[a-zA-Z0-9._%+-]+@gmail\.com$"
+                                       title="Email must be in the format example@gmail.com">
                             </div>
                             <div class="form-group">
                                 <label>Phone Number</label>
-                                <input name="phonenumber" type="tel" class="form-control" required pattern="[0-9]{10}" title="Phone number must contain 10 digits">
+                                <input name="phonenumber" type="tel" class="form-control" required
+                                       pattern="[0-9]{10}" title="Phone number must contain 10 digits">
                             </div>
                         </div>
-
-
-                        <div class="modal-footer">  
+                        <script>
+                            closeModalButton.addEventListener("click", function () {
+                                // Đóng modal khi nút "X" được nhấn
+                                $("#addEmployeeModal").modal("hide");
+                            });
+                        </script>
+                        <div class="modal-footer">
                             <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
                             <input type="submit" name="btnAdd" class="btn btn-success" value="Add">
                         </div>
@@ -237,4 +252,3 @@
     </body>
 
 </html>
-

@@ -5,11 +5,29 @@ package Models;
  * @author Duy
  */
 public class ProductVariant {
+
     private String variantId;
     private String color;
     private int size;
     private int stockQuantity;
     private String productId;
+    private int SumOfVariant;
+
+    public ProductVariant() {
+    }
+
+    public ProductVariant(String productId, int SumOfVariant) {
+        this.productId = productId;
+        this.SumOfVariant = SumOfVariant;
+    }
+
+    public int getSumOfVariant() {
+        return SumOfVariant;
+    }
+
+    public void setSumOfVariant(int SumOfVariant) {
+        this.SumOfVariant = SumOfVariant;
+    }
 
     public ProductVariant(String variantId, String color, int size, int stockQuantity, String productId) {
         this.variantId = variantId;

@@ -55,6 +55,23 @@ public class ProductImageDAO {
         return images;
     }
 
+    public List<ProductImage> getImages2(String productId) {
+        List<ProductImage> images = new ArrayList<>();
+        String sql = "select * from ProductImages where ProductID = ? ";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, productId);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                ProductImage productImage = new ProductImage(rs.getString("ImageID"), rs.getString("ImageURL"), true, rs.getString("ProductID"));
+                images.add(productImage);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return images;
+    }
+
     //Delect Product Imgage by Product ID 
     public int delectImgByProID(String ProductID) {
         int result = 0;

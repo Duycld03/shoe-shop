@@ -21,7 +21,6 @@ import jakarta.servlet.http.HttpSession;
  * @author To Do Hong Y - CE171148
  */
 public class UpdateCustomerController extends HttpServlet {
-
 	/**
 	 * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
 	 * methods.

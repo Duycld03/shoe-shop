@@ -72,5 +72,32 @@ public class OrderDetailDAO {
         return result;
     }
 
+    public List<OrderDetail> getOrderDetailByOrderID(String orderID) {
+        List<OrderDetail> orderDs = new ArrayList<>();
+        String sql = "select * from OrderDetails\n"
+                + "where OrderID = ?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, orderID);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                OrderDetail detail = new OrderDetail(rs.getString("OrderID"), rs.getFloat("Price"), rs.getInt("Quantity"), rs.getString("OrderID"), rs.getString("VariantID"));
+                orderDs.add(detail);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return orderDs;
+    }
+
+    public static void main(String[] args) {
+        OrderDetailDAO dao = new OrderDetailDAO();
+        List<OrderDetail> list = dao.getOrderDetailByOrderID("Oder1");
+        for (OrderDetail d : list) {
+            System.out.println(d.getOrderDetailId());
+        }
+    }
+
     //Update order Detail
 }

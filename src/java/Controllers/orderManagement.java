@@ -1,21 +1,29 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+ */
 package Controllers;
 
+import DAOs.OrderDAO;
 import DAOs.StaffDAO;
+import Models.Order;
 import Models.Staff;
 import Utils.JwtUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
+import java.util.List;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
- * @author Duy
+ * @author Doan Thanh Phuc - CE170580
  */
-public class StaffManagerController extends HttpServlet {
+public class orderManagement extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,10 +42,10 @@ public class StaffManagerController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet StaffManagerController</title>");
+            out.println("<title>Servlet orderManagement</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet StaffManagerController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet orderManagement at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -55,8 +63,11 @@ public class StaffManagerController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        OrderDAO orderD = new OrderDAO();
         Cookie[] cookies = request.getCookies();
         Cookie managerCookie = null;
+        HttpSession session = request.getSession();
+
         for (Cookie cookie : cookies) {
             if (cookie.getName().equals("manager")) {
                 managerCookie = cookie;
@@ -75,7 +86,28 @@ public class StaffManagerController extends HttpServlet {
             return;
         }
         request.setAttribute("Staff", staff);
-        request.getRequestDispatcher("/left_sidebar.jsp").forward(request, response);
+        String orderID = request.getParameter("OrderID");
+        if (orderD.updateTakeCareStaff(staffID, orderID) == true) {
+            request.setAttribute("StaffID_Check", staffID);
+        } else {
+            request.setAttribute("error", "false");
+        }
+        //Lay orderID khi order thanh cong
+        String orderID_draw = request.getParameter("OrderID");
+        String status = request.getParameter("status");
+        if (orderID_draw != null && status != null) {
+            orderD.updateOrderStatus(orderID_draw, status);
+            if (status.equalsIgnoreCase("Success")) {
+                session.setAttribute("success", "The order has been successful");
+            } else {
+                session.setAttribute("error", "The order has been cancelled");
+            }
+        } else if (orderID_draw != null) {
+            orderD.updateTakeCareStaff(staffID, orderID);
+        }
+        List<Order> list = orderD.getOrderbyStaffID(staffID);
+        request.setAttribute("Orders", list);
+        request.getRequestDispatcher("orderList.jsp").forward(request, response);
     }
 
     /**

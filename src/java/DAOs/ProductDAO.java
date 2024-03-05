@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.print.attribute.standard.MediaSize;
 
 /**
@@ -135,6 +137,25 @@ public class ProductDAO {
                         rs.getFloat("Price"), rs.getFloat("Discount"), rs.getString("Description"),
                         rs.getString("BrandID"), false, productImage);
                 return product;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+
+    }
+
+    public Product getProductByID2(String proID) {
+        String sql = " Select * from Products\n"
+                + " where ProductID = ?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, proID);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Product pro = new Product(rs.getString(1), rs.getString(2),
+                        rs.getFloat(3), rs.getFloat(4), rs.getString(5), rs.getString(7), rs.getBoolean(6));
+                return pro;
             }
         } catch (SQLException ex) {
             Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -283,6 +304,16 @@ public class ProductDAO {
         return products;
     }
 
+    public boolean isValidProductID(String productID) {
+        // Sử dụng biểu thức chính quy để kiểm tra định dạng
+        String regex = "^P\\d+$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(productID);
+
+        // Kiểm tra nếu chuỗi productID khớp với biểu thức chính quy
+        return matcher.matches();
+    }
+
     public boolean checkProNameExit(String proName) {
         String sql = "Select * from Products\n"
                 + "where ProductName = ?";
@@ -308,12 +339,17 @@ public class ProductDAO {
         BrandDAO br = new BrandDAO();
 
         try ( PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, (pro.getProductId() != null) ? pro.getProductId() : "default_value");
 
-            if (!d.checkProNameExit(pro.getProductName())) {
-                ps.setString(2, pro.getProductName());
-            } else {
+            if (d.isValidProductID(pro.getProductId()) == false) {
                 return false;
+            } else {
+                ps.setString(1, pro.getProductId());
+            }
+            if (d.checkProNameExit(pro.getProductName()) || pro.getProductName().trim().equals("")) {
+                return false;
+
+            } else {
+                ps.setString(2, pro.getProductName());
             }
 
             if (pro.getPrice() < 1) {
@@ -337,21 +373,91 @@ public class ProductDAO {
             ps.executeUpdate();
             return true;
         } catch (SQLException e) {
-            // Ghi log hoặc xử lý ngoại lệ theo yêu cầu của bạn
-            e.printStackTrace();
         }
         return false;
     }
 
+    public List<Product> getAllProManagement() {
+        List<Product> pros = new ArrayList<>();
+        String sql = "select * from Products";
+        try {
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Product pro = new Product(rs.getString(1), rs.getString(2),
+                        rs.getFloat(3), rs.getFloat(4), rs.getString(5), rs.getString(7), rs.getBoolean(6));
+                pros.add(pro);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+
+        }
+
+        return pros;
+    }
+
+    public boolean softDeletePro(String proID) {
+        String sql = " Update Products \n"
+                + " set isDeleted = 1\n"
+                + " where ProductID = ?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, proID);
+            ps.executeUpdate();
+            return true;
+        } catch (Exception e) {
+        }
+        return false;
+    }
+
+    public boolean UpdateProduct(Product pro) {
+        String sql = "UPDATE [dbo].[Products]\n"
+                + "   SET \n"
+                + "      [ProductName] = ?\n"
+                + "      ,[Price] = ?\n"
+                + "      ,[Discount] = ?\n"
+                + "      ,[Description] = ?\n"
+                + "      ,[isDeleted] = ?\n"
+                + "      ,[BrandID] = ?\n"
+                + " WHERE [ProductID] = ? ";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, pro.getProductName());
+            ps.setFloat(2, pro.getPrice());
+            ps.setFloat(3, pro.getDiscount());
+            ps.setString(4, pro.getDescription());
+            ps.setBoolean(5, pro.getIsDelete());
+            ps.setString(6, pro.getBrandId());
+            ps.setString(7, pro.getProductId());
+            ps.executeUpdate();
+            return true;
+        } catch (Exception e) {
+        }
+        return false;
+    }
+
+    public int updateProductbyBrandID(String brandID) {
+        int count = 0;
+        String sql = "UPDATE [dbo].[Products]\n"
+                + "   SET [BrandID] = NULL\n"
+                + " WHERE BrandID  = ?";
+        try {
+            PreparedStatement st = conn.prepareCall(sql);
+            st.setString(1, brandID);
+            count = st.executeUpdate();
+        } catch (SQLException e) {
+        }
+        return count;
+    }
+
     public static void main(String[] args) {
         ProductDAO d = new ProductDAO();
-        Product newP = new Product("P24", "", 0, 0, "", "", false);
-        if (d.addProduct(newP) == true) {
-            System.out.println("succes");
+        String proID = "P2";
+        if (d.softDeletePro(proID)) {
+            System.out.println("success");
         } else {
             System.out.println("false");
         }
-
     }
 
 }
