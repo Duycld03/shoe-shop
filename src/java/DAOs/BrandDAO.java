@@ -137,6 +137,26 @@ public class BrandDAO {
         return count;
     }
 
+    public Brand getBrandByBrandName(String bname) {
+        String sql = "SELECT [BrandID]\n"
+                + "      ,[BrandName]\n"
+                + "  FROM [dbo].[Brands]\n"
+                + "  where BrandName = ?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, bname);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                Brand brand = new Brand(rs.getString("BrandID"), rs.getString("BrandName"));
+                return brand;
+            }
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+
     public static void main(String[] args) {
         BrandDAO a = new BrandDAO();
         List<Brand> l = a.getAllBrand();
