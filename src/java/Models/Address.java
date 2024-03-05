@@ -63,4 +63,8 @@ public class Address {
 		this.isPrimary = isPrimary;
 	}
 
+	@Override
+	public String toString() {
+		return "Address{" + "addressId=" + addressId + ", city=" + city + ", addressDetail=" + addressDetail + ", customerId=" + customerId + ", isPrimary=" + isPrimary + '}';
+	}
 }

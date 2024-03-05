@@ -1,19 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package Controllers;
 
-import DAOs.AdminDAO;
 import DAOs.AddressDAO;
 import DAOs.CustomerDAO;
-import DAOs.OrderDAO;
-import DAOs.StaffDAO;
-import Models.Customer;
 import Models.Address;
-import Models.Order;
+import Models.Customer;
 import Utils.JwtUtils;
-import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -21,13 +12,13 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
- * @author Doan Thanh Phuc - CE170580
+ * @author Duy
  */
-public class ProfileControler extends HttpServlet {
+public class AddressController extends HttpServlet {
 
 	/**
 	 * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -46,10 +37,10 @@ public class ProfileControler extends HttpServlet {
 			out.println("<!DOCTYPE html>");
 			out.println("<html>");
 			out.println("<head>");
-			out.println("<title>Servlet ProfileControler</title>");
+			out.println("<title>Servlet AddressController</title>");
 			out.println("</head>");
 			out.println("<body>");
-			out.println("<h1>Servlet ProfileControler at " + request.getContextPath() + "</h1>");
+			out.println("<h1>Servlet AddressController at " + request.getContextPath() + "</h1>");
 			out.println("</body>");
 			out.println("</html>");
 		}
@@ -89,20 +80,20 @@ public class ProfileControler extends HttpServlet {
 		}
 
 		String path = request.getRequestURI();
-		if (path.endsWith("/orderHistory")) {
-			OrderDAO orderDAO = new OrderDAO();
-			List<Order> orders = orderDAO.getOrdersbyCustomerId(customer.getCustomerId());
-			request.setAttribute("orders", orders);
-			request.getRequestDispatcher("/myOrderHistory.jsp").forward(request, response);
-		} else if (path.endsWith("/address")) {
+		HttpSession session = request.getSession();
+		if (path.endsWith("/delete")) {
+			String id = request.getParameter("id");
 			AddressDAO addressDAO = new AddressDAO();
-			List<Address> addresses = addressDAO.getAddressesByCusId(customer.getCustomerId());
-			request.setAttribute("addresses", addresses);
-			request.setAttribute("customer", customer);
-			request.getRequestDispatcher("/myAddress.jsp").forward(request, response);
+			int result = addressDAO.deleteById(id);
+			if (result >= 1) {
+				session.setAttribute("success", "Delete Address Successful!");
+				response.sendRedirect("/profile/address");
+			} else {
+				session.setAttribute("error", "Delete Address failed!");
+				response.sendRedirect("/profile/address");
+			}
 		} else {
-			request.setAttribute("customer", customer);
-			request.getRequestDispatcher("/myProfile.jsp").forward(request, response);
+			response.sendRedirect("/profile/address");
 		}
 	}
 
@@ -117,7 +108,42 @@ public class ProfileControler extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		processRequest(request, response);
+		HttpSession session = request.getSession();
+		if (request.getParameter("btnAdd") != null) {
+			String city = request.getParameter("city");
+			String addressDetail = request.getParameter("addressDetail");
+			String customerId = request.getParameter("customerId");
+
+			AddressDAO addressDAO = new AddressDAO();
+			String addressId = "Ad" + (addressDAO.getAddressCount() + 1);
+			Address address = new Address(addressId, city, addressDetail, customerId, false);
+			int result = addressDAO.add(address);
+			if (result >= 1) {
+				session.setAttribute("success", "Add Address Successful!");
+			} else {
+				session.setAttribute("error", "Add Address Failed!");
+			}
+			response.sendRedirect("/profile/address");
+			return;
+		}
+
+		if (request.getParameter("btnSave") != null) {
+			String city = request.getParameter("city");
+			String addressDetail = request.getParameter("addressDetail");
+			String customerId = request.getParameter("customerId");
+			String addressId = request.getParameter("addressId");
+
+			AddressDAO addressDAO = new AddressDAO();
+			Address address = new Address(addressId, city, addressDetail, customerId, false);
+			int result = addressDAO.add(address);
+			if (result >= 1) {
+				session.setAttribute("success", "Add Address Successful!");
+			} else {
+				session.setAttribute("error", "Add Address Failed!");
+			}
+			response.sendRedirect("/profile/address");
+			return;
+		}
 	}
 
 	/**
