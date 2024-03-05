@@ -436,6 +436,20 @@ public class ProductDAO {
         return false;
     }
 
+    public int updateProductbyBrandID(String brandID) {
+        int count = 0;
+        String sql = "UPDATE [dbo].[Products]\n"
+                + "   SET [BrandID] = NULL\n"
+                + " WHERE BrandID  = ?";
+        try {
+            PreparedStatement st = conn.prepareCall(sql);
+            st.setString(1, brandID);
+            count = st.executeUpdate();
+        } catch (SQLException e) {
+        }
+        return count;
+    }
+
     public static void main(String[] args) {
         ProductDAO d = new ProductDAO();
         String proID = "P2";
