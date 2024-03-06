@@ -4,8 +4,10 @@
  */
 package Controllers;
 
+import DAOs.AdminDAO;
 import DAOs.OrderDAO;
 import DAOs.StaffDAO;
+import Models.Admin;
 import Models.Order;
 import Models.Staff;
 import Utils.JwtUtils;
@@ -63,11 +65,8 @@ public class orderManagement extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        OrderDAO orderD = new OrderDAO();
         Cookie[] cookies = request.getCookies();
         Cookie managerCookie = null;
-        HttpSession session = request.getSession();
-
         for (Cookie cookie : cookies) {
             if (cookie.getName().equals("manager")) {
                 managerCookie = cookie;
@@ -78,35 +77,46 @@ public class orderManagement extends HttpServlet {
             return;
         }
         String username = JwtUtils.getContentFromToken(managerCookie.getValue());
+        AdminDAO adminDAO = new AdminDAO();
+        Admin admin = adminDAO.getAdminByUsername(username);
         StaffDAO staffDAO = new StaffDAO();
         Staff staff = staffDAO.getStaffByUsername(username);
-        String staffID = staff.getStaffId();
-        if (staff == null) {
+        if (admin == null && staff == null) {
             response.sendRedirect("/managerLogin");
             return;
         }
-        request.setAttribute("Staff", staff);
-        String orderID = request.getParameter("OrderID");
-        if (orderD.updateTakeCareStaff(staffID, orderID) == true) {
-            request.setAttribute("StaffID_Check", staffID);
-        } else {
-            request.setAttribute("error", "false");
-        }
-        //Lay orderID khi order thanh cong
-        String orderID_draw = request.getParameter("OrderID");
-        String status = request.getParameter("status");
-        if (orderID_draw != null && status != null) {
-            orderD.updateOrderStatus(orderID_draw, status);
-            if (status.equalsIgnoreCase("Success")) {
-                session.setAttribute("success", "The order has been successful");
+        HttpSession session = request.getSession();
+        OrderDAO orderD = new OrderDAO();
+
+        if (staff != null) {
+            String staffID = staff.getStaffId();
+            request.setAttribute("staff", staff);
+            String orderID = request.getParameter("OrderID");
+            if (orderD.updateTakeCareStaff(staffID, orderID) == true) {
+                request.setAttribute("StaffID_Check", staffID);
             } else {
-                session.setAttribute("error", "The order has been cancelled");
+                request.setAttribute("error", "false");
             }
-        } else if (orderID_draw != null) {
-            orderD.updateTakeCareStaff(staffID, orderID);
+            //Lay orderID khi order thanh cong
+            String orderID_draw = request.getParameter("OrderID");
+            String status = request.getParameter("status");
+            if (orderID_draw != null && status != null) {
+                orderD.updateOrderStatus(orderID_draw, status);
+                if (status.equalsIgnoreCase("Success")) {
+                    session.setAttribute("success", "The order has been successful");
+                } else {
+                    session.setAttribute("error", "The order has been cancelled");
+                }
+            } else if (orderID_draw != null) {
+                orderD.updateTakeCareStaff(staffID, orderID);
+            }
+            List<Order> list = orderD.getOrderbyStaffID(staffID);
+            request.setAttribute("Orders", list);
+        } else {
+            request.setAttribute("admin", admin);
+            List<Order> list = orderD.getAllOrder();
+            request.setAttribute("Orders", list);
         }
-        List<Order> list = orderD.getOrderbyStaffID(staffID);
-        request.setAttribute("Orders", list);
         request.getRequestDispatcher("orderList.jsp").forward(request, response);
     }
 

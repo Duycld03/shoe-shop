@@ -74,12 +74,15 @@ public class ManagerLoginController extends HttpServlet {
             StaffDAO staffDAO = new StaffDAO();
             Staff staff = staffDAO.getStaffByUsername(username);
 
-            if (admin != null || staff != null) {
-                // to manager page
-                response.sendRedirect("/");
-            } else {
+            if (admin != null) {
+                
+                response.sendRedirect("/adminmanager");
+            } else if (staff != null) {
+                response.sendRedirect("/staffManager");
 
+            } else {
                 request.getRequestDispatcher("/managerLogin.jsp").forward(request, response);
+
             }
         } else {
             request.getRequestDispatcher("/managerLogin.jsp").forward(request, response);
@@ -123,18 +126,6 @@ public class ManagerLoginController extends HttpServlet {
                 cookie.setPath("/");
                 response.addCookie(cookie);
                 response.sendRedirect("/adminmanager");
-                return;
-            }
-
-            if (staff != null) {
-                String token = JwtUtils.generateToken(username);
-                Cookie cookie = new Cookie("manager", token);
-                cookie.setMaxAge(3 * 24 * 60 * 60);
-                cookie.setPath("/");
-                response.addCookie(cookie);
-                Staff staffLogin = staffDAO.getStaffByUsername(username);
-                String staffID = staffLogin.getStaffId();
-                response.sendRedirect("/staffmanager");
                 return;
             }
 

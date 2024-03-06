@@ -4,13 +4,19 @@
  */
 package Controllers;
 
+import DAOs.AdminDAO;
 import DAOs.BrandDAO;
 import DAOs.ProductDAO;
+import DAOs.StaffDAO;
+import Models.Admin;
 import Models.Brand;
 import Models.Product;
+import Models.Staff;
+import Utils.JwtUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -62,6 +68,29 @@ public class UpdateProduct extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        Cookie[] cookies = request.getCookies();
+        Cookie managerCookie = null;
+        HttpSession session = request.getSession();
+
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("manager")) {
+                managerCookie = cookie;
+            }
+        }
+        if (managerCookie == null) {
+            response.sendRedirect("/managerLogin");
+            return;
+        }
+        String username = JwtUtils.getContentFromToken(managerCookie.getValue());
+        StaffDAO staffDAO = new StaffDAO();
+        AdminDAO adminDAO = new AdminDAO();
+        Admin admin = adminDAO.getAdminByUsername(username);
+        Staff staff = staffDAO.getStaffByUsername(username);
+        if (admin == null && staff == null) {
+            response.sendRedirect("/managerLogin");
+            return;
+        }
+        String staffID = staff.getStaffId();
         ProductDAO dao = new ProductDAO();
         BrandDAO d = new BrandDAO();
         List<Brand> brands = d.getAllBrand();

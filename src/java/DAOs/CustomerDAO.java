@@ -105,7 +105,6 @@ public class CustomerDAO {
         return list;
     }
 
-
     public int add(Customer customer) {
         int count = 0;
         String sql = "insert into customers values(?,?,?,?,?,?,?)";
@@ -217,7 +216,8 @@ public class CustomerDAO {
         }
         return count;
     }
-     public int updateCustomerWithoutPassword(Customer customer) {
+
+    public int updateCustomerWithoutPassword(Customer customer) {
         int count = 0;
         String sql = "update Customers set UserName = ?, Email = ?, FullName = ? where CustomerID = ?";
         try {
@@ -232,7 +232,8 @@ public class CustomerDAO {
         }
         return count;
     }
-     public int updateCustomerwithoutSociaID(Customer customer) {
+
+    public int updateCustomerwithoutSociaID(Customer customer) {
         int count = 0;
         String sql = "update Customers set UserName = ?, Password = ?, Email = ?, FullName = ? where CustomerID = ?";
         try {
@@ -343,13 +344,28 @@ public class CustomerDAO {
         return ketqua;
     }
 
+    public List<String> getAllCusID() {
+        List<String> CusIDs = new ArrayList<>();
+        String sql = "Select CustomerID from Customers ";
+        try {
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                String cusId = rs.getString("CustomerID");
+                CusIDs.add(cusId);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return CusIDs;
+    }
+
     public static void main(String[] args) {
         CustomerDAO d = new CustomerDAO();
-        String UserName = "PhuTH";
-        String Phonumber = "PhuTH@email.com";
-        String Email = "0969123662";
-        boolean res = d.checkCustomerInforExist(Email, UserName, Phonumber);
-        System.out.println(res);
+        List<String> list = d.getAllCusID();
+        for (String string : list) {
+            System.out.println(string);
+        }
 
     }
 }

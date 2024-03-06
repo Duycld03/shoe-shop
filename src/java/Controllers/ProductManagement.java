@@ -4,9 +4,11 @@
  */
 package Controllers;
 
+import DAOs.AdminDAO;
 import DAOs.ProductDAO;
 import DAOs.ProductVariantsDAO;
 import DAOs.StaffDAO;
+import Models.Admin;
 import Models.Product;
 import Models.ProductVariant;
 import Models.Staff;
@@ -67,8 +69,6 @@ public class ProductManagement extends HttpServlet {
             throws ServletException, IOException {
         Cookie[] cookies = request.getCookies();
         Cookie managerCookie = null;
-        HttpSession session = request.getSession();
-
         for (Cookie cookie : cookies) {
             if (cookie.getName().equals("manager")) {
                 managerCookie = cookie;
@@ -79,13 +79,15 @@ public class ProductManagement extends HttpServlet {
             return;
         }
         String username = JwtUtils.getContentFromToken(managerCookie.getValue());
+        AdminDAO adminDAO = new AdminDAO();
+        Admin admin = adminDAO.getAdminByUsername(username);
         StaffDAO staffDAO = new StaffDAO();
         Staff staff = staffDAO.getStaffByUsername(username);
-        String staffID = staff.getStaffId();
-        if (staff == null) {
+        if (admin == null && staff == null) {
             response.sendRedirect("/managerLogin");
             return;
         }
+        request.setAttribute("admin", admin);
         ProductDAO proD = new ProductDAO();
         ProductVariantsDAO varD = new ProductVariantsDAO();
         String proID = request.getParameter("ProID");
