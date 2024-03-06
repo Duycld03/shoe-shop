@@ -125,19 +125,6 @@ public class ManagerLoginController extends HttpServlet {
                 response.sendRedirect("/adminmanager");
                 return;
             }
-
-            if (staff != null) {
-                String token = JwtUtils.generateToken(username);
-                Cookie cookie = new Cookie("manager", token);
-                cookie.setMaxAge(3 * 24 * 60 * 60);
-                cookie.setPath("/");
-                response.addCookie(cookie);
-                Staff staffLogin = staffDAO.getStaffByUsername(username);
-                String staffID = staffLogin.getStaffId();
-                response.sendRedirect("/staffmanager");
-                return;
-            }
-
             request.getSession().setAttribute("error", "Username and password incorrect");
             response.sendRedirect("/managerLogin");
         }
