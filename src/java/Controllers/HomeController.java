@@ -68,10 +68,12 @@ public class HomeController extends HttpServlet {
 			}
 		}
 		if (loginCookie != null) {
-			String username = JwtUtils.getUsernameFromToken(loginCookie.getValue());
+			String username = JwtUtils.getContentFromToken(loginCookie.getValue());
 			CustomerDAO customerDAO = new CustomerDAO();
 			Customer customer = customerDAO.getCustomerByUsername(username);
-			request.setAttribute("customer", customer);
+			if (customer != null) {
+				request.setAttribute("customer", customer);
+			}
 		}
 
 		ProductDAO productDAO = new ProductDAO();

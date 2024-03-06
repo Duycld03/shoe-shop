@@ -7,10 +7,13 @@ package Controllers;
 import DAOs.AdminDAO;
 import DAOs.AddressDAO;
 import DAOs.CustomerDAO;
+import DAOs.OrderDAO;
 import DAOs.StaffDAO;
 import Models.Customer;
 import Models.Address;
+import Models.Order;
 import Utils.JwtUtils;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -18,6 +21,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  *
@@ -70,23 +74,36 @@ public class ProfileControler extends HttpServlet {
 				loginCookie = cookie;
 			}
 		}
-		if (loginCookie == null) {
+		CustomerDAO customerDAO = new CustomerDAO();
+		Customer customer = null;
+		if (loginCookie != null) {
+			String username = JwtUtils.getContentFromToken(loginCookie.getValue());
+			customer = customerDAO.getCustomerByUsername(username);
+			if (customer == null) {
+				response.sendRedirect("/customerLogin");
+				return;
+			}
+		} else {
 			response.sendRedirect("/customerLogin");
 			return;
 		}
 
-		CustomerDAO customerDAO = new CustomerDAO();
-		AddressDAO addressDAO = new AddressDAO();
-		String username = JwtUtils.getUsernameFromToken(loginCookie.getValue());
-		Customer customer = customerDAO.getCustomerByUsername(username);
-		Address address = addressDAO.getAddressnByCusId(customer.getCustomerId());
-		if (customer == null) {
-			request.setAttribute("error", "Khong co du lieu");
+		String path = request.getRequestURI();
+		if (path.endsWith("/orderHistory")) {
+			OrderDAO orderDAO = new OrderDAO();
+			List<Order> orders = orderDAO.getOrdersbyCustomerId(customer.getCustomerId());
+			request.setAttribute("orders", orders);
+			request.getRequestDispatcher("/myOrderHistory.jsp").forward(request, response);
+		} else if (path.endsWith("/address")) {
+			AddressDAO addressDAO = new AddressDAO();
+			List<Address> addresses = addressDAO.getAddressesByCusId(customer.getCustomerId());
+			request.setAttribute("addresses", addresses);
+			request.setAttribute("customer", customer);
+			request.getRequestDispatcher("/myAddress.jsp").forward(request, response);
 		} else {
 			request.setAttribute("customer", customer);
-			request.setAttribute("address", address);
+			request.getRequestDispatcher("/myProfile.jsp").forward(request, response);
 		}
-		request.getRequestDispatcher("/myProfile.jsp").forward(request, response);
 	}
 
 	/**

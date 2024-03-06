@@ -79,11 +79,47 @@ public class ProductVariantsDAO {
         return null;
     }
 
-    public static void main(String[] args) {
-        ProductVariantsDAO d = new ProductVariantsDAO();
-        List<ProductVariant> list = d.getVariantByProID("P1");
-        for (ProductVariant p : list) {
-            System.out.println(p.getVariantId());
+    public ProductVariant getSumVariantByProID(String proID) {
+        String sql = "SELECT SUM(v.StockQuantity) AS NumberOfProduct, v.ProductID FROM ProductVariants v\n"
+                + "WHERE v.ProductID = ?\n"
+                + "GROUP BY v.ProductID";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, proID);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                ProductVariant var = new ProductVariant(rs.getString("ProductID"), rs.getInt("NumberOfProduct"));
+                return var;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
+        return null;
     }
+
+    //Delect Product Variant
+    public int delectVariantByProID(String ProductID) {
+        int result = 0;
+        String sql = "DELETE FROM [dbo].[ProductVariants]\n"
+                + "      WHERE ProductID = ?";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, ProductID);
+            result = ps.executeUpdate();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(CartDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+    }
+
+    public static void main(String[] args) {
+        ProductVariantsDAO dao = new ProductVariantsDAO();
+        String proID = "P1";
+        ProductVariant pro = dao.getSumVariantByProID(proID);
+        System.out.println(dao.getSumVariantByProID(proID).getSumOfVariant());
+
+    }
+
 }

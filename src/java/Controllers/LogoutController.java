@@ -27,7 +27,7 @@ public class LogoutController extends HttpServlet {
 			throws ServletException, IOException {
 		Cookie[] cookies = request.getCookies();
 		for (Cookie cookie : cookies) {
-			if (cookie.getName().equals("login")) {
+			if (cookie.getName().equals("login") || cookie.getName().equals("manager")) {
 				cookie.setPath("/");
 				cookie.setValue(null);
 				cookie.setMaxAge(0);

@@ -169,7 +169,7 @@
                                             <td class="p-3 border border-gray-300 font-bold pr-8">Total</td>
                                             <%  CartDAO da = new CartDAO();
                                                //sua veg...thanh model tuong ung
-                                                ResultSet list = da.getAllCart();
+                                                List<Cart> list = da.getAllCart();
                                                 ProductDAO dao = new ProductDAO();
                                                //sua veg...thanh model tuong ung
                                                 List<Product> products = dao.getAllProducts();

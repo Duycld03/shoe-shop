@@ -29,20 +29,22 @@ public class CartDAO {
         conn = DBConnection.getConnection();
     }
 
-    public ResultSet getAllCart() {
+    public List<Cart> getAllCart() {
         List<Cart> list = new ArrayList<>();
-        String sql = "SELECT Carts.*, ProductVariants.ProductID\n"
-                + "FROM Carts\n"
-                + "INNER JOIN ProductVariants ON Carts.VariantID = ProductVariants.VariantID;";
+        String sql = "SELECT [CartID]\n"
+                + "      ,[Quantity]\n"
+                + "      ,[TotalPrice]\n"
+                + "      ,[CustomerID]\n"
+                + "      ,[VariantID]\n"
+                + "  FROM [dbo].[Carts]";
         try {
             // Đảm bảo cSonnection đã được khởi tạo và mở
             if (conn != null && !conn.isClosed()) {
                 PreparedStatement st = conn.prepareStatement(sql);
                 ResultSet rs = st.executeQuery();
-                if (rs.next()) {
-//                  Cart cart = new Cart(rs.getString("CartID"), rs.getInt("Quantity"), rs.getFloat("TotalPrice"), rs.getString("CustomerID"), rs.getString("VariantID"));
-//                 list.add(cart);
-                    return rs;
+                while (rs.next()) {
+                    Cart cart = new Cart(rs.getString("CartID"), rs.getInt("Quantity"), rs.getFloat("TotalPrice"), rs.getString("CustomerID"), rs.getString("VariantID"));
+                    list.add(cart);
                 }
             } else {
                 System.out.println("Kết nối đến cơ sở dữ liệu không hợp lệ.");
@@ -50,7 +52,7 @@ public class CartDAO {
         } catch (SQLException ex) {
             Logger.getLogger(CartDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;
+        return list;
     }
 
     public Cart getCartById(String id) {
@@ -186,12 +188,6 @@ public class CartDAO {
         return count;
     }
 
-    public static void main(String[] args) {
-        CartDAO a = new CartDAO();
-        List<Cart> l = (List<Cart>) a.getAllCart();//fixxxxxxxxxxxxxx
-        System.out.println(l.get(0).getCartId());
-    }
-
     public Cart checkCartExist(String accountID, String productID) {
 
         String query = "select * from Carts\r\n"
@@ -241,7 +237,7 @@ public class CartDAO {
     }
 
     public ResultSet getCartByAccountID(String accountID) {
-        
+
         String query = "SELECT Carts.*, ProductVariants.ProductID\n"
                 + "FROM Carts\n"
                 + "INNER JOIN ProductVariants ON Carts.VariantID = ProductVariants.VariantID where CustomerID = ?";
@@ -249,11 +245,37 @@ public class CartDAO {
             ps = conn.prepareStatement(query);
             ps.setString(1, accountID);
             rs = ps.executeQuery();
-            
-             return rs;
+
+            return rs;
         } catch (Exception e) {
         }
         return null;
     }
 
+    public List<Cart> getCartByCusID(String CusID) {
+        List<Cart> carts = new ArrayList<>();
+
+        return carts;
+    }
+
+    public int updateCartbyCustomerID(String customerID) {
+        int count = 0;
+        String sql = "UPDATE [dbo].[Carts]\n"
+                + "   SET[CustomerID] = NULL\n"
+                + " WHERE CustomerID = ?";
+        try {
+            PreparedStatement st = conn.prepareCall(sql);
+            st.setString(1, customerID);
+            count = st.executeUpdate();
+        } catch (SQLException e) {
+        }
+        return count;
+    }
+
+
+    public static void main(String[] args) {
+        CartDAO a = new CartDAO();
+        List<Cart> l = (List<Cart>) a.getAllCart();//fixxxxxxxxxxxxxx
+        System.out.println(l.get(0).getCartId());
+    }
 }

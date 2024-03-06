@@ -1,11 +1,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" %>
 	<!DOCTYPE html>
 	<html lang="en">
 
 	<head>
 		<%@include file="head.jsp" %>
-			<title>Document</title>
+			<title>Home Page</title>
 			<script src="assets/js/homePage.js"></script>
+
 	</head>
 
 	<body>
@@ -155,6 +157,12 @@
 			</section> -->
 
 			<!-- footer -->
+			<c:if test="${sessionScope.checkoutSuccess != null}">
+				<script>
+					message("success", "${sessionScope.checkoutSuccess}", "Thank you for your purchase")
+				</script>
+				<% session.removeAttribute("checkoutSuccess"); %>
+			</c:if>
 			<%@include file="footer.jsp" %>
 	</body>
 

@@ -10,7 +10,7 @@
     <head>
         <title>Page</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-        <link rel="stylesheet" href="assets/js/validation/bootstrap.min.css">
+        <link rel="stylesheet" href="assets/css/bootstrap.min.css">
         <script src="assets/js/validation/jquery.min.js"></script>
         <style>
             img{
@@ -65,13 +65,13 @@
                 overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
             }</style>
         <style>
-    #manager a {
-        font-size: 14px;
-    }
-    #manager span{
-        padding-left: 0.5rem;
-    }
-</style>
+            #manager a {
+                font-size: 14px;
+            }
+            #manager span{
+                padding-left: 0.5rem;
+            }
+        </style>
     </head>
     <body>
         <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white" style="padding: 0px;">
@@ -82,20 +82,48 @@
                         <i class="fas fa-user-circle fa-fw me-3"></i><span>Account manager</span>
                     </a>
 
-                    <div id="manager" style="display: none;">
-                        <a href="staffmanager" class="list-group-item list-group-item-action py-2 ripple">
-                            <i class="fas fa-user-circle fa-fw me-3"></i><span>Staff manager</span>
+                    <a class="d-block text-lg font-weight-bold text-dark mb-4">
+                        <c:choose>
+                            <c:when test="${admin != null}">
+                                Hello, ${admin.getUsername()} 
+                            </c:when>
+                            <c:when test="${staff != null}">
+                                Hello, ${staff.getUsername()}
+                            </c:when>
+                        </c:choose>
+                    </a>
+
+                    <c:if test="${admin != null}">
+                        <a href="#manager" id="accountManager" class="list-group-item list-group-item-action py-2 ripple">
+                            <i class="fas fa-user-circle fa-fw me-3"></i><span>Account manager</span>
                         </a>
-                        <a href="#" class="list-group-item list-group-item-action py-2 ripple">
-                            <i class="fas fa-user-circle fa-fw me-3"></i><span>Admin manager</span>
-                        </a>
-                        <a href="#" class="list-group-item list-group-item-action py-2 ripple">
-                            <i class="fas fa-user-circle fa-fw me-3"></i><span>Customer manager</span>
-                        </a>
-                    </div>
-                     <a href="" class="list-group-item list-group-item-action py-2 ripple">
+                        <div id="manager" style="display: none;">
+                            <a href="staffmanager" class="list-group-item list-group-item-action py-2 ripple">
+                                <i class="fas fa-user-circle fa-fw me-3"></i><span>Staff manager</span>
+                            </a>
+                            <a href="adminmanager" class="list-group-item list-group-item-action py-2 ripple">
+                                <i class="fas fa-user-circle fa-fw me-3"></i><span>Admin manager</span>
+                            </a>
+                            <a href="customermanager" class="list-group-item list-group-item-action py-2 ripple">
+                                <i class="fas fa-user-circle fa-fw me-3"></i><span>Customer manager</span>
+                            </a>
+                        </div>
+                    </c:if>
+                    <a href="productmanagement" class="list-group-item list-group-item-action py-2 ripple">
+
                         <i class="fas fa-shoe-prints fa-fw me-3"></i><span>Product manager</span>
                     </a>
+                    <a href="brandmanager" class="list-group-item list-group-item-action py-2 ripple">
+                        <i class="fas fa-tag fa-fw me-3"></i><span>Brand manager</span>
+                    </a>
+                    <a href="ordermanagement" class="list-group-item list-group-item-action py-2 ripple">
+                        <i class="fas fa-clipboard-list fa-fw me-3"></i><span>Order manager</span>
+                    </a>
+                    <a href="logout" class="list-group-item list-group-item-action py-2 ripple">
+                        <i class="fas fa-sign-out-alt fa-fw me-3"></i><span>Log out</span>
+                    </a>
+
+
                 </div>
             </div>
         </nav>

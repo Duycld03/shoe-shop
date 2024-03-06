@@ -72,7 +72,8 @@ public class BrandDAO {
     }
 
     //add new brand
-    public void addBrand(Brand brand) {
+    public int addBrand(Brand brand) {
+        int result = 0;
         String sql = "INSERT INTO [dbo].[Brands]\n"
                 + "           ([BrandID]\n"
                 + "           ,[BrandName])\n"
@@ -83,27 +84,31 @@ public class BrandDAO {
             st.setString(1, brand.getBrandId());
             st.setString(2, brand.getBrandName());
 
-            st.executeUpdate();
+            result = st.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
         }
+        return result;
     }
 
     //delete brand
-    public void deleteStaff(String id) {
+    public int delete(String id) {
+        int result = 0;
         String sql = "DELETE FROM [dbo].[Brands]\n"
                 + "      WHERE BrandID = ?";
         try {
             PreparedStatement st = conn.prepareStatement(sql);
             st.setString(1, id);
-            st.executeUpdate();
+            result = st.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
         }
+        return result;
     }
 
     //update brand
-    public void updateBrand(Brand brand) {
+    public int updateBrand(Brand brand) {
+        int result = 0;
         String sql = "UPDATE [dbo].[Brands]\n"
                 + "   SET [BrandName] = ?\n"
                 + " WHERE BrandID = ?";
@@ -111,12 +116,13 @@ public class BrandDAO {
             PreparedStatement st = conn.prepareStatement(sql);
             st.setString(1, brand.getBrandName());
             st.setString(2, brand.getBrandId());
-            st.executeUpdate();
+            result = st.executeUpdate();
         } catch (SQLException e) {
         }
+        return result;
     }
-    
-      public int getBrandCount() {
+
+    public int getBrandCount() {
         int count = -1;
         String sql = "SELECT COUNT(*) AS BrandCount FROM Brands";
         try {
@@ -129,6 +135,26 @@ public class BrandDAO {
             Logger.getLogger(BrandDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return count;
+    }
+
+    public Brand getBrandByBrandName(String bname) {
+        String sql = "SELECT [BrandID]\n"
+                + "      ,[BrandName]\n"
+                + "  FROM [dbo].[Brands]\n"
+                + "  where BrandName = ?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, bname);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                Brand brand = new Brand(rs.getString("BrandID"), rs.getString("BrandName"));
+                return brand;
+            }
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;
     }
 
     public static void main(String[] args) {

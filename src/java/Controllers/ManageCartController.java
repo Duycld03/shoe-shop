@@ -54,7 +54,7 @@ public class ManageCartController extends HttpServlet {
         if (loginCookie == null) {
             response.sendRedirect("/login");
         }
-        String username = JwtUtils.getUsernameFromToken(loginCookie.getValue());
+        String username = JwtUtils.getContentFromToken(loginCookie.getValue());
         CustomerDAO customerDAO = new CustomerDAO();
         Customer a = customerDAO.getCustomerByUsername(username);
         request.setAttribute("customer", a);

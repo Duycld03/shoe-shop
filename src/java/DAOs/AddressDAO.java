@@ -6,12 +6,16 @@ package DAOs;
 
 import DBConnection.DBConnection;
 import Models.Address;
+import Models.Brand;
 import Utils.MD5;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -55,7 +59,7 @@ public class AddressDAO {
 	}
 
 	//get Admins by ID
-	public Address getAddressnByCusId(String id) {
+	public Address getAddressByCusId(String id) {
 		String sql = "Select * from Addresses where CustomerID = ? and isPrimary = 1";
 		try {
 			PreparedStatement st = conn.prepareStatement(sql);
@@ -105,4 +109,139 @@ public class AddressDAO {
 		}
 		return count;
 	}
+
+	//Delect Address
+	public int deleteByCusID(String CusID) {
+		int result = 0;
+		String sql = "DELETE FROM [dbo].[Addresses]\n"
+				+ "      WHERE CustomerID = ?";
+		try {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, CusID);
+			result = ps.executeUpdate();
+		} catch (SQLException ex) {
+			Logger.getLogger(CartDAO.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		return result;
+	}
+
+	public int deleteById(String addressId) {
+		int result = 0;
+		String sql = "DELETE FROM [dbo].[Addresses]\n"
+				+ "      WHERE AddressID = ?";
+		try {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, addressId);
+			result = ps.executeUpdate();
+		} catch (SQLException ex) {
+			Logger.getLogger(CartDAO.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		return result;
+	}
+
+	//add Address
+	public int addAddress(Address address) {
+		int result = 0;
+		String sql = "INSERT INTO [dbo].[Addresses]\n"
+				+ "           ([AddressID]\n"
+				+ "           ,[City]\n"
+				+ "           ,[addressDetail]\n"
+				+ "           ,[isPrimary]\n"
+				+ "           ,[CustomerID])\n"
+				+ "     VALUES\n"
+				+ "           (?,?,?,?,?)";
+		try {
+			PreparedStatement st = conn.prepareCall(sql);
+			st.setString(1, address.getAddressId());
+			st.setString(2, address.getCity());
+			st.setString(3, address.getAddressDetail());
+			st.setBoolean(4, address.isPrimary());
+			st.setString(5, address.getCustomerId());
+			result = st.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println(e);
+		}
+		return result;
+	}
+
+	public int updateAddressbyCustomerID(String customerID) {
+		int count = 0;
+		String sql = "UPDATE [dbo].[Addresses]\n"
+				+ "   SET [CustomerID] = NULL\n"
+				+ " WHERE CustomerID  = ?";
+		try {
+			PreparedStatement st = conn.prepareCall(sql);
+			st.setString(1, customerID);
+			count = st.executeUpdate();
+		} catch (SQLException e) {
+		}
+		return count;
+	}
+
+	public int removePrimaryByCustomerId(String customerID) {
+		int count = 0;
+		String sql = "UPDATE [dbo].[Addresses]\n"
+				+ "   SET [isPrimary] = 0\n"
+				+ " WHERE CustomerID  = ?";
+		try {
+			PreparedStatement st = conn.prepareCall(sql);
+			st.setString(1, customerID);
+			count = st.executeUpdate();
+		} catch (SQLException e) {
+		}
+		return count;
+	}
+
+	public int setPrimaryByAddressId(String addressId) {
+		int count = 0;
+		String sql = "UPDATE [dbo].[Addresses]\n"
+				+ "   SET [isPrimary] = 1\n"
+				+ " WHERE AddressID  = ?";
+		try {
+			PreparedStatement st = conn.prepareCall(sql);
+			st.setString(1, addressId);
+			count = st.executeUpdate();
+		} catch (SQLException e) {
+		}
+		return count;
+	}
+
+	public List<Address> getAddressesByCusId(String id) {
+		List<Address> addresses = new ArrayList<>();
+		String sql = "Select * from Addresses where CustomerID = ?";
+		try {
+			PreparedStatement st = conn.prepareStatement(sql);
+			st.setString(1, id);
+			ResultSet rs = st.executeQuery();
+			while (rs.next()) {
+				Address address = new Address(rs.getString("AddressID"),
+						rs.getString("City"), rs.getString("AddressDetail"),
+						rs.getString("CustomerID"), rs.getBoolean("isPrimary"));
+				addresses.add(address);
+			}
+			return addresses;
+
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return null;
+	}
+
+	public static void main(String[] args) {
+		String inputString = "20240301155429";
+		SimpleDateFormat inputFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+
+		try {
+			Date date = inputFormat.parse(inputString);
+
+			// Định dạng lại ngày theo định dạng mới nếu cần
+			SimpleDateFormat outputFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+			String formattedDate = outputFormat.format(date);
+
+			System.out.println("Ngày đã chuyển đổi: " + formattedDate);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
+
 }

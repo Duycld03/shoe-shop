@@ -8,6 +8,7 @@
         <title>JSP Page</title>
         <link rel="stylesheet" href="assets/css/Price_Range.css" />
         <%@include file="head.jsp" %>
+        
     </head>
 
     <body class="m-0">
