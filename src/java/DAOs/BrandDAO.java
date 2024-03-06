@@ -3,6 +3,7 @@ package DAOs;
 import DBConnection.DBConnection;
 import Models.Brand;
 import Utils.MD5;
+import com.sun.swing.internal.plaf.basic.resources.basic;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.jasper.tagplugins.jstl.core.ForEach;
 
 /**
  *
@@ -157,9 +159,27 @@ public class BrandDAO {
         return null;
     }
 
+    public List<String> getAllBrandID() {
+        List<String> brandIDs = new ArrayList<>();
+        String sql = "SELECT BrandID FROM Brands";
+        try {
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                String brandID = rs.getString("BrandID");
+                brandIDs.add(brandID);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return brandIDs;
+    }
+
     public static void main(String[] args) {
         BrandDAO a = new BrandDAO();
-        List<Brand> l = a.getAllBrand();
-        System.out.println(l.get(0).getBrandId());
+        List<String> l = a.getAllBrandID();
+        for (String string : l) {
+            System.out.println(string);
+        }
     }
 }

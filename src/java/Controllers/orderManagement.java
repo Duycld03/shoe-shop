@@ -4,8 +4,10 @@
  */
 package Controllers;
 
+import DAOs.AdminDAO;
 import DAOs.OrderDAO;
 import DAOs.StaffDAO;
+import Models.Admin;
 import Models.Order;
 import Models.Staff;
 import Utils.JwtUtils;
@@ -63,11 +65,8 @@ public class orderManagement extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        OrderDAO orderD = new OrderDAO();
         Cookie[] cookies = request.getCookies();
         Cookie managerCookie = null;
-        HttpSession session = request.getSession();
-
         for (Cookie cookie : cookies) {
             if (cookie.getName().equals("manager")) {
                 managerCookie = cookie;
@@ -78,14 +77,18 @@ public class orderManagement extends HttpServlet {
             return;
         }
         String username = JwtUtils.getContentFromToken(managerCookie.getValue());
+        AdminDAO adminDAO = new AdminDAO();
+        Admin admin = adminDAO.getAdminByUsername(username);
         StaffDAO staffDAO = new StaffDAO();
         Staff staff = staffDAO.getStaffByUsername(username);
-        String staffID = staff.getStaffId();
-        if (staff == null) {
+        if (admin == null && staff == null) {
             response.sendRedirect("/managerLogin");
             return;
         }
-        request.setAttribute("Staff", staff);
+        HttpSession session = request.getSession();
+        OrderDAO orderD = new OrderDAO();
+        request.setAttribute("staff", staff);
+        String staffID = staff.getStaffId();
         String orderID = request.getParameter("OrderID");
         if (orderD.updateTakeCareStaff(staffID, orderID) == true) {
             request.setAttribute("StaffID_Check", staffID);

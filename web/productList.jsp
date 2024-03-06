@@ -38,27 +38,28 @@
                         </h5>
                     </div>
                     <div class="col-sm-9 text-right">
-                        <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i
+                        <a href="/addproductmanagement" class="btn btn-success"><i
                                 class="material-icons">&#xE147;</i></a>
                     </div>
-                    <table class="table table-bordered table-striped mt-3">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th>ID</th>
-                                <th>Name</th>
-                                <th>Price</th>
-                                <th>Discount</th>
-                                <th>Description</th>
-                                <th>Brand ID </th>
-                                <th>is delete</th>      
-                                <th>Action</th>
-                            </tr>
-                        </thead>
+                    <div>${Error}</div>
+                <table class="table table-bordered table-striped mt-3">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Discount</th>
+                            <th>Description</th>
+                            <th>Brand ID </th>
+                            <th>is delete</th>      
+                            <th>Action</th>
+                        </tr>
+                    </thead>
                     <c:forEach var="c" items="${requestScope.ProList}">
                         <c:set var="order_id" value="${c.productId}" />
                         <tr>
-                            <td><a href="/productDetailInfor">${c.getProductId()}</a></td>
-                            <td>${c.productName}</td>
+                            <td>${c.getProductId()}</td>
+                            <td><a href="/productDetailInfor?proID=${c.productId}">${c.productName}</a></td>
                             <td>${c.price}</td>
                             <td>${c.discount}</td>
                             <td>${c.description}</td>

@@ -6,14 +6,19 @@ package Controllers;
 
 import DAOs.ProductImageDAO;
 import DAOs.ProductVariantsDAO;
+import DAOs.StaffDAO;
 import Models.ProductImage;
 import Models.ProductVariant;
+import Models.Staff;
+import Utils.JwtUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -60,14 +65,37 @@ public class ProductDetailInfor extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        Cookie[] cookies = request.getCookies();
+        Cookie managerCookie = null;
+        HttpSession session = request.getSession();
+
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("manager")) {
+                managerCookie = cookie;
+            }
+        }
+        if (managerCookie == null) {
+            response.sendRedirect("/managerLogin");
+            return;
+        }
+        String username = JwtUtils.getContentFromToken(managerCookie.getValue());
+        StaffDAO staffDAO = new StaffDAO();
+        Staff staff = staffDAO.getStaffByUsername(username);
+        String staffID = staff.getStaffId();
+        if (staff == null) {
+            response.sendRedirect("/managerLogin");
+            return;
+        }
         String proID = request.getParameter("proID");
         ProductVariantsDAO varDao = new ProductVariantsDAO();
         List<ProductVariant> var = varDao.getVariantByProID(proID);
         ProductImageDAO imgDao = new ProductImageDAO();
         List<ProductImage> img = imgDao.getImages2(proID);
-        request.setAttribute("VariantS", var);
+        request.setAttribute("Variants", var);
+        request.setAttribute("ProID", proID);
         request.setAttribute("Images", img);
         request.getRequestDispatcher("Product_Detail_Management.jsp").forward(request, response);
+
     }
 
     /**

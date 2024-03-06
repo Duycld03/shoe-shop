@@ -8,6 +8,7 @@ import DAOs.AdminDAO;
 import DAOs.CustomerDAO;
 import DAOs.StaffDAO;
 import Models.Staff;
+import Utils.CreateID;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -15,6 +16,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  *
@@ -72,7 +74,9 @@ public class AddStaffController extends HttpServlet {
             StaffDAO staffDAO = new StaffDAO();
             CustomerDAO customerDAO = new CustomerDAO();
             AdminDAO adminDAO = new AdminDAO();
-            String staffID = "ST" + (staffDAO.getStaffCount() + 1);
+            List<String> allStaffID = staffDAO.getAllStaffID();
+            String idFormat = "ST";
+            String staffID = CreateID.autoIncreaseID(allStaffID, idFormat);
             Staff staff = new Staff(staffID, susername, spassword, semail, sfullname, sphonenumber);
             if (customerDAO.getByEmail(semail) != null || staffDAO.getStaffByEmail(semail) != null || adminDAO.getAdminByEmail(semail) != null) {
                 session.setAttribute("error", "Email already exists!");

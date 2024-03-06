@@ -8,8 +8,11 @@ import DAOs.AdminDAO;
 import DAOs.CustomerDAO;
 import DAOs.StaffDAO;
 import Models.Admin;
+import Utils.*;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,15 +29,15 @@ public class AddAdminController extends HttpServlet {
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
-     * @param request servlet request
+     * @param request  servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @throws IOException      if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -48,14 +51,15 @@ public class AddAdminController extends HttpServlet {
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the
+    // + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
-     * @param request servlet request
+     * @param request  servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @throws IOException      if an I/O error occurs
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -66,10 +70,10 @@ public class AddAdminController extends HttpServlet {
     /**
      * Handles the HTTP <code>POST</code> method.
      *
-     * @param request servlet request
+     * @param request  servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @throws IOException      if an I/O error occurs
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -84,19 +88,25 @@ public class AddAdminController extends HttpServlet {
             AdminDAO adminDAO = new AdminDAO();
             StaffDAO staffDAO = new StaffDAO();
             CustomerDAO customerDAO = new CustomerDAO();
-            String adminID = "A" + (adminDAO.getAdminsCount() + 1);
+            List<String> allAdminID = adminDAO.getAllAdminID();
+            String idFormat = "Cus";
+            String adminID = CreateID.autoIncreaseID(allAdminID, idFormat);
             Admin admin = new Admin(adminID, susername, spassword, semail, sfullname, sphonenumber);
-            if (customerDAO.getByEmail(semail) != null || staffDAO.getStaffByEmail(semail) != null || adminDAO.getAdminByEmail(semail) != null) {
+            if (customerDAO.getByEmail(semail) != null || staffDAO.getStaffByEmail(semail) != null
+                    || adminDAO.getAdminByEmail(semail) != null) {
                 session.setAttribute("error", "Email already exists!");
                 response.sendRedirect("/adminmanager");
                 return;
             }
-            if (customerDAO.getCustomerByPhoneNumber(sphonenumber) != null || staffDAO.getStaffByPhoneNumber(sphonenumber) != null || adminDAO.getAdminByPhoneNumber(sphonenumber) != null) {
+            if (customerDAO.getCustomerByPhoneNumber(sphonenumber) != null
+                    || staffDAO.getStaffByPhoneNumber(sphonenumber) != null
+                    || adminDAO.getAdminByPhoneNumber(sphonenumber) != null) {
                 session.setAttribute("error", "Phone number already exists!");
                 response.sendRedirect("/adminmanager");
                 return;
             }
-            if (customerDAO.getCustomerByUsername(susername) != null || staffDAO.getStaffByUsername(susername) != null || adminDAO.getAdminByUsername(susername) != null) {
+            if (customerDAO.getCustomerByUsername(susername) != null || staffDAO.getStaffByUsername(susername) != null
+                    || adminDAO.getAdminByUsername(susername) != null) {
                 session.setAttribute("error", "Username already exists!");
                 response.sendRedirect("/adminmanager");
                 return;

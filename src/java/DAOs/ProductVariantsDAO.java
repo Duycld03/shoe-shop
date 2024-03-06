@@ -117,8 +117,10 @@ public class ProductVariantsDAO {
     public static void main(String[] args) {
         ProductVariantsDAO dao = new ProductVariantsDAO();
         String proID = "P1";
-        ProductVariant pro = dao.getSumVariantByProID(proID);
-        System.out.println(dao.getSumVariantByProID(proID).getSumOfVariant());
+        List<ProductVariant> var = dao.getVariantByProID(proID);
+        for (ProductVariant productVariant : var) {
+            System.out.println(productVariant.getVariantId());
+        }
 
     }
 

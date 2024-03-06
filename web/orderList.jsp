@@ -45,7 +45,6 @@
                                     <th>Order status</th>
                                     <th>Customer ID</th>
                                     <th>Payment Method</th>
-                                    <th>Total Amount</th>
                                     <th>Staff take care for</th>                                   
                                     <th>Action</th>
                                 </tr>
@@ -57,8 +56,7 @@
                                 <td>${c.paymentStatus}</td>
                                 <td>${c.orderStatus}</td>
                                 <td>${c.customerId}</td>
-                                <td>${c.methodId}</td>
-                                <td>${c.totalAmount}</td>
+                                <td>${c.paymentMethod}</td>
                                 <td>${c.staffID}</td>
 
                                 <td>

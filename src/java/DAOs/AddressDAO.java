@@ -19,6 +19,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.tomcat.jakartaee.EESpecProfile;
 
 /**
  *
@@ -164,20 +165,30 @@ public class AddressDAO {
         return count;
     }
 
+    public List<String> getAllAddressID() {
+        List<String> addressIDs = new ArrayList<>();
+        String sql = "select AddressID from Addresses";
+        try {
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                String address = rs.getString("AddressID");
+                addressIDs.add(address);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return addressIDs;
+    }
+
     public static void main(String[] args) {
         String inputString = "20240301155429";
         SimpleDateFormat inputFormat = new SimpleDateFormat("yyyyMMddHHmmss");
 
-        try {
-            Date date = inputFormat.parse(inputString);
-
-            // Định dạng lại ngày theo định dạng mới nếu cần
-            SimpleDateFormat outputFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-            String formattedDate = outputFormat.format(date);
-
-            System.out.println("Ngày đã chuyển đổi: " + formattedDate);
-        } catch (ParseException e) {
-            e.printStackTrace();
+        AddressDAO da = new AddressDAO();
+        List<String> list = da.getAllAddressID();
+        for (String string : list) {
+            System.out.println(string);
         }
     }
 

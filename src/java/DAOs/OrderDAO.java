@@ -43,7 +43,7 @@ public class OrderDAO {
                 while (rs.next()) {
                     Order order = new Order(rs.getString("OrderID"), rs.getFloat("TotalAmount"),
                             rs.getTimestamp("OrderDate"), rs.getString("PaymentStatus"), rs.getString("OrderStatus"),
-                            rs.getString("CustomerID"), rs.getString("MenthodID"), rs.getString("StaffID"));
+                            rs.getString("CustomerID"), rs.getString("PaymentMenthod"), rs.getString("StaffID"));
                     list.add(order);
                 }
             } else {
@@ -65,7 +65,7 @@ public class OrderDAO {
             if (rs.next()) {
                 Order order = new Order(rs.getString("OrderID"), rs.getFloat("TotalAmount"),
                         rs.getTimestamp("OrderDate"), rs.getString("PaymentStatus"), rs.getString("OrderStatus"),
-                        rs.getString("CustomerID"), rs.getString("MenthodID"), rs.getString("StaffID"));
+                        rs.getString("CustomerID"), rs.getString("PaymentMenthod"), rs.getString("StaffID"));
                 return order;
             }
         } catch (Exception e) {
@@ -122,7 +122,7 @@ public class OrderDAO {
                 + "      ,[OrderStatus] =?\n"
                 + "      ,[TotalAmount] = ?\n"
                 + "      ,[CustomerID] = ?\n"
-                + "      ,[MenthodID] = ?\n"
+                + "      ,[PaymentMenthod] = ?\n"
                 + " WHERE [OrderID] = ?";
         try {
             PreparedStatement st = conn.prepareCall(sql);
@@ -243,7 +243,7 @@ public class OrderDAO {
                 while (rs.next()) {
                     Order order = new Order(rs.getString("OrderID"), rs.getFloat("TotalAmount"),
                             rs.getTimestamp("OrderDate"), rs.getString("PaymentStatus"), rs.getString("OrderStatus"),
-                            rs.getString("CustomerID"), rs.getString("MenthodID"), rs.getString("StaffID"));
+                            rs.getString("CustomerID"), rs.getString("PaymentMenthod"), rs.getString("StaffID"));
                     list.add(order);
                 }
             } else {
