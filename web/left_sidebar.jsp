@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : left_sidebar
     Created on : Feb 26, 2024, 8:29:58 PM
     Author     : To Do Hong Y - CE171148
@@ -85,7 +85,7 @@
                     <a class="d-block text-lg font-weight-bold text-dark mb-4">
                         <c:choose>
                             <c:when test="${admin != null}">
-                                Hello, ${admin.getUsername()} 
+                                Hello, ${admin.getUsername()}
                             </c:when>
                             <c:when test="${staff != null}">
                                 Hello, ${staff.getUsername()}
@@ -128,16 +128,16 @@
             </div>
         </nav>
         <script>
-            document.getElementById('accountManager').addEventListener('click', function (event) {
-                event.preventDefault(); // Prevent default anchor behavior
+			document.getElementById('accountManager').addEventListener('click', function (event) {
+				event.preventDefault(); // Prevent default anchor behavior
 
-                var managerDiv = document.getElementById('manager');
-                if (managerDiv.style.display === 'none') {
-                    managerDiv.style.display = 'block';
-                } else {
-                    managerDiv.style.display = 'none';
-                }
-            });
+				var managerDiv = document.getElementById('manager');
+				if (managerDiv.style.display === 'none') {
+					managerDiv.style.display = 'block';
+				} else {
+					managerDiv.style.display = 'none';
+				}
+			});
         </script>
 
     </body>
