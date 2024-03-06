@@ -5,7 +5,14 @@
 --%>
 
 
-
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="Models.Cart" %>
+<%@page import="Models.Product" %>
+<%@page import="DAOs.ProductDAO"%>
+<%@page import="DAOs.CartDAO"%>
+<%@page import="java.util.ArrayList" %>@
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.util.List" %>@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
@@ -44,43 +51,7 @@
 
 
                                         </thead>
-                                        <tbody>
-                                            <c:forEach items="${listCart}" var="o">
-                                                <c:forEach items="${listProduct}" var="p">
-                                                    <c:if test="${o.productID == p.id}">
-                                                        <tr>
-                                                            <th scope="row">
-                                                                <div class="p-2">
 
-                                                                    <img src="${p.image}" alt="" width="70" class="img-fluid rounded shadow-sm">
-
-                                                                    <div class="ml-3 d-inline-block align-middle">
-                                                                        <h5 class="mb-0"> <a href="#" class="text-dark d-inline-block">${p.name}</a></h5><span class="text-muted font-weight-normal font-italic"></span>
-                                                                    </div>
-                                                                </div>
-                                                            </th>
-                                                            <td class="align-middle"><strong>${p.price}$</strong></td>
-                                                            <td class="align-middle"><strong>${p.color}</strong></td>
-                                                            <td class="align-middle"><strong>${p.delivery}</strong></td>
-
-                                                            <td class="align-middle">
-                                                                <strong>${o.size}</strong>
-                                                            </td>
-
-                                                            <td class="align-middle">
-                                                                <a href="subAmountCart?productID=${o.productID}&amount=${o.amount}"><button class="btnSub">-</button></a> 
-                                                                <strong>${o.amount}</strong>
-                                                                <a href="addAmountCart?productID=${o.productID}&amount=${o.amount}"><button class="btnAdd">+</button></a>
-                                                            </td>
-                                                            <td class="align-middle"><a href="deleteCart?productID=${o.productID }" class="text-dark">
-                                                                    <button type="button" class="btn btn-danger">Delete</button>
-                                                                </a>
-                                                            </td>
-                                                        </tr> 
-                                                    </c:if>
-                                                </c:forEach>
-                                            </c:forEach>
-                                        </tbody>
                                     </table>
                                 </div>
                                 <!-- End -->
@@ -89,7 +60,7 @@
 
 
 
-                      
+
 
                         <table class="min-w-full divide-y divide-gray-200 px-8">
                             <thead>
@@ -97,11 +68,10 @@
                                     <th scope="col" class="px-2 py-10 text-left text-lg font-medium ml-3">
                                         PRODUCT
                                     </th>
-                                    <th class="px-2 py-2">
-
-                                    </th>
+                                    
                                     <th scope="col" class="px-4 py-10 text-left text-lg font-medium">
                                         PRICE
+
                                     </th>
                                     <th scope="col" class="px-4 py-10 text-left text-lg font-medium">
                                         QTY
@@ -109,45 +79,49 @@
                                     <th scope="col" class="px-4 py-10 text-left text-lg font-medium">
                                         UNIT PRICE
                                     </th>
+                                    <th class="px-2 py-2">
+
+                                    </th>
                                 </tr>
                             </thead>
-                            <tbody class="bg-white divide-y divide-gray-200">
-                                <tr>
-                                    <th class="px-2 py-2 whitespace-nowrap"> 
-                                        <img src="assets/img/products/image Product1.jpg" class="h-16 w-16 object-cover rounded">
-                                    </th>
-                                    <td class="px-8 py-10 whitespace-nowrap">
-                                        <span class="font-medium text-lg">Nice Airmax 270 react</span>
-                                    </td>
-                                    <td class="px-4 py-10 whitespace-nowrap">
-                                        $988
-                                    </td>
-                                    <td class="px-4 py-10 whitespace-nowrap">
-                                        1
-                                    </td>
-                                    <td class="px-4 py-10 whitespace-nowrap">
-                                        $499
-                                    </td>
+                            <tbody>
 
-                                </tr>
-                                <tr>
-                                    <th class="px-2 py-2 whitespace-nowrap"> 
-                                        <img src="assets/img/products/image Product1.jpg" class="h-16 w-16 object-cover rounded">
-                                    </th>
-                                    <td class="px-8 py-10 whitespace-nowrap">
-                                        <span class="font-medium text-lg">Nice Airmax 270 react</span>
-                                    </td>
-                                    <td class="px-4 py-10 whitespace-nowrap">
-                                        $988
-                                    </td>
-                                    <td class="px-4 py-10 whitespace-nowrap">
-                                        1
-                                    </td>
-                                    <td class="px-4 py-10 whitespace-nowrap">
-                                        $499
-                                    </td>
+                                <%
+                                    ResultSet listCart = (ResultSet)request.getAttribute("listCart");
+                                    List<Product> listProduct = ( List<Product>)request.getAttribute("listProduct");                                   
+                                    while (listCart.next()) {
+                                        for (Product p : listProduct ) {                                                                                                                                                                    
+                                            if (listCart.getString(6).equals(p.getProductId())) {                                                                                                     
+                                %>
 
-                                </tr>
+
+                                <tr>
+                                    <td class="row"> 
+                                        <div class="p-2 flex">
+                                            <img src="/assets/img/products/<%=p.getPrimaryImage().getImageURL()%>" alt="" width="70" class="img-fluid rounded shadow-sm">
+
+                                            <div class="ml-3 d-inline-block align-middle">
+                                                <h5 class="mb-0"> <a  class="text-dark d-inline-block"><%=p.getProductName()%> </a></h5><span class="text-muted font-weight-normal font-italic"></span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="align-middle"><strong><%=p.getPrice()*listCart.getInt(2)%></strong></td>
+                                    <td class="align-middle">
+                                        <a href="subAmountCart?productID=<%=listCart.getString(6)%>&amount=<%=listCart.getInt(2)%>"><button class="btnSub">-</button></a> 
+                                        <strong><%=listCart.getInt(2)%></strong>
+                                        <a href="addAmountCart?productID=<%=listCart.getString(6)%>&amount=<%=listCart.getInt(2)%>"><button class="btnAdd">+</button></a>
+                                    </td>
+                                    <td class="align-middle"><strong><%=p.getPrice()%></strong></td>
+
+
+
+
+                                    <td class="align-middle"><a href="deleteCart?productID=<%=listCart.getString(6)%>" class="text-dark">
+                                            <button type="button" class="btn btn-danger">Delete</button>
+                                        </a>
+                                    </td>
+                                </tr> 
+                                <% }}}%>
                             </tbody>
                         </table>
                     </div>
@@ -180,8 +154,6 @@
                                 <table class="w-full border-collapse border border-gray-300">
                                     <tbody>
                                         <tr>
-                                            <td class="p-3 border border-gray-300 pr-8">Subtotal</td>
-                                            <td class="p-3 border border-gray-300">$998</td>
                                         </tr>
                                         <tr>
                                             <td class="p-3 border border-gray-300 pr-8">Shipping fee</td>
@@ -195,8 +167,27 @@
                                     <tfoot>
                                         <tr>
                                             <td class="p-3 border border-gray-300 font-bold pr-8">Total</td>
-                                            <td class="p-3 border border-gray-300 font-bold">$118</td>
-                                        </tr>
+                                            <%  CartDAO da = new CartDAO();
+                                               //sua veg...thanh model tuong ung
+                                                List<Cart> list = da.getAllCart();
+                                                ProductDAO dao = new ProductDAO();
+                                               //sua veg...thanh model tuong ung
+                                                List<Product> products = dao.getAllProducts();
+                                               double totalAmount = 0.0;
+                                               while (list.next()) {
+                                                   for (Product product : products) {
+                                                       if (list.getString(6) == product.getProductId()) {
+                                                           double productPrice = product.getPrice();
+                                                           int productAmount = list.getInt(2);
+                                                           double productTotal = productPrice * productAmount;
+                                                           totalAmount += productTotal;
+                                                       }
+                                                   }
+                                               }
+                                            %>
+                                    <strong><%= totalAmount %> $</strong>
+                                    <td class="p-3 border border-gray-300 font-bold">$118</td>
+                                    </tr>
                                     </tfoot>
                                 </table>
                                 <div class="flex justify-center mt-4">

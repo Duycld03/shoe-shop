@@ -4,47 +4,64 @@
  */
 package Controllers;
 
-import DAOs.BrandDAO;
-import Models.Brand;
-import Utils.CreateID;
+import DAOs.CartDAO;
+import DAOs.CustomerDAO;
+import Models.Account;
+import Models.Cart;
+import Models.Customer;
+import Utils.JwtUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.util.List;
 
 /**
  *
- * @author To Do Hong Y - CE171148
+ * @author Vinh Dev
  */
-public class AddBrandController extends HttpServlet {
+public class AddCartController extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet AddBrandController</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet AddBrandController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        String productID = request.getParameter("pid");
+
+        Cookie[] cookies = request.getCookies();
+        Cookie loginCookie = null;
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("login")) {
+                loginCookie = cookie;
+            }
+        }
+        if (loginCookie != null) {
+            response.sendRedirect("/login");
+        }
+        String username = JwtUtils.getUsernameFromToken(loginCookie.getValue());
+        CustomerDAO customerDAO = new CustomerDAO();
+        Customer a = customerDAO.getCustomerByUsername(username);
+        request.setAttribute("customer", a);
+        String accountID = a.getCustomerId();
+        int amount = Integer.parseInt(request.getParameter("quantity"));
+
+        String size = request.getParameter("size");
+//
+        CartDAO cart = new CartDAO();
+        Cart cartExisted = cart.checkCartExist(accountID, productID);
+        int amountExisted;
+        String sizeExisted;
+        if (cartExisted != null) {
+            amountExisted = cartExisted.getQuantity();
+            cart.editAmountAndSizeCart(accountID, productID, (amountExisted + amount));
+            request.setAttribute("mess", "Da tang so luong san pham!");
+            request.getRequestDispatcher("managerCart").forward(request, response);
+        } else {
+            cart.insertCart(accountID, productID, amount);
+            request.setAttribute("mess", "Da them san pham vao gio hang!");
+            request.getRequestDispatcher("managerCart").forward(request, response);
         }
     }
 
@@ -74,23 +91,7 @@ public class AddBrandController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        if (request.getParameter("btnAdd") != null) {
-            HttpSession session = request.getSession();
-            String bname = request.getParameter("brandname");
-            BrandDAO bDAO = new BrandDAO();
-            List<String> allBrandID = bDAO.getAllBrandID();
-            String idFormat = "Br";
-            String bId = CreateID.autoIncreaseID(allBrandID, idFormat);
-            Brand brand = new Brand(bId, bname);
-            if (bDAO.getBrandByBrandName(bname) != null) {
-                session.setAttribute("error", "Brand name already exists!");
-                response.sendRedirect("/brandmanager");
-                return;
-            }
-            bDAO.addBrand(brand);
-            session.setAttribute("success", "Brand Added!");
-            response.sendRedirect("/brandmanager");
-        }
+        processRequest(request, response);
     }
 
     /**

@@ -993,6 +993,10 @@ video {
   width: 25%;
 }
 
+.w-\[70px\] {
+  width: 70px;
+}
+
 .w-auto {
   width: auto;
 }
@@ -1666,6 +1670,10 @@ video {
 
 .text-\[15px\] {
   font-size: 15px;
+}
+
+.text-\[17px\] {
+  font-size: 17px;
 }
 
 .text-\[27px\] {

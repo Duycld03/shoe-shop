@@ -74,7 +74,7 @@ public class StaffManagerController extends HttpServlet {
             response.sendRedirect("/managerLogin");
             return;
         }
-        request.setAttribute("Staff", staff);
+        request.setAttribute("staff", staff);
         request.getRequestDispatcher("/left_sidebar.jsp").forward(request, response);
     }
 

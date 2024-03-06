@@ -396,6 +396,22 @@ public class ProductDAO {
         return pros;
     }
 
+    public List<String> getAllProID() {
+        List<String> productIDs = new ArrayList<>();
+        String sql = "SELECT ProductID FROM Products";
+        try {
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                String productID = rs.getString("ProductID");
+                productIDs.add(productID);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return productIDs;
+    }
+
     public boolean softDeletePro(String proID) {
         String sql = " Update Products \n"
                 + " set isDeleted = 1\n"

@@ -5,10 +5,14 @@ package Models;
  * @author Duy
  */
 public class ProductImage {
+
     private String imageId;
     private String imageURL;
     private boolean isPrimary;
     private String productId;
+
+    public ProductImage() {
+    }
 
     public ProductImage(String imageId, String imageURL, boolean isPrimary, String productId) {
         this.imageId = imageId;

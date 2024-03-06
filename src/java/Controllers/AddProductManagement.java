@@ -5,14 +5,14 @@
 package Controllers;
 
 import DAOs.AdminDAO;
-import DAOs.MethodDAO;
-import DAOs.OrderDAO;
+import DAOs.BrandDAO;
+import DAOs.ProductDAO;
 import DAOs.StaffDAO;
 import Models.Admin;
-import Models.Order;
-import Models.PaymentMethod;
+import Models.Brand;
+import Models.Product;
 import Models.Staff;
-import Utils.JwtUtils;
+import Utils.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -21,13 +21,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
  * @author Doan Thanh Phuc - CE170580
  */
-public class UpdateOrder extends HttpServlet {
+public class AddProductManagement extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -46,10 +47,10 @@ public class UpdateOrder extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet UpdateOrder</title>");
+            out.println("<title>Servlet AddProductManagement</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet UpdateOrder at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet AddProductManagement at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -69,6 +70,8 @@ public class UpdateOrder extends HttpServlet {
             throws ServletException, IOException {
         Cookie[] cookies = request.getCookies();
         Cookie managerCookie = null;
+        HttpSession session = request.getSession();
+
         for (Cookie cookie : cookies) {
             if (cookie.getName().equals("manager")) {
                 managerCookie = cookie;
@@ -79,25 +82,20 @@ public class UpdateOrder extends HttpServlet {
             return;
         }
         String username = JwtUtils.getContentFromToken(managerCookie.getValue());
+        StaffDAO staffDAO = new StaffDAO();
         AdminDAO adminDAO = new AdminDAO();
         Admin admin = adminDAO.getAdminByUsername(username);
-        StaffDAO staffDAO = new StaffDAO();
         Staff staff = staffDAO.getStaffByUsername(username);
         if (admin == null && staff == null) {
             response.sendRedirect("/managerLogin");
             return;
         }
         String staffID = staff.getStaffId();
-        HttpSession session = request.getSession();
-        request.setAttribute("Staff", staff);
-        String OrderId = request.getParameter("OrderID");
-        OrderDAO d = new OrderDAO();
-        MethodDAO md = new MethodDAO();
-        Order order = d.getOrderById(OrderId);
-        List<PaymentMethod> methods = md.getAllMethod();
-        request.setAttribute("order", order);
-        request.setAttribute("methods", methods);
-        request.getRequestDispatcher("updateOrder.jsp").forward(request, response);
+        ProductDAO dao = new ProductDAO();
+        BrandDAO d = new BrandDAO();
+        List<Brand> brands = d.getAllBrand();
+        request.setAttribute("Brands", brands);
+        request.getRequestDispatcher("addNewProduct.jsp").forward(request, response);
     }
 
     /**
@@ -111,15 +109,40 @@ public class UpdateOrder extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
         if (request.getParameter("btnSave") != null) {
-            String orderid = request.getParameter("OrderID");
-            String total = request.getParameter("TotalAmount");
-            String OrderDate = request.getParameter("orderDate");
-            String paymentStatus = request.getParameter("paymentstatus");
-            String customerID = request.getParameter("CustomerID");
-            String method = request.getParameter("method");
-            String staffDi = request.getParameter("StaffID");
+            ProductDAO dao = new ProductDAO();
+            List<String> allproductID = dao.getAllProID();
+            String idFormat = "P";
+            String ProID = CreateID.autoIncreaseID(allproductID, idFormat);
+            String productName = request.getParameter("productName");
+            String price = request.getParameter("price");
+            String discount = request.getParameter("discount");
+            String description = request.getParameter("description");
+            String brandId = request.getParameter("brandID");
+            boolean isDeleted = false;
+            try {
+                float price_draw = Float.parseFloat(price);
+                float discount_draw = Float.parseFloat(discount);
+                Product pro = new Product(ProID, productName, price_draw, discount_draw, description, brandId, isDeleted);
+                if (dao.checkProNameExit(productName)) {
+                    request.setAttribute("NameError", "This product name was exited!");
+                    request.setAttribute("Pro", pro);
+                    request.getRequestDispatcher("addNewProduct.jsp").forward(request, response);
+                } else if (dao.addProduct(pro) == true) {
+                    session.setAttribute("success", "success");
+                    response.sendRedirect("/productmanagement");
+                } else {
+                    session.setAttribute("error", "error");
+                    response.sendRedirect("/productmanagement");
+                }
+
+            } catch (Exception e) {
+
+            }
+
         }
+
     }
 
     /**
