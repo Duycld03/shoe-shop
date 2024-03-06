@@ -19,7 +19,7 @@
 
 			<div class="h-auto  md:w-3/5 rounded-2xl bg-gray-100 grid md:gap-8 gap-5">
 				<!-- Profile Icon -->
-				<section class="bg-[#40BFFF] rounded-t-2xl	 flex gap-2 items-center">
+				<section class="bg-[#40BFFF] rounded-t-2xl flex gap-2 items-center">
 					<div class="h-auto text-white text-8xl"><i class=' bx bxs-user-circle'></i></div>
 					<div class="Profile_Name text-white md:font-bold md:text-4xl">${customer.username}</div>
 				</section>

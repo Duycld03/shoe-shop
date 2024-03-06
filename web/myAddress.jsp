@@ -5,7 +5,6 @@
 <html>
 
 	<head>
-		<title>My profile</title>
 		<%@include file="head.jsp" %>
 		<title>Address</title>
 	</head>
@@ -32,7 +31,6 @@
 							<div class="bg-white p-4 rounded-md">
 								<div class="User-function md:flex justify-between">
 									<div class="md:flex md:gap-2">
-										<!--<p class="">Đoàn Thanh Phúc</p>-->
 										<c:if test="${address.isPrimary()}">
 											<div
 												class="font-light border-2 w-28 border-sky-400 rounded-2xl px-4">
@@ -48,6 +46,7 @@
 										<a href="#" onclick="messageConfirm('Delete address!', () => {
 													window.location.href = '/address/delete?id=${address.addressId}'
 												})" class="hover:text-sky-300 duration-200 transition-all font-semibold">Delete</a>
+
 										<a href="/address/setPrimary?id=${address.addressId}"
 										   class="hover:text-sky-300 duration-200 transition-all font-semibold">Set
 											Primary</a>
