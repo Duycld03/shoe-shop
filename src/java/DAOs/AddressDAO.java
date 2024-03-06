@@ -35,7 +35,7 @@ public class AddressDAO {
         conn = DBConnection.getConnection();
     }
 
-    //read all from admins
+    // read all from admins
     public List<Address> getAddressAdmins() {
         List<Address> list = new ArrayList<>();
         String sql = "Select * from Addresses";
@@ -59,8 +59,8 @@ public class AddressDAO {
         return list;
     }
 
-    //get Admins by ID
-    public Address getAddressnByCusId(String id) {
+    // get Admins by ID
+    public Address getAddressByCusId(String id) {
         String sql = "Select * from Addresses where CustomerID = ? and isPrimary = 1";
         try {
             PreparedStatement st = conn.prepareStatement(sql);
@@ -111,8 +111,8 @@ public class AddressDAO {
         return count;
     }
 
-    //Delect Address 
-    public int delectByCusID(String CusID) {
+    // Delect Address
+    public int deleteByCusID(String CusID) {
         int result = 0;
         String sql = "DELETE FROM [dbo].[Addresses]\n"
                 + "      WHERE CustomerID = ?";
@@ -126,7 +126,21 @@ public class AddressDAO {
         return result;
     }
 
-    //add Address
+    public int deleteById(String addressId) {
+        int result = 0;
+        String sql = "DELETE FROM [dbo].[Addresses]\n"
+                + "      WHERE AddressID = ?";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, addressId);
+            result = ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(CartDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+    }
+
+    // add Address
     public int addAddress(Address address) {
         int result = 0;
         String sql = "INSERT INTO [dbo].[Addresses]\n"
@@ -165,6 +179,55 @@ public class AddressDAO {
         return count;
     }
 
+    public int removePrimaryByCustomerId(String customerID) {
+        int count = 0;
+        String sql = "UPDATE [dbo].[Addresses]\n"
+                + "   SET [isPrimary] = 0\n"
+                + " WHERE CustomerID  = ?";
+        try {
+            PreparedStatement st = conn.prepareCall(sql);
+            st.setString(1, customerID);
+            count = st.executeUpdate();
+        } catch (SQLException e) {
+        }
+        return count;
+    }
+
+    public int setPrimaryByAddressId(String addressId) {
+        int count = 0;
+        String sql = "UPDATE [dbo].[Addresses]\n"
+                + "   SET [isPrimary] = 1\n"
+                + " WHERE AddressID  = ?";
+        try {
+            PreparedStatement st = conn.prepareCall(sql);
+            st.setString(1, addressId);
+            count = st.executeUpdate();
+        } catch (SQLException e) {
+        }
+        return count;
+    }
+
+    public List<Address> getAddressesByCusId(String id) {
+        List<Address> addresses = new ArrayList<>();
+        String sql = "Select * from Addresses where CustomerID = ?";
+        try {
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.setString(1, id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Address address = new Address(rs.getString("AddressID"),
+                        rs.getString("City"), rs.getString("AddressDetail"),
+                        rs.getString("CustomerID"), rs.getBoolean("isPrimary"));
+                addresses.add(address);
+            }
+            return addresses;
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+
     public List<String> getAllAddressID() {
         List<String> addressIDs = new ArrayList<>();
         String sql = "select AddressID from Addresses";
@@ -181,15 +244,6 @@ public class AddressDAO {
         return addressIDs;
     }
 
-    public static void main(String[] args) {
-        String inputString = "20240301155429";
-        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyyMMddHHmmss");
-
-        AddressDAO da = new AddressDAO();
-        List<String> list = da.getAllAddressID();
-        for (String string : list) {
-            System.out.println(string);
-        }
-    }
+   
 
 }

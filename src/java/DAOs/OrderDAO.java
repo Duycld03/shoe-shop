@@ -255,6 +255,31 @@ public class OrderDAO {
         return list;
     }
 
+    public List<Order> getOrdersbyCustomerId(String customerId) {
+        List<Order> list = new ArrayList<>();
+        String sql = "Select * from Orders\n"
+                + "where CustomerID = ?";
+        try {
+            // Đảm bảo cSonnection đã được khởi tạo và mở
+            if (conn != null && !conn.isClosed()) {
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, customerId);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    Order order = new Order(rs.getString("OrderID"), rs.getFloat("TotalAmount"),
+                            rs.getTimestamp("OrderDate"), rs.getString("PaymentStatus"), rs.getString("OrderStatus"),
+                            rs.getString("CustomerID"), rs.getString("MenthodID"), rs.getString("StaffID"));
+                    list.add(order);
+                }
+            } else {
+                System.out.println("Kết nối đến cơ sở dữ liệu không hợp lệ.");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
     public static void main(String[] args) {
         OrderDAO d = new OrderDAO();
         String id = "ST3";

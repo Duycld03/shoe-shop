@@ -153,6 +153,10 @@
         <servlet-class>Controllers.DeleteBrandController</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>AddressController</servlet-name>
+        <servlet-class>Controllers.AddressController</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>AddProductManagement</servlet-name>
         <servlet-class>Controllers.AddProductManagement</servlet-class>
     </servlet>
@@ -194,7 +198,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ProfileController</servlet-name>
-        <url-pattern>/profilecontroller</url-pattern>
+        <url-pattern>/profile/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CustomerLoginController</servlet-name>
@@ -315,6 +319,10 @@
     <servlet-mapping>
         <servlet-name>DeleteBrandController</servlet-name>
         <url-pattern>/deleteBrand</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddressController</servlet-name>
+        <url-pattern>/address/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddProductManagement</servlet-name>

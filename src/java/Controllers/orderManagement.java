@@ -87,29 +87,36 @@ public class orderManagement extends HttpServlet {
         }
         HttpSession session = request.getSession();
         OrderDAO orderD = new OrderDAO();
-        request.setAttribute("staff", staff);
-        String staffID = staff.getStaffId();
-        String orderID = request.getParameter("OrderID");
-        if (orderD.updateTakeCareStaff(staffID, orderID) == true) {
-            request.setAttribute("StaffID_Check", staffID);
-        } else {
-            request.setAttribute("error", "false");
-        }
-        //Lay orderID khi order thanh cong
-        String orderID_draw = request.getParameter("OrderID");
-        String status = request.getParameter("status");
-        if (orderID_draw != null && status != null) {
-            orderD.updateOrderStatus(orderID_draw, status);
-            if (status.equalsIgnoreCase("Success")) {
-                session.setAttribute("success", "The order has been successful");
+
+        if (staff != null) {
+            String staffID = staff.getStaffId();
+            request.setAttribute("staff", staff);
+            String orderID = request.getParameter("OrderID");
+            if (orderD.updateTakeCareStaff(staffID, orderID) == true) {
+                request.setAttribute("StaffID_Check", staffID);
             } else {
-                session.setAttribute("error", "The order has been cancelled");
+                request.setAttribute("error", "false");
             }
-        } else if (orderID_draw != null) {
-            orderD.updateTakeCareStaff(staffID, orderID);
+            //Lay orderID khi order thanh cong
+            String orderID_draw = request.getParameter("OrderID");
+            String status = request.getParameter("status");
+            if (orderID_draw != null && status != null) {
+                orderD.updateOrderStatus(orderID_draw, status);
+                if (status.equalsIgnoreCase("Success")) {
+                    session.setAttribute("success", "The order has been successful");
+                } else {
+                    session.setAttribute("error", "The order has been cancelled");
+                }
+            } else if (orderID_draw != null) {
+                orderD.updateTakeCareStaff(staffID, orderID);
+            }
+            List<Order> list = orderD.getOrderbyStaffID(staffID);
+            request.setAttribute("Orders", list);
+        } else {
+            request.setAttribute("admin", admin);
+            List<Order> list = orderD.getAllOrder();
+            request.setAttribute("Orders", list);
         }
-        List<Order> list = orderD.getOrderbyStaffID(staffID);
-        request.setAttribute("Orders", list);
         request.getRequestDispatcher("orderList.jsp").forward(request, response);
     }
 

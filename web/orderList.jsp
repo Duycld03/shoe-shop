@@ -45,10 +45,12 @@
                                     <th>Order status</th>
                                     <th>Customer ID</th>
                                     <th>Payment Method</th>
-                                    <th>Staff take care for</th>                                   
+                                    <th>Staff take care for</th>   
+                                    <c:if test="${staff != null}">
                                     <th>Action</th>
-                                </tr>
-                            </thead>
+                                    </c:if>
+                            </tr>
+                        </thead>
                         <c:forEach items="${requestScope.Orders}" var="c">
                             <tr>
                                 <td>${c.orderId}</td>
@@ -58,35 +60,37 @@
                                 <td>${c.customerId}</td>
                                 <td>${c.paymentMethod}</td>
                                 <td>${c.staffID}</td>
+                                <c:if test="${staff != null}">
+                                    <td>
+                                        <div class="btn-group d-flex justify-content-center align-items-center">
+                                            <c:if test="${c.staffID == null}">
+                                                <button class="btn btn-warning text-white" 
+                                                        onclick="messageConfirm('Accept this order', () => {
+                                                                    location.href = 'ordermanagement?OrderID=${c.orderId}&StaffID=${param.StaffID}'
+                                                                })">
+                                                    Accept
+                                                </button>
+                                            </c:if>
+                                            <c:if test="${c.staffID != null && c.orderStatus ne 'Processing' && c.orderStatus ne 'Success' && c.orderStatus ne 'Cancel'}">
+                                                <button class="btn btn-success"
+                                                        onclick="messageConfirm('Order completed', () => {
+                                                                    location.href = '/ordermanagement?OrderID=${c.orderId}&status=Success'
+                                                                })">
+                                                    <i class='bx bx-check'></i>
+                                                </button>
+                                                &nbsp;&nbsp;&nbsp;
+                                                <button class="btn btn-danger" 
+                                                        onclick="messageConfirm('Order cancel', () => {
+                                                                    location.href = '/ordermanagement?OrderID=${c.orderId}&status=Cancel'
+                                                                })">
+                                                    <i class='bx bx-x-circle'></i>
+                                                </button>
+                                            </c:if>
 
-                                <td>
-                                    <div class="btn-group d-flex justify-content-center align-items-center">
-                                        <c:if test="${c.staffID == null}">
-                                            <button class="btn btn-warning text-white" 
-                                                    onclick="messageConfirm('Accept this order', () => {
-                                                                location.href = 'ordermanagement?OrderID=${c.orderId}&StaffID=${param.StaffID}'
-                                                            })">
-                                                Accept
-                                            </button>
-                                        </c:if>
-                                        <c:if test="${c.staffID != null && c.orderStatus ne 'Processing' && c.orderStatus ne 'Success' && c.orderStatus ne 'Cancel'}">
-                                            <button class="btn btn-success"
-                                                    onclick="messageConfirm('Order completed', () => {
-                                                                location.href = '/ordermanagement?OrderID=${c.orderId}&status=Success'
-                                                            })">
-                                                <i class='bx bx-check'></i>
-                                            </button>
-                                            &nbsp;&nbsp;&nbsp;
-                                            <button class="btn btn-danger" 
-                                                    onclick="messageConfirm('Order cancel', () => {
-                                                                location.href = '/ordermanagement?OrderID=${c.orderId}&status=Cancel'
-                                                            })">
-                                                <i class='bx bx-x-circle'></i>
-                                            </button>
-                                        </c:if>
+                                        </div>
+                                    </td>
+                                </c:if>
 
-                                    </div>
-                                </td>
                             </tr>
                         </c:forEach>
                     </table>
