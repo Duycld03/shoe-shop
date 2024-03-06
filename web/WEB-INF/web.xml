@@ -56,6 +56,19 @@
         <servlet-name>LoadMoreController</servlet-name>
         <servlet-class>Controllers.LoadMoreController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ManageCartController</servlet-name>
+        <servlet-class>Controllers.ManageCartController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddCartController</servlet-name>
+        <servlet-class>Controllers.AddCartController</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>ManageCartController</servlet-name>
+        <url-pattern>/manageCart</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
         <url-pattern/>
@@ -111,6 +124,10 @@
     <servlet-mapping>
         <servlet-name>LoadMoreController</servlet-name>
         <url-pattern>/loadMore</url-pattern>
+    </servlet-mapping>
+     <servlet-mapping>
+        <servlet-name>AddCartController</servlet-name>
+        <url-pattern>/addCart</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
