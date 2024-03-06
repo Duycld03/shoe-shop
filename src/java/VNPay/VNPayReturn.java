@@ -1,7 +1,12 @@
 package VNPay;
 
+import DAOs.CartDAO;
 import DAOs.OrderDAO;
+import DAOs.OrderDetailDAO;
+import Models.Cart;
 import Models.Order;
+import Models.OrderDetail;
+import Vadilation.Vadidation;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,9 +18,11 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -101,7 +108,23 @@ public class VNPayReturn extends HttpServlet {
 					OrderDAO orderDAO = new OrderDAO();
 					Order newOrder = new Order(transactionNo, amountDraw, timestamp, "Paid", "Processing", customerId, "VNPay", null);
 					orderDAO.addOrder(newOrder);
-					request.getSession().setAttribute("checkoutSuccess", "Payment Success!");
+					OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
+					CartDAO cartDAO = new CartDAO();
+					List<Cart> carts = cartDAO.getCartByCusID(customerId);
+					List<OrderDetail> orderDetails = new ArrayList<>();
+					for (Cart cart : carts) {
+						String orderDetailId = Vadidation.CreateID(orderDetailDAO.getAllOrderDetailID(), "OrderD");
+						OrderDetail orderDetail = new OrderDetail(orderDetailId, cart.getTotalPrice(), cart.getQuantity(), transactionNo, cart.getVariantId());
+						orderDetails.add(orderDetail);
+					}
+
+					boolean result = orderDetailDAO.addOrderDetails(orderDetails);
+					if (result) {
+						cartDAO.deleteCartByCusId(customerId);
+						request.getSession().setAttribute("checkoutSuccess", "Order successful!");
+					} else {
+						request.getSession().setAttribute("error", "Order failed!");
+					}
 					response.sendRedirect("/");
 				} else {
 					request.getSession().setAttribute("error", "erorr");
