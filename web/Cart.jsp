@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : Cart
     Created on : Feb 20, 2024, 7:51:27 PM
     Author     : Acer
@@ -68,7 +68,7 @@
                                     <th scope="col" class="px-2 py-10 text-left text-lg font-medium ml-3">
                                         PRODUCT
                                     </th>
-                                    
+
                                     <th scope="col" class="px-4 py-10 text-left text-lg font-medium">
                                         PRICE
 
@@ -88,15 +88,14 @@
 
                                 <%
                                     ResultSet listCart = (ResultSet)request.getAttribute("listCart");
-                                    List<Product> listProduct = ( List<Product>)request.getAttribute("listProduct");                                   
-                                    while (listCart.next()) {
-                                        for (Product p : listProduct ) {                                                                                                                                                                    
-                                            if (listCart.getString(6).equals(p.getProductId())) {                                                                                                     
+                                    List<Product> listProduct = ( List<Product>)request.getAttribute("listProduct");
+                                        for (Product p : listProduct ) {
+                                            if (listCart.getString(6).equals(p.getProductId())) {
                                 %>
 
 
                                 <tr>
-                                    <td class="row"> 
+                                    <td class="row">
                                         <div class="p-2 flex">
                                             <img src="/assets/img/products/<%=p.getPrimaryImage().getImageURL()%>" alt="" width="70" class="img-fluid rounded shadow-sm">
 
@@ -107,7 +106,7 @@
                                     </td>
                                     <td class="align-middle"><strong><%=p.getPrice()*listCart.getInt(2)%></strong></td>
                                     <td class="align-middle">
-                                        <a href="subAmountCart?productID=<%=listCart.getString(6)%>&amount=<%=listCart.getInt(2)%>"><button class="btnSub">-</button></a> 
+                                        <a href="subAmountCart?productID=<%=listCart.getString(6)%>&amount=<%=listCart.getInt(2)%>"><button class="btnSub">-</button></a>
                                         <strong><%=listCart.getInt(2)%></strong>
                                         <a href="addAmountCart?productID=<%=listCart.getString(6)%>&amount=<%=listCart.getInt(2)%>"><button class="btnAdd">+</button></a>
                                     </td>
@@ -120,8 +119,8 @@
                                             <button type="button" class="btn btn-danger">Delete</button>
                                         </a>
                                     </td>
-                                </tr> 
-                                <% }}}%>
+                                </tr>
+                                <% }}%>
                             </tbody>
                         </table>
                     </div>
@@ -174,7 +173,6 @@
                                                //sua veg...thanh model tuong ung
                                                 List<Product> products = dao.getAllProducts();
                                                double totalAmount = 0.0;
-                                               while (list.next()) {
                                                    for (Product product : products) {
                                                        if (list.getString(6) == product.getProductId()) {
                                                            double productPrice = product.getPrice();
@@ -182,7 +180,6 @@
                                                            double productTotal = productPrice * productAmount;
                                                            totalAmount += productTotal;
                                                        }
-                                                   }
                                                }
                                             %>
                                     <strong><%= totalAmount %> $</strong>
@@ -213,31 +210,31 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
-        function loadTotalMoney() {
-            $.ajax({
-                url: "/WebsiteBanGiay/totalMoneyCart",
-                type: "get", //send it through get method
-                data: {
+		function loadTotalMoney() {
+			$.ajax({
+				url: "/WebsiteBanGiay/totalMoneyCart",
+				type: "get", //send it through get method
+				data: {
 
-                },
-                success: function (responseData) {
-                    document.getElementById("contentTotalMoney").innerHTML = responseData;
-                }
-            });
-        }
+				},
+				success: function (responseData) {
+					document.getElementById("contentTotalMoney").innerHTML = responseData;
+				}
+			});
+		}
 
-        window.addEventListener("load", function loadAmountCart() {
-            $.ajax({
-                url: "/WebsiteBanGiay/loadAllAmountCart",
-                type: "get", //send it through get method
-                data: {
+		window.addEventListener("load", function loadAmountCart() {
+			$.ajax({
+				url: "/WebsiteBanGiay/loadAllAmountCart",
+				type: "get", //send it through get method
+				data: {
 
-                },
-                success: function (responseData) {
-                    document.getElementById("amountCart").innerHTML = responseData;
-                }
-            });
-        }, false);
+				},
+				success: function (responseData) {
+					document.getElementById("amountCart").innerHTML = responseData;
+				}
+			});
+		}, false);
     </script>
 </body>
 

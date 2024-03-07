@@ -1,7 +1,12 @@
 package VNPay;
 
+import DAOs.CartDAO;
 import DAOs.OrderDAO;
+import DAOs.OrderDetailDAO;
+import Models.Cart;
 import Models.Order;
+import Models.OrderDetail;
+import Vadilation.Vadidation;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import java.io.IOException;
@@ -86,6 +91,18 @@ public class Checkout extends HttpServlet {
 		//from Cart page
 		String paymentMethod = request.getParameter("paymentMethod");
 		String customerId = request.getParameter("customerId");
+		CartDAO cartDAO = new CartDAO();
+		List<Cart> carts = cartDAO.getCartByCusID(customerId);
+		if (carts == null || carts.isEmpty()) {
+			request.getSession().setAttribute("error", "Cart is empty!");
+
+			com.google.gson.JsonObject job = new JsonObject();
+			job.addProperty("paymentMethod", "error");
+
+			Gson gson = new Gson();
+			response.getWriter().write(gson.toJson(job));
+			return;
+		}
 		if (paymentMethod.equals("COD")) {
 			long amountCOD = Integer.parseInt(request.getParameter("amount"));
 			Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
@@ -95,7 +112,22 @@ public class Checkout extends HttpServlet {
 			String transactionNo = Config.getRandomNumber(8);
 			Order newOrder = new Order(transactionNo, amountCOD, timestamp, "Pending", "Processing", customerId, "COD", null);
 			orderDAO.addOrder(newOrder);
-			request.getSession().setAttribute("checkoutSuccess", "Order successful!");
+
+			OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
+			List<OrderDetail> orderDetails = new ArrayList<>();
+			for (Cart cart : carts) {
+				String orderDetailId = Vadidation.CreateID(orderDetailDAO.getAllOrderDetailID(), "OrderD");
+				OrderDetail orderDetail = new OrderDetail(orderDetailId, cart.getTotalPrice(), cart.getQuantity(), transactionNo, cart.getVariantId());
+				orderDetails.add(orderDetail);
+			}
+
+			boolean result = orderDetailDAO.addOrderDetails(orderDetails);
+			if (result) {
+				cartDAO.deleteCartByCusId(customerId);
+				request.getSession().setAttribute("checkoutSuccess", "Order successful!");
+			} else {
+				request.getSession().setAttribute("error", "Order failed!");
+			}
 
 			com.google.gson.JsonObject job = new JsonObject();
 			job.addProperty("paymentMethod", "COD");

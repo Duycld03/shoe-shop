@@ -40,8 +40,14 @@ public class ProductVariant {
         this.isDelete = isDelete;
     }
 
-    public ProductVariant(String VarID, String Color, int size, int stockQuatity, String ProID, int size0, boolean delete) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public ProductVariant(String variantId, String color, int size, int stockQuantity, String productId, int SumOfVariant, boolean isDelete) {
+        this.variantId = variantId;
+        this.color = color;
+        this.size = size;
+        this.stockQuantity = stockQuantity;
+        this.productId = productId;
+        this.SumOfVariant = SumOfVariant;
+        this.isDelete = isDelete;
     }
 
     public String getVariantId() {

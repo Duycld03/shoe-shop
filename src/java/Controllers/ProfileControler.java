@@ -8,10 +8,12 @@ import DAOs.AdminDAO;
 import DAOs.AddressDAO;
 import DAOs.CustomerDAO;
 import DAOs.OrderDAO;
+import DAOs.OrderDetailDAO;
 import DAOs.StaffDAO;
 import Models.Customer;
 import Models.Address;
 import Models.Order;
+import Models.OrderDetail;
 import Utils.JwtUtils;
 import com.google.gson.Gson;
 import java.io.IOException;
@@ -88,20 +90,25 @@ public class ProfileControler extends HttpServlet {
 			return;
 		}
 
+		request.setAttribute("customer", customer);
 		String path = request.getRequestURI();
 		if (path.endsWith("/orderHistory")) {
 			OrderDAO orderDAO = new OrderDAO();
 			List<Order> orders = orderDAO.getOrdersbyCustomerId(customer.getCustomerId());
 			request.setAttribute("orders", orders);
 			request.getRequestDispatcher("/myOrderHistory.jsp").forward(request, response);
+		} else if (path.endsWith("/orderHistory/orderDetail")) {
+			String orderDetailId = request.getParameter("id");
+			OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
+			List<OrderDetail> orderDetails = orderDetailDAO.getOrderDetailByOrderID(orderDetailId);
+			request.setAttribute("orderDetails", orderDetails);
+			request.getRequestDispatcher("/myOrderDetail.jsp").forward(request, response);
 		} else if (path.endsWith("/address")) {
 			AddressDAO addressDAO = new AddressDAO();
 			List<Address> addresses = addressDAO.getAddressesByCusId(customer.getCustomerId());
 			request.setAttribute("addresses", addresses);
-			request.setAttribute("customer", customer);
 			request.getRequestDispatcher("/myAddress.jsp").forward(request, response);
 		} else {
-			request.setAttribute("customer", customer);
 			request.getRequestDispatcher("/myProfile.jsp").forward(request, response);
 		}
 	}

@@ -115,7 +115,7 @@ public class AddressController extends HttpServlet {
 		HttpSession session = request.getSession();
 		if (request.getParameter("btnAdd") != null) {
 			String city = request.getParameter("city");
-			String addressDetail = request.getParameter("addressDetail");
+			String addressDetail = request.getParameter("addressDetail").replaceAll("\\r?\\n", " ").trim();
 			String customerId = request.getParameter("customerId");
 
 			AddressDAO addressDAO = new AddressDAO();
@@ -133,18 +133,18 @@ public class AddressController extends HttpServlet {
 
 		if (request.getParameter("btnSave") != null) {
 			String city = request.getParameter("city");
-			String addressDetail = request.getParameter("addressDetail");
+			String addressDetail = request.getParameter("addressDetail").replaceAll("\\r?\\n", " ").trim();
 			String customerId = request.getParameter("customerId");
 			String addressId = request.getParameter("addressId");
 
 			AddressDAO addressDAO = new AddressDAO();
-//			Address address = new Address(addressId, city, addressDetail, customerId, false);
-//			int result = addressDAO.add(address);
-//			if (result >= 1) {
-//				session.setAttribute("success", "Add Address Successful!");
-//			} else {
-//				session.setAttribute("error", "Add Address Failed!");
-//			}
+			Address address = new Address(addressId, city, addressDetail, customerId, false);
+			int result = addressDAO.updateAddress(address);
+			if (result >= 1) {
+				session.setAttribute("success", "Update Address Successful!");
+			} else {
+				session.setAttribute("error", "Update Address Failed!");
+			}
 			response.sendRedirect("/profile/address");
 			return;
 		}

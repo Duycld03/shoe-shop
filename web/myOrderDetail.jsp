@@ -28,38 +28,27 @@
 						<table class="table-auto border-collapse border border-gray-800 w-full">
 							<thead>
 								<tr class="bg-gray-200 text-gray-700">
+									<th class="border border-gray-400 py-2">OrderDetailID</th>
+									<th class="border border-gray-400 py-2">Price</th>
+									<th class="border border-gray-400 py-2">Quantity</th>
 									<th class="border border-gray-400 py-2">OrderID</th>
-									<th class="border border-gray-400 py-2">OrderDate</th>
-									<th class="border border-gray-400 py-2">PaymentStatus</th>
-									<th class="border border-gray-400 py-2">OrderStatus</th>
-									<th class="border border-gray-400 py-2">TotalAmount</th>
-									<th class="border border-gray-400 py-2">CustomerID</th>
-									<th class="border border-gray-400 py-2">PaymentMethod</th>
-									<th class="border border-gray-400 py-2">staffID</th>
+									<th class="border border-gray-400 py-2">VariantID</th>
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach items="${orders}" var="order">
+								<c:forEach items="${orderDetails}" var="orderDetail">
 									<tr class="text-gray-700">
 										<td class="border border-gray-400 py-2 text-center">
-											<a class="font-medium text-blue-600 dark:text-blue-500 underline"
-											   href="/profile/orderHistory/orderDetail?id=${order.orderId}">
-												${order.orderId}</a>
+											${orderDetail.orderDetailId}
 										</td>
 										<td class="border border-gray-400 py-2 text-center">
-											${order.orderDate}</td>
+											${orderDetail.price}
 										<td class="border border-gray-400 py-2 text-center">
-											${order.paymentStatus}</td>
+											${orderDetail.quantity}
 										<td class="border border-gray-400 py-2 text-center">
-											${order.orderStatus}</td>
+											${orderDetail.orderId}
 										<td class="border border-gray-400 py-2 text-center">
-											${order.totalAmount}</td>
-										<td class="border border-gray-400 py-2 text-center">
-											${order.customerId}</td>
-										<td class="border border-gray-400 py-2 text-center">
-											${order.paymentMethod}</td>
-										<td class="border border-gray-400 py-2 text-center">
-											${order.staffId}</td>
+											${orderDetail.variantId}
 									</tr>
 								</c:forEach>
 							</tbody>
