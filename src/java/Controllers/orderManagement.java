@@ -116,6 +116,7 @@ public class OrderManagement extends HttpServlet {
             request.setAttribute("admin", admin);
             List<Order> list = orderD.getAllOrder();
             request.setAttribute("Orders", list);
+            System.out.println("Chay vao admin");
         }
         request.getRequestDispatcher("orderList.jsp").forward(request, response);
     }

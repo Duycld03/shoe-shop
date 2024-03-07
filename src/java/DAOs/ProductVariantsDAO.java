@@ -61,45 +61,6 @@ public class ProductVariantsDAO {
 		return null;
 	}
 
-<<<<<<< HEAD
-    public List<ProductVariant> getVariantByProID(String ID) {
-        List<ProductVariant> vars = new ArrayList<>();
-        String sql = "Select * from ProductVariants where ProductID = ? and isDelete = 0 ";
-        try {
-            ps = conn.prepareStatement(sql);
-            ps.setString(1, ID);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                ProductVariant var = new ProductVariant(rs.getString("VariantID"), rs.getString("Color"),
-                        rs.getInt("Size"), rs.getInt("StockQuantity"), rs.getString("ProductID"), rs.getBoolean("isDelete"));
-                vars.add(var);
-            }
-            return vars;
-        } catch (SQLException ex) {
-            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
-
-    public List<ProductVariant> getVariantByProID2(String ID) {
-        List<ProductVariant> vars = new ArrayList<>();
-        String sql = "Select * from ProductVariants where ProductID = ? ";
-        try {
-            ps = conn.prepareStatement(sql);
-            ps.setString(1, ID);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                ProductVariant var = new ProductVariant(rs.getString("VariantID"), rs.getString("Color"),
-                        rs.getInt("Size"), rs.getInt("StockQuantity"), rs.getString("ProductID"), rs.getBoolean("isDelete"));
-                vars.add(var);
-            }
-            return vars;
-        } catch (SQLException ex) {
-            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
-=======
 	public List<ProductVariant> getVariantByProID(String ID) {
 		List<ProductVariant> vars = new ArrayList<>();
 		String sql = "Select * from ProductVariants where ProductID = ? and isDelete = 0 ";
@@ -109,7 +70,8 @@ public class ProductVariantsDAO {
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				ProductVariant var = new ProductVariant(rs.getString("VariantID"), rs.getString("Color"),
-						rs.getInt("Size"), rs.getInt("StockQuantity"), rs.getString("ProductID"), rs.getBoolean("isDelete"));
+						rs.getInt("Size"), rs.getInt("StockQuantity"), rs.getString("ProductID"),
+						rs.getBoolean("isDelete"));
 				vars.add(var);
 			}
 			return vars;
@@ -118,7 +80,26 @@ public class ProductVariantsDAO {
 		}
 		return null;
 	}
->>>>>>> 33cc8014f257af0e498814d4a172b6bd4d4bd5f8
+
+	public List<ProductVariant> getVariantByProID2(String ID) {
+		List<ProductVariant> vars = new ArrayList<>();
+		String sql = "Select * from ProductVariants where ProductID = ? ";
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, ID);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				ProductVariant var = new ProductVariant(rs.getString("VariantID"), rs.getString("Color"),
+						rs.getInt("Size"), rs.getInt("StockQuantity"), rs.getString("ProductID"),
+						rs.getBoolean("isDelete"));
+				vars.add(var);
+			}
+			return vars;
+		} catch (SQLException ex) {
+			Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		return null;
+	}
 
 	public ProductVariant getSumVariantByProID(String proID) {
 		String sql = "SELECT SUM(v.StockQuantity) AS NumberOfProduct, v.ProductID FROM ProductVariants v\n"
@@ -138,7 +119,7 @@ public class ProductVariantsDAO {
 		return null;
 	}
 
-	//Delect Product Variant
+	// Delect Product Variant
 	public int delectVariantByProID(String ProductID) {
 		int result = 0;
 		String sql = "DELETE FROM [dbo].[ProductVariants]\n"
@@ -166,24 +147,6 @@ public class ProductVariantsDAO {
 				+ "           ,[ProductID])\n"
 				+ "     VALUES\n"
 				+ "           (?,?,?,?,?,?)";
-
-<<<<<<< HEAD
-        try {
-            ps = conn.prepareStatement(sql);
-            ps.setString(1, pro.getVariantId()); // Assuming getVariantID() returns the VariantID
-            ps.setInt(2, pro.getSize());
-            ps.setString(3, pro.getColor());
-            ps.setInt(4, pro.getStockQuantity());
-            ps.setBoolean(5, pro.isDelete());
-            ps.setString(6, pro.getProductId());
-            ps.executeUpdate();
-            return true;
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return false; // Consider returning false in case of an exception
-    }
-=======
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, pro.getVariantId()); // Assuming getVariantID() returns the VariantID
@@ -196,10 +159,9 @@ public class ProductVariantsDAO {
 			return true;
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
-			return false; // Consider returning false in case of an exception
 		}
+		return false; // Consider returning false in case of an exception
 	}
->>>>>>> 33cc8014f257af0e498814d4a172b6bd4d4bd5f8
 
 	public List<String> getAllVarinatID() {
 		List<String> variantIDs = new ArrayList();
@@ -284,7 +246,7 @@ public class ProductVariantsDAO {
 			ps.executeUpdate();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-			return false;  // Trả về false nếu có lỗi
+			return false; // Trả về false nếu có lỗi
 		}
 		return true;
 	}
@@ -297,7 +259,8 @@ public class ProductVariantsDAO {
 			rs = ps.executeQuery();
 			if (rs.next()) {
 				ProductVariant var = new ProductVariant(rs.getString("VariantID"), rs.getString("Color"),
-						rs.getInt("Size"), rs.getInt("StockQuantity"), rs.getString("ProductID"), rs.getBoolean("isDelete"));
+						rs.getInt("Size"), rs.getInt("StockQuantity"), rs.getString("ProductID"),
+						rs.getBoolean("isDelete"));
 				return var;
 			}
 		} catch (Exception e) {
@@ -305,33 +268,14 @@ public class ProductVariantsDAO {
 		return null;
 	}
 
-<<<<<<< HEAD
-    public static void main(String[] args) {
-        ProductVariantsDAO dao = new ProductVariantsDAO();
-        ProductVariant var = new ProductVariant("Var222", "red", 20, 20, "P1", false);
-        if (dao.addVariant(var)) {
-            System.out.println("success");
-        } else {
-            System.out.println("failed");
-        }
-    }
-=======
 	public static void main(String[] args) {
 		ProductVariantsDAO dao = new ProductVariantsDAO();
-		String varTest = "Var1";
-		String proID_Test = "P1";
-		String Color_Test = "Color1";
-		int size_test = 30;
-		int stockTest = 40;
-		boolean isDelete_test = true;
-		ProductVariant var2 = new ProductVariant(varTest, Color_Test, size_test, stockTest, proID_Test, isDelete_test);
-		if (dao.UpdateVariant(var2)) {
-			System.out.println("true");
+		ProductVariant var = new ProductVariant("Var222", "red", 20, 20, "P1", false);
+		if (dao.addVariant(var)) {
+			System.out.println("success");
 		} else {
-			System.out.println("false");
-
+			System.out.println("failed");
 		}
 	}
->>>>>>> 33cc8014f257af0e498814d4a172b6bd4d4bd5f8
 
 }

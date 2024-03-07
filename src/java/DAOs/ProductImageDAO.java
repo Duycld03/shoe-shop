@@ -153,8 +153,8 @@ public class ProductImageDAO {
             ps.executeUpdate();
         } catch (Exception e) {
         }
-
         return false;
+
     }
 
     public String checkIsprimary(String proid, boolean isPrimary) {

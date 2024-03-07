@@ -178,7 +178,7 @@ public class BrandDAO {
     public static void main(String[] args) {
         BrandDAO a = new BrandDAO();
         List<String> l = a.getAllBrandID();
-        for (String string : l) {
+        for (String string : l) { 
             System.out.println(string);
         }
     }
