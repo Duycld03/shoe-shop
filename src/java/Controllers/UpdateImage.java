@@ -95,7 +95,6 @@ public class UpdateImage extends HttpServlet {
             try {
                 boolean isPrimary = Boolean.parseBoolean(isprimay_draw);
                 // Check if isPrimary already exists and update if needed
-                String updateImgID = dao.checkIsprimary(proid, isPrimary);
 
                 Part part = request.getPart("imgurl");
                 String fileName;
@@ -127,6 +126,10 @@ public class UpdateImage extends HttpServlet {
                 // Add product image and handle success/failure
                 if (dao.updateImage(img)) {
                     session.setAttribute("success", "Update Image successs");
+                    if (dao.checkIsprimary(proid, true) == null) {
+                        String newPrimary = dao.randomImg(proid);
+                        dao.UpdateIsPrimary(newPrimary);
+                    }
                     response.sendRedirect("/productDetailInfor?proID=" + proid);
                     return;
                 } else {

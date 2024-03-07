@@ -95,23 +95,25 @@ public class AddVariant extends HttpServlet {
                 ProductVariant newVariant = dao.getVariantByID(varUpate);
 
                 if (dao.UpdateStockVar(varUpate, stockQuatity + newVariant.getStockQuantity()) == true) {
-                    session.setAttribute("success", "Update Stock Quantity of " + newVariant.getVariantId());
-                    response.sendRedirect("/productmanagement");
+                    session.setAttribute("success", "Add " + stockQuatity + " for " + newVariant.getVariantId());
+                    request.getRequestDispatcher("/productDetailInfor?proID=" + ProID).forward(request, response);
                 } else {
                     session.setAttribute("error", "can not update stock variant " + newVariant.getVariantId());
                     response.sendRedirect("/productmanagement");
                 }
-            } else if (dao.addVariant(var) == true) {
-                session.setAttribute("success", "add new variant success");
-                request.getRequestDispatcher("/productDetailInfor?proID=" + ProID).forward(request, response);
             } else {
-                session.setAttribute("error", "add new variant failed");
-                request.getRequestDispatcher("/productDetailInfor?proID=" + ProID).forward(request, response);
+                if (dao.addVariant(var) == true) {
+                    session.setAttribute("success", "add new variant success " + VarID);
+                    request.getRequestDispatcher("/productDetailInfor?proID=" + ProID).forward(request, response);
+                } else {
+                    session.setAttribute("error", "error");
+                    response.sendRedirect("/productmanagement");
+                }
             }
         } catch (Exception e) {
-
+            session.setAttribute("error", "add new variant failed " + VarID);
+            response.sendRedirect("/productmanagement");
         }
-
     }
 
     /**

@@ -63,7 +63,26 @@ public class ProductVariantsDAO {
 
     public List<ProductVariant> getVariantByProID(String ID) {
         List<ProductVariant> vars = new ArrayList<>();
-        String sql = "Select * from ProductVariants where ProductID = 'P1' and isDelete = 0 ";
+        String sql = "Select * from ProductVariants where ProductID = ? and isDelete = 0 ";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, ID);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                ProductVariant var = new ProductVariant(rs.getString("VariantID"), rs.getString("Color"),
+                        rs.getInt("Size"), rs.getInt("StockQuantity"), rs.getString("ProductID"), rs.getBoolean("isDelete"));
+                vars.add(var);
+            }
+            return vars;
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public List<ProductVariant> getVariantByProID2(String ID) {
+        List<ProductVariant> vars = new ArrayList<>();
+        String sql = "Select * from ProductVariants where ProductID = ? ";
         try {
             ps = conn.prepareStatement(sql);
             ps.setString(1, ID);
@@ -139,8 +158,8 @@ public class ProductVariantsDAO {
             return true;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            return false; // Consider returning false in case of an exception
         }
+        return false; // Consider returning false in case of an exception
     }
 
     public List<String> getAllVarinatID() {
@@ -249,18 +268,11 @@ public class ProductVariantsDAO {
 
     public static void main(String[] args) {
         ProductVariantsDAO dao = new ProductVariantsDAO();
-        String varTest = "Var1";
-        String proID_Test = "P1";
-        String Color_Test = "Color1";
-        int size_test = 30;
-        int stockTest = 40;
-        boolean isDelete_test = true;
-        ProductVariant var2 = new ProductVariant(varTest, Color_Test, size_test, stockTest, proID_Test, isDelete_test);
-        if (dao.UpdateVariant(var2)) {
-            System.out.println("true");
+        ProductVariant var = new ProductVariant("Var222", "red", 20, 20, "P1", false);
+        if (dao.addVariant(var)) {
+            System.out.println("success");
         } else {
-            System.out.println("false");
-
+            System.out.println("failed");
         }
     }
 
