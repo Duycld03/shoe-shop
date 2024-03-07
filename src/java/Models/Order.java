@@ -7,6 +7,7 @@ import java.sql.Timestamp;
  * @author Duy
  */
 public class Order {
+
 	private String orderId;
 	private float totalAmount;
 	private Timestamp orderDate;
