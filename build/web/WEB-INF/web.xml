@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
         <servlet-name>HomeController</servlet-name>
         <servlet-class>Controllers.HomeController</servlet-class>
@@ -116,7 +114,7 @@
     </servlet>
     <servlet>
         <servlet-name>orderManagement</servlet-name>
-        <servlet-class>Controllers.orderManagement</servlet-class>
+        <servlet-class>Controllers.OrderManagement</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>StaffManagerController</servlet-name>
@@ -170,6 +168,30 @@
         <servlet-name>AddCartController</servlet-name>
         <servlet-class>Controllers.AddCartController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>updateVariant</servlet-name>
+        <servlet-class>Controllers.UpdateVariant</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>addVariant</servlet-name>
+        <servlet-class>Controllers.AddVariant</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>deleteVariant</servlet-name>
+        <servlet-class>Controllers.DeleteVariant</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddProductImage</servlet-name>
+        <servlet-class>Controllers.AddProductImage</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteProduct</servlet-name>
+        <servlet-class>Controllers.DeleteProduct</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteImage</servlet-name>
+        <servlet-class>Controllers.DeleteImage</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>default</servlet-name>
         <url-pattern>*.css</url-pattern>
@@ -180,7 +202,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
-        <url-pattern />
+        <url-pattern/>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ProductController</servlet-name>
@@ -345,6 +367,30 @@
     <servlet-mapping>
         <servlet-name>AddCartController</servlet-name>
         <url-pattern>/addCart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>updateVariant</servlet-name>
+        <url-pattern>/updatevariant</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addVariant</servlet-name>
+        <url-pattern>/addvariant</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>deleteVariant</servlet-name>
+        <url-pattern>/deletevariant</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddProductImage</servlet-name>
+        <url-pattern>/addimage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteProduct</servlet-name>
+        <url-pattern>/deleteproduct</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteImage</servlet-name>
+        <url-pattern>/deleteimage</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

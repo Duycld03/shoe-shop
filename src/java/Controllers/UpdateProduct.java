@@ -131,9 +131,9 @@ public class UpdateProduct extends HttpServlet {
                 float discount_draw = Float.parseFloat(discount);
                 Product pro = new Product(productId, productName, price_draw, discount_draw, description, brandId, isDelecte_draw);
                 if (dao.UpdateProduct(pro) == true) {
-                    session.setAttribute("success", "success");
+                    session.setAttribute("success", "Update success");
                 } else {
-                    session.setAttribute("error", "error");
+                    session.setAttribute("error", "Update failed");
                 }
             } catch (Exception e) {
 

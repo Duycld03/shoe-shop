@@ -55,48 +55,48 @@ public class ProductManagement extends HttpServlet {
 		}
 	}
 
-	// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-	/**
-	 * Handles the HTTP <code>GET</code> method.
-	 *
-	 * @param request servlet request
-	 * @param response servlet response
-	 * @throws ServletException if a servlet-specific error occurs
-	 * @throws IOException if an I/O error occurs
-	 */
-	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		Cookie[] cookies = request.getCookies();
-		Cookie managerCookie = null;
-		for (Cookie cookie : cookies) {
-			if (cookie.getName().equals("manager")) {
-				managerCookie = cookie;
-			}
-		}
-		if (managerCookie == null) {
-			response.sendRedirect("/managerLogin");
-			return;
-		}
-		String username = JwtUtils.getContentFromToken(managerCookie.getValue());
-		AdminDAO adminDAO = new AdminDAO();
-		Admin admin = adminDAO.getAdminByUsername(username);
-		StaffDAO staffDAO = new StaffDAO();
-		Staff staff = staffDAO.getStaffByUsername(username);
-		if (admin == null && staff == null) {
-			response.sendRedirect("/managerLogin");
-			return;
-		}
-		request.setAttribute("admin", admin);
-		request.setAttribute("staff", staff);
-		ProductDAO proD = new ProductDAO();
-		ProductVariantsDAO varD = new ProductVariantsDAO();
-		String proID = request.getParameter("ProID");
-		if (proID != null) {
-			List<ProductVariant> listVar = varD.getVariantByProID(proID);
-		}
-		List<ProductVariant> varS = varD.getAllVariants();
-		List<Product> pros = proD.getAllProManagement();
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        Cookie[] cookies = request.getCookies();
+        Cookie managerCookie = null;
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("manager")) {
+                managerCookie = cookie;
+            }
+        }
+        if (managerCookie == null) {
+            response.sendRedirect("/managerLogin");
+            return;
+        }
+        String username = JwtUtils.getContentFromToken(managerCookie.getValue());
+        AdminDAO adminDAO = new AdminDAO();
+        Admin admin = adminDAO.getAdminByUsername(username);
+        StaffDAO staffDAO = new StaffDAO();
+        Staff staff = staffDAO.getStaffByUsername(username);
+        if (admin == null && staff == null) {
+            response.sendRedirect("/managerLogin");
+            return;
+        }
+        request.setAttribute("admin", admin);
+        request.setAttribute("staff", staff);
+        ProductDAO proD = new ProductDAO();
+        ProductVariantsDAO varD = new ProductVariantsDAO();
+        String proID = request.getParameter("ProID");
+        if (proID != null) {
+            List<ProductVariant> listVar = varD.getVariantByProID(proID);
+        }
+        List<ProductVariant> varS = varD.getAllVariants();
+        List<Product> pros = proD.getAllProManagement();
 
 		request.setAttribute("ProList", pros);
 		request.getRequestDispatcher("productList.jsp").forward(request, response);

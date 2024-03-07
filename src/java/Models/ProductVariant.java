@@ -6,74 +6,103 @@ package Models;
  */
 public class ProductVariant {
 
-	private String variantId;
-	private String color;
-	private int size;
-	private int stockQuantity;
-	private String productId;
-	private int SumOfVariant;
+    private String variantId;
+    private String color;
+    private int size;
+    private int stockQuantity;
+    private String productId;
+    private int SumOfVariant;
+    private boolean isDelete;
 
-	public ProductVariant() {
-	}
+    public ProductVariant() {
+    }
 
-	public ProductVariant(String productId, int SumOfVariant) {
-		this.productId = productId;
-		this.SumOfVariant = SumOfVariant;
-	}
+    public ProductVariant(String productId, int SumOfVariant) {
+        this.productId = productId;
+        this.SumOfVariant = SumOfVariant;
+    }
 
-	public int getSumOfVariant() {
-		return SumOfVariant;
-	}
+    public ProductVariant(String variantId, String color, int size, int stockQuantity, String productId) {
+        this.variantId = variantId;
+        this.color = color;
+        this.size = size;
+        this.stockQuantity = stockQuantity;
+        this.productId = productId;
+    }
 
-	public void setSumOfVariant(int SumOfVariant) {
-		this.SumOfVariant = SumOfVariant;
-	}
+    public ProductVariant(String variantId, String color, int size, int stockQuantity, String productId, boolean isDelete) {
+        this.variantId = variantId;
+        this.color = color;
+        this.size = size;
+        this.stockQuantity = stockQuantity;
+        this.productId = productId;
 
-	public ProductVariant(String variantId, String color, int size, int stockQuantity, String productId) {
-		this.variantId = variantId;
-		this.color = color;
-		this.size = size;
-		this.stockQuantity = stockQuantity;
-		this.productId = productId;
-	}
+        this.isDelete = isDelete;
+    }
 
-	public String getVariantId() {
-		return variantId;
-	}
+    public ProductVariant(String variantId, String color, int size, int stockQuantity, String productId, int SumOfVariant, boolean isDelete) {
+        this.variantId = variantId;
+        this.color = color;
+        this.size = size;
+        this.stockQuantity = stockQuantity;
+        this.productId = productId;
+        this.SumOfVariant = SumOfVariant;
+        this.isDelete = isDelete;
+    }
 
-	public void setVariantId(String variantId) {
-		this.variantId = variantId;
-	}
+    public String getVariantId() {
+        return variantId;
+    }
 
-	public String getColor() {
-		return color;
-	}
+    public void setVariantId(String variantId) {
+        this.variantId = variantId;
+    }
 
-	public void setColor(String color) {
-		this.color = color;
-	}
+    public String getColor() {
+        return color;
+    }
 
-	public int getSize() {
-		return size;
-	}
+    public void setColor(String color) {
+        this.color = color;
+    }
 
-	public void setSize(int size) {
-		this.size = size;
-	}
+    public int getSize() {
+        return size;
+    }
 
-	public int getStockQuantity() {
-		return stockQuantity;
-	}
+    public void setSize(int size) {
+        this.size = size;
+    }
 
-	public void setStockQuantity(int stockQuantity) {
-		this.stockQuantity = stockQuantity;
-	}
+    public int getStockQuantity() {
+        return stockQuantity;
+    }
 
-	public String getProductId() {
-		return productId;
-	}
+    public void setStockQuantity(int stockQuantity) {
+        this.stockQuantity = stockQuantity;
+    }
 
-	public void setProductId(String productId) {
-		this.productId = productId;
-	}
+    public String getProductId() {
+        return productId;
+    }
+
+    public void setProductId(String productId) {
+        this.productId = productId;
+    }
+
+    public boolean isDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(boolean isDelete) {
+        this.isDelete = isDelete;
+    }
+
+    public int getSumOfVariant() {
+        return SumOfVariant;
+    }
+
+    public void setSumOfVariant(int SumOfVariant) {
+        this.SumOfVariant = SumOfVariant;
+    }
 }
