@@ -1,8 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@ page import="DAOs.CartDAO" %>
         <%@ page import="Models.Customer" %>
-            <% Customer customer=(Customer)request.getAttribute("customer"); if(customer !=null){ CartDAO cartDAO=new
-                CartDAO(); int productCount=cartDAO.getProductCountByCustomerId(customer.getCustomerId());
+            <% Customer customer=(Customer)request.getAttribute("customer");
+                if(customer !=null){ 
+                CartDAO cartDAO = new CartDAO(); 
+                int productCount=cartDAO.getProductCountByCustomerId(customer.getCustomerId());
                 request.setAttribute("productCount", productCount); } %>
                 <header class="shadow-sm">
                     <div class="px-4 md:px-24 md:pt-8 pt-4 pb-4 flex justify-between items-center text-lg">

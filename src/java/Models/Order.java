@@ -7,28 +7,25 @@ import java.sql.Timestamp;
  * @author Duy
  */
 public class Order {
-
 	private String orderId;
 	private float totalAmount;
 	private Timestamp orderDate;
-	private String PaymentStatus;
+	private String paymentStatus;
 	private String orderStatus;
 	private String customerId;
 	private String paymentMethod;
-	private String StaffID;
+	private String staffId;
 
-	public Order() {
-	}
-
-	public Order(String orderId, float totalAmount, Timestamp orderDate, String PaymentStatus, String orderStatus, String customerId, String paymentMethod, String StaffID) {
+	public Order(String orderId, float totalAmount, Timestamp orderDate, String paymentStatus, String orderStatus,
+			String customerId, String paymentMethod, String staffId) {
 		this.orderId = orderId;
 		this.totalAmount = totalAmount;
 		this.orderDate = orderDate;
-		this.PaymentStatus = PaymentStatus;
+		this.paymentStatus = paymentStatus;
 		this.orderStatus = orderStatus;
 		this.customerId = customerId;
 		this.paymentMethod = paymentMethod;
-		this.StaffID = StaffID;
+		this.staffId = staffId;
 	}
 
 	public String getOrderId() {
@@ -56,11 +53,11 @@ public class Order {
 	}
 
 	public String getPaymentStatus() {
-		return PaymentStatus;
+		return paymentStatus;
 	}
 
-	public void setPaymentStatus(String PaymentStatus) {
-		this.PaymentStatus = PaymentStatus;
+	public void setPaymentStatus(String paymentStatus) {
+		this.paymentStatus = paymentStatus;
 	}
 
 	public String getOrderStatus() {
@@ -79,20 +76,20 @@ public class Order {
 		this.customerId = customerId;
 	}
 
-	public String getStaffID() {
-		return StaffID;
-	}
-
-	public void setStaffID(String StaffID) {
-		this.StaffID = StaffID;
-	}
-
 	public String getPaymentMethod() {
 		return paymentMethod;
 	}
 
 	public void setPaymentMethod(String paymentMethod) {
 		this.paymentMethod = paymentMethod;
+	}
+
+	public String getStaffId() {
+		return staffId;
+	}
+
+	public void setStaffId(String staffId) {
+		this.staffId = staffId;
 	}
 
 }

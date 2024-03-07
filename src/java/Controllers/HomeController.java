@@ -60,21 +60,21 @@ public class HomeController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		Cookie[] cookies = request.getCookies();
-		Cookie loginCookie = null;
-		for (Cookie cookie : cookies) {
-			if (cookie.getName().equals("login")) {
-				loginCookie = cookie;
-			}
-		}
-		if (loginCookie != null) {
-			String username = JwtUtils.getContentFromToken(loginCookie.getValue());
-			CustomerDAO customerDAO = new CustomerDAO();
-			Customer customer = customerDAO.getCustomerByUsername(username);
-			if (customer != null) {
-				request.setAttribute("customer", customer);
-			}
-		}
+//		Cookie[] cookies = request.getCookies();
+//		Cookie loginCookie = null;
+//		for (Cookie cookie : cookies) {
+//			if (cookie.getName().equals("login")) {
+//				loginCookie = cookie;
+//			}
+//		}
+//		if (loginCookie != null) {
+//			String username = JwtUtils.getContentFromToken(loginCookie.getValue());
+//			CustomerDAO customerDAO = new CustomerDAO();
+//			Customer customer = customerDAO.getCustomerByUsername(username);
+//			if (customer != null) {
+//				request.setAttribute("customer", customer);
+//			}
+//		}
 
 		ProductDAO productDAO = new ProductDAO();
 		List<Product> top3DiscountedProduct = productDAO.getTop3DiscountedProduct();
