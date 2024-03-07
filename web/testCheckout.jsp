@@ -22,7 +22,7 @@
 					data: {
 						paymentMethod: "COD",
 						amount: 100,
-						customerId: "Cus1"
+						customerId: "Cus2"
 					},
 
 					dataType: 'JSON',

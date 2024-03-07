@@ -6,7 +6,7 @@ import DAOs.OrderDetailDAO;
 import Models.Cart;
 import Models.Order;
 import Models.OrderDetail;
-import Vadilation.Vadidation;
+import Utils.CreateID;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import java.io.IOException;
@@ -109,15 +109,15 @@ public class Checkout extends HttpServlet {
 			Timestamp timestamp = new Timestamp(cld.getTimeInMillis());
 
 			OrderDAO orderDAO = new OrderDAO();
-			String transactionNo = Config.getRandomNumber(8);
-			Order newOrder = new Order(transactionNo, amountCOD, timestamp, "Pending", "Processing", customerId, "COD", null);
+			String orderId = CreateID.autoIncreaseID(orderDAO.getAllOrderID(), "Order");
+			Order newOrder = new Order(orderId, amountCOD, timestamp, "Pending", "Processing", customerId, "COD", null);
 			orderDAO.addOrder(newOrder);
 
 			OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
 			List<OrderDetail> orderDetails = new ArrayList<>();
 			for (Cart cart : carts) {
-				String orderDetailId = Vadidation.CreateID(orderDetailDAO.getAllOrderDetailID(), "OrderD");
-				OrderDetail orderDetail = new OrderDetail(orderDetailId, cart.getTotalPrice(), cart.getQuantity(), transactionNo, cart.getVariantId());
+				String orderDetailId = CreateID.autoIncreaseID(orderDetailDAO.getAllOrderDetailID(), "OrderD");
+				OrderDetail orderDetail = new OrderDetail(orderDetailId, cart.getTotalPrice(), cart.getQuantity(), orderId, cart.getVariantId());
 				orderDetails.add(orderDetail);
 			}
 

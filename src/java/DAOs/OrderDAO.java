@@ -280,6 +280,22 @@ public class OrderDAO {
 		return list;
 	}
 
+	public List<String> getAllOrderID() {
+		List<String> orderIDs = new ArrayList<>();
+		String sql = "select OrderID from Orders";
+		try {
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				String address = rs.getString("OrderID");
+				orderIDs.add(address);
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return orderIDs;
+	}
+
 	public static void main(String[] args) {
 		OrderDAO d = new OrderDAO();
 		String id = "ST3";
