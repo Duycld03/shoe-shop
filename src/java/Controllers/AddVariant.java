@@ -4,19 +4,12 @@
  */
 package Controllers;
 
-import DAOs.AdminDAO;
-import DAOs.ProductDAO;
 import DAOs.ProductVariantsDAO;
-import DAOs.StaffDAO;
-import Models.Admin;
-import Models.Product;
 import Models.ProductVariant;
-import Models.Staff;
-import Utils.JwtUtils;
+import Utils.CreateID;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -27,7 +20,7 @@ import java.util.List;
  *
  * @author Doan Thanh Phuc - CE170580
  */
-public class ProductManagement extends HttpServlet {
+public class AddVariant extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -46,10 +39,10 @@ public class ProductManagement extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ProductManagement</title>");
+            out.println("<title>Servlet addVariant</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ProductManagement at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet addVariant at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -67,40 +60,7 @@ public class ProductManagement extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Cookie[] cookies = request.getCookies();
-        Cookie managerCookie = null;
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals("manager")) {
-                managerCookie = cookie;
-            }
-        }
-        if (managerCookie == null) {
-            response.sendRedirect("/managerLogin");
-            return;
-        }
-        String username = JwtUtils.getContentFromToken(managerCookie.getValue());
-        AdminDAO adminDAO = new AdminDAO();
-        Admin admin = adminDAO.getAdminByUsername(username);
-        StaffDAO staffDAO = new StaffDAO();
-        Staff staff = staffDAO.getStaffByUsername(username);
-        if (admin == null && staff == null) {
-            response.sendRedirect("/managerLogin");
-            return;
-        }
-        request.setAttribute("admin", admin);
-        request.setAttribute("staff", staff);
-        ProductDAO proD = new ProductDAO();
-        ProductVariantsDAO varD = new ProductVariantsDAO();
-        String proID = request.getParameter("ProID");
-        if (proID != null) {
-            List<ProductVariant> listVar = varD.getVariantByProID(proID);
-        }
-        List<ProductVariant> varS = varD.getAllVariants();
-        List<Product> pros = proD.getAllProManagement();
-
-        request.setAttribute("ProList", pros);
-        request.getRequestDispatcher("productList.jsp").forward(request, response);
-
+        processRequest(request, response);
     }
 
     /**
@@ -114,7 +74,44 @@ public class ProductManagement extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession();
+        ProductVariantsDAO dao = new ProductVariantsDAO();
+        String isFormat = "Var";
+        List<String> allproductID = dao.getAllVarinatID();
+        String VarID = CreateID.autoIncreaseID(allproductID, isFormat);
+        String Color = request.getParameter("color");
+        String size_draw = request.getParameter("size");
+        String stockQuaity_draw = request.getParameter("stockquantity");
+        boolean isDelete = false;
+        String ProID = request.getParameter("proid");
+        int stockQuatity = 0;
+        int size = 0;
+        try {
+            stockQuatity = Integer.parseInt(stockQuaity_draw);
+            size = Integer.parseInt(size_draw);
+            ProductVariant var = new ProductVariant(VarID, Color, size, stockQuatity, ProID, isDelete);
+            if (dao.checkVariantExit(Color, size, ProID) != null) {
+                String varUpate = dao.checkVariantExit(Color, size, ProID);
+                ProductVariant newVariant = dao.getVariantByID(varUpate);
+
+                if (dao.UpdateStockVar(varUpate, stockQuatity + newVariant.getStockQuantity()) == true) {
+                    session.setAttribute("success", "Update Stock Quantity of " + newVariant.getVariantId());
+                    response.sendRedirect("/productmanagement");
+                } else {
+                    session.setAttribute("error", "can not update stock variant " + newVariant.getVariantId());
+                    response.sendRedirect("/productmanagement");
+                }
+            } else if (dao.addVariant(var) == true) {
+                session.setAttribute("success", "add new variant success");
+                request.getRequestDispatcher("/productDetailInfor?proID=" + ProID).forward(request, response);
+            } else {
+                session.setAttribute("error", "add new variant failed");
+                request.getRequestDispatcher("/productDetailInfor?proID=" + ProID).forward(request, response);
+            }
+        } catch (Exception e) {
+
+        }
+
     }
 
     /**

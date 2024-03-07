@@ -4,9 +4,11 @@
  */
 package Controllers;
 
+import DAOs.ProductDAO;
 import DAOs.ProductImageDAO;
 import DAOs.ProductVariantsDAO;
 import DAOs.StaffDAO;
+import Models.Product;
 import Models.ProductImage;
 import Models.ProductVariant;
 import Models.Staff;
@@ -88,11 +90,13 @@ public class ProductDetailInfor extends HttpServlet {
         }
         String proID = request.getParameter("proID");
         ProductVariantsDAO varDao = new ProductVariantsDAO();
+        ProductDAO proDao = new ProductDAO();
         List<ProductVariant> var = varDao.getVariantByProID(proID);
         ProductImageDAO imgDao = new ProductImageDAO();
-        List<ProductImage> img = imgDao.getImages2(proID);
+        Product pro = proDao.getProductByID2(proID);
+        List< ProductImage> img = imgDao.getImages2(proID);
         request.setAttribute("Variants", var);
-        request.setAttribute("ProID", proID);
+        request.setAttribute("pro", pro);
         request.setAttribute("Images", img);
         request.getRequestDispatcher("Product_Detail_Management.jsp").forward(request, response);
 
@@ -109,7 +113,38 @@ public class ProductDetailInfor extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        Cookie[] cookies = request.getCookies();
+        Cookie managerCookie = null;
+        HttpSession session = request.getSession();
+
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("manager")) {
+                managerCookie = cookie;
+            }
+        }
+        if (managerCookie == null) {
+            response.sendRedirect("/managerLogin");
+            return;
+        }
+        String username = JwtUtils.getContentFromToken(managerCookie.getValue());
+        StaffDAO staffDAO = new StaffDAO();
+        Staff staff = staffDAO.getStaffByUsername(username);
+        String staffID = staff.getStaffId();
+        if (staff == null) {
+            response.sendRedirect("/managerLogin");
+            return;
+        }
+        String proID = request.getParameter("proID");
+        ProductVariantsDAO varDao = new ProductVariantsDAO();
+        ProductDAO proDao = new ProductDAO();
+        List<ProductVariant> var = varDao.getVariantByProID(proID);
+        ProductImageDAO imgDao = new ProductImageDAO();
+        Product pro = proDao.getProductByID2(proID);
+        List< ProductImage> img = imgDao.getImages2(proID);
+        request.setAttribute("Variants", var);
+        request.setAttribute("pro", pro);
+        request.setAttribute("Images", img);
+        request.getRequestDispatcher("Product_Detail_Management.jsp").forward(request, response);
     }
 
     /**

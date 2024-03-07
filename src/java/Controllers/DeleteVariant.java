@@ -4,18 +4,11 @@
  */
 package Controllers;
 
-import DAOs.AdminDAO;
-import DAOs.OrderDAO;
-import DAOs.StaffDAO;
-import Models.Admin;
-import Models.Order;
-import Models.Staff;
-import Utils.JwtUtils;
+import DAOs.ProductDAO;
+import DAOs.ProductVariantsDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.Cookie;
-import java.util.List;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -25,7 +18,7 @@ import jakarta.servlet.http.HttpSession;
  *
  * @author Doan Thanh Phuc - CE170580
  */
-public class OrderManagement extends HttpServlet {
+public class DeleteVariant extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,10 +37,10 @@ public class OrderManagement extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet orderManagement</title>");
+            out.println("<title>Servlet deleteVariant</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet orderManagement at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet deleteVariant at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -65,59 +58,17 @@ public class OrderManagement extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Cookie[] cookies = request.getCookies();
-        Cookie managerCookie = null;
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals("manager")) {
-                managerCookie = cookie;
-            }
-        }
-        if (managerCookie == null) {
-            response.sendRedirect("/managerLogin");
-            return;
-        }
-        String username = JwtUtils.getContentFromToken(managerCookie.getValue());
-        AdminDAO adminDAO = new AdminDAO();
-        Admin admin = adminDAO.getAdminByUsername(username);
-        StaffDAO staffDAO = new StaffDAO();
-        Staff staff = staffDAO.getStaffByUsername(username);
-        if (admin == null && staff == null) {
-            response.sendRedirect("/managerLogin");
-            return;
-        }
         HttpSession session = request.getSession();
-        OrderDAO orderD = new OrderDAO();
-
-        if (staff != null) {
-            String staffID = staff.getStaffId();
-            request.setAttribute("staff", staff);
-            String orderID = request.getParameter("OrderID");
-            if (orderD.updateTakeCareStaff(staffID, orderID) == true) {
-                request.setAttribute("StaffID_Check", staffID);
-            } else {
-                request.setAttribute("error", "false");
-            }
-            //Lay orderID khi order thanh cong
-            String orderID_draw = request.getParameter("OrderID");
-            String status = request.getParameter("status");
-            if (orderID_draw != null && status != null) {
-                orderD.updateOrderStatus(orderID_draw, status);
-                if (status.equalsIgnoreCase("Success")) {
-                    session.setAttribute("success", "The order has been successful");
-                } else {
-                    session.setAttribute("error", "The order has been cancelled");
-                }
-            } else if (orderID_draw != null) {
-                orderD.updateTakeCareStaff(staffID, orderID);
-            }
-            List<Order> list = orderD.getOrderbyStaffID(staffID);
-            request.setAttribute("Orders", list);
+        String varID = request.getParameter("VarID");
+        String proid = request.getParameter("proid");
+        ProductVariantsDAO dao = new ProductVariantsDAO();
+        if (dao.softDeleteVariant(varID)) {
+            session.setAttribute("success", "Delete variant " + varID + " success");
+            request.getRequestDispatcher("/productDetailInfor?proID=" + proid).forward(request, response);
         } else {
-            request.setAttribute("admin", admin);
-            List<Order> list = orderD.getAllOrder();
-            request.setAttribute("Orders", list);
+            session.setAttribute("error", "Delete " + varID + " failed");
+            request.getRequestDispatcher("/productDetailInfor?proID=" + proid).forward(request, response);
         }
-        request.getRequestDispatcher("orderList.jsp").forward(request, response);
     }
 
     /**

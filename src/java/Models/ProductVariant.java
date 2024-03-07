@@ -12,6 +12,7 @@ public class ProductVariant {
     private int stockQuantity;
     private String productId;
     private int SumOfVariant;
+    private boolean isDelete;
 
     public ProductVariant() {
     }
@@ -21,20 +22,26 @@ public class ProductVariant {
         this.SumOfVariant = SumOfVariant;
     }
 
-    public int getSumOfVariant() {
-        return SumOfVariant;
-    }
-
-    public void setSumOfVariant(int SumOfVariant) {
-        this.SumOfVariant = SumOfVariant;
-    }
-
     public ProductVariant(String variantId, String color, int size, int stockQuantity, String productId) {
         this.variantId = variantId;
         this.color = color;
         this.size = size;
         this.stockQuantity = stockQuantity;
         this.productId = productId;
+    }
+
+    public ProductVariant(String variantId, String color, int size, int stockQuantity, String productId, boolean isDelete) {
+        this.variantId = variantId;
+        this.color = color;
+        this.size = size;
+        this.stockQuantity = stockQuantity;
+        this.productId = productId;
+
+        this.isDelete = isDelete;
+    }
+
+    public ProductVariant(String VarID, String Color, int size, int stockQuatity, String ProID, int size0, boolean delete) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     public String getVariantId() {
@@ -75,5 +82,21 @@ public class ProductVariant {
 
     public void setProductId(String productId) {
         this.productId = productId;
+    }
+
+    public boolean isDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(boolean isDelete) {
+        this.isDelete = isDelete;
+    }
+
+    public int getSumOfVariant() {
+        return SumOfVariant;
+    }
+
+    public void setSumOfVariant(int SumOfVariant) {
+        this.SumOfVariant = SumOfVariant;
     }
 }

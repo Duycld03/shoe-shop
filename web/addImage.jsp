@@ -1,9 +1,8 @@
-
-<%@page contentType="text/html" pageEncoding="UTF-8" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
-
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
@@ -19,52 +18,27 @@
         <div id="editEmployeeModal" class="modal fade">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <c:set var="c" value="${requestScope.Product}" />
-
-                    <form action="updateproduct" method="post">
+                    <c:set var="c" value="${requestScope.img}" />
+                    <form action="/addimage" method="post">
                         <div class="modal-header">
-                            <h4 class="modal-title">Update Product</h4>
+                            <h4 class="modal-title">Add new Product Variant</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         </div>
                         <div class="modal-body">
                             <div class="form-group d-none">
-                                <label for="id">ID:</label>
-                                <input type="text" name="id" readonly value="${c.productId}" class="form-control" />
+                                <label>ProID</label>
+                                <input name="proid" type="text" class="form-control" value="${param.ProID}">
                             </div>
                             <div class="form-group">
-                                <label>Name</label>
-                                <input name="productName" type="text" class="form-control" value="${c.productName}" required>
-                                
+                                <label>Product URL</label>
+                                <input name="imgurl" type="file" class="form-control" value="${c.imageURL}" required>
+                                <div class="text-danger">${error}</div>
                             </div>
                             <div class="form-group">
-                                <label>Price</label>
-                                <input name="price" type="number" class="form-control" value="${c.price}" required
-                                       title="Price must contain 10 digits">
-                            </div>
-                            <div class="form-group">
-                                <label>Discount</label>
-                                <input name="discount" type="number" class="form-control" value="${c.discount}" required
-                                       title="Discount number must contain 10 digits">
-                            </div>
-
-                            <div class="form-group">
-                                <label>Description</label>
-                                <input name="description" type="text" value="${c.description}" class="form-control" required
-                                       pattern="[a-zA-Z ]+" title="Full Name cannot contain numbers">
-                            </div>
-                            <div class="form-group">
-                                <label>Brand</label>
-                                <select name="brandID" class="form-control">
-                                    <c:forEach var="brand" items="${requestScope.Brands}">
-                                        <option value="${brand.brandId}"${(c.brandId eq brand.brandId) ? 'selected' : ''}>${brand.brandId}</option>
-                                    </c:forEach>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Is Delete</label>
-                                <select name="isDelete" class="form-control">
-                                    <option value="true" ${(c.getIsDelete() == true) ? 'selected' : ''}>true</option>
-                                    <option value="false"${(c.getIsDelete() == false) ? 'selected' : ''}>false</option>
+                                <label>Is Primary</label>
+                                <select name="isprimary" class="form-control">
+                                    <option value="true" ${c.isPrimary() == 'true' ? 'selected' : ''}>true</option>
+                                    <option value="false" ${c.isPrimary() == 'false' ? 'selected' : ''}>false</option>
                                 </select>
                             </div>
                         </div>
@@ -76,7 +50,6 @@
                 </div>
             </div>
         </div>
-
         <script>
             document.addEventListener("DOMContentLoaded", function () {
                 var editEmployeeModal = document.getElementById("editEmployeeModal");
@@ -87,10 +60,19 @@
                         // Đóng modal khi nút "X" hoặc "Cancel" được nhấn
                         $("#editEmployeeModal").modal("hide");
                         // Chuyển hướng về trang staffmanager
-                        window.location.href = "productmanagement";
+                        window.location.href = "/productDetailInfor?proID=${param.ProID}";
                     });
                 });
 
+            });
+            $(document).ready(function () {
+                $('#editEmployeeModal').on('hidden.bs.modal', function () {
+                    // Chuyển hướng đến trang mong muốn sau khi modal được đóng
+                    window.location.href = "productmanagement";
+                });
+
+                // Hiển thị modal
+                $('#editEmployeeModal').modal('show');
             });
             document.addEventListener("DOMContentLoaded", function () {
                 var togglePassword = document.getElementById("togglePassword");
@@ -102,6 +84,9 @@
                     this.querySelector("i").classList.toggle("fa-eye");
                 });
             });
+       
+
+
             $(document).ready(function () {
                 $('#editEmployeeModal').modal('show');
             });
