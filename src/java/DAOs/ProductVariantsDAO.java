@@ -63,7 +63,7 @@ public class ProductVariantsDAO {
 
     public List<ProductVariant> getVariantByProID(String ID) {
         List<ProductVariant> vars = new ArrayList<>();
-        String sql = "Select * from ProductVariants where ProductID = ?";
+        String sql = "Select * from ProductVariants where ProductID = 'P1' and isDelete = 0 ";
         try {
             ps = conn.prepareStatement(sql);
             ps.setString(1, ID);

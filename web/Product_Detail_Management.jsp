@@ -92,7 +92,7 @@
                             <strong>Product Image</strong>
                         </h5>
                         <div class="text-right mb-3 d-flex align-items-center">
-                            <a href="/addImage.jsp?ProID=${pro.productId}" class="btn btn-success" data-toggle="modal">
+                            <a href="/addimage?ProID=${pro.productId}" class="btn btn-success" data-toggle="modal">
                                 <span class="mr-2 text-white">Add Image</span>
                             </a>
                         </div>
@@ -113,7 +113,7 @@
                                     <td>
                                         <div class="btn-group">
                                             <div class="btn-group">
-                                                <button class="btn btn-warning" onclick="location.href = '/updateImage?ImgID=${img.getImageId()}'">
+                                                <button class="btn btn-warning" onclick="location.href = '/updateimage?ImgID=${img.getImageId()}&&proid=${pro.productId}'">
                                                     <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
                                                 </button>
                                                 &nbsp;&nbsp;&nbsp;
@@ -132,7 +132,90 @@
                 </div>
             </div>
         </main>
+<!--        <div id="editEmployeeModal" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <c:set var="c" value="${requestScope.img}" />
+                    <form action="/updateimage" method="post" enctype="multipart/form-data">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Add new Product Variant</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group d-none">
+                                <label>ProID</label>
+                                <input name="proid" type="text" class="form-control" value="${param.ProID}">
+                            </div>
+                            <div class="form-group d-none">
+                                <label>img</label>
+                                <input name="proid" type="text" class="form-control" value="${c.imageId}">
+                            </div>
+                            <div class="form-group">
+                                <label>Product URL</label>
+                                <img src="assets/img/products/${c.imageURL}" width="100px" height="100px" alt="alt"/>
+                                <input name="imgurl" type="file" class="form-control" value="${c.imageURL}">
+                                <div class="text-danger">${sessionScope.error}</div>
+                                <c:if test="${sessionScope.error != null}">
+                                    <% session.removeAttribute("error");%>
+                                </c:if>
+                            </div>
+                            <div class="form-group">
+                                <label>Is Primary</label>
+                                <select name="isprimary" class="form-control">
+                                    <option value="true" ${c.isPrimary() == 'true' ? 'selected' : ''}>true</option>
+                                    <option value="false" ${c.isPrimary() == 'false' ? 'selected' : ''}>false</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            <input type="submit" name="btnSave" class="btn btn-success" value="Save">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                var editEmployeeModal = document.getElementById("editEmployeeModal");
+                var closeModalButtons = document.querySelectorAll("#editEmployeeModal button.close, #editEmployeeModal button[data-dismiss='modal']");
 
+                closeModalButtons.forEach(function (button) {
+                    button.addEventListener("click", function () {
+                        // Đóng modal khi nút "X" hoặc "Cancel" được nhấn
+                        $("#editEmployeeModal").modal("hide");
+                        // Chuyển hướng về trang staffmanager
+                        window.location.href = "/productDetailInfor?proID=${param.ProID}";
+                    });
+                });
+            });
+            $(document).ready(function () {
+                $('#editEmployeeModal').on('hidden.bs.modal', function () {
+                    // Chuyển hướng đến trang mong muốn sau khi modal được đóng
+                    window.location.href = "/productDetailInfor?ProID=${param.ProID}";
+                });
+
+                // Hiển thị modal
+                $('#editEmployeeModal').modal('show');
+            });
+            document.addEventListener("DOMContentLoaded", function () {
+                var togglePassword = document.getElementById("togglePassword");
+                var passwordInput = document.getElementById("password");
+                togglePassword.addEventListener("click", function () {
+                    var type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+                    passwordInput.setAttribute("type", type);
+                    this.querySelector("i").classList.toggle("fa-eye-slash");
+                    this.querySelector("i").classList.toggle("fa-eye");
+                });
+            });
+
+
+
+            $(document).ready(function () {
+                $('#editEmployeeModal').modal('hide');
+            });
+            
+        </script>-->
         <c:if test="${sessionScope.error != null}">
             <script>
                 message("error", "${sessionScope.error}")
@@ -145,6 +228,7 @@
             </script>
             <% session.removeAttribute("success");%>
         </c:if>
+
     </body>
 
 </html>

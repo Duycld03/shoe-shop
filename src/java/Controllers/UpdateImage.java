@@ -7,6 +7,7 @@ package Controllers;
 import DAOs.ProductImageDAO;
 import Models.ProductImage;
 import Utils.CreateID;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -25,7 +26,7 @@ import java.util.List;
  */
 @MultipartConfig(maxFileSize = 20 * 1024 * 1024, // 20MB
         maxRequestSize = 20 * 1024 * 1024)  // 20MB
-public class AddProductImage extends HttpServlet {
+public class UpdateImage extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,10 +45,10 @@ public class AddProductImage extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AddProductImage</title>");
+            out.println("<title>Servlet UpdateImage</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AddProductImage at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet UpdateImage at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -65,7 +66,11 @@ public class AddProductImage extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("addImage.jsp").forward(request, response);
+        ProductImageDAO dao = new ProductImageDAO();
+        String imgid = request.getParameter("ImgID");
+        ProductImage img = dao.getImageByID(imgid);
+        request.setAttribute("img", img);
+        request.getRequestDispatcher("UpdateImage.jsp").forward(request, response);
     }
 
     /**
@@ -80,11 +85,10 @@ public class AddProductImage extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
+        System.out.println(new Gson().toJson(request.getParameterMap()));
         if (request.getParameter("btnSave") != null) {
             ProductImageDAO dao = new ProductImageDAO();
-            List<String> allimgID = dao.getAllImgID();
-            String isFormat = "Image";
-            String imgid = CreateID.autoIncreaseID(allimgID, isFormat);
+            String imgid = request.getParameter("imgid");
             String proid = request.getParameter("proid");
             String isprimay_draw = request.getParameter("isprimary");
 
@@ -94,52 +98,47 @@ public class AddProductImage extends HttpServlet {
                 String updateImgID = dao.checkIsprimary(proid, isPrimary);
 
                 Part part = request.getPart("imgurl");
-                String realPath = request.getServletContext().getRealPath("/images");
-                String fileName = part.getSubmittedFileName();
-
-                if (fileName.toLowerCase().endsWith(".jpg") || fileName.toLowerCase().endsWith(".png")) {
-                    File imgDir = new File(realPath);
-                    if (!imgDir.exists()) {
-                        imgDir.mkdir();
-                    }
-                    part.write(realPath + "/" + fileName);
-                    if (isPrimary == true) {
-                        dao.removeisPrimaryImg(proid);
-                    }
-                    ProductImage img = new ProductImage(imgid, fileName, isPrimary, proid);
-
-                    // Add product image and handle success/failure
-                    if (dao.addProductImge(img)) {
-                        session.setAttribute("success", "Add Image successs");
-                        response.sendRedirect("/productDetailInfor?proID=" + proid);
-                        return;
+                String fileName;
+                System.out.println("Ngoài check part");
+                if (part != null && part.getSize() > 0) {
+                    String realPath = request.getServletContext().getRealPath("/images");
+                    fileName = part.getSubmittedFileName();
+                    if (fileName.toLowerCase().endsWith(".jpg") || fileName.toLowerCase().endsWith(".png")) {
+                        File imgDir = new File(realPath);
+                        if (!imgDir.exists()) {
+                            imgDir.mkdir();
+                        }
+                        part.write(realPath + "/" + fileName);
                     } else {
-                        session.setAttribute("error", "Add Image failed");
+                        // Handle invalid file format
+                        session.setAttribute("error", "Can not add this image. Invalid file format");
+
                     }
+                    System.out.println("update image " + fileName);
                 } else {
-                    // Handle invalid file format
-                    session.setAttribute("error", "Can not add this image. Invalid file format");
-
+                    ProductImage getImg = dao.getImageByID(imgid);
+                    fileName = getImg.getImageURL();
                 }
+                if (isPrimary) {
+                    dao.removeisPrimaryImg(proid);
+                }
+                ProductImage img = new ProductImage(imgid, fileName, isPrimary, proid);
 
+                // Add product image and handle success/failure
+                if (dao.updateImage(img)) {
+                    session.setAttribute("success", "Update Image successs");
+                    response.sendRedirect("/productDetailInfor?proID=" + proid);
+                    return;
+                } else {
+                    session.setAttribute("error", "Update Image failed");
+                }
             } catch (Exception e) {
                 System.out.println(e.getMessage());
                 session.setAttribute("error", "An error occurred while processing the request");
             }
             // Redirect back to the form with appropriate messages
-            response.sendRedirect("addimage?ProID=" + proid);
+            response.sendRedirect("updateimage?ProID=" + proid);
         }
-    }
-
-    private String extractFileName(Part part) {
-        String contentDisp = part.getHeader("content-disposition");
-        String[] items = contentDisp.split(";");
-        for (String s : items) {
-            if (s.trim().startsWith("filename")) {
-                return s.substring(s.indexOf("=") + 2, s.length() - 1);
-            }
-        }
-        return "";
     }
 
     /**
