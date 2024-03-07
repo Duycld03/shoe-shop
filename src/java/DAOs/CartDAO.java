@@ -188,6 +188,70 @@ public class CartDAO {
         return count;
     }
 
+    public Cart checkCartExist(String accountID, String productID) {
+
+        String query = "select * from Carts\r\n"
+                + "where [customerId] = ? and [variantId] = ?";
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setString(1, accountID);
+            ps.setString(2, productID);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                return new Cart(rs.getString(1),
+                        rs.getInt(2),
+                        rs.getFloat(3),
+                        rs.getString(4),
+                        rs.getString(5));
+            }
+        } catch (Exception e) {
+        }
+        return null;
+    }
+
+    public void editAmountAndSizeCart(String accountID, String productID, int amount) {
+        String query = "update Carts set [quantity]=?,\r\n"
+                + "where [customerId] = ? and [variantId] = ?";
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, amount);
+            ps.setString(2, accountID);
+            ps.setString(3, productID);
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
+
+    public void insertCart(String accountID, String productID, int amount) {
+        String query = "insert into Carts values(?,?,?,?,?)";
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setString(1, "Cart5");
+            ps.setInt(2, amount);
+            ps.setFloat(3, 1000);
+            ps.setString(4, accountID);
+            ps.setString(5, productID);
+            int a = ps.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
+
+    public ResultSet getCartByAccountID(String accountID) {
+
+        String query = "SELECT Carts.*, ProductVariants.ProductID\n"
+                + "FROM Carts\n"
+                + "INNER JOIN ProductVariants ON Carts.VariantID = ProductVariants.VariantID where CustomerID = ?";
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setString(1, accountID);
+            rs = ps.executeQuery();
+
+            return rs;
+        } catch (Exception e) {
+        }
+        return null;
+    }
+
     public List<Cart> getCartByCusID(String CusID) {
         List<Cart> carts = new ArrayList<>();
 
@@ -208,10 +272,10 @@ public class CartDAO {
         return count;
     }
 
+
     public static void main(String[] args) {
         CartDAO a = new CartDAO();
-        List<Cart> l = a.getAllCart();
+        List<Cart> l = (List<Cart>) a.getAllCart();//fixxxxxxxxxxxxxx
         System.out.println(l.get(0).getCartId());
     }
-
 }

@@ -1,5 +1,6 @@
 package DAOs;
 
+import DBConnection.DBConnection;
 import Models.ProductImage;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,6 +20,10 @@ public class ProductImageDAO {
     private Connection conn;
     private PreparedStatement ps;
     private ResultSet rs;
+
+    public ProductImageDAO() {
+        conn = DBConnection.getConnection();
+    }
 
     public ProductImage getPrimaryImage(String productId) {
         String sql = "select * from ProductImages where ProductID = ? and isPrimary = ?";
@@ -57,17 +62,20 @@ public class ProductImageDAO {
 
     public List<ProductImage> getImages2(String productId) {
         List<ProductImage> images = new ArrayList<>();
-        String sql = "select * from ProductImages where ProductID = ? ";
+        String sql = "Select * from ProductImages\n"
+                + "where ProductID = ? ";
         try {
             ps = conn.prepareStatement(sql);
             ps.setString(1, productId);
             rs = ps.executeQuery();
             while (rs.next()) {
-                ProductImage productImage = new ProductImage(rs.getString("ImageID"), rs.getString("ImageURL"), true, rs.getString("ProductID"));
+                ProductImage productImage
+                        = new ProductImage(rs.getString(1),
+                                rs.getString(3), rs.getBoolean(2), rs.getString(4));
                 images.add(productImage);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage());
         }
         return images;
     }
@@ -108,6 +116,15 @@ public class ProductImageDAO {
             System.out.println(e);
         }
         return result;
+    }
+
+    public static void main(String[] args) {
+        ProductImageDAO d = new ProductImageDAO();
+        String proID = "P1";
+        List<ProductImage> list = d.getImages2(proID);
+        for (ProductImage productImage : list) {
+            System.out.println(productImage.getImageId());
+        }
     }
 
 }
