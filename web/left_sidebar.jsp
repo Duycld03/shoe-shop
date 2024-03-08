@@ -88,33 +88,38 @@
                         </c:choose>
                     </a>
                     <c:if test="${admin != null}">
+                        <a href="/dashboard"  class="list-group-item list-group-item-action py-2 ripple">
+                            <i class="fas fa-vihara"></i><span style="margin-left: 5px">Dashboard</span>
+                        </a>
+                    </c:if>
+                    <c:if test="${admin != null}">
                         <a href="#manager" id="accountManager" class="list-group-item list-group-item-action py-2 ripple">
-                            <i class="fas fa-user-circle fa-fw me-3"></i><span>Account manager</span>
+                            <i class="fas fa-user-circle fa-fw me-3"></i><span style="margin-left: 5px">Account manager</span>
                         </a>
                         <div id="manager" style="display: none;">
                             <a href="staffmanager" class="list-group-item list-group-item-action py-2 ripple">
-                                <i class="fas fa-user-circle fa-fw me-3"></i><span>Staff manager</span>
+                                <i class="fas fa-user-circle fa-fw me-3"></i><span style="margin-left: 5px">Staff manager</span>
                             </a>
                             <a href="adminmanager" class="list-group-item list-group-item-action py-2 ripple">
-                                <i class="fas fa-user-circle fa-fw me-3"></i><span>Admin manager</span>
+                                <i class="fas fa-user-circle fa-fw me-3"></i><span style="margin-left: 5px">Admin manager</span>
                             </a>
                             <a href="customermanager" class="list-group-item list-group-item-action py-2 ripple">
-                                <i class="fas fa-user-circle fa-fw me-3"></i><span>Customer manager</span>
+                                <i class="fas fa-user-circle fa-fw me-3"></i><span style="margin-left: 5px">Customer manager</span>
                             </a>
                         </div>
                     </c:if>
                     <a href="productmanagement" class="list-group-item list-group-item-action py-2 ripple">
 
-                        <i class="fas fa-shoe-prints fa-fw me-3"></i><span>Product manager</span>
+                        <i class="fas fa-shoe-prints fa-fw me-3"></i><span style="margin-left: 5px">Product manager</span>
                     </a>
                     <a href="brandmanager" class="list-group-item list-group-item-action py-2 ripple">
-                        <i class="fas fa-tag fa-fw me-3"></i><span>Brand manager</span>
+                        <i class="fas fa-tag fa-fw me-3"></i><span style="margin-left: 5px">Brand manager</span>
                     </a>
                     <a href="ordermanagement" class="list-group-item list-group-item-action py-2 ripple">
-                        <i class="fas fa-clipboard-list fa-fw me-3"></i><span>Order manager</span>
+                        <i class="fas fa-clipboard-list fa-fw me-3"></i><span style="margin-left: 5px">Order manager</span>
                     </a>
                     <a href="logout" class="list-group-item list-group-item-action py-2 ripple">
-                        <i class="fas fa-sign-out-alt fa-fw me-3"></i><span>Log out</span>
+                        <i class="fas fa-sign-out-alt fa-fw me-3"></i><span style="margin-left: 5px">Log out</span>
                     </a>
 
 

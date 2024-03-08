@@ -196,6 +196,10 @@
         <servlet-name>UpdateImage</servlet-name>
         <servlet-class>Controllers.UpdateImage</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DashboardController</servlet-name>
+        <servlet-class>Controllers.DashboardController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>default</servlet-name>
         <url-pattern>*.css</url-pattern>
@@ -399,6 +403,10 @@
     <servlet-mapping>
         <servlet-name>UpdateImage</servlet-name>
         <url-pattern>/updateimage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DashboardController</servlet-name>
+        <url-pattern>/dashboard</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
