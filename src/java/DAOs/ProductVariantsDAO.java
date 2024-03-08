@@ -5,6 +5,7 @@
 package DAOs;
 
 import DBConnection.DBConnection;
+import Models.Product;
 import Models.ProductVariant;
 import Models.ProductImage;
 import java.sql.Connection;
@@ -69,7 +70,7 @@ public class ProductVariantsDAO {
             rs = ps.executeQuery();
             while (rs.next()) {
                 ProductVariant var = new ProductVariant(rs.getString("VariantID"), rs.getString("Color"),
-                        rs.getInt("Size"), rs.getInt("StockQuantity"), rs.getString("ProductID"));
+                        rs.getInt("Size"), rs.getInt("StockQuantity"), rs.getString("ProductID"), rs.getBoolean("isDelete"));
                 vars.add(var);
             }
             return vars;
@@ -114,14 +115,153 @@ public class ProductVariantsDAO {
         return result;
     }
 
+    // add new admin
+    public boolean addVariant(ProductVariant pro) {
+        String sql = "INSERT INTO [dbo].[ProductVariants]\n"
+                + "           ([VariantID]\n"
+                + "           ,[Size]\n"
+                + "           ,[Color]\n"
+                + "           ,[StockQuantity]\n"
+                + "           ,[isDelete]\n"
+                + "           ,[ProductID])\n"
+                + "     VALUES\n"
+                + "           (?,?,?,?,?,?)";
+
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, pro.getVariantId()); // Assuming getVariantID() returns the VariantID
+            ps.setInt(2, pro.getSize());
+            ps.setString(3, pro.getColor());
+            ps.setInt(4, pro.getStockQuantity());
+            ps.setBoolean(5, pro.isDelete());
+            ps.setString(6, pro.getProductId());
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false; // Consider returning false in case of an exception
+        }
+    }
+
+    public List<String> getAllVarinatID() {
+        List<String> variantIDs = new ArrayList();
+        String sql = "select VariantID from ProductVariants";
+        try {
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                String varID = rs.getString(1);
+                variantIDs.add(varID);
+            }
+        } catch (Exception e) {
+        }
+        return variantIDs;
+    }
+
+    public String checkVariantExit(String Color, int Size, String ProID) {
+        String sql = "select VariantID from ProductVariants where ProductID = ? and Color = ? and size = ?";
+
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, ProID);
+            ps.setString(2, Color);
+            ps.setInt(3, Size);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                String variantID = rs.getString(1);
+                return variantID;
+            }
+        } catch (Exception e) {
+        }
+        return null;
+    }
+
+    public boolean UpdateVariant(ProductVariant var) {
+        String sql = "UPDATE [dbo].[ProductVariants]\n"
+                + "SET [Size] = ?\n"
+                + "   ,[Color] = ?\n"
+                + "   ,[StockQuantity] = ?\n"
+                + "   ,[isDelete] = ?\n"
+                + "   ,[ProductID] = ?\n"
+                + "WHERE [VariantID] = ?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, var.getSize());
+            ps.setString(2, var.getColor());
+            ps.setInt(3, var.getStockQuantity());
+            ps.setBoolean(4, var.isDelete());
+            ps.setString(5, var.getProductId());
+            ps.setString(6, var.getVariantId());
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            // Log or print the exception message for debugging purposes
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
+
+    public boolean UpdateStockVar(String varID, int newStock) {
+        String sql = "Update ProductVariants\n"
+                + "set StockQuantity = ?\n"
+                + "where VariantID = ?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, newStock);
+            ps.setString(2, varID);
+            ps.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
+
+    public boolean softDeleteVariant(String varID) {
+        String sql = "UPDATE ProductVariants SET isDelete = 1 WHERE VariantID = ?";
+
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, varID);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;  // Trả về false nếu có lỗi
+        }
+        return true;
+    }
+
+    public ProductVariant getVariantByID(String VarId) {
+        String sql = "select * from ProductVariants where VariantID = ?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, VarId);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                ProductVariant var = new ProductVariant(rs.getString("VariantID"), rs.getString("Color"),
+                        rs.getInt("Size"), rs.getInt("StockQuantity"), rs.getString("ProductID"), rs.getBoolean("isDelete"));
+                return var;
+            }
+        } catch (Exception e) {
+        }
+        return null;
+    }
+
     public static void main(String[] args) {
         ProductVariantsDAO dao = new ProductVariantsDAO();
-        String proID = "P1";
-        List<ProductVariant> var = dao.getVariantByProID(proID);
-        for (ProductVariant productVariant : var) {
-            System.out.println(productVariant.getVariantId());
-        }
+        String varTest = "Var1";
+        String proID_Test = "P1";
+        String Color_Test = "Color1";
+        int size_test = 30;
+        int stockTest = 40;
+        boolean isDelete_test = true;
+        ProductVariant var2 = new ProductVariant(varTest, Color_Test, size_test, stockTest, proID_Test, isDelete_test);
+        if (dao.UpdateVariant(var2)) {
+            System.out.println("true");
+        } else {
+            System.out.println("false");
 
+        }
     }
 
 }

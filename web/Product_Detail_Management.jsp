@@ -26,19 +26,25 @@
                     <div class="row mb-3">
                         <div class="col-sm-6">
                             <h5 class="mb-0 text-left text-lg">
-                                <strong>PRODUCT DETAIL MANAGEMENT</strong>
+                                <strong>DETAIL MANAGEMENT</strong>
                             </h5>
                         </div>
                     </div>
-
-                    <!-- Product Variants Table -->
-                    <div class="row">
-                        <div class="col-sm-12 mb-3">
-                            <h5 class="mb-0 text-center">
-                                <strong>Product Variants</strong>
-                            </h5>
-                            <div class="text-left mb-3">
-                                <a href="/addVariant?ProID=${ProID}" class="btn btn-success" data-toggle="modal">
+                    <div class="row mb-3">
+                        <div class="col-sm-6">
+                            <h5 class="mb-0 text-left text-lg">
+                                <strong>This is detail information of ${pro.productName}</strong>
+                        </h5>
+                    </div>
+                </div>
+                <!-- Product Variants Table -->
+                <div class="row">
+                    <div class="col-sm-12 mb-3">
+                        <h5 class="mb-0 text-center">
+                            <strong>Product Variants</strong>
+                        </h5>
+                        <div class="text-left mb-3">
+                            <a href="/addVariant.jsp?ProID=${pro.productId}" class="btn btn-success" data-toggle="modal">
                                 <span class=" mr-2 text-white">Add variant</span>
                             </a>
                         </div>
@@ -49,6 +55,7 @@
                                     <th>Color</th>
                                     <th>Size</th>
                                     <th>Stock Quantity</th>
+                                    <th>Is Delete</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -57,18 +64,21 @@
                                     <td>${var.variantId}</td>
                                     <td>${var.color}</td>
                                     <td>${var.size}</td>
-                                    <td>${var.stockQuantity}</td>
+                                    <td>${var.stockQuantity}</td>            
+                                    <td>${var.isDelete()}</td>
                                     <td>
-                                        <div class="btn-group" onclick="location.href = '/updateVariant?VarID=${var.variantId}'">
-                                            <button class="btn btn-warning">
+                                        <div class="btn-group d-flex align-items-center">
+                                            <button class="btn btn-warning" onclick="location.href = '/updatevariant?VarID=${var.variantId}'">
                                                 <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
                                             </button>
                                             &nbsp;&nbsp;&nbsp;
-                                            <button class="btn btn-danger" onclick="messageConfirm('This variant', () => {
-                                                        location.href = '/delectVariant?VarID=${var.variantId}'
-                                                    })">
-                                                <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
-                                            </button>
+                                            <c:if test="${var.isDelete() eq false}">
+                                                <button class="btn btn-danger" onclick="messageConfirm('Delete this variant', () => {
+                                                            location.href = '/deletevariant?VarID=${var.variantId}&&proid=${pro.productId}';
+                                                        })">
+                                                    <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
+                                                </button>
+                                            </c:if>
                                         </div>
                                     </td>
                                 </tr>
@@ -82,7 +92,7 @@
                             <strong>Product Image</strong>
                         </h5>
                         <div class="text-right mb-3 d-flex align-items-center">
-                            <a href="/addImg?ProID=${ProID}" class="btn btn-success" data-toggle="modal">
+                            <a href="/addImage.jsp?ProID=${pro.productId}" class="btn btn-success" data-toggle="modal">
                                 <span class="mr-2 text-white">Add Image</span>
                             </a>
                         </div>
@@ -102,13 +112,13 @@
                                     <td>${img.isPrimary()}</td>
                                     <td>
                                         <div class="btn-group">
-                                            <div class="btn-group" onclick="location.href = '/updateImage?ImgID=${img.getImageId()}'">
-                                                <button class="btn btn-warning">
+                                            <div class="btn-group">
+                                                <button class="btn btn-warning" onclick="location.href = '/updateImage?ImgID=${img.getImageId()}'">
                                                     <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
                                                 </button>
                                                 &nbsp;&nbsp;&nbsp;
-                                                <button class="btn btn-danger" onclick="messageConfirm('This image', () => {
-                                                            location.href = '/delectImage?ImgId=${img.getImageId()}'
+                                                <button class="btn btn-danger" onclick="messageConfirm('Delete this image', () => {
+                                                            location.href = '/deleteimage?imgid=${img.getImageId()}&&proid=${pro.productId}';
                                                         })">
                                                     <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
                                                 </button>
@@ -123,8 +133,18 @@
             </div>
         </main>
 
-        <!-- Add your footer content here -->
-
+        <c:if test="${sessionScope.error != null}">
+            <script>
+                message("error", "${sessionScope.error}")
+            </script>
+            <% session.removeAttribute("error");%>
+        </c:if>
+        <c:if test="${sessionScope.success != null}">
+            <script>
+                message("success", "${sessionScope.success}")
+            </script>
+            <% session.removeAttribute("success");%>
+        </c:if>
     </body>
 
 </html>

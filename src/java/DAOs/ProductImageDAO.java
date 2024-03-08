@@ -96,7 +96,7 @@ public class ProductImageDAO {
     }
 
     //Add Product Image
-    public int addProductImge(ProductImage image) {
+    public boolean addProductImge(ProductImage image) {
         int result = 0;
         String sql = "INSERT INTO [dbo].[ProductImages]\n"
                 + "           ([ImageID]\n"
@@ -111,20 +111,136 @@ public class ProductImageDAO {
             st.setBoolean(2, image.isPrimary());
             st.setString(3, image.getImageURL());
             st.setString(4, image.getProductId());
-            result = st.executeUpdate();
+            st.executeUpdate();
+            return true;
         } catch (SQLException e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
-        return result;
+        return false;
+    }
+
+    public List<String> getAllImgID() {
+        List<String> Imgs = new ArrayList<>();
+        String sql = "Select ImageID from ProductImages";
+        try {
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                String img = rs.getString("ProductID");
+                Imgs.add(img);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return Imgs;
+    }
+
+    public boolean addNewImg(ProductImage img) {
+        String sql = "INSERT INTO [dbo].[ProductImages]\n"
+                + "           ([ImageID]\n"
+                + "           ,[IsPrimary]\n"
+                + "           ,[ImageURL]\n"
+                + "           ,[ProductID])\n"
+                + "     VALUES\n"
+                + "           (?,?,?,?)\n"
+                + "GO";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, img.getImageId());
+            ps.setBoolean(2, img.isPrimary());
+            ps.setString(3, img.getImageURL());
+            ps.setString(4, img.getProductId());
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
+
+        return false;
+    }
+
+    public String checkIsprimary(String proid, boolean isPrimary) {
+        String sql = "Select ImageID from ProductImages where IsPrimary = 1 and ProductID = ?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setBoolean(1, isPrimary);
+            ps.setString(2, proid);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                String imgID = rs.getString(1);
+                return imgID;
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public boolean UpdateIsPrimary(String updateImgID) {
+        String sql = "Update ProductImages\n"
+                + "set IsPrimary = 1\n"
+                + "where ImageID = ?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, updateImgID);
+            ps.executeUpdate();
+            return true;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
     }
 
     public static void main(String[] args) {
         ProductImageDAO d = new ProductImageDAO();
         String proID = "P1";
-        List<ProductImage> list = d.getImages2(proID);
-        for (ProductImage productImage : list) {
-            System.out.println(productImage.getImageId());
+        System.out.println(d.UpdateIsPrimary("Image1"));
+    }
+
+    public String randomImg(String proid) {
+        String sql = "SELECT TOP 1 ImageID\n"
+                + "FROM ProductImages\n"
+                + "WHERE IsPrimary = 0 AND ProductID = ?\n"
+                + "ORDER BY NEWID();";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, proid);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                String randomImg = rs.getString(1);
+                return randomImg;
+            }
+        } catch (Exception e) {
         }
+        return null;
+
+    }
+
+    public boolean isPrimaryImage(String imgid) {
+        String sql = "Select ImageID from ProductImages where IsPrimary = 1  and ImageID = ?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, imgid);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+        } catch (Exception e) {
+        }
+        return false;
+    }
+
+    public boolean deleteImage(String imgid) {
+        String sql = "Delete ProductImages\n"
+                + "where ImageID = ?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, imgid);
+            ps.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
     }
 
 }

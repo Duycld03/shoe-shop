@@ -128,6 +128,9 @@ public class AddProductManagement extends HttpServlet {
                 if (dao.checkProNameExit(productName)) {
                     request.setAttribute("NameError", "This product name was exited!");
                     request.setAttribute("Pro", pro);
+                    BrandDAO d = new BrandDAO();
+                    List<Brand> brands = d.getAllBrand();
+                    request.setAttribute("Brands", brands);
                     request.getRequestDispatcher("addNewProduct.jsp").forward(request, response);
                 } else if (dao.addProduct(pro) == true) {
                     session.setAttribute("success", "success");
@@ -140,7 +143,6 @@ public class AddProductManagement extends HttpServlet {
             } catch (Exception e) {
 
             }
-
         }
 
     }
