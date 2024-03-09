@@ -151,6 +151,8 @@ public class AdminDAO {
         }
         return count;
     }
+    
+ 
 
     public int getAdminsCount() {
         int count = -1;
@@ -234,6 +236,27 @@ public class AdminDAO {
             System.out.println(e.getMessage());
         }
         return adminIDs;
+    }
+        // update staff
+    public int updateAdminWithoutPassword(Admin c) {
+        int count = 0;
+        String sql = "UPDATE [dbo].[Admins]\n"
+                + "   SET [UserName] = ?\n"
+                + "      ,[Email] = ?\n"
+                + "      ,[FullName] =?\n"
+                + "      ,[PhoneNumber] = ?\n"
+                + " WHERE [AdminID] = ?\n";
+        try {
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.setString(1, c.getUsername());
+            st.setString(2, c.getEmail());
+            st.setString(3, c.getFullname());
+            st.setString(4, c.getPhoneNumber());
+            st.setString(5, c.getAdminId());
+            count = st.executeUpdate();
+        } catch (SQLException e) {
+        }
+        return count;
     }
 
     public static void main(String[] args) {

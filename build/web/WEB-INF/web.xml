@@ -2,11 +2,11 @@
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
         <servlet-name>HomeController</servlet-name>
-        <servlet-class>Controllers.HomeController</servlet-class>
+        <servlet-class>Controllers.Common.HomeController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ProductController</servlet-name>
-        <servlet-class>Controllers.ProductController</servlet-class>
+        <servlet-class>Controllers.Common.ProductController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>test</servlet-name>
@@ -18,55 +18,51 @@
     </servlet>
     <servlet>
         <servlet-name>StaffManager</servlet-name>
-        <servlet-class>Controllers.StaffAccountManager</servlet-class>
+        <servlet-class>Controllers.Manager.Admin.StaffAccountManager</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>GoogleRegisterController</servlet-name>
-        <servlet-class>Controllers.GoogleRegisterController</servlet-class>
+        <servlet-class>Controllers.Customer.GoogleRegisterController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AddStaffController</servlet-name>
-        <servlet-class>Controllers.AddStaffController</servlet-class>
+        <servlet-class>Controllers.Manager.Admin.AddStaffController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ProfileController</servlet-name>
-        <servlet-class>Controllers.ProfileControler</servlet-class>
+        <servlet-class>Controllers.Customer.ProfileControler</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CustomerLoginController</servlet-name>
-        <servlet-class>Controllers.CustomerLoginController</servlet-class>
+        <servlet-class>Controllers.Customer.CustomerLoginController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UpdateStaffController</servlet-name>
-        <servlet-class>Controllers.UpdateStaffController</servlet-class>
+        <servlet-class>Controllers.Manager.Admin.UpdateStaffController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ProductFilterController</servlet-name>
-        <servlet-class>Controllers.ProductFilterController</servlet-class>
+        <servlet-class>Controllers.Common.ProductFilterController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>SignUpController</servlet-name>
-        <servlet-class>Controllers.SignUpController</servlet-class>
+        <servlet-class>Controllers.Customer.SignUpController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>LogoutController</servlet-name>
-        <servlet-class>Controllers.LogoutController</servlet-class>
+        <servlet-class>Controllers.Common.LogoutController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>LoadMoreController</servlet-name>
-        <servlet-class>Controllers.LoadMoreController</servlet-class>
+        <servlet-class>Controllers.Common.LoadMoreController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ManagerLoginController</servlet-name>
-        <servlet-class>Controllers.ManagerLoginController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ManagerController</servlet-name>
-        <servlet-class>Controllers.ManagerController</servlet-class>
+        <servlet-class>Controllers.Manager.ManagerLoginController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AdminManager</servlet-name>
-        <servlet-class>Controllers.AdminAccountManager</servlet-class>
+        <servlet-class>Controllers.Manager.Admin.AdminAccountManager</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Checkout</servlet-name>
@@ -78,111 +74,111 @@
     </servlet>
     <servlet>
         <servlet-name>DeleteStaffController</servlet-name>
-        <servlet-class>Controllers.DeleteStaffController</servlet-class>
+        <servlet-class>Controllers.Manager.Admin.DeleteStaffController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AddAdminController</servlet-name>
-        <servlet-class>Controllers.AddAdminController</servlet-class>
+        <servlet-class>Controllers.Manager.Admin.AddAdminController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DeleteAdmin</servlet-name>
-        <servlet-class>Controllers.DeleteAdmin</servlet-class>
+        <servlet-class>Controllers.Manager.Admin.DeleteAdmin</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ForgotPasswordController</servlet-name>
-        <servlet-class>Controllers.ForgotPasswordController</servlet-class>
+        <servlet-class>Controllers.Common.ForgotPasswordController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ResetPasswordController</servlet-name>
-        <servlet-class>Controllers.ResetPasswordController</servlet-class>
+        <servlet-class>Controllers.Common.ResetPasswordController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CustomerManager</servlet-name>
-        <servlet-class>Controllers.CustomerAccountManager</servlet-class>
+        <servlet-class>Controllers.Manager.Admin.CustomerAccountManager</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AddCustomerController</servlet-name>
-        <servlet-class>Controllers.AddCustomerController</servlet-class>
+        <servlet-class>Controllers.Manager.Admin.AddCustomerController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UpdateCustomerController</servlet-name>
-        <servlet-class>Controllers.UpdateCustomerController</servlet-class>
+        <servlet-class>Controllers.Customer.UpdateCustomerController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DeleteCustomer</servlet-name>
-        <servlet-class>Controllers.DeleteCustomer</servlet-class>
+        <servlet-class>Controllers.Manager.Admin.DeleteCustomer</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>orderManagement</servlet-name>
-        <servlet-class>Controllers.OrderManagement</servlet-class>
+        <servlet-class>Controllers.Manager.OrderManagement</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>StaffManagerController</servlet-name>
-        <servlet-class>Controllers.StaffManagerController</servlet-class>
+        <servlet-class>Controllers.Manager.Staff.StaffManagerController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UpdateOrder</servlet-name>
-        <servlet-class>Controllers.UpdateOrder</servlet-class>
+        <servlet-class>Controllers.Manager.UpdateOrder</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ProductManagement</servlet-name>
-        <servlet-class>Controllers.ProductManagement</servlet-class>
+        <servlet-class>Controllers.Manager.ProductManagement</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UpdateProduct</servlet-name>
-        <servlet-class>Controllers.UpdateProduct</servlet-class>
+        <servlet-class>Controllers.Manager.UpdateProduct</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ProductDetailInfor</servlet-name>
-        <servlet-class>Controllers.ProductDetailInfor</servlet-class>
+        <servlet-class>Controllers.Manager.ProductDetailInfor</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>BrandManager</servlet-name>
-        <servlet-class>Controllers.BrandManager</servlet-class>
+        <servlet-class>Controllers.Manager.BrandManager</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AddBrandController</servlet-name>
-        <servlet-class>Controllers.AddBrandController</servlet-class>
+        <servlet-class>Controllers.Manager.AddBrandController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UpdateBrandController</servlet-name>
-        <servlet-class>Controllers.UpdateBrandController</servlet-class>
+        <servlet-class>Controllers.Manager.UpdateBrandController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DeleteBrandController</servlet-name>
-        <servlet-class>Controllers.DeleteBrandController</servlet-class>
+        <servlet-class>Controllers.Manager.DeleteBrandController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AddressController</servlet-name>
-        <servlet-class>Controllers.AddressController</servlet-class>
+        <servlet-class>Controllers.Customer.AddressController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AddProductManagement</servlet-name>
-        <servlet-class>Controllers.AddProductManagement</servlet-class>
+        <servlet-class>Controllers.Manager.AddProductManagement</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ManageCartController</servlet-name>
-        <servlet-class>Controllers.ManageCartController</servlet-class>
+        <servlet-class>Controllers.Customer.ManageCartController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AddCartController</servlet-name>
-        <servlet-class>Controllers.AddCartController</servlet-class>
+        <servlet-class>Controllers.Customer.AddCartController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>updateVariant</servlet-name>
-        <servlet-class>Controllers.UpdateVariant</servlet-class>
+        <servlet-class>Controllers.Manager.UpdateVariant</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>addVariant</servlet-name>
-        <servlet-class>Controllers.AddVariant</servlet-class>
+        <servlet-class>Controllers.Manager.AddVariant</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>deleteVariant</servlet-name>
-        <servlet-class>Controllers.DeleteVariant</servlet-class>
+        <servlet-class>Controllers.Manager.DeleteVariant</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AddProductImage</servlet-name>
-        <servlet-class>Controllers.AddProductImage</servlet-class>
+        <servlet-class>Controllers.Manager.AddProductImage</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DeleteProduct</servlet-name>
@@ -190,11 +186,23 @@
     </servlet>
     <servlet>
         <servlet-name>DeleteImage</servlet-name>
-        <servlet-class>Controllers.DeleteImage</servlet-class>
+        <servlet-class>Controllers.Manager.DeleteImage</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UpdateImage</servlet-name>
-        <servlet-class>Controllers.UpdateImage</servlet-class>
+        <servlet-class>Controllers.Manager.UpdateImage</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DashboardController</servlet-name>
+        <servlet-class>Controllers.Manager.Admin.DashboardController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RevenueManagementByYear</servlet-name>
+        <servlet-class>Controllers.RevenueManagementByYear</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateAdminController</servlet-name>
+        <servlet-class>Controllers.Manager.Admin.UpdateAdminController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>default</servlet-name>
@@ -263,10 +271,6 @@
     <servlet-mapping>
         <servlet-name>ManagerLoginController</servlet-name>
         <url-pattern>/managerLogin</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ManagerController</servlet-name>
-        <url-pattern>/manager</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AdminManager</servlet-name>
@@ -399,6 +403,18 @@
     <servlet-mapping>
         <servlet-name>UpdateImage</servlet-name>
         <url-pattern>/updateimage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DashboardController</servlet-name>
+        <url-pattern>/dashboard</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RevenueManagementByYear</servlet-name>
+        <url-pattern>/revenummnagementbyyear</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateAdminController</servlet-name>
+        <url-pattern>/loadAdmin</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
