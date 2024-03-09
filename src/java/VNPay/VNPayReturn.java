@@ -6,8 +6,7 @@ import DAOs.OrderDetailDAO;
 import Models.Cart;
 import Models.Order;
 import Models.OrderDetail;
-import Vadilation.Vadidation;
-import com.google.gson.Gson;
+import Utils.CreateID;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -106,15 +105,16 @@ public class VNPayReturn extends HttpServlet {
 				Timestamp timestamp = new Timestamp(date.getTime());
 				if ("00".equals(request.getParameter("vnp_TransactionStatus"))) {
 					OrderDAO orderDAO = new OrderDAO();
-					Order newOrder = new Order(transactionNo, amountDraw, timestamp, "Paid", "Processing", customerId, "VNPay", null);
+					String orderId = CreateID.autoIncreaseID(orderDAO.getAllOrderID(), "Order");
+					Order newOrder = new Order(orderId, amountDraw, timestamp, "Paid", "Processing", customerId, "VNPay", null);
 					orderDAO.addOrder(newOrder);
 					OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
 					CartDAO cartDAO = new CartDAO();
 					List<Cart> carts = cartDAO.getCartByCusID(customerId);
 					List<OrderDetail> orderDetails = new ArrayList<>();
 					for (Cart cart : carts) {
-						String orderDetailId = Vadidation.CreateID(orderDetailDAO.getAllOrderDetailID(), "OrderD");
-						OrderDetail orderDetail = new OrderDetail(orderDetailId, cart.getTotalPrice(), cart.getQuantity(), transactionNo, cart.getVariantId());
+						String orderDetailId = CreateID.autoIncreaseID(orderDetailDAO.getAllOrderDetailID(), "OrderD");
+						OrderDetail orderDetail = new OrderDetail(orderDetailId, cart.getTotalPrice(), cart.getQuantity(), orderId, cart.getVariantId());
 						orderDetails.add(orderDetail);
 					}
 

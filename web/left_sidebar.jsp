@@ -11,6 +11,7 @@
         <title>Page</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
         <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="assets/css/icon.css"/>
         <script src="assets/js/validation/jquery.min.js"></script>
         <style>
             img{
@@ -63,7 +64,12 @@
                 padding-top: 0.5rem;
                 overflow-x: hidden;
                 overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-            }</style>
+            }
+            .a_s{
+                margin-bottom: 20px;
+                text-align: center;
+            }
+        </style>
         <style>
             #manager a {
                 font-size: 14px;
@@ -71,6 +77,9 @@
             #manager span{
                 padding-left: 0.5rem;
             }
+
+
+
         </style>
     </head>
     <body>
@@ -80,13 +89,18 @@
                     <a class="d-block text-lg font-weight-bold text-dark mb-4">
                         <c:choose>
                             <c:when test="${admin != null}">
-                                Hello, ${admin.getUsername()}
+                                <a href="#" class="a_s">
+                                    <i class="fas fa-user fa-fw me-3"></i><span>${admin.getUsername()}</span>
+                                </a>
                             </c:when>
                             <c:when test="${staff != null}">
-                                Hello, ${staff.getUsername()}
+                                <a href="#" class="a_s">
+                                    <i class="fas fa-user fa-fw me-3"></i><span>${staff.getUsername()}</span>
+                                </a>
                             </c:when>
                         </c:choose>
                     </a>
+
                     <c:if test="${admin != null}">
                         <a href="#manager" id="accountManager" class="list-group-item list-group-item-action py-2 ripple">
                             <i class="fas fa-user-circle fa-fw me-3"></i><span>Account manager</span>
@@ -122,16 +136,16 @@
             </div>
         </nav>
         <script>
-			document.getElementById('accountManager').addEventListener('click', function (event) {
-				event.preventDefault(); // Prevent default anchor behavior
+            document.getElementById('accountManager').addEventListener('click', function (event) {
+                event.preventDefault(); // Prevent default anchor behavior
 
-				var managerDiv = document.getElementById('manager');
-				if (managerDiv.style.display === 'none') {
-					managerDiv.style.display = 'block';
-				} else {
-					managerDiv.style.display = 'none';
-				}
-			});
+                var managerDiv = document.getElementById('manager');
+                if (managerDiv.style.display === 'none') {
+                    managerDiv.style.display = 'block';
+                } else {
+                    managerDiv.style.display = 'none';
+                }
+            });
         </script>
 
     </body>

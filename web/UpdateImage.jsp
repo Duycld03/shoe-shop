@@ -19,7 +19,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <c:set var="c" value="${requestScope.img}" />
-                    <form action="/addimage" method="post" enctype="multipart/form-data">
+                    <form action="/updateimage" method="post" enctype="multipart/form-data">
                         <div class="modal-header">
                             <h4 class="modal-title">Add new Product Variant</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -27,14 +27,18 @@
                         <div class="modal-body">
                             <div class="form-group d-none">
                                 <label>ProID</label>
-                                <input name="proid" type="text" class="form-control" value="${param.ProID}">
+                                <input name="proid" type="text" class="form-control" value="${c.productId}">
+                            </div>
+                            <div class="form-group d-none">
+                                <label>img</label>
+                                <input name="imgid" type="text" class="form-control" value="${c.imageId}">
                             </div>
                             <div class="form-group">
                                 <label>Product URL</label>
-                                <input name="imgurl" type="file" class="form-control" value="${c.imageURL}" required>
+                                <img src="assets/img/products/${c.imageURL}" width="100px" height="100px" alt="alt"/>
+                                <input name="imgurl" type="file" class="form-control" value="${c.imageURL}">
                                 <div class="text-danger">${sessionScope.error}</div>
                                 <c:if test="${sessionScope.error != null}">
-
                                     <% session.removeAttribute("error");%>
                                 </c:if>
                             </div>
@@ -64,7 +68,7 @@
                         // Đóng modal khi nút "X" hoặc "Cancel" được nhấn
                         $("#editEmployeeModal").modal("hide");
                         // Chuyển hướng về trang staffmanager
-                        window.location.href = "/productDetailInfor?proID=${param.ProID}";
+                        window.location.href = "/productDetailInfor?proID=${c.productId}";
                     });
                 });
             });

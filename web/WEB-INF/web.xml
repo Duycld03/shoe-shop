@@ -192,6 +192,10 @@
         <servlet-name>DeleteImage</servlet-name>
         <servlet-class>Controllers.DeleteImage</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UpdateImage</servlet-name>
+        <servlet-class>Controllers.UpdateImage</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>default</servlet-name>
         <url-pattern>*.css</url-pattern>
@@ -391,6 +395,10 @@
     <servlet-mapping>
         <servlet-name>DeleteImage</servlet-name>
         <url-pattern>/deleteimage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateImage</servlet-name>
+        <url-pattern>/updateimage</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

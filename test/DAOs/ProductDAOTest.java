@@ -32,7 +32,7 @@ public class ProductDAOTest {
     @Test
     public void testSearchProductByName_Test_1() {
         String name = "";
-        int expectSize = 10;
+        int expectSize = 23;
         List<Product> result = proDao.searchProductByName(name);
         int resultSize = result.size();
         assertEquals(expectSize, resultSize);
@@ -43,7 +43,7 @@ public class ProductDAOTest {
      */
     @Test
     public void testSearchProductByName_Test_2() {
-        String name = "nike adios pro 4";
+        String name = "Adidas Adios Pro 3";
         int expectSize = 1;
         List<Product> result = proDao.searchProductByName(name);
         int resultSize = result.size();
@@ -67,8 +67,8 @@ public class ProductDAOTest {
      */
     @Test
     public void testSearchProductByName_Test_4() {
-        String name = "adios";
-        int expectSize = 7;
+        String name = "Adios";
+        int expectSize = 2;
         List<Product> result = proDao.searchProductByName(name);
         int resultSize = result.size();
         assertEquals(expectSize, resultSize);

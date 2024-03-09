@@ -43,7 +43,7 @@ public class OrderDAO {
                 while (rs.next()) {
                     Order order = new Order(rs.getString("OrderID"), rs.getFloat("TotalAmount"),
                             rs.getTimestamp("OrderDate"), rs.getString("PaymentStatus"), rs.getString("OrderStatus"),
-                            rs.getString("CustomerID"), rs.getString("PaymentMethod"), rs.getString("StaffID"));
+                            rs.getString("CustomerID"), rs.getString(7), rs.getString("StaffID"));
                     list.add(order);
                 }
             } else {
@@ -65,7 +65,7 @@ public class OrderDAO {
             if (rs.next()) {
                 Order order = new Order(rs.getString("OrderID"), rs.getFloat("TotalAmount"),
                         rs.getTimestamp("OrderDate"), rs.getString("PaymentStatus"), rs.getString("OrderStatus"),
-                        rs.getString("CustomerID"), rs.getString("PaymentMethod"), rs.getString("StaffID"));
+                        rs.getString("CustomerID"), rs.getString(7), rs.getString("StaffID"));
                 return order;
             }
         } catch (Exception e) {
@@ -243,7 +243,7 @@ public class OrderDAO {
                 while (rs.next()) {
                     Order order = new Order(rs.getString("OrderID"), rs.getFloat("TotalAmount"),
                             rs.getTimestamp("OrderDate"), rs.getString("PaymentStatus"), rs.getString("OrderStatus"),
-                            rs.getString("CustomerID"), rs.getString("PaymentMethod"), rs.getString("StaffID"));
+                            rs.getString("CustomerID"), rs.getString(7), rs.getString("StaffID"));
                     list.add(order);
                 }
             } else {
@@ -268,7 +268,7 @@ public class OrderDAO {
                 while (rs.next()) {
                     Order order = new Order(rs.getString("OrderID"), rs.getFloat("TotalAmount"),
                             rs.getTimestamp("OrderDate"), rs.getString("PaymentStatus"), rs.getString("OrderStatus"),
-                            rs.getString("CustomerID"), rs.getString("PaymentMethod"), rs.getString("StaffID"));
+                            rs.getString("CustomerID"), rs.getString(7), rs.getString("StaffID"));
                     list.add(order);
                 }
             } else {
@@ -280,9 +280,25 @@ public class OrderDAO {
         return list;
     }
 
+    public List<String> getAllOrderID() {
+        List<String> orderIDs = new ArrayList<>();
+        String sql = "select OrderID from Orders";
+        try {
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                String address = rs.getString("OrderID");
+                orderIDs.add(address);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return orderIDs;
+    }
+
     public static void main(String[] args) {
         OrderDAO d = new OrderDAO();
-        List<Order> list = d.getAllOrder();
+        List<Order> list = d.getOrderbyStaffID("ST1");
         for (Order order : list) {
             System.out.println(order.getCustomerId());
         }
