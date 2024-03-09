@@ -1,9 +1,11 @@
 package Controllers;
 
 import DAOs.AdminDAO;
+import DAOs.CustomerDAO;
+import DAOs.OrderDAO;
+import DAOs.ProductDAO;
 import DAOs.StaffDAO;
 import Models.Admin;
-import Models.Staff;
 import Utils.JwtUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,12 +14,15 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.StringJoiner;
 
 /**
  *
  * @author Duy
  */
-public class ManagerLoginController extends HttpServlet {
+public class DashboardController extends HttpServlet {
 
 	/**
 	 * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,17 +41,16 @@ public class ManagerLoginController extends HttpServlet {
 			out.println("<!DOCTYPE html>");
 			out.println("<html>");
 			out.println("<head>");
-			out.println("<title>Servlet ManagerLogin</title>");
+			out.println("<title>Servlet DashboardController</title>");
 			out.println("</head>");
 			out.println("<body>");
-			out.println("<h1>Servlet ManagerLogin at " + request.getContextPath() + "</h1>");
+			out.println("<h1>Servlet DashboardController at " + request.getContextPath() + "</h1>");
 			out.println("</body>");
 			out.println("</html>");
 		}
 	}
 
-	// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the
-	// + sign on the left to edit the code.">
+	// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 	/**
 	 * Handles the HTTP <code>GET</code> method.
 	 *
@@ -59,32 +63,61 @@ public class ManagerLoginController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		Cookie[] cookies = request.getCookies();
-		Cookie loginCookie = null;
+		Cookie managerCookie = null;
 		for (Cookie cookie : cookies) {
 			if (cookie.getName().equals("manager")) {
-				loginCookie = cookie;
+				managerCookie = cookie;
 			}
 		}
-
-		if (loginCookie != null) {
-			String username = JwtUtils.getContentFromToken(loginCookie.getValue());
-			AdminDAO adminDAO = new AdminDAO();
-			Admin admin = adminDAO.getAdminByUsername(username);
-
-			StaffDAO staffDAO = new StaffDAO();
-			Staff staff = staffDAO.getStaffByUsername(username);
-
-			if (admin != null) {
-				response.sendRedirect("/dashboard");
-			} else if (staff != null) {
-				response.sendRedirect("/staffManager");
-			} else {
-				request.getRequestDispatcher("/managerLogin.jsp").forward(request, response);
-			}
-		} else {
-			request.getRequestDispatcher("/managerLogin.jsp").forward(request, response);
+		if (managerCookie == null) {
+			response.sendRedirect("/managerLogin");
+			return;
 		}
+		String username = JwtUtils.getContentFromToken(managerCookie.getValue());
+		AdminDAO adminDAO = new AdminDAO();
+		Admin admin = adminDAO.getAdminByUsername(username);
+		if (admin == null) {
+			response.sendRedirect("/managerLogin");
+			return;
+		}
+		request.setAttribute("admin", admin);
 
+		//total revenue
+		OrderDAO orderDAO = new OrderDAO();
+		float totalRevenue = orderDAO.getTotalRevenue();
+		int totalOrder = orderDAO.getOrderCount();
+
+		ProductDAO productDAO = new ProductDAO();
+		int totalProduct = productDAO.getProductCount();
+
+		CustomerDAO customerDAO = new CustomerDAO();
+		StaffDAO staffDAO = new StaffDAO();
+		int totalCustomer = customerDAO.getCustomerCount();
+		int totalStaff = staffDAO.getStaffCount();
+		int totalAdmin = adminDAO.getAdminsCount();
+		int totalUsers = totalCustomer + totalStaff + totalAdmin;
+
+		request.setAttribute("totalRevenue", totalRevenue);
+		request.setAttribute("totalOrder", totalOrder);
+		request.setAttribute("totalProduct", totalProduct);
+		request.setAttribute("totalUsers", totalUsers);
+
+		//chart data
+		StringJoiner Revenuejoiner = new StringJoiner(", ");
+		for (int i = 1; i <= 12; i++) {
+			Revenuejoiner.add(String.valueOf(orderDAO.getTotalRevenueByMonth(i)));
+		}
+		String revenueData = Revenuejoiner.toString();
+
+		StringJoiner orderJoiner = new StringJoiner(", ");
+		for (int i = 1; i <= 12; i++) {
+			orderJoiner.add(String.valueOf(orderDAO.geTotalOrderByMonth(i)));
+		}
+		String orderData = orderJoiner.toString();
+
+		request.setAttribute("revenueDate", revenueData);
+		request.setAttribute("orderData", orderData);
+		request.getRequestDispatcher("/dashboard.jsp").forward(request, response);
 	}
 
 	/**
@@ -98,37 +131,7 @@ public class ManagerLoginController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		if (request.getParameter("btnManagerLogin") != null) {
-			String username = request.getParameter("username").toLowerCase();
-			String password = request.getParameter("password");
-			StaffDAO staffDAO = new StaffDAO();
-			Staff staff = staffDAO.checkLogin(username, password);
-			if (staff != null) {
-				String token = JwtUtils.generateToken(username);
-				Cookie cookie = new Cookie("manager", token);
-				cookie.setMaxAge(3 * 24 * 60 * 60);
-				cookie.setPath("/");
-				response.addCookie(cookie);
-				response.sendRedirect("/staffManager");
-				return;
-			}
-
-			AdminDAO adminDAO = new AdminDAO();
-			Admin admin = adminDAO.checkLogin(username, password);
-			if (admin != null) {
-				String token = JwtUtils.generateToken(username);
-				Cookie cookie = new Cookie("manager", token);
-				cookie.setMaxAge(3 * 24 * 60 * 60);
-				cookie.setPath("/");
-				response.addCookie(cookie);
-				response.sendRedirect("/dashboard");
-				return;
-			}
-
-			request.getSession().setAttribute("error", "Username and password incorrect");
-			response.sendRedirect("/managerLogin");
-		}
+		processRequest(request, response);
 	}
 
 	/**
