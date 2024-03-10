@@ -5,58 +5,59 @@ package Models;
  * @author Duy
  */
 public class Cart {
-    private String cartId;
-    private int quantity;
-    private float totalPrice;
-    private String customerId;
-    private String variantId;
 
-    public Cart(String cartId, int quantity, float totalPrice, String customerId, String variantId) {
-        this.cartId = cartId;
-        this.quantity = quantity;
-        this.totalPrice = totalPrice;
-        this.customerId = customerId;
-        this.variantId = variantId;
-    }
+	private String cartId;
+	private int quantity;
+	private float totalPrice;
+	private String customerId;
+	private ProductVariant productVariant;
 
-    public String getCustomerId() {
-        return customerId;
-    }
+	public Cart(String cartId, int quantity, float totalPrice, String customerId, ProductVariant productVariant) {
+		this.cartId = cartId;
+		this.quantity = quantity;
+		this.totalPrice = totalPrice;
+		this.customerId = customerId;
+		this.productVariant = productVariant;
+	}
 
-    public void setCustomerId(String customerId) {
-        this.customerId = customerId;
-    }
+	public String getCartId() {
+		return cartId;
+	}
 
-    public String getVariantId() {
-        return variantId;
-    }
+	public void setCartId(String cartId) {
+		this.cartId = cartId;
+	}
 
-    public void setVariantId(String variantId) {
-        this.variantId = variantId;
-    }
+	public int getQuantity() {
+		return quantity;
+	}
 
-    public String getCartId() {
-        return cartId;
-    }
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
 
-    public void setCartId(String cartId) {
-        this.cartId = cartId;
-    }
+	public float getTotalPrice() {
+		return totalPrice;
+	}
 
-    public int getQuantity() {
-        return quantity;
-    }
+	public void setTotalPrice(float totalPrice) {
+		this.totalPrice = totalPrice;
+	}
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
+	public String getCustomerId() {
+		return customerId;
+	}
 
-    public float getTotalPrice() {
-        return totalPrice;
-    }
+	public void setCustomerId(String customerId) {
+		this.customerId = customerId;
+	}
 
-    public void setTotalPrice(float totalPrice) {
-        this.totalPrice = totalPrice;
-    }
+	public ProductVariant getProductVariant() {
+		return productVariant;
+	}
+
+	public void setProductVariant(ProductVariant productVariant) {
+		this.productVariant = productVariant;
+	}
 
 }

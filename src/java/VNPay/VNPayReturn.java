@@ -3,6 +3,7 @@ package VNPay;
 import DAOs.CartDAO;
 import DAOs.OrderDAO;
 import DAOs.OrderDetailDAO;
+import DAOs.ProductVariantsDAO;
 import Models.Cart;
 import Models.Order;
 import Models.OrderDetail;
@@ -99,7 +100,7 @@ public class VNPayReturn extends HttpServlet {
 			String bankCode = request.getParameter("vnp_BankCode");
 			String payDate = request.getParameter("vnp_PayDate");
 			try {
-				int amountDraw = Integer.parseInt(amount) / (24500 * 100);
+				long amountDraw = Long.parseLong(amount) / (24500 * 100);
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 				Date date = sdf.parse(payDate);
 				Timestamp timestamp = new Timestamp(date.getTime());
@@ -110,12 +111,26 @@ public class VNPayReturn extends HttpServlet {
 					orderDAO.addOrder(newOrder);
 					OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
 					CartDAO cartDAO = new CartDAO();
+					ProductVariantsDAO productVariantDAO = new ProductVariantsDAO();
 					List<Cart> carts = cartDAO.getCartByCusID(customerId);
 					List<OrderDetail> orderDetails = new ArrayList<>();
+					String orderDetailId = CreateID.autoIncreaseID(orderDetailDAO.getAllOrderDetailID(), "OrderD");
 					for (Cart cart : carts) {
-						String orderDetailId = CreateID.autoIncreaseID(orderDetailDAO.getAllOrderDetailID(), "OrderD");
-						OrderDetail orderDetail = new OrderDetail(orderDetailId, cart.getTotalPrice(), cart.getQuantity(), orderId, cart.getVariantId());
+						OrderDetail orderDetail = new OrderDetail(orderDetailId, cart.getTotalPrice(), cart.getQuantity(), orderId, cart.getProductVariant().getVariantId());
 						orderDetails.add(orderDetail);
+						int IDCount = Integer.parseInt(orderDetailId.replaceAll("[^0-9]", ""));
+						orderDetailId = "OrderD" + (IDCount + 1);
+						int stockQuantity = cart.getProductVariant().getStockQuantity() - cart.getQuantity();
+						if (stockQuantity >= 0) {
+							boolean result = productVariantDAO.UpdateStockVar(cart.getProductVariant().getVariantId(), stockQuantity);
+							if (!result) {
+								request.getSession().setAttribute("error", "Order failed!");
+								return;
+							}
+						} else {
+							request.getSession().setAttribute("error", "Quantity is not enough!");
+							return;
+						}
 					}
 
 					boolean result = orderDetailDAO.addOrderDetails(orderDetails);
