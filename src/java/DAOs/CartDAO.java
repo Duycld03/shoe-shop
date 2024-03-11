@@ -190,17 +190,16 @@ public class CartDAO {
 		return count;
 	}
 
-	public Cart checkCartExist(String customerId, String productID) {
-
-		String query = "select * from Carts\r\n"
-				+ "where [customerId] = ? and [variantId] = ?";
+	public Cart checkCartExist(String customerId, String variantId) {
+		String sql = "SELECT *\n"
+				+ "FROM Carts\n"
+				+ "INNER JOIN ProductVariants ON Carts.VariantID = ProductVariants.VariantID where CustomerID = ? and ProductVariants.VariantID = ?";
 		try {
-			ps = conn.prepareStatement(query);
+			ps = conn.prepareStatement(sql);
 			ps.setString(1, customerId);
-			ps.setString(2, productID);
+			ps.setString(2, variantId);
 			rs = ps.executeQuery();
-			while (rs.next()) {
-				String variantId = rs.getString("VariantID");
+			if (rs.next()) {
 				ProductVariant productVariant = new ProductVariant(variantId, rs.getString("Color"), rs.getInt("Size"), rs.getInt("StockQuantity"), rs.getString("ProductID"), false);
 				Cart cart = new Cart(rs.getString("CartID"), rs.getInt("Quantity"), rs.getFloat("TotalPrice"),
 						rs.getString("CustomerID"), productVariant);
@@ -284,6 +283,22 @@ public class CartDAO {
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
+	}
+
+	public List<String> getAllCartID() {
+		List<String> cartIDs = new ArrayList<>();
+		String sql = "select CartID from Carts";
+		try {
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				String cartID = rs.getString("CartID");
+				cartIDs.add(cartID);
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return cartIDs;
 	}
 
 	public static void main(String[] args) {
