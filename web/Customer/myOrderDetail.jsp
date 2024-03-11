@@ -66,7 +66,10 @@
                             </c:forEach>
                         </div>
                         <div
-                            class="footer-order md:flex justify-end justify-items-center md:p-3">
+                            class="footer-order md:flex justify-between justify-items-center md:p-3">
+                            <a href="/profile/orderHistory" class=" bg-gray-300 hover:bg-black font-bold py-2 px-2 hover:text-white rounded-xl border-2 border-gray-500">
+                                Back to List
+                            </a>
                             <div>
                                 <div>Total:</div>
                                 <div class="font-bold text-2xl">${order.totalAmount}$</div>
