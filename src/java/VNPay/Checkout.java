@@ -112,7 +112,6 @@ public class Checkout extends HttpServlet {
 			OrderDAO orderDAO = new OrderDAO();
 			String orderId = CreateID.autoIncreaseID(orderDAO.getAllOrderID(), "Order");
 			Order newOrder = new Order(orderId, amountCOD, timestamp, "Pending", "Processing", customerId, "COD", null);
-			orderDAO.addOrder(newOrder);
 
 			OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
 			List<OrderDetail> orderDetails = new ArrayList<>();
@@ -136,6 +135,7 @@ public class Checkout extends HttpServlet {
 				}
 			}
 
+			orderDAO.addOrder(newOrder);
 			boolean result = orderDetailDAO.addOrderDetails(orderDetails);
 			if (result) {
 				cartDAO.deleteCartByCusId(customerId);
