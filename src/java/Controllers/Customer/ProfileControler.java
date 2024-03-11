@@ -23,6 +23,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -35,15 +36,15 @@ public class ProfileControler extends HttpServlet {
 	 * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
 	 * methods.
 	 *
-	 * @param request  servlet request
+	 * @param request servlet request
 	 * @param response servlet response
 	 * @throws ServletException if a servlet-specific error occurs
-	 * @throws IOException      if an I/O error occurs
+	 * @throws IOException if an I/O error occurs
 	 */
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
-		try (PrintWriter out = response.getWriter()) {
+		try ( PrintWriter out = response.getWriter()) {
 			/* TODO output your page here. You may use following sample code. */
 			out.println("<!DOCTYPE html>");
 			out.println("<html>");
@@ -62,10 +63,10 @@ public class ProfileControler extends HttpServlet {
 	/**
 	 * Handles the HTTP <code>GET</code> method.
 	 *
-	 * @param request  servlet request
+	 * @param request servlet request
 	 * @param response servlet response
 	 * @throws ServletException if a servlet-specific error occurs
-	 * @throws IOException      if an I/O error occurs
+	 * @throws IOException if an I/O error occurs
 	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -117,15 +118,57 @@ public class ProfileControler extends HttpServlet {
 	/**
 	 * Handles the HTTP <code>POST</code> method.
 	 *
-	 * @param request  servlet request
+	 * @param request servlet request
 	 * @param response servlet response
 	 * @throws ServletException if a servlet-specific error occurs
-	 * @throws IOException      if an I/O error occurs
+	 * @throws IOException if an I/O error occurs
 	 */
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		processRequest(request, response);
+		HttpSession session = request.getSession();
+		if (request.getParameter("btnSave") != null) {
+			String customerId = request.getParameter("customerId");
+			String fullname = request.getParameter("fullname");
+			String password = request.getParameter("password");
+			String email = request.getParameter("email");
+			String phoneNumber = request.getParameter("phoneNumber");
+			CustomerDAO customerDAO = new CustomerDAO();
+			AdminDAO adminDAO = new AdminDAO();
+			StaffDAO staffDAO = new StaffDAO();
+			Customer customer = customerDAO.getCustomerById(customerId);
+
+			if (!customer.getEmail().equals(email) && (customerDAO.getByEmail(email) != null
+					|| staffDAO.getStaffByEmail(email) != null || adminDAO.getAdminByEmail(email) != null)) {
+				session.setAttribute("error", "Email already exists!");
+				response.sendRedirect("/profile");
+				return;
+			}
+
+			if (!customer.getPhoneNumber().equals(phoneNumber)
+					&& (customerDAO.getCustomerByPhoneNumber(phoneNumber) != null
+					|| staffDAO.getStaffByPhoneNumber(phoneNumber) != null
+					|| adminDAO.getAdminByPhoneNumber(phoneNumber) != null)) {
+				session.setAttribute("error", "Phone number already exists!");
+				response.sendRedirect("/profile");
+				return;
+			}
+
+			Customer newCustomer = new Customer(customerId, customer.getUsername(), password, email, fullname, phoneNumber);
+			if (!customer.getEmail().equals(email)) {
+				newCustomer.setSocialId("");
+
+			}
+			if (password.isEmpty()) {
+				customerDAO.updateCustomerWithoutPassword(newCustomer);
+				session.setAttribute("success", "Update successful!");
+				response.sendRedirect("/profile");
+			} else {
+				customerDAO.updateCustomerwithoutSociaID(newCustomer);
+				session.setAttribute("success", "Update successful!");
+				response.sendRedirect("/profile");
+			}
+		}
 	}
 
 	/**
