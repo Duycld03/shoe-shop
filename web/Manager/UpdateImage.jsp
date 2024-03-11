@@ -22,7 +22,7 @@
                         <c:set var="c" value="${requestScope.img}" />
                         <form action="/updateimage" method="post" enctype="multipart/form-data">
                             <div class="modal-header">
-                                <h4 class="modal-title">Add new Product Variant</h4>
+                                <h4 class="modal-title">Add new Product Image</h4>
                                 <button type="button" class="close" data-dismiss="modal"
                                     aria-hidden="true">&times;</button>
                             </div>

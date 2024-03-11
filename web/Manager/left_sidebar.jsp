@@ -106,16 +106,16 @@
                                 <div id="manager" style="display: none;">
                                     <a href="staffmanager" class="list-group-item list-group-item-action py-2 ripple">
                                         <i class="fas fa-user-circle fa-fw me-3"></i><span
-                                            style="margin-left: 5px">Staff manager</span>
+                                            style="margin-left: 5px">Staff account management</span>
                                     </a>
                                     <a href="adminmanager" class="list-group-item list-group-item-action py-2 ripple">
                                         <i class="fas fa-user-circle fa-fw me-3"></i><span
-                                            style="margin-left: 5px">Admin manager</span>
+                                            style="margin-left: 5px">Admin account management</span>
                                     </a>
                                     <a href="customermanager"
                                         class="list-group-item list-group-item-action py-2 ripple">
                                         <i class="fas fa-user-circle fa-fw me-3"></i><span
-                                            style="margin-left: 5px">Customer manager</span>
+                                            style="margin-left: 5px">Customer account management</span>
                                     </a>
                                 </div>
                             </c:if>
@@ -125,11 +125,11 @@
                                     manager</span>
                             </a>
                             <a href="brandmanager" class="list-group-item list-group-item-action py-2 ripple">
-                                <i class="fas fa-tag fa-fw me-3"></i><span style="margin-left: 5px">Brand manager</span>
+                                <i class="fas fa-tag fa-fw me-3"></i><span style="margin-left: 5px">Brand management</span>
                             </a>
                             <a href="ordermanagement" class="list-group-item list-group-item-action py-2 ripple">
                                 <i class="fas fa-clipboard-list fa-fw me-3"></i><span style="margin-left: 5px">Order
-                                    manager</span>
+                                    management</span>
                             </a>
 
 

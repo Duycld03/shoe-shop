@@ -95,7 +95,9 @@ public class ProfileControler extends HttpServlet {
 		String path = request.getRequestURI();
 		if (path.endsWith("/orderHistory")) {
 			OrderDAO orderDAO = new OrderDAO();
+                        OrderDetailDAO detailDao = new OrderDetailDAO();
 			List<Order> orders = orderDAO.getOrdersbyCustomerId(customer.getCustomerId());
+                        
 			request.setAttribute("orders", orders);
 			request.getRequestDispatcher("/Customer/myOrderHistory.jsp").forward(request, response);
 		} else if (path.endsWith("/orderHistory/orderDetail")) {
