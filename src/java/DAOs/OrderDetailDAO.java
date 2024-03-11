@@ -165,7 +165,7 @@ public class OrderDetailDAO {
             System.out.println("susscess");
         }
         for (OrderDetail orderDetail : list) {
-            System.out.println(orderDetail.getOrderDetailId());
+            System.out.println(orderDetail.getProductVariant().getColor());
         }
     }
 
