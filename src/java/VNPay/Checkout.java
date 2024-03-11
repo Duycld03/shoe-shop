@@ -3,6 +3,7 @@ package VNPay;
 import DAOs.CartDAO;
 import DAOs.OrderDAO;
 import DAOs.OrderDetailDAO;
+import DAOs.ProductVariantsDAO;
 import Models.Cart;
 import Models.Order;
 import Models.OrderDetail;
@@ -104,7 +105,7 @@ public class Checkout extends HttpServlet {
 			return;
 		}
 		if (paymentMethod.equals("COD")) {
-			long amountCOD = Integer.parseInt(request.getParameter("amount"));
+			long amountCOD = Long.parseLong(request.getParameter("amount"));
 			Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
 			Timestamp timestamp = new Timestamp(cld.getTimeInMillis());
 
@@ -115,10 +116,24 @@ public class Checkout extends HttpServlet {
 
 			OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
 			List<OrderDetail> orderDetails = new ArrayList<>();
+			ProductVariantsDAO productVariantDAO = new ProductVariantsDAO();
+			String orderDetailId = CreateID.autoIncreaseID(orderDetailDAO.getAllOrderDetailID(), "OrderD");
 			for (Cart cart : carts) {
-				String orderDetailId = CreateID.autoIncreaseID(orderDetailDAO.getAllOrderDetailID(), "OrderD");
-				OrderDetail orderDetail = new OrderDetail(orderDetailId, cart.getTotalPrice(), cart.getQuantity(), orderId, cart.getVariantId());
+				OrderDetail orderDetail = new OrderDetail(orderDetailId, cart.getTotalPrice(), cart.getQuantity(), orderId, cart.getProductVariant().getVariantId());
 				orderDetails.add(orderDetail);
+				int IDCount = Integer.parseInt(orderDetailId.replaceAll("[^0-9]", ""));
+				orderDetailId = "OrderD" + (IDCount + 1);
+				int stockQuantity = cart.getProductVariant().getStockQuantity() - cart.getQuantity();
+				if (stockQuantity >= 0) {
+					boolean result = productVariantDAO.UpdateStockVar(cart.getProductVariant().getVariantId(), stockQuantity);
+					if (!result) {
+						request.getSession().setAttribute("error", "Order failed!");
+						return;
+					}
+				} else {
+					request.getSession().setAttribute("error", "Quantity is not enough!");
+					return;
+				}
 			}
 
 			boolean result = orderDetailDAO.addOrderDetails(orderDetails);
@@ -141,7 +156,7 @@ public class Checkout extends HttpServlet {
 		String vnp_Version = "2.1.0";
 		String vnp_Command = "pay";
 		String orderType = "other";
-		long amount = Integer.parseInt(request.getParameter("amount")) * 24500 * 100;
+		long amount = Long.parseLong(request.getParameter("amount")) * 24500 * 100;
 		String bankCode = request.getParameter("bankCode");
 
 		String vnp_TxnRef = Config.getRandomNumber(8);

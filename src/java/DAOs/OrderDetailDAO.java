@@ -7,7 +7,9 @@ package DAOs;
 import DBConnection.DBConnection;
 import Models.Address;
 import Models.Admin;
+import Models.Cart;
 import Models.OrderDetail;
+import Models.ProductVariant;
 import Utils.MD5;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -131,11 +133,39 @@ public class OrderDetailDAO {
         return orderDetailIds;
     }
 
+    public List<OrderDetail> getOrderDetailsByOrderID(String orderID) {
+        List<OrderDetail> details = new ArrayList<>();
+        String sql = "SELECT *\n"
+                + "FROM OrderDetails\n"
+                + "INNER JOIN ProductVariants ON OrderDetails.VariantID = ProductVariants.VariantID where OrderID = ?";
+        try ( PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, orderID);
+            try ( ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    String variantId = rs.getString("VariantID");
+                    ProductVariant productVariant = new ProductVariant(variantId, rs.getString("Color"), rs.getInt("Size"), rs.getInt("StockQuantity"), rs.getString("ProductID"), false);
+                    OrderDetail detail = new OrderDetail(rs.getString(1), rs.getFloat(2), rs.getInt(3), rs.getString(4), rs.getString(5), productVariant);
+                    details.add(detail);
+                }
+            }
+            return details;
+        } catch (SQLException e) {
+            // Handle the exception appropriately (log, rethrow, etc.)
+            System.out.println("Error retrieving order details: " + e.getMessage());
+        }
+        return null;
+    }
+
     public static void main(String[] args) {
         OrderDetailDAO dao = new OrderDetailDAO();
-        List<OrderDetail> list = dao.getOrderDetailByOrderID("Oder1");
-        for (OrderDetail d : list) {
-            System.out.println(d.getOrderDetailId());
+        List<OrderDetail> list = dao.getOrderDetailsByOrderID("Order1");
+        if (dao.getOrderDetailsByOrderID("Order1") == null) {
+            System.out.println("failed");
+        }else {
+            System.out.println("susscess");
+        }
+        for (OrderDetail orderDetail : list) {
+            System.out.println(orderDetail.getOrderDetailId());
         }
     }
 
