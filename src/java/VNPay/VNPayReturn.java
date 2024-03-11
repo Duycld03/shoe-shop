@@ -108,7 +108,6 @@ public class VNPayReturn extends HttpServlet {
 					OrderDAO orderDAO = new OrderDAO();
 					String orderId = CreateID.autoIncreaseID(orderDAO.getAllOrderID(), "Order");
 					Order newOrder = new Order(orderId, amountDraw, timestamp, "Paid", "Processing", customerId, "VNPay", null);
-					orderDAO.addOrder(newOrder);
 					OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
 					CartDAO cartDAO = new CartDAO();
 					ProductVariantsDAO productVariantDAO = new ProductVariantsDAO();
@@ -133,6 +132,7 @@ public class VNPayReturn extends HttpServlet {
 						}
 					}
 
+					orderDAO.addOrder(newOrder);
 					boolean result = orderDetailDAO.addOrderDetails(orderDetails);
 					if (result) {
 						cartDAO.deleteCartByCusId(customerId);
