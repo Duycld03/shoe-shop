@@ -6,10 +6,17 @@ package Controllers.Customer;
 
 import DAOs.CartDAO;
 import DAOs.CustomerDAO;
+import DAOs.ProductDAO;
+import DAOs.ProductVariantsDAO;
 import Models.Account;
 import Models.Cart;
 import Models.Customer;
+import Models.Product;
+import Models.ProductVariant;
+import Utils.CreateID;
 import Utils.JwtUtils;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -25,83 +32,119 @@ import jakarta.servlet.http.HttpSession;
  */
 public class AddCartController extends HttpServlet {
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        String productID = request.getParameter("pid");
+	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		response.setContentType("text/html;charset=UTF-8");
+	}
 
-        Cookie[] cookies = request.getCookies();
-        Cookie loginCookie = null;
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals("login")) {
-                loginCookie = cookie;
-            }
-        }
-        if (loginCookie != null) {
-            response.sendRedirect("/login");
-        }
-        String username = JwtUtils.getUsernameFromToken(loginCookie.getValue());
-        CustomerDAO customerDAO = new CustomerDAO();
-        Customer a = customerDAO.getCustomerByUsername(username);
-        request.setAttribute("customer", a);
-        String accountID = a.getCustomerId();
-        int amount = Integer.parseInt(request.getParameter("quantity"));
+	// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+	/**
+	 * Handles the HTTP <code>GET</code> method.
+	 *
+	 * @param request servlet request
+	 * @param response servlet response
+	 * @throws ServletException if a servlet-specific error occurs
+	 * @throws IOException if an I/O error occurs
+	 */
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		processRequest(request, response);
+	}
 
-        String size = request.getParameter("size");
-//
-        CartDAO cart = new CartDAO();
-        Cart cartExisted = cart.checkCartExist(accountID, productID);
-        int amountExisted;
-        String sizeExisted;
-        if (cartExisted != null) {
-            amountExisted = cartExisted.getQuantity();
-            cart.editAmountAndSizeCart(accountID, productID, (amountExisted + amount));
-            request.setAttribute("mess", "Da tang so luong san pham!");
-            request.getRequestDispatcher("managerCart").forward(request, response);
-        } else {
-            cart.insertCart(accountID, productID, amount);
-            request.setAttribute("mess", "Da them san pham vao gio hang!");
-            request.getRequestDispatcher("managerCart").forward(request, response);
-        }
-    }
+	/**
+	 * Handles the HTTP <code>POST</code> method.
+	 *
+	 * @param request servlet request
+	 * @param response servlet response
+	 * @throws ServletException if a servlet-specific error occurs
+	 * @throws IOException if an I/O error occurs
+	 */
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
+		Cookie[] cookies = request.getCookies();
+		Cookie loginCookie = null;
+		for (Cookie cookie : cookies) {
+			if (cookie.getName().equals("login")) {
+				loginCookie = cookie;
+			}
+		}
+		if (loginCookie != null) {
+			response.sendRedirect("/customerLogin");
+		}
+		String username = JwtUtils.getContentFromToken(loginCookie.getValue());
+		CustomerDAO customerDAO = new CustomerDAO();
+		Customer customer = customerDAO.getCustomerByUsername(username);
+		request.setAttribute("customer", customer);
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
+		HttpSession session = request.getSession();
+		if (request.getParameter("addToCart") != null) {
+			int quantity = Integer.parseInt(request.getParameter("quantity"));
+			int size = Integer.parseInt(request.getParameter("size"));
+			String color = request.getParameter("color");
+			String productId = request.getParameter("productId");
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
+			ProductDAO productDAO = new ProductDAO();
+			Product product = productDAO.getProductByID(productId);
+
+			Gson gson = new Gson();
+			JsonObject job = new JsonObject();
+
+			CartDAO cartDAO = new CartDAO();
+			ProductVariantsDAO productVariantDAO = new ProductVariantsDAO();
+			String variantId = productVariantDAO.checkVariantExit(color, size, productId);
+			Cart cartExisted = cartDAO.checkCartExist(customer.getCustomerId(), variantId);
+			if (cartExisted != null) {
+				int stockQuantity = cartExisted.getQuantity() + quantity;
+				if (stockQuantity > cartExisted.getProductVariant().getStockQuantity()) {
+//					response.sendRedirect("/product?proID=" + productId);
+					job.addProperty("error", "Quantity is not enough!");
+					session.setAttribute("error", "Quantity is not enough!");
+					response.getWriter().write(gson.toJson(job));
+					response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+					return;
+				}
+				cartExisted.setQuantity(stockQuantity);
+				cartExisted.setTotalPrice(stockQuantity * product.getPrice());
+				int result = cartDAO.update(cartExisted);
+				if (result >= 1) {
+					job.addProperty("success", "Add To Cart successful!");
+					session.setAttribute("success", "Add To Cart successful!");
+				} else {
+					job.addProperty("error", "Add To Cart failed!");
+					session.setAttribute("error", "Add To Cart failed!");
+				}
+			} else {
+				ProductVariant productVariant = productVariantDAO.getVariantByID(variantId);
+				String cartId = CreateID.autoIncreaseID(cartDAO.getAllCartID(), "Cart");
+				Cart newCart = new Cart(cartId, quantity, quantity * product.getPrice(), customer.getCustomerId(), productVariant);
+				int result = cartDAO.add(newCart);
+				if (result >= 1) {
+					job.addProperty("success", "Add To Cart successful!");
+					session.setAttribute("success", "Add To Cart successful!");
+				} else {
+					job.addProperty("error", "Add To Cart failed!");
+					session.setAttribute("error", "Add To Cart failed!");
+					response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+					return;
+				}
+			}
+//			response.sendRedirect("/product?proID=" + productId);
+			response.getWriter().write(gson.toJson(job));
+			return;
+		}
+	}
+
+	/**
+	 * Returns a short description of the servlet.
+	 *
+	 * @return a String containing servlet description
+	 */
+	@Override
+	public String getServletInfo() {
+		return "Short description";
+	}// </editor-fold>
 
 }
