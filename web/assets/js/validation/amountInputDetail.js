@@ -1,26 +1,88 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Get the input element and buttons
-    const amountInput = document.getElementById('amountInput');
-    const subtractBtn = document.getElementById('subtractBtn');
-    const addBtn = document.getElementById('addBtn');
+	// Get the input element and buttons
+	const amountInput = document.getElementById('amountInput');
+	const subtractBtn = document.getElementById('subtractBtn');
+	const addBtn = document.getElementById('addBtn');
 
-    // Add click event listener to the subtract button
-    subtractBtn.addEventListener('click', function () {
-        // Get the current value and decrement by 1
-        let currentValue = parseInt(amountInput.value, 10) || 0;
-        currentValue = Math.max(currentValue - 1, 1);
+	// Add click event listener to the subtract button
+	subtractBtn.addEventListener('click', function () {
+		// Get the current value and decrement by 1
+		let currentValue = parseInt(amountInput.value, 10) || 0;
+		currentValue = Math.max(currentValue - 1, 1);
 
-        // Update the input value
-        amountInput.value = currentValue;
-    });
+		// Update the input value
+		amountInput.value = currentValue;
+	});
 
-    // Add click event listener to the add button
-    addBtn.addEventListener('click', function () {
-        // Get the current value and increment by 1
-        let currentValue = parseInt(amountInput.value, 10) || 0;
-        currentValue++;
+	// Add click event listener to the add button
+	addBtn.addEventListener('click', function () {
+		// Get the current value and increment by 1
+		let currentValue = parseInt(amountInput.value, 10) || 0;
+		currentValue++;
 
-        // Update the input value
-        amountInput.value = currentValue;
-    });
+		// Update the input value
+		amountInput.value = currentValue;
+	});
 });
+
+function selectColor(e) {
+	const colorElements = document.querySelectorAll(".color-label")
+	colorElements.forEach((el) => {
+		if (el.classList.contains("ring")) {
+			el.classList.remove("ring");
+		}
+	})
+	e.classList.add("ring")
+}
+
+function addToCart(productId) {
+	const color = document.querySelector('input[type="radio"].color:checked').value;
+	const size = document.querySelector("#size").value;
+	const quantity = document.querySelector("#amountInput").value;
+	console.log(color, size, quantity)
+	$.ajax({
+		url: '/addCart',
+		type: 'POST',
+		data: {
+			addToCart: "true",
+			quantity: quantity,
+			size: size,
+			color: color,
+			productId: productId
+		},
+		success: function (response) {
+			message("success", "Add To Cart successful!")
+		},
+		error: function (response) {
+			message("error", "Add To Cart failed!")
+		}
+	});
+}
+
+function handleColorChange(productId, e) {
+	$.ajax({
+		url: '/product',
+		type: 'POST',
+		data: {
+			getColorBySize: "true",
+			size: e.value,
+			productId: productId
+		},
+		success: function (response) {
+			const json = JSON.parse(response)
+			const data = json.data
+			console.log(data)
+			if (data) {
+				let colorHTML = ""
+				data.forEach((variant) => {
+					colorHTML += `<label class="color-label bg-${variant.color}-500 rounded-full w-7 h-7 border-3 border-transparent transition duration-200 ease-in-out" for="${variant.color}" onclick="selectColor(this)" onmouseenter = "this.style.border= '3px solid #40BFFF';" onmouseout = "this.style.border = '0px solid transparent';" > </label> <input class="color" hidden checked="true" type="radio" name="color" id="${variant.color}" value="${variant.color}">`
+				})
+				document.querySelector("#color").innerHTML = colorHTML
+			}
+		},
+		error: function (response) {
+			message("error", "Get Color Failed!")
+		}
+	});
+
+}

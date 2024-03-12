@@ -15,9 +15,9 @@
     </head>
 
     <body>
-        <% 
+        <%
           ProductDAO productDAO=new ProductDAO();
-          ProductVariantsDAO productVariantDAO= new ProductVariantsDAO(); 
+          ProductVariantsDAO productVariantDAO= new ProductVariantsDAO();
         %>
         <%@include file="/Components/header.jsp" %>
         <div class=" md:flex-wrap w-full h-auto md:flex md:justify-evenly md:my-4">
@@ -42,18 +42,17 @@
                             </div>
                         </div>
                         <div class="Body md:px-6 pt-3">
-                            <c:forEach var="de" items="${requestScope.orderDetails}"> 
+                            <c:forEach var="de" items="${requestScope.orderDetails}">
                                 <c:set var="orderDetail" value="${de}" />
                                 <%
                                         OrderDetail detail = (OrderDetail)pageContext.getAttribute("orderDetail");
                                         ProductVariant
                                         productVariant=productVariantDAO.getVariantByID(detail.getProductVariant().getVariantId());
-                                        Product
-                                        product=productDAO.getProductByID(productVariant.getProductId());
+                                        Product product=productDAO.getProductByID(productVariant.getProductId());
                                 %>
                                 <div class="product md:flex ">
                                     <img class="md:w-52 md:mr-3 md:mb-3"
-                                         src="/assets/img/products/<%= product.getPrimaryImage().getImageURL()%>">                         
+                                         src="/assets/img/products/<%= product.getPrimaryImage().getImageURL()%>">
                                     <div class="content_product">
                                         <h3 class="name-product font-bold">Adidas Pro3</h3>
                                         <div class="font-light">${de.getProductVariant().getColor()}/${de.getProductVariant().getSize()}</div>
