@@ -92,11 +92,22 @@
 							<button id="addBtn" class="plus text-sky-400 md:text-2xl"><i
 									class='bx bx-plus'></i></button>
 						</div>
-						<button onclick="addToCart('${product.productId}')"
-								class="Cart bg-sky-200 text-sky-500 flex md:p-3 items-center gap-4 rounded-lg md:py-0 py-3">
-							<i class='bx bx-cart text-2xl'></i>
-							Add to cart
-						</button>
+						<c:if test="${customer != null}">
+							<button onclick="addToCart('${product.productId}')"
+									class="Cart bg-sky-200 text-sky-500 flex md:p-3 items-center gap-4 rounded-lg md:py-0 py-3">
+								<i class='bx bx-cart text-2xl'></i>
+								Add to cart
+							</button>
+						</c:if>
+						<c:if test="${customer == null}">
+							<button onclick="message('warning', 'You are not logged in', 'Log in to add to cart', () => {
+										window.location.href = '/customerLogin'
+									})"
+									class="Cart bg-sky-200 text-sky-500 flex md:p-3 items-center gap-4 rounded-lg md:py-0 py-3">
+								<i class='bx bx-cart text-2xl'></i>
+								Add to cart
+							</button>
+						</c:if>
 					</div>
 				</div>
 			</div>
