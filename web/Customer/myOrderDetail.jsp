@@ -51,10 +51,9 @@
                                         Product
                                         product=productDAO.getProductByID(productVariant.getProductId());
                                 %>
-
                                 <div class="product md:flex ">
                                     <img class="md:w-52 md:mr-3 md:mb-3"
-                                         src="/assets/img/products/image Product1.jpg">                              
+                                         src="/assets/img/products/<%= product.getPrimaryImage().getImageURL()%>">                         
                                     <div class="content_product">
                                         <h3 class="name-product font-bold">Adidas Pro3</h3>
                                         <div class="font-light">${de.getProductVariant().getColor()}/${de.getProductVariant().getSize()}</div>

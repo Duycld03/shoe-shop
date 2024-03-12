@@ -268,9 +268,32 @@ public class ProductVariantsDAO {
         return null;
     }
 
+    public List<ProductVariant> getVariantsSize(String Color, String proID) {
+        List<ProductVariant> vars = new ArrayList<>();
+        String sql = "Select * from ProductVariants\n"
+                + "where Color like ? and ProductID = ? and isDelete = 0\n"
+                + "\n"
+                + "\n"
+                + "";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, Color);
+            ps.setString(2, proID);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                ProductVariant var = new ProductVariant(rs.getString(1), rs.getString(3), rs.getInt(2), rs.getInt(4), rs.getString(6), rs.getBoolean(5));
+                vars.add(var);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+        return vars;
+    }
+
     public static void main(String[] args) {
         ProductVariantsDAO dao = new ProductVariantsDAO();
-        List<ProductVariant> var = dao.getVariantByProID2("P1");
+        List<ProductVariant> var = dao.getVariantsSize("green", "P1");
         for (ProductVariant productVariant : var) {
             System.out.println(productVariant.getSize());
         }

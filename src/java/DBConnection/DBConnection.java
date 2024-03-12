@@ -10,7 +10,7 @@ public class DBConnection {
 
 	private static String server = "localhost";
 	private static String port = "1433";
-	private static String database = "ShoeStoreManagement3";
+	private static String database = "ShoeStoreManagementVer9";
 	private static String user = "sa";
 	private static String password = "12345";
 

@@ -204,6 +204,7 @@
         <servlet-name>UpdateAdminController</servlet-name>
         <servlet-class>Controllers.Manager.Admin.UpdateAdminController</servlet-class>
     </servlet>
+
     <servlet-mapping>
         <servlet-name>default</servlet-name>
         <url-pattern>*.css</url-pattern>
@@ -415,6 +416,10 @@
     <servlet-mapping>
         <servlet-name>UpdateAdminController</servlet-name>
         <url-pattern>/loadAdmin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProductVarinat</servlet-name>
+        <url-pattern>/productvarinat</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
