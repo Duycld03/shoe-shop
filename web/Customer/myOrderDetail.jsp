@@ -50,7 +50,6 @@
                                         productVariant=productVariantDAO.getVariantByID(detail.getProductVariant().getVariantId());
                                         Product product=productDAO.getProductByID(productVariant.getProductId());
                                 %>
-
                                 <div class="product md:flex ">
                                     <img class="md:w-52 md:mr-3 md:mb-3"
                                          src="/assets/img/products/<%= product.getPrimaryImage().getImageURL()%>">

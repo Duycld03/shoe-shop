@@ -108,9 +108,9 @@ public class ProductController extends HttpServlet {
 			request.setAttribute("listImg", img);
 			request.setAttribute("relateP", top4Relate);
 
-		}
-		request.getRequestDispatcher("/Common/productDetail.jsp").forward(request, response);
-	}
+        }
+        request.getRequestDispatcher("/Common/productDetail.jsp").forward(request, response);
+    }
 
 	/**
 	 * Handles the HTTP <code>POST</code> method.
@@ -139,14 +139,14 @@ public class ProductController extends HttpServlet {
 		}
 	}
 
-	/**
-	 * Returns a short description of the servlet.
-	 *
-	 * @return a String containing servlet description
-	 */
-	@Override
-	public String getServletInfo() {
-		return "Short description";
-	}// </editor-fold>
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
 
 }
