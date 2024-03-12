@@ -60,8 +60,8 @@
 					<div
 						class="select_Color md:text-xl grid md:grid-cols-2 md:gap-0 gap-5 md:w-3/4 md:mb-4 w-full">
 						<div class="color_Content text-xl font-bold">Select Color:</div>
-						<div class="color grid grid-cols-4">
-							<c:forEach var="proVarC" items="${listVar}">
+						<div class="color grid grid-cols-4" id="color">
+							<c:forEach var="proVarC" items="${variantBySize}">
 								<label class="color-label bg-${proVarC.color}-500 rounded-full w-7 h-7 border-3 border-transparent transition duration-200 ease-in-out" for="${proVarC.color}" onclick="selectColor(this)"
 									   onmouseenter="this.style.border= '3px solid #40BFFF';"
 									   onmouseout="this.style.border = '0px solid transparent';"></label>
@@ -74,9 +74,9 @@
 					</div>
 					<div class="select_Size text-xl grid grid-cols-2 w-full md:w-3/4 items-center">
 						<div class="color_Content text-xl font-bold">Size:</div>
-						<Select class="border-2 rounded-lg p-2 md:w-52" id="size" >
-							<c:forEach var="proVarS" items="${listVar}">
-								<option value="${proVarS.size}">${proVarS.size}</option>
+						<Select class="border-2 rounded-lg p-2 md:w-52" id="size" onchange="handleColorChange('${product.productId}', this)" >
+							<c:forEach var="size" items="${sizeList}">
+								<option value="${size}">${size}</option>
 							</c:forEach>
 						</Select>
 					</div>

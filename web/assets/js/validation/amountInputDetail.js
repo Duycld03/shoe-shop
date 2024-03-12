@@ -58,3 +58,31 @@ function addToCart(productId) {
 		}
 	});
 }
+
+function handleColorChange(productId, e) {
+	$.ajax({
+		url: '/product',
+		type: 'POST',
+		data: {
+			getColorBySize: "true",
+			size: e.value,
+			productId: productId
+		},
+		success: function (response) {
+			const json = JSON.parse(response)
+			const data = json.data
+			console.log(data)
+			if (data) {
+				let colorHTML = ""
+				data.forEach((variant) => {
+					colorHTML += `<label class="color-label bg-${variant.color}-500 rounded-full w-7 h-7 border-3 border-transparent transition duration-200 ease-in-out" for="${variant.color}" onclick="selectColor(this)" onmouseenter = "this.style.border= '3px solid #40BFFF';" onmouseout = "this.style.border = '0px solid transparent';" > </label> <input class="color" hidden checked="true" type="radio" name="color" id="${variant.color}" value="${variant.color}">`
+				})
+				document.querySelector("#color").innerHTML = colorHTML
+			}
+		},
+		error: function (response) {
+			message("error", "Get Color Failed!")
+		}
+	});
+
+}

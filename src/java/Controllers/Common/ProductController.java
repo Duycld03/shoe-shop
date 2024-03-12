@@ -14,6 +14,8 @@ import Models.Product;
 import Models.ProductImage;
 import Models.ProductVariant;
 import Utils.JwtUtils;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -90,14 +92,19 @@ public class ProductController extends HttpServlet {
 		String BrandID = pro.getBrandId();// Lay brandID
 		Brand brand = br.getBrandById(BrandID); // Select Brand
 		List<Product> top4Relate = proDao.getTop4RelatePro(BrandID);// Select Top 4 relate
-		List<ProductImage> img = proDao.getImages(productID);// Líst subImg
+		List<ProductImage> img = proDao.getImages(productID);// List subImg
 		List<ProductVariant> listVar = var.getVariantByProID(productID);// Select all Variant
+
+		List<Integer> sizeList = var.getSizeByProID(productID);
+		List<ProductVariant> variantBySize = var.getVariantBySizeAndProId(sizeList.get(0), productID);
 		if (pro == null) {
 			request.setAttribute("error", "Khong co du lieu");
 		} else {
 			request.setAttribute("product", pro);
 			request.setAttribute("brand", brand);
 			request.setAttribute("listVar", listVar);
+			request.setAttribute("sizeList", sizeList);
+			request.setAttribute("variantBySize", variantBySize);
 			request.setAttribute("listImg", img);
 			request.setAttribute("relateP", top4Relate);
 
@@ -116,6 +123,20 @@ public class ProductController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		if (request.getParameter("getColorBySize") != null) {
+			String productId = request.getParameter("productId");
+			int size = Integer.parseInt(request.getParameter("size"));
+
+			ProductVariantsDAO productVariantDAO = new ProductVariantsDAO();
+			List<ProductVariant> variantBySize = productVariantDAO.getVariantBySizeAndProId(size, productId);
+
+			Gson gson = new Gson();
+			JsonObject job = new JsonObject();
+			job.add("data", gson.toJsonTree(variantBySize));
+
+			response.getWriter().write(gson.toJson(job));
+			return;
+		}
 	}
 
 	/**
