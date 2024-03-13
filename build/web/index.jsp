@@ -152,19 +152,11 @@
             </div>
         </section>
 
-        <!-- search-box -->
-        <!-- <section class="mx-4 flex justify-center mb-24">
-        <input type="text"
-                class="h-8 md:h-16 w-full md:w-[500px] outline-none border-2 border-[#BCDDFE] border-r-0 p-5"
-                placeholder="Search query...">
-        <button
-                class="text-white text-sm md:text-xl font-semibold bg-[#40BFFF] w-20 md:w-32 md:h-16">Search</button>
-</section> -->
 
         <!-- footer -->
         <c:if test="${sessionScope.checkoutSuccess != null}">
             <script>
-                                            message("success", "${sessionScope.checkoutSuccess}", "Thank you for your purchase")
+				message("success", "${sessionScope.checkoutSuccess}", "Thank you for your purchase")
             </script>
             <% session.removeAttribute("checkoutSuccess"); %>
         </c:if>

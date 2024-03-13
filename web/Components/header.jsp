@@ -71,7 +71,7 @@
 	<hr>
 	<div class="px-4 md:px-24 flex md:justify-between items-center py-4 flex-col md:flex-row">
 		<div class="mb-4 md:mb-0">
-			<a href="#" class="flex items-center space-x-2">
+			<a href="/" class="flex items-center space-x-2">
 				<img src="/assets/img/svg/Icon.svg" alt="">
 				<span class="font-bold text-lg">E-Comm</span>
 			</a>

@@ -64,8 +64,7 @@
                                 <label class="color-label bg-${proVarC.color}-500 rounded-full w-7 h-7 border-3 border-transparent transition duration-200 ease-in-out" for="${proVarC.color}" onclick="selectColor(this)"
                                        onmouseenter="this.style.border= '3px solid #40BFFF';"
                                        onmouseout="this.style.border = '0px solid transparent';"></label>
-                                <input class="color" hidden checked="true"
-                                       type="radio" name="color" id="${proVarC.color}" value="${proVarC.color}">
+                                <input class="color" hidden type="radio" name="color" id="${proVarC.color}" value="${proVarC.color}">
                             </c:forEach>
 
 
@@ -99,10 +98,10 @@
                             </button>
                         </c:if>
                         <c:if test="${customer == null}">
-                            <button onclick="message('warning', 'You are not logged in', 'Log in to add to cart', () => {
-                                                                    window.location.href = '/customerLogin'
-                                                                })"
-                                    class="Cart bg-sky-200 text-sky-500 flex md:p-3 items-center gap-4 rounded-lg md:py-0 py-3">
+								<button onclick="message('warning', 'You are not logged in', 'Log in to add to cart', () => {
+										window.location.href = '/customerLogin'
+									})"
+								class="Cart bg-sky-200 text-sky-500 flex md:p-3 items-center gap-4 rounded-lg md:py-0 py-3">
                                 <i class='bx bx-cart text-2xl'></i>
                                 Add to cart
                             </button>
