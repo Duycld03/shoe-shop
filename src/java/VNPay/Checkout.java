@@ -1,9 +1,11 @@
 package VNPay;
 
+import DAOs.AddressDAO;
 import DAOs.CartDAO;
 import DAOs.OrderDAO;
 import DAOs.OrderDetailDAO;
 import DAOs.ProductVariantsDAO;
+import Models.Address;
 import Models.Cart;
 import Models.Order;
 import Models.OrderDetail;
@@ -89,18 +91,23 @@ public class Checkout extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		//from Cart page
+		JsonObject job = new JsonObject();
+		Gson gson = new Gson();
 		String paymentMethod = request.getParameter("paymentMethod");
 		String customerId = request.getParameter("customerId");
 		CartDAO cartDAO = new CartDAO();
 		List<Cart> carts = cartDAO.getCartByCusID(customerId);
+		AddressDAO addressDAO = new AddressDAO();
+		Address address = addressDAO.getAddressByCusId(customerId);
+		if (address == null) {
+			request.getSession().setAttribute("error", "You don't have a priamry address yet");
+			job.addProperty("paymentMethod", "error");
+			response.getWriter().write(gson.toJson(job));
+			return;
+		}
 		if (carts == null || carts.isEmpty()) {
 			request.getSession().setAttribute("error", "Cart is empty!");
-
-			com.google.gson.JsonObject job = new JsonObject();
 			job.addProperty("paymentMethod", "error");
-
-			Gson gson = new Gson();
 			response.getWriter().write(gson.toJson(job));
 			return;
 		}
@@ -144,11 +151,9 @@ public class Checkout extends HttpServlet {
 				request.getSession().setAttribute("error", "Order failed!");
 			}
 
-			com.google.gson.JsonObject job = new JsonObject();
 			job.addProperty("paymentMethod", "COD");
 			job.addProperty("message", "success");
 
-			Gson gson = new Gson();
 			response.getWriter().write(gson.toJson(job));
 			return;
 		}
@@ -224,13 +229,11 @@ public class Checkout extends HttpServlet {
 		String vnp_SecureHash = Config.hmacSHA512(Config.secretKey, hashData.toString());
 		queryUrl += "&vnp_SecureHash=" + vnp_SecureHash;
 		String paymentUrl = Config.vnp_PayUrl + "?" + queryUrl;
-		com.google.gson.JsonObject job = new JsonObject();
 		job.addProperty("code", "00");
 		job.addProperty("paymentMethod", "VNPay");
 		job.addProperty("message", "success");
 		job.addProperty("data", paymentUrl);
 
-		Gson gson = new Gson();
 		response.getWriter().write(gson.toJson(job));
 	}
 
