@@ -102,11 +102,11 @@ public class ProfileControler extends HttpServlet {
             request.setAttribute("orders", orders);
             request.getRequestDispatcher("/Customer/myOrderHistory.jsp").forward(request, response);
         } else if (path.endsWith("/orderHistory/orderDetail")) {
-            String orderDetailId = request.getParameter("id");
+            String orderID = request.getParameter("id");
             OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
             OrderDAO orderDao = new OrderDAO();
-            Order order = orderDao.getOrderById(orderDetailId);
-            List<OrderDetail> orderDetails = orderDetailDAO.getOrderDetailsByOrderID(orderDetailId);
+            Order order = orderDao.getOrderById(orderID);
+            List<OrderDetail> orderDetails = orderDetailDAO.getOrderDetailsByOrderID(orderID);
             request.setAttribute("order", order);
             request.setAttribute("orderDetails", orderDetails);
             request.getRequestDispatcher("/Customer/myOrderDetail.jsp").forward(request, response);
