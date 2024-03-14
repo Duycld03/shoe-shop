@@ -159,7 +159,7 @@
                         <div class="row" style="margin-bottom: 15px">
                             <div class="col-sm-3 d-flex align-items-center">
                                 <h5 class="mb-0 text-left">
-                                    <strong>CUSTOMER MANAGER</strong>
+                                    <strong>CUSTOMER MANAGEMENT</strong>
                                 </h5>
                             </div>
                             <div class="col-sm-9 text-right">

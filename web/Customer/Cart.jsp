@@ -134,8 +134,8 @@
                                         <td class="align-middle">
                                             <a href="#"
                                                onclick="messageConfirm('Delete product from cart!', () => {
-                                                           window.location.href = '/cartManagement/delete?cartId=${cart.cartId}'
-                                                       })"
+														   window.location.href = '/cartManagement/delete?cartId=${cart.cartId}'
+													   })"
                                                class="text-red-500 text-3xl">
                                                 <i class='bx bx-x'></i>
                                             </a>
@@ -223,98 +223,98 @@
     <link href="https://pay.vnpay.vn/lib/vnpay/vnpay.css" rel="stylesheet" />
     <script src="https://pay.vnpay.vn/lib/vnpay/vnpay.min.js"></script>
     <script>
-                                            function increaseQuantity(inputID) {
-                                                let inputQuantity = $("#" + inputID)
-                                                let quantity = Number(inputQuantity.val())
-                                                inputQuantity.val(quantity + 1)
-                                                inputQuantity.trigger('change')
-                                            }
-                                            function decreaseQuantity(inputID) {
-                                                let inputQuantity = $("#" + inputID)
-                                                let quantity = Number(inputQuantity.val())
-                                                if (quantity > 1) {
-                                                    inputQuantity.val(quantity - 1)
-                                                }
-                                                inputQuantity.trigger('change')
-                                            }
-                                            function updateQuantity(e, cartId) {
-                                                let quantity = e.target.value;
-                                                if (quantity <= 0) {
-                                                    quantity = 1
-                                                }
-                                                $.ajax({
-                                                    url: '/cartManagement',
-                                                    type: 'POST',
-                                                    data: {
-                                                        updateQuantity: "true",
-                                                        cartId: cartId,
-                                                        quantity: quantity
-                                                    },
-                                                    success: function (response) {
-                                                        const data = JSON.parse(response)
-                                                        if (data.status == "success") {
-                                                            reload()
-                                                        }
-                                                    },
-                                                    error: function (response) {
-                                                        const data = JSON.parse(response.responseJSON)
-                                                        message("error", data.error)
-                                                    }
-                                                });
-                                            }
-                                            function checkout() {
-                                                const total = document.querySelector("#total").innerText
-                                                const paymentMethod = document.querySelector("#paymentMethod").value
-                                                $.ajax({
-                                                    type: "POST",
-                                                    url: "/checkout",
-                                                    data: {
-                                                        paymentMethod: paymentMethod,
-                                                        amount: parseFloat(total.substring(1)),
-                                                        customerId: "${customer.customerId}"
-                                                    },
+											function increaseQuantity(inputID) {
+												let inputQuantity = $("#" + inputID)
+												let quantity = Number(inputQuantity.val())
+												inputQuantity.val(quantity + 1)
+												inputQuantity.trigger('change')
+											}
+											function decreaseQuantity(inputID) {
+												let inputQuantity = $("#" + inputID)
+												let quantity = Number(inputQuantity.val())
+												if (quantity > 1) {
+													inputQuantity.val(quantity - 1)
+												}
+												inputQuantity.trigger('change')
+											}
+											function updateQuantity(e, cartId) {
+												let quantity = e.target.value;
+												if (quantity <= 0) {
+													quantity = 1
+												}
+												$.ajax({
+													url: '/cartManagement',
+													type: 'POST',
+													data: {
+														updateQuantity: "true",
+														cartId: cartId,
+														quantity: quantity
+													},
+													success: function (response) {
+														const data = JSON.parse(response)
+														if (data.status == "success") {
+															reload()
+														}
+													},
+													error: function (response) {
+														const data = JSON.parse(response.responseJSON)
+														message("error", data.error)
+													}
+												});
+											}
+											function checkout() {
+												const total = document.querySelector("#total").innerText
+												const paymentMethod = document.querySelector("#paymentMethod").value
+												$.ajax({
+													type: "POST",
+													url: "/checkout",
+													data: {
+														paymentMethod: paymentMethod,
+														amount: parseFloat(total.substring(1)),
+														customerId: "${customer.customerId}"
+													},
 
-                                                    dataType: 'JSON',
-                                                    success: function (x) {
-                                                        if (x.paymentMethod == "VNPay") {
-                                                            if (x.code === '00') {
-                                                                if (window.vnpay) {
-                                                                    vnpay.open({width: 768, height: 600, url: x.data});
-                                                                } else {
-                                                                    location.href = x.data;
-                                                                }
-                                                            } else {
-                                                                alert(x.Message);
-                                                            }
-                                                        } else {
-                                                            window.location.href = "/"
-                                                        }
-                                                    },
-                                                    error: function (e) {
-                                                        console.log(e)
-                                                    }
-                                                });
-                                            }
-                                            function reload() {
-                                                $.ajax({
-                                                    url: '/cartManagement',
-                                                    type: 'POST',
-                                                    data: {
-                                                        reload: "true",
-                                                    },
-                                                    success: function (response) {
-                                                        const {carts, total} = JSON.parse(response)
-                                                        carts.forEach(cart => {
-                                                            document.querySelector("#totalPrice" + cart.cartId).innerText = "$" + cart.totalPrice
-                                                        })
-                                                        document.querySelector("#total").innerText = "$" + total
-                                                    },
-                                                    error: function (response) {
-                                                        const data = JSON.parse(response.responseJSON)
-                                                        message("error", data.error)
-                                                    }
-                                                });
-                                            }
+													dataType: 'JSON',
+													success: function (x) {
+														if (x.paymentMethod == "VNPay") {
+															if (x.code === '00') {
+																if (window.vnpay) {
+																	vnpay.open({width: 768, height: 600, url: x.data});
+																} else {
+																	location.href = x.data;
+																}
+															} else {
+																alert(x.Message);
+															}
+														} else {
+															window.location.href = "/"
+														}
+													},
+													error: function (e) {
+														console.log(e)
+													}
+												});
+											}
+											function reload() {
+												$.ajax({
+													url: '/cartManagement',
+													type: 'POST',
+													data: {
+														reload: "true",
+													},
+													success: function (response) {
+														const {carts, total} = JSON.parse(response)
+														carts.forEach(cart => {
+															document.querySelector("#totalPrice" + cart.cartId).innerText = "$" + cart.totalPrice
+														})
+														document.querySelector("#total").innerText = "$" + total
+													},
+													error: function (response) {
+														const data = JSON.parse(response.responseJSON)
+														message("error", data.error)
+													}
+												});
+											}
     </script>
 </body>
 

@@ -2,8 +2,10 @@ package DAOs;
 
 import DBConnection.DBConnection;
 import Models.Admin;
+import Models.Brand;
 import Models.Product;
 import Models.ProductImage;
+import Models.ProductVariant;
 import Utils.MD5;
 
 import java.sql.Connection;
@@ -11,7 +13,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -273,8 +277,8 @@ public class ProductDAO {
                 products.add(product);
             }
             return products;
-        } catch (SQLException ex) {
-            Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
         return null;
     }
@@ -373,6 +377,7 @@ public class ProductDAO {
             ps.executeUpdate();
             return true;
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
         return false;
     }
@@ -442,7 +447,7 @@ public class ProductDAO {
             ps.setFloat(2, pro.getPrice());
             ps.setFloat(3, pro.getDiscount());
             ps.setString(4, pro.getDescription());
-            ps.setBoolean(5, pro.getIsDelete());
+            ps.setBoolean(5, pro.isIsDeleted());
             ps.setString(6, pro.getBrandId());
             ps.setString(7, pro.getProductId());
             ps.executeUpdate();
@@ -466,14 +471,42 @@ public class ProductDAO {
         return count;
     }
 
+//	public List<Product> mapResultSetToProducts() {
+//		List<Product> products = new ArrayList<>();
+//
+//		String sql = "SELECT *\n"
+//				+ "FROM     Brands INNER JOIN\n"
+//				+ "                  Products ON Brands.BrandID = Products.BrandID INNER JOIN\n"
+//				+ "                  ProductImages ON Products.ProductID = ProductImages.ProductID INNER JOIN\n"
+//				+ "                  ProductVariants ON Products.ProductID = ProductVariants.ProductID\n"
+//				+ "				  where isDelete = 0 and isDeleted = 0";
+//		try {
+//			ps = conn.prepareCall(sql);
+//			rs = ps.executeQuery();
+//
+//			while (rs.next()) {
+//			}
+//
+//			return products;
+//		} catch (SQLException e) {
+//		}
+//		return null;
+//	}
     public static void main(String[] args) {
         ProductDAO d = new ProductDAO();
-        String proID = "P2";
-        if (d.softDeletePro(proID)) {
-            System.out.println("success");
+        String proid = "P24";
+        String proname = "JavaScript";
+        float price = 1000;
+        float discount = 1000;
+        String des = "......";
+        String brand = "Br2";
+        Product p = new Product(proid, proname, price, discount, des, brand, true);
+        if (d.addProduct(p)) {
+            System.out.println("sucess");
         } else {
-            System.out.println("false");
+            System.out.println("failed");
         }
+
     }
 
 }

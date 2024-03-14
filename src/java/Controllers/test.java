@@ -12,6 +12,7 @@ import Models.Product;
 import Models.ProductImage;
 import Utils.MD5;
 import Utils.*;
+import com.google.gson.Gson;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 
@@ -72,26 +73,9 @@ public class test extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-//		ProductDAO pDAO = new ProductDAO();
-//		List<ProductImage> images = pDAO.getImages("P001");
-//		for (ProductImage image : images) {
-//			System.out.println(image.getImageURL());
-//		}
-//		System.out.println(pDAO.getPrimaryImage("P001").getImageURL());
-//		System.out.println(MD5.getMd5("duy"));
-//		AdminDAO aDAO = new AdminDAO();
-//		System.out.println(aDAO.checkLogin("DuyNT", "12345"));
-
-//		StaffDAO sDAO = new StaffDAO();
-//		System.out.println(sDAO.checkLogin("DuyNT", "12345"));
-		CustomerDAO cDAO = new CustomerDAO();
-//		System.out.println(cDAO.checkLogin("DuyNT", "12345"));
-//		String token = JwtUtils.generateToken("duycld03");
-//		System.out.println(token);
-//		System.out.println(JwtUtils.getUsernameFromToken(token));
-		System.out.println(cDAO.getCustomerByPhoneNumber("0988309190"));
-
-		System.out.println(cDAO.getCustomerCount());
+		ProductDAO productDAO = new ProductDAO();
+//		List<Product> products = productDAO.mapResultSetToProducts();
+//		response.getWriter().println(new Gson().toJson(products));
 	}
 
 	/**

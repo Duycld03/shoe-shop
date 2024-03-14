@@ -37,7 +37,6 @@ public class ProductDAOTest {
 //        int resultSize = result.size();
 //        assertEquals(expectSize, resultSize);
 //    }
-
     /**
      * Test of searchProductByName method, of class ProductDAO.
      */
@@ -62,7 +61,6 @@ public class ProductDAOTest {
 //        int resultSize = result.size();
 //        assertEquals(expectSize, resultSize);
 //    }
-
     /**
      * Test of searchProductByName method, of class ProductDAO.
      */
@@ -75,70 +73,70 @@ public class ProductDAOTest {
         assertEquals(expectSize, resultSize);
     }
 
-    //Invalid ProductID
-//    @Test
-//    public void testAddProduct_test_1() {
-//        String productID = "";
-//        String productName = "";
-//        float price = 0;
-//        float discount = 0;
-//        String description = "";
-//        boolean isDelect = true;
-//        String BrandId = "";
-//        Product newPro = new Product(productID, productName, price, discount, description, BrandId, isDelect);
-//        boolean res = proDao.addProduct(newPro);
-//        assertFalse(res);
-//
-//    }
+//    Invalid ProductID
+    @Test
+    public void testAddProduct_test_1() {
+        String productID = "";
+        String productName = "";
+        float price = 0;
+        float discount = 0;
+        String description = "";
+        boolean isDelect = true;
+        String BrandId = "";
+        Product newPro = new Product(productID, productName, price, discount, description, BrandId, isDelect);
+        boolean res = proDao.addProduct(newPro);
+        assertFalse(res);
+
+    }
 
     //Invalid ProductID
-//    @Test
-//    public void testAddProduct_test_2() {
-//        String productID = "24P";
-//        String productName = "";
-//        float price = 0;
-//        float discount = 0;
-//        String description = "";
-//        boolean isDelect = true;
-//        String BrandId = "";
-//        Product newPro = new Product(productID, productName, price, discount, description, BrandId, isDelect);
-//        boolean res = proDao.addProduct(newPro);
-//        assertFalse(res);
-//
-//    }
+    @Test
+    public void testAddProduct_test_2() {
+        String productID = "24P";
+        String productName = "";
+        float price = 0;
+        float discount = 0;
+        String description = "";
+        boolean isDelect = true;
+        String BrandId = "";
+        Product newPro = new Product(productID, productName, price, discount, description, BrandId, isDelect);
+        boolean res = proDao.addProduct(newPro);
+        assertFalse(res);
+
+    }
 
     //ProductID was exited
-//    @Test
-//    public void testAddProduct_test_3() {
-//        String productID = "P11";
-//        String productName = "";
-//        float price = 0;
-//        float discount = 0;
-//        String description = "";
-//        boolean isDelect = true;
-//        String BrandId = "";
-//        Product newPro = new Product(productID, productName, price, discount, description, BrandId, isDelect);
-//        boolean res = proDao.addProduct(newPro);
-//        assertFalse(res);
-//
-//    }
+    @Test
+    public void testAddProduct_test_3() {
+        String productID = "P11";
+        String productName = "";
+        float price = 0;
+        float discount = 0;
+        String description = "";
+        boolean isDelect = true;
+        String BrandId = "";
+        Product newPro = new Product(productID, productName, price, discount, description, BrandId, isDelect);
+        boolean res = proDao.addProduct(newPro);
+        assertFalse(res);
+
+    }
 
     //Invalid Product Name
-//    @Test
-//    public void testAddProduct_test_4() {
-//        String productID = "P24";
-//        String productName = "";
-//        float price = 0;
-//        float discount = 0;
-//        String description = "";
-//        boolean isDelect = false;
-//        String BrandId = "Br2";
-//        Product newPro = new Product(productID, productName, price, discount, description, BrandId, isDelect);
-//        boolean res = proDao.addProduct(newPro);
-//        assertFalse(res);
-//    }
+    @Test
+    public void testAddProduct_test_4() {
+        String productID = "P24";
+        String productName = "";
+        float price = 0;
+        float discount = 0;
+        String description = "";
+        boolean isDelect = false;
+        String BrandId = "Br2";
+        Product newPro = new Product(productID, productName, price, discount, description, BrandId, isDelect);
+        boolean res = proDao.addProduct(newPro);
+        assertFalse(res);
+    }
 
-     //Test Demo for add product
+    //Test Demo for add product
     //Product name was exited
     @Test
     public void testAddProduct_test_5() {
@@ -155,93 +153,93 @@ public class ProductDAOTest {
     }
 
     //invalid price
-//    @Test
-//    public void testAddProduct_test_6() {
-//        String productID = "P24";
-//        String productName = "adidas adios pro 3_A2";
-//        float price = 0;
-//        float discount = 0;
-//        String description = "";
-//        boolean isDelect = false;
-//        String BrandId = "Br2";
-//        Product newPro = new Product(productID, productName, price, discount, description, BrandId, isDelect);
-//        boolean res = proDao.addProduct(newPro);
-//        assertFalse(res);
-//    }
+    @Test
+    public void testAddProduct_test_6() {
+        String productID = "P24";
+        String productName = "adidas adios pro 3_A2";
+        float price = 0;
+        float discount = 0;
+        String description = "";
+        boolean isDelect = false;
+        String BrandId = "Br2";
+        Product newPro = new Product(productID, productName, price, discount, description, BrandId, isDelect);
+        boolean res = proDao.addProduct(newPro);
+        assertFalse(res);
+    }
 
     //invalid price
-//    @Test
-//    public void testAddProduct_test_7() {
-//        String productID = "P24";
-//        String productName = "adidas adios pro 3_A2";
-//        float price = -1000;
-//        float discount = 0;
-//        String description = "Enhanced stability for a comfortable movement experience";
-//        boolean isDelect = true;
-//        String BrandId = "Br2";
-//        Product newPro = new Product(productID, productName, price, discount, description, BrandId, isDelect);
-//        boolean res = proDao.addProduct(newPro);
-//        assertFalse(res);
-//    }
+    @Test
+    public void testAddProduct_test_7() {
+        String productID = "P24";
+        String productName = "adidas adios pro 3_A2";
+        float price = -1000;
+        float discount = 0;
+        String description = "Enhanced stability for a comfortable movement experience";
+        boolean isDelect = true;
+        String BrandId = "Br2";
+        Product newPro = new Product(productID, productName, price, discount, description, BrandId, isDelect);
+        boolean res = proDao.addProduct(newPro);
+        assertFalse(res);
+    }
 
     //invalid discount
-//    @Test
-//    public void testAddProduct_test_8() {
-//        String productID = "P24";
-//        String productName = "adidas adios pro 3_A2";
-//        float price = 10;
-//        float discount = -1000;
-//        String description = "";
-//        boolean isDelect = false;
-//        String BrandId = "Br2";
-//        Product newPro = new Product(productID, productName, price, discount, description, BrandId, isDelect);
-//        boolean res = proDao.addProduct(newPro);
-//        assertFalse(res);
-//    }
+    @Test
+    public void testAddProduct_test_8() {
+        String productID = "P24";
+        String productName = "adidas adios pro 3_A2";
+        float price = 10;
+        float discount = -1000;
+        String description = "";
+        boolean isDelect = false;
+        String BrandId = "Br2";
+        Product newPro = new Product(productID, productName, price, discount, description, BrandId, isDelect);
+        boolean res = proDao.addProduct(newPro);
+        assertFalse(res);
+    }
 
     //brand do not exit
-//    @Test
-//    public void testAddProduct_test_9() {
-//        String productID = "P24";
-//        String productName = "adidas adios pro 3_A2";
-//        float price = (float) 2.7;
-//        float discount = 0;
-//        String description = "Enhanced stability for a comfortable movement experience";
-//        boolean isDelect = true;
-//        String BrandId = "";
-//        Product newPro = new Product(productID, productName, price, discount, description, BrandId, isDelect);
-//        boolean res = proDao.addProduct(newPro);
-//        assertFalse(res);
-//    }
+    @Test
+    public void testAddProduct_test_9() {
+        String productID = "P24";
+        String productName = "adidas adios pro 3_A2";
+        float price = (float) 2.7;
+        float discount = 0;
+        String description = "Enhanced stability for a comfortable movement experience";
+        boolean isDelect = true;
+        String BrandId = "";
+        Product newPro = new Product(productID, productName, price, discount, description, BrandId, isDelect);
+        boolean res = proDao.addProduct(newPro);
+        assertFalse(res);
+    }
 
     //Brand do not exit
-//    @Test
-//    public void testAddProduct_test_10() {
-//        String productID = "P24";
-//        String productName = "adidas adios pro 3_A2";
-//        float price = 10;
-//        float discount = (float) 3.2;
-//        String description = "Enhanced stability for a comfortable movement experience";
-//        boolean isDelect = true;
-//        String BrandId = "Br10";
-//        Product newPro = new Product(productID, productName, price, discount, description, BrandId, isDelect);
-//        boolean res = proDao.addProduct(newPro);
-//        assertFalse(res);
-//    }
+    @Test
+    public void testAddProduct_test_10() {
+        String productID = "P24";
+        String productName = "adidas adios pro 3_A2";
+        float price = 10;
+        float discount = (float) 3.2;
+        String description = "Enhanced stability for a comfortable movement experience";
+        boolean isDelect = true;
+        String BrandId = "Br10";
+        Product newPro = new Product(productID, productName, price, discount, description, BrandId, isDelect);
+        boolean res = proDao.addProduct(newPro);
+        assertFalse(res);
+    }
 
     //success
-//    @Test
-//    public void testAddProduct_test_11() {
-//        String productID = "P24";
-//        String productName = "adidas adios pro 3_A2";
-//        float price = 10;
-//        float discount = (float) 3.2;
-//        String description = "Enhanced stability for a comfortable movement experience";
-//        boolean isDelect = false;
-//        String BrandId = "Br2";
-//        Product newPro = new Product(productID, productName, price, discount, description, BrandId, isDelect);
-//        boolean res = proDao.addProduct(newPro);
-//        assertTrue(res);
-//    }
+    @Test
+    public void testAddProduct_test_11() {
+        String productID = "P24";
+        String productName = "adidas adios pro 3_A2";
+        float price = 10;
+        float discount = (float) 3.2;
+        String description = "Enhanced stability for a comfortable movement experience";
+        boolean isDelect = false;
+        String BrandId = "Br2";
+        Product newPro = new Product(productID, productName, price, discount, description, BrandId, isDelect);
+        boolean res = proDao.addProduct(newPro);
+        assertTrue(res);
+    }
 
 }

@@ -17,6 +17,8 @@ public class Product {
     private boolean isDeleted;
     private ProductImage primaryImage;
     private List<ProductImage> images;
+    private Brand brand;
+    private List<ProductVariant> productVariants;
 
     public Product() {
     }
@@ -105,14 +107,6 @@ public class Product {
         this.brandId = brandId;
     }
 
-    public boolean getIsDelete() {
-        return isDeleted;
-    }
-
-    public void setIsDelete(boolean isDeleted) {
-        this.isDeleted = isDeleted;
-    }
-
     public ProductImage getPrimaryImage() {
         return primaryImage;
     }
@@ -129,4 +123,27 @@ public class Product {
         this.images = images;
     }
 
+    public boolean getIsDelete() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(boolean isDeleted) {
+        this.isDeleted = isDeleted;
+    }
+
+    public Brand getBrand() {
+        return brand;
+    }
+
+    public void setBrand(Brand brand) {
+        this.brand = brand;
+    }
+
+    public List<ProductVariant> getProductVariants() {
+        return productVariants;
+    }
+
+    public void setProductVariants(List<ProductVariant> productVariants) {
+        this.productVariants = productVariants;
+    }
 }

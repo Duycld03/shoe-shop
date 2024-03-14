@@ -52,7 +52,7 @@ public class BrandDAO {
         return list;
     }
 
-    //getBrandByid  
+    //getBrandByid
     public Brand getBrandById(String id) {
         String sql = "SELECT [BrandID]\n"
                 + "      ,[BrandName]\n"
@@ -175,10 +175,34 @@ public class BrandDAO {
         return brandIDs;
     }
 
+    public List<Brand> getBrandWithAmount() {
+        List<Brand> list = new ArrayList<>();
+        String sql = "select p.BrandID , Count(ProductID) as Amount, BrandName \n"
+                + "  from Products p inner join Brands b on p.BrandID = b.BrandID\n"
+                + "  where p.isDeleted = 0"
+                + "  group by p.BrandID, b.BrandName";
+        try {
+            // Đảm bảo cSonnection đã được khởi tạo và mở
+            if (conn != null && !conn.isClosed()) {
+                PreparedStatement st = conn.prepareStatement(sql);
+                ResultSet rs = st.executeQuery();
+                while (rs.next()) {
+                    Brand brand = new Brand(rs.getString("BrandID"), rs.getString("BrandName"), rs.getInt("Amount"));
+                    list.add(brand);
+                }
+            } else {
+                System.out.println("Kết nối đến cơ sở dữ liệu không hợp lệ.");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BrandDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
     public static void main(String[] args) {
         BrandDAO a = new BrandDAO();
         List<String> l = a.getAllBrandID();
-        for (String string : l) { 
+        for (String string : l) {
             System.out.println(string);
         }
     }

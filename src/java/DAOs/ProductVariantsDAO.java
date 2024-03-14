@@ -308,6 +308,23 @@ public class ProductVariantsDAO {
 		return null;
 	}
 
+	public List<String> getAllColor() {
+		List<String> colors = new ArrayList<>();
+		String sql = "select Color from ProductVariants\n"
+				+ "group by Color";
+		try {
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				colors.add(rs.getString("Color"));
+			}
+			return colors;
+		} catch (SQLException ex) {
+			Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		return null;
+	}
+
 	public static void main(String[] args) {
 		ProductVariantsDAO dao = new ProductVariantsDAO();
 		List<ProductVariant> var = dao.getVariantByProID2("P1");

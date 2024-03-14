@@ -36,9 +36,15 @@ function selectColor(e) {
 }
 
 function addToCart(productId) {
-	const color = document.querySelector('input[type="radio"].color:checked').value;
+	const colorElement = document.querySelector('input[type="radio"].color:checked');
 	const size = document.querySelector("#size").value;
 	const quantity = document.querySelector("#amountInput").value;
+	let color = "";
+	if (!colorElement) {
+		message("error", "You haven't chosen a color yet", "Please choose color");
+		return;
+	}
+	color = colorElement.value
 	console.log(color, size, quantity)
 	$.ajax({
 		url: '/addCart',

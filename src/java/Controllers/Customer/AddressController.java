@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  *
@@ -84,6 +85,14 @@ public class AddressController extends HttpServlet {
 		AddressDAO addressDAO = new AddressDAO();
 		if (path.endsWith("/delete")) {
 			String id = request.getParameter("id");
+			Address address = addressDAO.getAddressById(id);
+			List<Address> addresses = addressDAO.getAddressesByCusId(customer.getCustomerId());
+			if (address.isPrimary() && addresses.size() != 0) {
+				int result = addressDAO.setPrimaryByAddressId(addresses.get(0).getAddressId());
+				if (result == 0) {
+					session.setAttribute("error", "Can't set primary for new address");
+				}
+			}
 			int result = addressDAO.deleteById(id);
 			if (result >= 1) {
 				session.setAttribute("success", "Delete Address Successful!");
@@ -119,9 +128,14 @@ public class AddressController extends HttpServlet {
 			String customerId = request.getParameter("customerId");
 
 			AddressDAO addressDAO = new AddressDAO();
+
 			String addressId = "Ad" + (addressDAO.getAddressCount() + 1);
-			Address address = new Address(addressId, city, addressDetail, customerId, false);
-			int result = addressDAO.add(address);
+			Address newAddress = new Address(addressId, city, addressDetail, customerId, false);
+			List<Address> addresses = addressDAO.getAddressesByCusId(customerId);
+			if (addresses.size() == 0) {
+				newAddress.setIsPrimary(true);
+			}
+			int result = addressDAO.add(newAddress);
 			if (result >= 1) {
 				session.setAttribute("success", "Add Address Successful!");
 			} else {
