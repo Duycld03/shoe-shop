@@ -1,5 +1,7 @@
 <%-- Document : myProfile Created on : Feb 27, 2024, 8:58:28 AM Author : Doan Thanh Phuc - CE170580 --%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@page import="DAOs.ProductDAO" %>
 <%@page import="DAOs.ProductVariantsDAO" %>
@@ -34,7 +36,8 @@
                             class="headerPurches bg-blue-400 rounded-lg text-white flex md:px-5 justify-between items-center p-4">
                             <div>
                                 <div class="Date-Content font-bold">Date of purchase:</div>
-                                <div class="datetime font-light">${order.orderDate}</div>
+                                <div class="datetime font-light"><fmt:formatDate value="${order.orderDate}" pattern="dd-MM-yyyy" />
+                                </div>
                             </div>
                             <div
                                 class="md:w-32 md:h-10 border-2  rounded-xl flex items-center justify-center bg-white text-blue-400">

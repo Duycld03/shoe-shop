@@ -145,13 +145,13 @@
                                     <td>${c.brandName}</td>
                                     <td>
                                         <div class="btn-group">
-                                            <button class="btn btn-warning"
+                                            <button class="btn btn-info"
                                                 onclick="location.href = 'loadBrand?id=${c.brandId}'">
                                                 <i class="material-icons" data-toggle="tooltip"
                                                     title="Edit">&#xE254;</i>
                                             </button>
                                             &nbsp;&nbsp;&nbsp;
-                                            <button class="btn btn-danger" onclick="messageConfirm('Delete Brand!', () => {
+                                            <button class="btn btn-warning" onclick="messageConfirm('Delete Brand!', () => {
 													window.location.href = 'deleteBrand?brandId=${c.brandId}'
 												})">
                                                 <i class="material-icons" data-toggle="tooltip"
