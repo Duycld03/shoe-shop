@@ -105,7 +105,6 @@ public class ProductController extends HttpServlet {
 		product.setImages(images);
 
 		List<Integer> sizeList = productVariantsDAO.getSizeByProID(productID);
-		List<ProductVariant> variantBySize = productVariantsDAO.getVariantBySizeAndProId(sizeList.get(0), productID);
 		List<Product> top4Relate = productDAO.getTop4RelatePro(product.getBrand().getBrandId());// Select Top 4 relate
 
 		if (product == null) {
@@ -113,7 +112,6 @@ public class ProductController extends HttpServlet {
 		} else {
 			request.setAttribute("product", product);
 			request.setAttribute("sizeList", sizeList);
-			request.setAttribute("variantBySize", variantBySize);
 			request.setAttribute("relateP", top4Relate);
 
 		}
