@@ -16,22 +16,6 @@
 		<div
 			class=" grid grid-cols-1 gap-4 mx-2 md:flex md:w-full md:justify-between mt-[20px] h-auto mt-[20px] md:my-[40px] my-0">
 			<div class="slide-bar md:w-[25%]  md:ml-[50px] md:mr-0">
-				<!-- Hot deal box -->
-				<div
-					class="Hot-deal-box md:pt-[1.5rem] md:pr-[1.491rem] md:pb-[1rem] md:mb-8 md:pl-6 bg-[#F6F7F8] pb-2 pb:10px mb-3 w-full">
-					<p class=" font-bold md:text-[30px] md:mb-6 pt-1 text-xl">Hot deal</p>
-					<div class="hot-deal-content font-light text-sm md:text-[1.2rem]">
-						<div>
-
-							<a href="#"
-							   class="flex justify-between  md:text-[20px] px-[5px] md:mb-3 hover:text-[#40BFFF]  transition-all duration-200 ease-in hover:cursor-pointer">
-								<p class="">Nike</p>
-								<p class="">4</p>
-							</a>
-						</div>
-
-					</div>
-				</div>
 				<!-- Price range -->
 				<div
 					class="Hot-deal-box md:pt-[1.5rem] md:pr-[1.491rem] md:pb-[1rem] md:mb-8 md:pl-6 bg-[#F6F7F8] pb-[10px]  h-auto w-full mb-3">

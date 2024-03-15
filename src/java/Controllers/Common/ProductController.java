@@ -7,6 +7,7 @@ package Controllers.Common;
 import DAOs.BrandDAO;
 import DAOs.CustomerDAO;
 import DAOs.ProductDAO;
+import DAOs.ProductImageDAO;
 import DAOs.ProductVariantsDAO;
 import Models.Brand;
 import Models.Customer;
@@ -85,32 +86,39 @@ public class ProductController extends HttpServlet {
 		}
 
 		String productID = request.getParameter("proID");
-		ProductDAO proDao = new ProductDAO();
-		BrandDAO br = new BrandDAO();
-		ProductVariantsDAO var = new ProductVariantsDAO();
-		Product pro = proDao.getProductByID(productID);// Select Product
-		String BrandID = pro.getBrandId();// Lay brandID
-		Brand brand = br.getBrandById(BrandID); // Select Brand
-		List<Product> top4Relate = proDao.getTop4RelatePro(BrandID);// Select Top 4 relate
-		List<ProductImage> img = proDao.getImages(productID);// List subImg
-		List<ProductVariant> listVar = var.getVariantByProID(productID);// Select all Variant
+		ProductDAO productDAO = new ProductDAO();
+		Product product = productDAO.getProductByID(productID);// Select Product
 
-		List<Integer> sizeList = var.getSizeByProID(productID);
-		List<ProductVariant> variantBySize = var.getVariantBySizeAndProId(sizeList.get(0), productID);
-		if (pro == null) {
+		//get Brand
+		BrandDAO brandDAO = new BrandDAO();
+		Brand brand = brandDAO.getBrandById(product.getBrandId());
+		product.setBrand(brand);
+
+		//get Variants
+		ProductVariantsDAO productVariantsDAO = new ProductVariantsDAO();
+		List<ProductVariant> productVariants = productVariantsDAO.getVariantByProID(product.getProductId());
+		product.setProductVariants(productVariants);
+
+		//get Images
+		ProductImageDAO productImageDAO = new ProductImageDAO();
+		List<ProductImage> images = productImageDAO.getImages(productID);
+		product.setImages(images);
+
+		List<Integer> sizeList = productVariantsDAO.getSizeByProID(productID);
+		List<ProductVariant> variantBySize = productVariantsDAO.getVariantBySizeAndProId(sizeList.get(0), productID);
+		List<Product> top4Relate = productDAO.getTop4RelatePro(product.getBrand().getBrandId());// Select Top 4 relate
+
+		if (product == null) {
 			request.setAttribute("error", "Khong co du lieu");
 		} else {
-			request.setAttribute("product", pro);
-			request.setAttribute("brand", brand);
-			request.setAttribute("listVar", listVar);
+			request.setAttribute("product", product);
 			request.setAttribute("sizeList", sizeList);
 			request.setAttribute("variantBySize", variantBySize);
-			request.setAttribute("listImg", img);
 			request.setAttribute("relateP", top4Relate);
 
-        }
-        request.getRequestDispatcher("/Common/productDetail.jsp").forward(request, response);
-    }
+		}
+		request.getRequestDispatcher("/Common/productDetail.jsp").forward(request, response);
+	}
 
 	/**
 	 * Handles the HTTP <code>POST</code> method.
@@ -139,14 +147,14 @@ public class ProductController extends HttpServlet {
 		}
 	}
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
+	/**
+	 * Returns a short description of the servlet.
+	 *
+	 * @return a String containing servlet description
+	 */
+	@Override
+	public String getServletInfo() {
+		return "Short description";
+	}// </editor-fold>
 
 }
