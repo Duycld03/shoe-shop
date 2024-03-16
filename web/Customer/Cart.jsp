@@ -195,7 +195,7 @@
                                 <div class="flex justify-center mt-4">
                                     <button
                                         class="bg-blue-500 hover:bg-blue-700 text-white font-bold px-4 py-2"
-                                        onclick="checkout()" type="button">
+                                        onclick="messageConfirm('Checkout!', () => checkout())" type="button">
                                         Check out
                                     </button>
                                 </div>
