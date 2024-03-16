@@ -6,7 +6,6 @@ function selectBrand(e) {
 		}
 	})
 	e.classList.add("text-[#40BFFF]")
-	filter()
 }
 
 function selectColor(e) {
@@ -42,7 +41,10 @@ function filter() {
 			return product.brand.brandId == brand
 		})
 	}
-	loadProduct()
+	filterProducts = products.slice(0, 9)
+	loadProduct(filterProducts)
+	loadPagination()
+	document.querySelector("#product-count").innerText = `${products.length} Products`
 }
 
 var originalProduct = []
@@ -60,7 +62,7 @@ function getAllProduct() {
 		success: function (response) {
 			originalProduct = JSON.parse(response)
 			products = [...originalProduct]
-			loadProduct()
+			filter()
 		},
 		error: function (response) {
 			message("error", "Get all product failed!")
@@ -68,7 +70,7 @@ function getAllProduct() {
 	});
 }
 
-function loadProduct() {
+function loadProduct(products) {
 	let productHTML = ""
 	products.forEach((product) => {
 		productHTML += `<div onclick="redirectToDetailPage('${product.productId}')"
@@ -94,6 +96,32 @@ function loadProduct() {
 						</div>`
 	})
 	document.querySelector("#products").innerHTML = productHTML
+}
+
+function loadPagination() {
+	let paginationHTML = ""
+	const numberOfPages = Math.ceil(products.length / 9)
+	for (let i = 1; i <= numberOfPages; i++) {
+		paginationHTML += `<p class="${i == 1 ? "text-[#40BFFF] hover:text-white" : ""} h-full hover:bg-[#40BFFF] w-[80px] text-center py-3" onclick="loadPageNumber(${i})">${i}</p>`
+	}
+	document.querySelector("#pagination").innerHTML = paginationHTML
+}
+
+function loadPageNumber(n) {
+	filter()
+	const productItems = 9 * (n - 1)
+	productPagination = products.slice(productItems, productItems + 9)
+
+	const paginationElements = document.querySelectorAll("#pagination > p")
+	const classList = ["text-[#40BFFF]", "hover:text-white"]
+	paginationElements.forEach((pagination) => {
+		if (pagination.classList.contains(...classList)) {
+			pagination.classList.remove(...classList)
+		}
+	})
+	paginationElements[n - 1].classList.add(...classList)
+
+	loadProduct(productPagination)
 }
 
 

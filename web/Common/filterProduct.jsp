@@ -109,7 +109,7 @@
 				<!-- Sort-item -->
 				<div class="bg-[#F6F7F8] md:flex md:justify-between w-full h-auto md:mb-7 px-4 mb-3 md:pb-0 pb-1 ">
 					<div class="flex md:h-full md:py-[15px] md:w-[60%] md:w-[70%] items-center text-[10px] md:text-[20px] pt-2">
-						<p>13 Products</p>
+						<p id="product-count"></p>
 					</div>
 					<div class="flex items-center">
 						<input type="text" id="search" oninput="filter()"
@@ -126,17 +126,7 @@
 					</div>
 				</div>
 				<div class="bg-[#F6F7F8]  w-full h-auto ">
-					<div class=" grid grid-cols-5 h-auto md:mx-72 mx-4">
-						<p class="h-full hover:bg-[#40BFFF] text-center py-3  ">1
-						</p>
-						<p class="h-full hover:bg-[#40BFFF] text-center py-3  ">1
-						</p>
-						<p class="h-full hover:bg-[#40BFFF] text-center py-3  ">1
-						</p>
-						<p class="h-full hover:bg-[#40BFFF] text-center py-3  ">1
-						</p>
-						<p class="h-full hover:bg-[#40BFFF] text-center py-3  ">1
-						</p>
+					<div class="flex justify-center h-auto" id="pagination">
 					</div>
 				</div>
 			</div>
