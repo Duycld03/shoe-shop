@@ -101,7 +101,7 @@
                         <a href="#manager" id="accountManager"
                            class="list-group-item list-group-item-action py-2 ripple">
                             <i class="fas fa-user-circle fa-fw me-3"></i><span style="margin-left: 5px">Account
-                                manager</span>
+                                management</span>
                         </a>
                         <div id="manager" style="display: none;">
                             <a href="staffmanager" class="list-group-item list-group-item-action py-2 ripple">
