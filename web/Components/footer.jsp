@@ -23,13 +23,13 @@
         </div>
         <div>
             <p class="text-lg font-medium md:mb-5 mb-2">Contact Us</p>
-            <p class="text-sm mb-5">E-Comm , 4578 Marmora Road, Glasgow D04 89GR</p>
+            <p class="text-sm mb-5">Shoe Store , Ninh Kieu Can Tho</p>
         </div>
     </div>
 
     <hr class="bg-white">
     <div class="flex justify-between mt-8 space-x-2">
-        <div class="text-[#92989d] text-xs md:text-sm">Â© 2024 Shoe Store theme by Group 4</div>
+        <div class="text-[#92989d] text-xs md:text-sm">© 2024 Shoe Store theme by Group 4</div>
         <div>
             <img src="/assets/img/Brands.png" alt="logo" width="213px" height="26px">
         </div>
