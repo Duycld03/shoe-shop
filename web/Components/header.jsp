@@ -61,7 +61,7 @@
 				</c:choose>
 
 				<li>
-					<a href="#">
+					<a href="/productFilter">
 						<img src="/assets/img/svg/search-icon.svg" alt="">
 					</a>
 				</li>
@@ -82,7 +82,6 @@
 						href="/">HOME</a></li>
 				<li class="hover:text-sky-400 transition-all duration-200"><a
 						href="/productFilter">FILTER</a></li>
-				<li class="hover:text-sky-400 transition-all duration-200"><a href="#">CONTACT</a></li>
 			</ul>
 		</div>
 	</div>

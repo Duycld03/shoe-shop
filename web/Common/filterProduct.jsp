@@ -5,7 +5,7 @@
 <html>
 
 	<head>
-		<title>JSP Page</title>
+		<title>Filter</title>
 		<link rel="stylesheet" href="/assets/css/Price_Range.css" />
 		<%@include file="/Components/head.jsp" %>
 		<script src="/assets/js/filterProduct.js"></script>

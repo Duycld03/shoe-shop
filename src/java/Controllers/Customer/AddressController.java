@@ -152,8 +152,9 @@ public class AddressController extends HttpServlet {
 			String addressId = request.getParameter("addressId");
 
 			AddressDAO addressDAO = new AddressDAO();
-			Address address = new Address(addressId, city, addressDetail, customerId, false);
-			int result = addressDAO.updateAddress(address);
+			Address address = addressDAO.getAddressById(addressId);
+			Address updateAddress = new Address(addressId, city, addressDetail, customerId, address.isPrimary());
+			int result = addressDAO.updateAddress(updateAddress);
 			if (result >= 1) {
 				session.setAttribute("success", "Update Address Successful!");
 			} else {

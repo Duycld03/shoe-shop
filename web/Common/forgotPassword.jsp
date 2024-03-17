@@ -1,10 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-	<!DOCTYPE html>
-	<html>
+<!DOCTYPE html>
+<html>
 
 	<head>
 		<%@include file="/Components/head.jsp" %>
-			<title>Login</title>
+		<title>Forgot Password</title>
 	</head>
 
 	<body>
@@ -14,11 +14,11 @@
 				<div class="space-y-1 text-sm">
 					<label for="forgotEmail" class="block">Email</label>
 					<input type="email" name="forgotEmail" id="forgotEmail" placeholder="Email" maxlength="50"
-						class="w-full px-4 py-3 rounded-md focus:dark:border-violet-400" required>
+						   class="w-full px-4 py-3 rounded-md focus:dark:border-violet-400" required>
 				</div>
 
 				<button name="btnForgot"
-					class="block w-full p-3 text-center rounded-sm text-[#FFFFFF] font-bold bg-[#40BFFF] hover:bg-[#BCDDFE]">Confirm</button>
+						class="block w-full p-3 text-center rounded-sm text-[#FFFFFF] font-bold bg-[#40BFFF] hover:bg-[#BCDDFE]">Confirm</button>
 			</form>
 
 		</div>
@@ -36,4 +36,4 @@
 		</c:if>
 	</body>
 
-	</html>
+</html>
