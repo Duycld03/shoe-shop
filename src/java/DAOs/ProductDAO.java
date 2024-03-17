@@ -251,20 +251,20 @@ public class ProductDAO {
 
 	public List<Product> getTop3BestSeller() {
 		List<Product> products = new ArrayList<>();
-		String sql = "SELECT TOP 3 *\n"
-				+ "FROM\n"
-				+ "    Orders od\n"
-				+ "    INNER JOIN OrderDetails ode ON od.OrderID = ode.OrderID\n"
-				+ "    INNER JOIN ProductVariants v ON ode.VariantID = v.VariantID\n"
-				+ "    INNER JOIN Products p ON v.ProductID = p.ProductID\n"
-				+ "	INNER JOIN ProductImages img on p.ProductID = img.ProductID\n"
-				+ "WHERE\n"
-				+ "    od.OrderStatus = 'Accepted'\n"
-				+ "    AND od.PaymentStatus = 'Paid'\n"
-				+ "    AND p.isDeleted = 0\n"
-				+ "    AND v.StockQuantity > 0\n"
-				+ "	AND img.IsPrimary = 1\n"
-				+ "ORDER BY Quantity DESC";
+		String sql = "SELECT TOP(3) img.*, p.*\n"
+				+ "				 FROM\n"
+				+ "				     Orders od\n"
+				+ "				     INNER JOIN OrderDetails ode ON od.OrderID = ode.OrderID\n"
+				+ "				     INNER JOIN ProductVariants v ON ode.VariantID = v.VariantID\n"
+				+ "				     INNER JOIN Products p ON v.ProductID = p.ProductID\n"
+				+ "				 	INNER JOIN ProductImages img on p.ProductID = img.ProductID\n"
+				+ "				 WHERE\n"
+				+ "				     od.OrderStatus = 'Success'\n"
+				+ "				     AND od.PaymentStatus = 'Paid'\n"
+				+ "				     AND p.isDeleted = 0\n"
+				+ "				     AND v.StockQuantity > 0\n"
+				+ "				 	AND img.IsPrimary = 1\n"
+				+ "				 ORDER BY Quantity DESC";
 		try {
 			ps = conn.prepareStatement(sql);
 			rs = ps.executeQuery();
