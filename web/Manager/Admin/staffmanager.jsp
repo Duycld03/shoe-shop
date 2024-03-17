@@ -154,8 +154,7 @@
                         <div class="modal-body">
                             <div class="form-group">
                                 <label>UserName</label>
-                                <input name="username" type="text" class="form-control" required
-                                       pattern="[a-zA-Z]+" title="Username must contain only letters">
+                                <input name="username" type="text" class="form-control" required pattern="[a-zA-Z0-9]+" title="Username must contain only letters and numbers">
                             </div>
                             <div class="form-group">
                                 <label>FullName</label>
@@ -168,7 +167,7 @@
                                 <label>Password</label>
                                 <div class="input-group">
                                     <input name="password" id="password" type="password" class="form-control"
-                                           required pattern=".{8,}" title="Password must be at least 8 characters">
+                                           required pattern=".{5,}" title="Password must be at least 5 characters">
                                     <div class="input-group-append">
                                         <button class="btn btn-outline-secondary" type="button"
                                                 id="togglePassword">
