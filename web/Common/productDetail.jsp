@@ -15,12 +15,12 @@
         <div class=" md:mx-28 h-auto mx-3 md:mt-28">
             <div class="Product_Infor grid md:grid-cols-2 md:mb-2">
                 <div class="Product_Img">
-                    <img class="md:w-4/5 md:h-4/6 w-full"
-                         src="/assets/img/products/${product.primaryImage.imageURL}" alt="img">
-                    <div class="small_Product md:grid md:grid-cols-4 md:my-9 md:w-5/6 hidden">
+                    <img class="w-full md:w-[500px] md:h-[400px]" id="primary-image"
+                         src="/assets/img/products/${product.primaryImage.imageURL}" data-src="${product.primaryImage.imageURL}" alt="img">
+                    <div class="small_Product gap-4 md:grid md:grid-cols-4 md:my-9 md:w-5/6 hidden">
                         <c:forEach var="image" items="${product.images}">
-                            <img class="md:w-3/4 h-32 border-2 border-gray-300"
-                                 src="/assets/img/products/${image.imageURL}" alt="">
+                            <img class="h-28 border-2 border-gray-300"
+                                 src="/assets/img/products/${image.imageURL}" alt="" onmouseover="handleChangeImage(this)" onmouseout="backToPrimaryImage()">
                         </c:forEach>
                     </div>
                 </div>

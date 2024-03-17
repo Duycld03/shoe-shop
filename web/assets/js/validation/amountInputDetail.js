@@ -92,3 +92,14 @@ function handleSizeChange(productId, e) {
 	});
 
 }
+
+function handleChangeImage(e) {
+	const img = document.querySelector("#primary-image")
+	img.src = e.src
+}
+function backToPrimaryImage() {
+	const img = document.querySelector("#primary-image")
+	const dataSrc = img.getAttribute("data-src")
+	const imageSrc = `/assets/img/products/${dataSrc}`
+	img.src = imageSrc
+}
