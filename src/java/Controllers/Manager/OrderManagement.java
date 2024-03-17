@@ -104,13 +104,13 @@ public class OrderManagement extends HttpServlet {
 			if (orderID_draw != null && status != null) {
 				Order order = orderD.getOrderById(orderID);
 				order.setOrderStatus(status);
-				order.setPaymentStatus("Paid");
-				orderD.updateOrder(order);
 				if (status.equalsIgnoreCase("Success")) {
 					session.setAttribute("success", "The order has been successful");
+					order.setPaymentStatus("Paid");
 				} else {
 					session.setAttribute("success", "The order has been cancelled");
 				}
+				orderD.updateOrder(order);
 			} else if (orderID_draw != null) {
 				orderD.updateTakeCareStaff(staffID, orderID);
 			}
