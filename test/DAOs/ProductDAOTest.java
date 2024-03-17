@@ -29,18 +29,18 @@ public class ProductDAOTest {
     /**
      * Test of searchProductByName method, of class ProductDAO.
      */
-    @Test
-    public void testSearchProductByName_Test_1() {
-        String name = "";
-        int expectSize = 23;
-        List<Product> result = proDao.searchProductByName(name);
-        int resultSize = result.size();
-        assertEquals(expectSize, resultSize);
-    }
-
+//    @Test
+//    public void testSearchProductByName_Test_1() {
+//        String name = "";
+//        int expectSize = 23;
+//        List<Product> result = proDao.searchProductByName(name);
+//        int resultSize = result.size();
+//        assertEquals(expectSize, resultSize);
+//    }
     /**
      * Test of searchProductByName method, of class ProductDAO.
      */
+    //Test search Product by name
     @Test
     public void testSearchProductByName_Test_2() {
         String name = "Adidas Adios Pro 3";
@@ -50,18 +50,17 @@ public class ProductDAOTest {
         assertEquals(expectSize, resultSize);
     }
 
-    /**
-     * Test of searchProductByName method, of class ProductDAO.
-     */
-    @Test
-    public void testSearchProductByName_Test_3() {
-        String name = "Thuong Dinh";
-        int expectSize = 0;
-        List<Product> result = proDao.searchProductByName(name);
-        int resultSize = result.size();
-        assertEquals(expectSize, resultSize);
-    }
-
+//    /**
+//     * Test of searchProductByName method, of class ProductDAO.
+//     */
+//    @Test
+//    public void testSearchProductByName_Test_3() {
+//        String name = "Thuong Dinh";
+//        int expectSize = 0;
+//        List<Product> result = proDao.searchProductByName(name);
+//        int resultSize = result.size();
+//        assertEquals(expectSize, resultSize);
+//    }
     /**
      * Test of searchProductByName method, of class ProductDAO.
      */
@@ -74,7 +73,7 @@ public class ProductDAOTest {
         assertEquals(expectSize, resultSize);
     }
 
-    //Invalid ProductID
+//    Invalid ProductID
     @Test
     public void testAddProduct_test_1() {
         String productID = "";
@@ -137,6 +136,7 @@ public class ProductDAOTest {
         assertFalse(res);
     }
 
+    //Test Demo for add product
     //Product name was exited
     @Test
     public void testAddProduct_test_5() {

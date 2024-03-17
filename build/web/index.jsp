@@ -156,7 +156,7 @@
         <!-- footer -->
         <c:if test="${sessionScope.checkoutSuccess != null}">
             <script>
-				message("success", "${sessionScope.checkoutSuccess}", "Thank you for your purchase")
+                message("success", "${sessionScope.checkoutSuccess}", "Thank you for your purchase")
             </script>
             <% session.removeAttribute("checkoutSuccess"); %>
         </c:if>

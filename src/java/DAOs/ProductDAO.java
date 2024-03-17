@@ -277,8 +277,8 @@ public class ProductDAO {
 				products.add(product);
 			}
 			return products;
-		} catch (SQLException ex) {
-			Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
 		}
 		return null;
 	}
@@ -377,6 +377,7 @@ public class ProductDAO {
 			ps.executeUpdate();
 			return true;
 		} catch (SQLException e) {
+			System.out.println(e.getMessage());
 		}
 		return false;
 	}
@@ -446,7 +447,7 @@ public class ProductDAO {
 			ps.setFloat(2, pro.getPrice());
 			ps.setFloat(3, pro.getDiscount());
 			ps.setString(4, pro.getDescription());
-			ps.setBoolean(5, pro.isIsDeleted());
+			ps.setBoolean(5, pro.getIsDelete());
 			ps.setString(6, pro.getBrandId());
 			ps.setString(7, pro.getProductId());
 			ps.executeUpdate();
@@ -493,12 +494,19 @@ public class ProductDAO {
 //	}
 	public static void main(String[] args) {
 		ProductDAO d = new ProductDAO();
-		String proID = "P2";
-		if (d.softDeletePro(proID)) {
-			System.out.println("success");
+		String proid = "P24";
+		String proname = "JavaScript";
+		float price = 1000;
+		float discount = 1000;
+		String des = "......";
+		String brand = "Br2";
+		Product p = new Product(proid, proname, price, discount, des, brand, true);
+		if (d.addProduct(p)) {
+			System.out.println("sucess");
 		} else {
-			System.out.println("false");
+			System.out.println("failed");
 		}
+
 	}
 
 }

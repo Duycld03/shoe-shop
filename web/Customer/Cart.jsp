@@ -15,7 +15,7 @@
     <body>
         <%@include file="/Components/header.jsp" %>
         <div class="shopping-cart">
-            <div class="pl-32">
+            <div class="md:pl-32">
                 <!-- px-4 px-lg-0 pl-32 -->
                 <div class="pb-5">
                     <div class="container">
@@ -46,31 +46,31 @@
                                 <!-- End -->
                             </div>
                         </div>
-                        <table class="min-w-full divide-y divide-gray-200 px-8 text-center">
+                        <table class="table-auto min-w-full divide-y divide-gray-200 px-8 text-center">
                             <thead>
                                 <tr>
                                     <th scope="col"
-                                        class="px-2 py-10 text-left text-lg font-semibold ml-3">
+                                        class="md:px-4 py-5 md:py-10 text-left text-sm md:text-lg font-semibold md:ml-3">
                                         PRODUCT
                                     </th>
                                     <th scope="col"
-                                        class="px-2 py-10 text-center text-lg font-semibold ">
+                                        class="md:px-4 py-5 md:py-10 text-center text-sm md:text-lg font-semibold ">
                                         COLOR
                                     </th>
                                     <th scope="col"
-                                        class="px-2 py-10 text-center text-lg font-semibold">
+                                        class="md:px-4 py-5 md:py-10 text-center text-sm md:text-lg font-semibold">
                                         SIZE
                                     </th>
                                     <th scope="col"
-                                        class="px-4 py-10 text-lg font-semibold text-center">
+                                        class="md:px-4 py-5 md:py-10 text-sm md:text-lg font-semibold text-center">
                                         PRICE
                                     </th>
                                     <th scope="col"
-                                        class="px-4 py-10 text-lg font-semibold text-center">
+                                        class="md:px-4 py-5 md:py-10 text-sm md:text-lg font-semibold text-center">
                                         QTY
                                     </th>
                                     <th scope="col"
-                                        class="px-4 py-10 text-lg font-semibold text-center">
+                                        class="md:px-4 py-5 md:py-10 text-sm md:text-lg font-semibold text-center">
                                         UNIT PRICE
                                     </th>
                                     <th class="px-2 py-2">
@@ -90,13 +90,13 @@
                                     %>
                                     <tr>
                                         <td class="row">
-                                            <div class="p-2 flex">
+                                            <div class="p-2 flex items-center">
                                                 <img src="/assets/img/products/<%= product.getPrimaryImage().getImageURL()%>"
                                                      alt="" width="70"
-                                                     class="img-fluid rounded shadow-sm">
+                                                     class="img-fluid rounded shadow-sm aspect-square">
                                                 <div
                                                     class="ml-3 d-inline-block align-middle flex items-center">
-                                                    <a class="text-dark d-inline-block">
+                                                    <a class="hidden md:block text-dark d-inline-block">
                                                         <%= product.getProductName()%>
                                                     </a>
                                                 </div>
@@ -120,7 +120,7 @@
                                                 </button>
                                                 <input id="${cart.cartId}" type="number"
                                                        value="${cart.quantity}"
-                                                       class="text-center border-none outline-none w-[75px] h-100"
+                                                       class="text-center border-none outline-none w-6 md:w-[75px] h-100"
                                                        onchange="updateQuantity(event, '${cart.cartId}')" />
                                                 <button class="btnAdd text-2xl"
                                                         onclick="increaseQuantity('${cart.cartId}')">
@@ -147,7 +147,7 @@
                         </table>
                     </div>
                     <div class="flex">
-                        <div class="max-w-xs w-full py-14">
+                        <div class="max-w-xs w-full py-14 mx-auto md:mx-0">
                             <div class="max-w-xs mx-auto">
                                 <table class="w-full border-collapse border border-gray-300">
                                     <tbody>
@@ -195,7 +195,7 @@
                                 <div class="flex justify-center mt-4">
                                     <button
                                         class="bg-blue-500 hover:bg-blue-700 text-white font-bold px-4 py-2"
-                                        onclick="checkout()" type="button">
+                                        onclick="messageConfirm('Checkout!', () => checkout())" type="button">
                                         Check out
                                     </button>
                                 </div>

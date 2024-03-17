@@ -81,9 +81,7 @@
 				<li class="text-[#40BFFF] hover:text-sky-400 transition-all duration-200"><a
 						href="/">HOME</a></li>
 				<li class="hover:text-sky-400 transition-all duration-200"><a
-						href="/productFilter">SNEAKERS</a></li>
-				<li class="hover:text-sky-400 transition-all duration-200"><a
-						href="Common/productDetail.jsp">BELT</a></li>
+						href="/productFilter">FILTER</a></li>
 				<li class="hover:text-sky-400 transition-all duration-200"><a href="#">CONTACT</a></li>
 			</ul>
 		</div>

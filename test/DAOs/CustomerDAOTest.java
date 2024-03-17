@@ -22,7 +22,7 @@ public class CustomerDAOTest {
     public CustomerDAOTest() {
     }
 
-    //User Name and password both valid
+//    User Name and password both valid
     @Test
     public void testCheckUserLogin_test_1() {
         String username = "PhuTH";
@@ -62,6 +62,7 @@ public class CustomerDAOTest {
         assertFalse(result);
     }
 
+    //Doesn't accept encoding via md5
     @Test
     public void testCheckUserLogin_test_5() {
         String username = "PhuTH";
@@ -130,6 +131,8 @@ public class CustomerDAOTest {
         assertTrue(res);
     }
 
+    //Test infor was exited
+    //Email exited
     @Test
     public void testCheckcustomerInforExist_test_6() {
         String userName = "";
@@ -139,8 +142,8 @@ public class CustomerDAOTest {
         boolean res = instance.checkCustomerInforExist(email, userName, PhoneNumber);
         assertTrue(res);
     }
-    
-     @Test
+
+    @Test
     public void testCheckcustomerInforExist_test_7() {
         String userName = "";
         String email = "";
@@ -149,7 +152,8 @@ public class CustomerDAOTest {
         boolean res = instance.checkCustomerInforExist(email, userName, PhoneNumber);
         assertTrue(res);
     }
-      @Test
+
+    @Test
     public void testCheckcustomerInforExist_test_8() {
         String userName = "PhuTH";
         String email = "";
@@ -159,4 +163,14 @@ public class CustomerDAOTest {
         assertTrue(res);
     }
 
+    //information do not exit
+    @Test
+    public void testCheckcustomerInforExist_test_10() {
+        String userName = "DoanTP";
+        String email = "phucdt11230@gmail.com";
+        String PhoneNumber = "0334237435";
+        CustomerDAO instance = new CustomerDAO();
+        boolean res = instance.checkCustomerInforExist(email, userName, PhoneNumber);
+        assertFalse(res);
+    }
 }

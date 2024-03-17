@@ -196,13 +196,13 @@
                                         <td>${c.phoneNumber}</td>
                                         <td>
                                             <div class="btn-group">
-                                                <button class="btn btn-warning"
+                                                <button class="btn btn-info"
                                                     onclick="location.href = 'loadCustomer?id=${c.customerId}'">
                                                     <i class="material-icons" data-toggle="tooltip"
                                                         title="Edit Customer">&#xE254;</i>
                                                 </button>
                                                 &nbsp;&nbsp;&nbsp;
-                                                <button class="btn btn-danger" onclick="doDelete('${c.customerId}')">
+                                                <button class="btn btn-warning" onclick="doDelete('${c.customerId}')">
                                                     <i class="material-icons" data-toggle="tooltip"
                                                         title="Delete">&#xE872;</i>
                                                 </button>

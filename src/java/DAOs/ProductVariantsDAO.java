@@ -270,7 +270,7 @@ public class ProductVariantsDAO {
 
 	public List<ProductVariant> getVariantBySizeAndProId(int size, String productId) {
 		List<ProductVariant> vars = new ArrayList<>();
-		String sql = "select * from ProductVariants where Size = ? and ProductID = ? and isDelete = 0";
+		String sql = "select * from ProductVariants where Size = ? and ProductID = ? and isDelete = 0 and StockQuantity > 0";
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, size);

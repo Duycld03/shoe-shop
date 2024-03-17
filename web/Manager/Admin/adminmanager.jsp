@@ -59,14 +59,14 @@
                                     <td>
                                         <div class="btn-group">
                                             <c:if test="${admin.adminId == c.adminId}">
-                                                 <button class="btn btn-warning"
+                                                 <button class="btn btn-info"
                                                     onclick="location.href = 'loadAdmin?id=${c.adminId}'">
                                                     <i class="material-icons" data-toggle="tooltip"
                                                         title="Edit">&#xE254;</i>
                                                 </button>
                                                     &nbsp;&nbsp;&nbsp;
                                             </c:if>
-                                            <button class="btn btn-danger" onclick="messageConfirm('Delete Admin!', () => {
+                                            <button class="btn btn-warning" onclick="messageConfirm('Delete Admin!', () => {
 													window.location.href = 'deleteAdmin?adminId=${c.adminId}'
 												})">
                                                 <i class="material-icons" data-toggle="tooltip"

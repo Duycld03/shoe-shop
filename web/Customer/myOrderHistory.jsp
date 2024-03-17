@@ -1,6 +1,8 @@
 <%-- Document : myProfile Created on : Feb 27, 2024, 8:58:28 AM Author : Doan Thanh Phuc - CE170580 --%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html>
 
@@ -49,7 +51,7 @@
                                             </a>
                                         </td>
                                         <td class="border border-gray-400 py-2 text-center">
-                                            ${order.orderDate}
+                                            <fmt:formatDate value="${order.orderDate}" pattern="dd-MM-yyyy" />
                                         </td>
                                         <td class="border border-gray-400 py-2 text-center">
                                             ${order.paymentStatus}
