@@ -447,7 +447,7 @@ public class ProductDAO {
             ps.setFloat(2, pro.getPrice());
             ps.setFloat(3, pro.getDiscount());
             ps.setString(4, pro.getDescription());
-            ps.setBoolean(5, pro.isIsDeleted());
+            ps.setBoolean(5, pro.getIsDelete());
             ps.setString(6, pro.getBrandId());
             ps.setString(7, pro.getProductId());
             ps.executeUpdate();
