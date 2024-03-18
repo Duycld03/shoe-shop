@@ -45,8 +45,8 @@
                                            class="hover:text-sky-300 duration-200 transition-all font-semibold">Update</a>
                                         <span class="border-r border-2 border-gray-300 h-4"></span>
                                         <a href="#" onclick="messageConfirm('Delete address!', () => {
-                                                    window.location.href = '/address/delete?id=${address.addressId}'
-                                                })" class="hover:text-sky-300 duration-200 transition-all font-semibold">Delete</a>
+													window.location.href = '/address/delete?id=${address.addressId}'
+												})" class="hover:text-sky-300 duration-200 transition-all font-semibold">Delete</a>
                                         <span class="border-r border-2 border-gray-300 h-4"></span>
                                         <a href="/address/setPrimary?id=${address.addressId}"
                                            class="hover:text-sky-300 duration-200 transition-all font-semibold">Set
@@ -82,7 +82,7 @@
                     <input type="hidden" name="customerId" value="${customer.customerId}">
                     <div class="mb-4">
                         <label for="city" class="block text-gray-700 font-bold mb-2">City:</label>
-                        <input type="text" id="city" name="city" required
+                        <input type="text" id="city" name="city" required maxlength="50"
                                class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
                                placeholder="Enter City">
                     </div>
@@ -90,7 +90,7 @@
                         <label for="addressDetail" class="block text-gray-700 font-bold mb-2">Address
                             Detail:</label>
                         <textarea id="addressDetail" name="addressDetail"
-                                  class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
+                                  class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500" maxlength="100"
                                   placeholder="Enter Address Detail" required></textarea>
                     </div>
                     <!-- Submit Button -->
@@ -119,7 +119,7 @@
                     <input type="hidden" name="addressId" id="addressId">
                     <div class="mb-4">
                         <label for="city" class="block text-gray-700 font-bold mb-2">City:</label>
-                        <input type="text" id="city" name="city" required
+                        <input type="text" id="city" name="city" required maxlength="50"
                                class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
                                placeholder="Enter City">
                     </div>
@@ -127,7 +127,7 @@
                         <label for="addressDetail" class="block text-gray-700 font-bold mb-2">Address
                             Detail:</label>
                         <textarea id="addressDetail" name="addressDetail"
-                                  class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
+                                  class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500" maxlength="100"
                                   placeholder="Enter Address Detail" required></textarea>
                     </div>
                     <!-- Submit Button -->
@@ -141,27 +141,27 @@
 
         <!-- Script to open/close modal -->
         <script>
-            function openAddModal() {
-                document.getElementById('addModal').classList.remove('hidden');
-            }
+			function openAddModal() {
+				document.getElementById('addModal').classList.remove('hidden');
+			}
 
-            function closeAddModal() {
-                document.getElementById('addModal').classList.add('hidden');
-            }
+			function closeAddModal() {
+				document.getElementById('addModal').classList.add('hidden');
+			}
 
-            function openUpdateModal() {
-                document.getElementById('updateModal').classList.remove('hidden');
-            }
+			function openUpdateModal() {
+				document.getElementById('updateModal').classList.remove('hidden');
+			}
 
-            function closeUpdateModal() {
-                document.getElementById('updateModal').classList.add('hidden');
-            }
-            function updateAddress(addressId, city, addressDetail) {
-                document.querySelector("#updateModal #addressId").value = addressId
-                document.querySelector("#updateModal #city").value = city
-                document.querySelector("#updateModal #addressDetail").value = addressDetail
-                document.getElementById('updateModal').classList.remove('hidden');
-            }
+			function closeUpdateModal() {
+				document.getElementById('updateModal').classList.add('hidden');
+			}
+			function updateAddress(addressId, city, addressDetail) {
+				document.querySelector("#updateModal #addressId").value = addressId
+				document.querySelector("#updateModal #city").value = city
+				document.querySelector("#updateModal #addressDetail").value = addressDetail
+				document.getElementById('updateModal').classList.remove('hidden');
+			}
         </script>
 
     </body>

@@ -10,72 +10,7 @@
               href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
         <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
         <script src="/assets/js/validation/jquery.min.js"></script>
-        <style>
-            img {
-                width: 200px;
-                height: 120px;
-            }
-        </style>
-        <style>
-            body {
-                margin: 0;
-                padding: 0;
-            }
-        </style>
-        <style>
-            body {
-                background-color: #fbfbfb;
-            }
-
-            @media (min-width: 991.98px) {
-                main {
-                    padding-left: 240px;
-                }
-            }
-
-            /* Sidebar */
-            .sidebar {
-                position: fixed;
-                top: 0;
-                bottom: 0;
-                left: 0;
-                padding: 58px 0 0;
-                /* Height of navbar */
-                box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
-                width: 240px;
-                z-index: 600;
-            }
-
-            @media (max-width: 844px) {
-                .sidebar {
-                    width: 100%;
-                }
-            }
-
-            .sidebar .active {
-                border-radius: 5px;
-                box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
-            }
-
-            .sidebar-sticky {
-                position: relative;
-                top: 0;
-                height: calc(100vh - 48px);
-                padding-top: 0.5rem;
-                overflow-x: hidden;
-                overflow-y: auto;
-                /* Scrollable contents if viewport is shorter than content. */
-            }
-        </style>
-        <style>
-            #manager a {
-                font-size: 14px;
-            }
-
-            #manager span {
-                padding-left: 0.5rem;
-            }
-        </style>
+        <link rel="stylesheet" href="../assets/css/left_slide_bar.css"/>
     </head>
 
     <body>
@@ -101,23 +36,20 @@
                         <a href="#manager" id="accountManager"
                            class="list-group-item list-group-item-action py-2 ripple">
                             <i class="fas fa-user-circle fa-fw me-3"></i><span style="margin-left: 5px">Account
-                                manager</span>
+                                management</span>
                         </a>
                         <div id="manager" style="display: none;">
-                            <a href="staffmanager" class="list-group-item list-group-item-action py-2 ripple">
-                                <i class="fas fa-user-circle fa-fw me-3"></i><br>
-                                <span style="margin-left: 5px">Staff account management</span>
+                            <a href="staffmanager" class="list-group-item list-group-item-action py-2 ripple whitespace-nowrap">
+                                <div class="ellipsis">Staff account management</div>
                             </a>
-                            <a href="adminmanager" class="list-group-item list-group-item-action py-2 ripple">
-                                <i class="fas fa-user-circle fa-fw me-3"></i> <br>
-                                <span style="margin-left: 5px">Admin account management</span>
+                            <a href="adminmanager" class="list-group-item list-group-item-action py-2 ripple whitespace-nowrap">
+                                <div class="ellipsis">Admin account management</div>
                             </a>
-                            <a href="customermanager"
-                               class="list-group-item list-group-item-action py-2 ripple">
-                                <i class="fas fa-user-circle fa-fw me-3"></i><br><span
-                                    style="margin-left: 5px">Customer account management</span>
+                            <a href="customermanager" class="list-group-item list-group-item-action py-2 ripple whitespace-nowrap">
+                                <div class="ellipsis">Customer account management</div>
                             </a>
                         </div>
+
                     </c:if>
                     <a href="productmanagement" class="list-group-item list-group-item-action py-2 ripple">
                         <i class="fas fa-shoe-prints fa-fw me-3"></i>
@@ -142,7 +74,7 @@
         <script>
             document.getElementById('accountManager').addEventListener('click', function (event) {
                 event.preventDefault(); // Prevent default anchor behavior
-
+                
                 var managerDiv = document.getElementById('manager');
                 if (managerDiv.style.display === 'none') {
                     managerDiv.style.display = 'block';

@@ -16,70 +16,7 @@
         <script src="/assets/js/validation/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="/assets/js/script.js"></script>
-        <style>
-            img {
-                width: 200px;
-                height: 120px;
-            }
-        </style>
-        <style>
-            body {
-                margin: 0;
-                padding: 0;
-            }
-        </style>
-        <style>
-            body {
-                background-color: #fbfbfb;
-            }
-
-            @media (min-width: 991.98px) {
-                main {
-                    padding-left: 240px;
-                }
-            }
-
-            /* Sidebar */
-            .sidebar {
-                position: fixed;
-                top: 0;
-                bottom: 0;
-                left: 0;
-                padding: 58px 0 0;
-                /* Height of navbar */
-                box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
-                width: 240px;
-                z-index: 600;
-            }
-
-            @media (max-width: 991.98px) {
-                .sidebar {
-                    width: 100%;
-                }
-            }
-
-            .sidebar .active {
-                border-radius: 5px;
-                box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
-            }
-
-            .sidebar-sticky {
-                position: relative;
-                top: 0;
-                height: calc(100vh - 48px);
-                padding-top: 0.5rem;
-                overflow-x: hidden;
-                overflow-y: auto;
-                /* Scrollable contents if viewport is shorter than content. */
-            }
-
-            .container {
-                padding-right: 15px;
-                padding-left: 15px;
-                margin-right: auto;
-                margin-left: auto;
-            }
-        </style>
+        <link rel="stylesheet" href="../../assets/css/manager.css"/>
     </head>
 
     <body>
@@ -91,7 +28,7 @@
                     <div class="row" style="margin-bottom: 15px">
                         <div class="col-sm-3 d-flex align-items-center">
                             <h5 class="mb-0 text-left">
-                                <strong>STAFF MANAGER</strong>
+                                <strong>STAFF MANAGEMENT</strong>
                             </h5>
                         </div>
                         <div class="col-sm-9 text-right">
@@ -154,8 +91,7 @@
                         <div class="modal-body">
                             <div class="form-group">
                                 <label>UserName</label>
-                                <input name="username" type="text" class="form-control" required
-                                       pattern="[a-zA-Z]+" title="Username must contain only letters">
+                                <input name="username" type="text" class="form-control" required pattern="[a-zA-Z0-9]+" title="Username must contain only letters and numbers">
                             </div>
                             <div class="form-group">
                                 <label>FullName</label>
@@ -168,7 +104,7 @@
                                 <label>Password</label>
                                 <div class="input-group">
                                     <input name="password" id="password" type="password" class="form-control"
-                                           required pattern=".{8,}" title="Password must be at least 8 characters">
+                                           required pattern=".{5,}" title="Password must be at least 5 characters">
                                     <div class="input-group-append">
                                         <button class="btn btn-outline-secondary" type="button"
                                                 id="togglePassword">
@@ -208,7 +144,7 @@
             document.addEventListener("DOMContentLoaded", function () {
                 var closeModalButton = document.querySelector("button.close");
                 var cancelButton = document.querySelector(".modal-footer button[data-dismiss='modal']");
-
+                
                 closeModalButton.addEventListener("click", function () {
                     // Đóng modal khi nút "X" được nhấn
                     $("#addEmployeeModal").modal("hide");
@@ -221,7 +157,7 @@
             document.addEventListener("DOMContentLoaded", function () {
                 var togglePassword = document.getElementById("togglePassword");
                 var passwordInput = document.getElementById("password");
-
+                
                 togglePassword.addEventListener("click", function () {
                     var type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
                     passwordInput.setAttribute("type", type);

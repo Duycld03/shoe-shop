@@ -15,12 +15,12 @@
         <div class=" md:mx-28 h-auto mx-3 md:mt-28">
             <div class="Product_Infor grid md:grid-cols-2 md:mb-2">
                 <div class="Product_Img">
-                    <img class="md:w-4/5 md:h-4/6 w-full"
-                         src="/assets/img/products/${product.primaryImage.imageURL}" alt="img">
-                    <div class="small_Product md:grid md:grid-cols-4 md:my-9 md:w-5/6 hidden">
-                        <c:forEach var="c" items="${listImg}">
-                            <img class="md:w-3/4 h-32 border-2 border-gray-300"
-                                 src="/assets/img/products/${c.imageURL}" alt="">
+                    <img class="w-full md:w-[500px] md:h-[400px]" id="primary-image"
+                         src="/assets/img/products/${product.primaryImage.imageURL}" data-src="${product.primaryImage.imageURL}" alt="img">
+                    <div class="small_Product gap-4 md:grid md:grid-cols-4 md:my-9 md:w-5/6 hidden">
+                        <c:forEach var="image" items="${product.images}">
+                            <img class="h-28 border-2 border-gray-300"
+                                 src="/assets/img/products/${image.imageURL}" alt="" onmouseover="handleChangeImage(this)" onmouseout="backToPrimaryImage()">
                         </c:forEach>
                     </div>
                 </div>
@@ -48,7 +48,7 @@
                         </div>
                         <div class="Availability flex justify-between text-lg md:text-xl">
                             <p>Categories:</p>
-                            <p>${brand.brandName}</p>
+                            <p>${product.brand.brandName}</p>
                         </div>
                         <div class="Availability flex justify-between text-lg md:text-xl">
                             <p>Free Shipping</p>
@@ -60,19 +60,11 @@
                         class="select_Color md:text-xl grid md:grid-cols-2 md:gap-0 gap-5 md:w-3/4 w-full">
                         <div class="color_Content text-xl font-bold">Select Color:</div>
                         <div class="color grid grid-cols-4" id="color">
-                            <c:forEach var="proVarC" items="${variantBySize}">
-                                <label class="color-label bg-${proVarC.color}-500 rounded-full w-7 h-7 border-3 border-transparent transition duration-200 ease-in-out" for="${proVarC.color}" onclick="selectColor(this)"
-                                       onmouseenter="this.style.border= '3px solid #40BFFF';"
-                                       onmouseout="this.style.border = '0px solid transparent';"></label>
-                                <input class="color" hidden type="radio" name="color" id="${proVarC.color}" value="${proVarC.color}">
-                            </c:forEach>
-
-
                         </div>
                     </div>
                     <div class="select_Size text-xl grid grid-cols-2 w-full md:w-3/4 items-center">
                         <div class="color_Content text-xl font-bold">Size:</div>
-                        <Select class="border-2 rounded-lg p-2 md:w-52" id="size" onchange="handleColorChange('${product.productId}', this)" >
+                        <Select class="border-2 rounded-lg p-2 md:w-52" id="size" onchange="handleSizeChange('${product.productId}', this)" >
                             <c:forEach var="size" items="${sizeList}">
                                 <option value="${size}">${size}</option>
                             </c:forEach>
@@ -98,10 +90,10 @@
                             </button>
                         </c:if>
                         <c:if test="${customer == null}">
-								<button onclick="message('warning', 'You are not logged in', 'Log in to add to cart', () => {
+							<button onclick="message('warning', 'You are not logged in', 'Log in to add to cart', () => {
 										window.location.href = '/customerLogin'
 									})"
-								class="Cart bg-sky-200 text-sky-500 flex md:p-3 items-center gap-4 rounded-lg md:py-0 py-3">
+									class="Cart bg-sky-200 text-sky-500 flex md:p-3 items-center gap-4 rounded-lg md:py-0 py-3">
                                 <i class='bx bx-cart text-2xl'></i>
                                 Add to cart
                             </button>
@@ -181,6 +173,9 @@
         <%@include file="/Components/footer.jsp" %>
         <script src="/assets/js/validation/amountInputDetail.js">
         </script>
+		<script>
+			handleSizeChange("${product.productId}", document.querySelector("#size"))
+		</script>
 
     </body>
 

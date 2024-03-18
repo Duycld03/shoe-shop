@@ -65,7 +65,7 @@ function addToCart(productId) {
 	});
 }
 
-function handleColorChange(productId, e) {
+function handleSizeChange(productId, e) {
 	$.ajax({
 		url: '/product',
 		type: 'POST',
@@ -81,7 +81,7 @@ function handleColorChange(productId, e) {
 			if (data) {
 				let colorHTML = ""
 				data.forEach((variant) => {
-					colorHTML += `<label class="color-label bg-${variant.color}-500 rounded-full w-7 h-7 border-3 border-transparent transition duration-200 ease-in-out" for="${variant.color}" onclick="selectColor(this)" onmouseenter = "this.style.border= '3px solid #40BFFF';" onmouseout = "this.style.border = '0px solid transparent';" > </label> <input class="color" hidden checked="true" type="radio" name="color" id="${variant.color}" value="${variant.color}">`
+					colorHTML += `<label class="color-label bg-${variant.color}-500 rounded-full w-7 h-7 border-3 border-transparent transition duration-200 ease-in-out" for="${variant.color}" onclick="selectColor(this)" onmouseenter = "this.style.border= '3px solid #40BFFF';" onmouseout = "this.style.border = '0px solid transparent';" > </label> <input class="color" hidden type="radio" name="color" id="${variant.color}" value="${variant.color}">`
 				})
 				document.querySelector("#color").innerHTML = colorHTML
 			}
@@ -91,4 +91,15 @@ function handleColorChange(productId, e) {
 		}
 	});
 
+}
+
+function handleChangeImage(e) {
+	const img = document.querySelector("#primary-image")
+	img.src = e.src
+}
+function backToPrimaryImage() {
+	const img = document.querySelector("#primary-image")
+	const dataSrc = img.getAttribute("data-src")
+	const imageSrc = `/assets/img/products/${dataSrc}`
+	img.src = imageSrc
 }

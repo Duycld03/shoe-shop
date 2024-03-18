@@ -89,7 +89,7 @@ public class AddAdminController extends HttpServlet {
             StaffDAO staffDAO = new StaffDAO();
             CustomerDAO customerDAO = new CustomerDAO();
             List<String> allAdminID = adminDAO.getAllAdminID();
-            String idFormat = "Cus";
+            String idFormat = "A";
             String adminID = CreateID.autoIncreaseID(allAdminID, idFormat);
             Admin admin = new Admin(adminID, susername, spassword, semail, sfullname, sphonenumber);
             if (customerDAO.getByEmail(semail) != null || staffDAO.getStaffByEmail(semail) != null

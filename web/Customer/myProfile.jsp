@@ -91,13 +91,13 @@
 					<input type="hidden" name="customerId" value="${customer.customerId}">
 					<div class="mb-4">
 						<label for="fullname" class="block text-gray-700 font-bold mb-2">Fullname:</label>
-						<input type="text" id="fullname" name="fullname" required
+						<input type="text" id="fullname" name="fullname" required maxlength="50"
 							   class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500" value="${customer.fullname}"
 							   placeholder="Enter Fullname">
 					</div>
 					<div class="mb-4">
 						<label for="email" class="block text-gray-700 font-bold mb-2">Email:</label>
-						<input type="email" id="email" name="email" required
+						<input type="email" id="email" name="email" required maxlength="50"
 							   class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500" value="${customer.email}"
 							   placeholder="Enter Email">
 					</div>
@@ -110,7 +110,7 @@
 					<div class="mb-4">
 						<label for="password" class="block text-gray-700 font-bold mb-2">Password:</label>
 						<input type="password" id="password" name="password"
-							   class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500" minlength="5"
+							   class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500" minlength="5" maxlength="50"
 							   placeholder="Enter Password">
 					</div>
 

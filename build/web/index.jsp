@@ -106,27 +106,21 @@
                     <img src="/assets/img/svg/shipping.svg" alt="">
                 </div>
                 <h3 class="mt-6 md:mt-14 mb-3 text-[27px] font-medium text-center">FREE SHIPPING</h3>
-                <p class="text-center text-lg">Lorem Ipsum is simply dummy text of the printing and typesetting
-                    industry.
-                </p>
+                <p class="text-center text-lg">We will deliver your order quickly and with full safety assurance</p>
             </div>
             <div class="w-48">
                 <div class="flex justify-center">
                     <img src="/assets/img/svg/refund.svg" alt="">
                 </div>
                 <h3 class="mt-6 md:mt-14 mb-3 text-[27px] font-medium text-center">100% REFUND</h3>
-                <p class="text-center text-lg">Lorem Ipsum is simply dummy text of the printing and typesetting
-                    industry.
-                </p>
+                <p class="text-center text-lg">You may be able to get a refund if your order is delayed or the item is damaged during shipping</p>
             </div>
             <div class="w-48">
                 <div class="flex justify-center">
                     <img src="/assets/img/svg/support.svg" alt="">
                 </div>
                 <h3 class="mt-6 md:mt-14 mb-3 text-[27px] font-medium text-center">SUPPORT 24/7</h3>
-                <p class="text-center text-lg">Lorem Ipsum is simply dummy text of the printing and typesetting
-                    industry.
-                </p>
+                <p class="text-center text-lg">We are always ready to serve and support. If there are any problems, please contact us</p>
             </div>
         </section>
 
@@ -156,7 +150,7 @@
         <!-- footer -->
         <c:if test="${sessionScope.checkoutSuccess != null}">
             <script>
-                message("success", "${sessionScope.checkoutSuccess}", "Thank you for your purchase")
+				message("success", "${sessionScope.checkoutSuccess}", "Thank you for your purchase")
             </script>
             <% session.removeAttribute("checkoutSuccess"); %>
         </c:if>

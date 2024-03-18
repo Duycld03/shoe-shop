@@ -133,37 +133,7 @@
                     </table>
                 </div>
         </main>
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                var closeModalButton = document.querySelector("button.close");
-                var cancelButton = document.querySelector(".modal-footer button[data-dismiss='modal']");
-
-                closeModalButton.addEventListener("click", function () {
-                    // Đóng modal khi nút "X" được nhấn
-                    $("#addEmployeeModal").modal("hide");
-                });
-                cancelButton.addEventListener("click", function () {
-                    // Đóng modal khi nút "Cancel" được nhấn
-                    $("#addEmployeeModal").modal("hide");
-                });
-            });
-            document.addEventListener("DOMContentLoaded", function () {
-                var togglePassword = document.getElementById("togglePassword");
-                var passwordInput = document.getElementById("password");
-
-                togglePassword.addEventListener("click", function () {
-                    var type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
-                    passwordInput.setAttribute("type", type);
-                    this.querySelector("i").classList.toggle("fa-eye-slash");
-                    this.querySelector("i").classList.toggle("fa-eye");
-                });
-            });
-
-
-
-
-
-        </script>
+    
         <script src="../assets/js/displayOrderStatus..js"></script>
         <script src="/assets/js/validation//manager.js" type="text/javascript"></script>
         <script src="/assets/js/validation/bootstrap.min.js"></script>

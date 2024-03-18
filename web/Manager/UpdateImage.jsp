@@ -85,22 +85,8 @@
                     // Hiển thị modal
                     $('#editEmployeeModal').modal('show');
                 });
-                document.addEventListener("DOMContentLoaded", function () {
-                    var togglePassword = document.getElementById("togglePassword");
-                    var passwordInput = document.getElementById("password");
-                    togglePassword.addEventListener("click", function () {
-                        var type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
-                        passwordInput.setAttribute("type", type);
-                        this.querySelector("i").classList.toggle("fa-eye-slash");
-                        this.querySelector("i").classList.toggle("fa-eye");
-                    });
-                });
-
-
-
-                $(document).ready(function () {
-                    $('#editEmployeeModal').modal('show');
-                });
+         
+               
             </script>
         </body>
 

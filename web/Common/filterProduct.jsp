@@ -5,7 +5,7 @@
 <html>
 
 	<head>
-		<title>JSP Page</title>
+		<title>Filter</title>
 		<link rel="stylesheet" href="/assets/css/Price_Range.css" />
 		<%@include file="/Components/head.jsp" %>
 		<script src="/assets/js/filterProduct.js"></script>
@@ -16,22 +16,6 @@
 		<div
 			class=" grid grid-cols-1 gap-4 mx-2 md:flex md:w-full md:justify-between mt-[20px] h-auto mt-[20px] md:my-[40px] my-0">
 			<div class="slide-bar md:w-[25%]  md:ml-[50px] md:mr-0">
-				<!-- Hot deal box -->
-				<div
-					class="Hot-deal-box md:pt-[1.5rem] md:pr-[1.491rem] md:pb-[1rem] md:mb-8 md:pl-6 bg-[#F6F7F8] pb-2 pb:10px mb-3 w-full">
-					<p class=" font-bold md:text-[30px] md:mb-6 pt-1 text-xl">Hot deal</p>
-					<div class="hot-deal-content font-light text-sm md:text-[1.2rem]">
-						<div>
-
-							<a href="#"
-							   class="flex justify-between  md:text-[20px] px-[5px] md:mb-3 hover:text-[#40BFFF]  transition-all duration-200 ease-in hover:cursor-pointer">
-								<p class="">Nike</p>
-								<p class="">4</p>
-							</a>
-						</div>
-
-					</div>
-				</div>
 				<!-- Price range -->
 				<div
 					class="Hot-deal-box md:pt-[1.5rem] md:pr-[1.491rem] md:pb-[1rem] md:mb-8 md:pl-6 bg-[#F6F7F8] pb-[10px]  h-auto w-full mb-3">
@@ -125,7 +109,7 @@
 				<!-- Sort-item -->
 				<div class="bg-[#F6F7F8] md:flex md:justify-between w-full h-auto md:mb-7 px-4 mb-3 md:pb-0 pb-1 ">
 					<div class="flex md:h-full md:py-[15px] md:w-[60%] md:w-[70%] items-center text-[10px] md:text-[20px] pt-2">
-						<p>13 Products</p>
+						<p id="product-count"></p>
 					</div>
 					<div class="flex items-center">
 						<input type="text" id="search" oninput="filter()"
@@ -142,17 +126,7 @@
 					</div>
 				</div>
 				<div class="bg-[#F6F7F8]  w-full h-auto ">
-					<div class=" grid grid-cols-5 h-auto md:mx-72 mx-4">
-						<p class="h-full hover:bg-[#40BFFF] text-center py-3  ">1
-						</p>
-						<p class="h-full hover:bg-[#40BFFF] text-center py-3  ">1
-						</p>
-						<p class="h-full hover:bg-[#40BFFF] text-center py-3  ">1
-						</p>
-						<p class="h-full hover:bg-[#40BFFF] text-center py-3  ">1
-						</p>
-						<p class="h-full hover:bg-[#40BFFF] text-center py-3  ">1
-						</p>
+					<div class="flex justify-center h-auto" id="pagination">
 					</div>
 				</div>
 			</div>

@@ -158,12 +158,8 @@ public class OrderDetailDAO {
 
     public static void main(String[] args) {
         OrderDetailDAO dao = new OrderDetailDAO();
-        List<OrderDetail> list = dao.getOrderDetailsByOrderID("Order1");
-        if (dao.getOrderDetailsByOrderID("Order1") == null) {
-            System.out.println("failed");
-        }else {
-            System.out.println("susscess");
-        }
+        List<OrderDetail> list = dao.getOrderDetailsByOrderID("Order6");
+    
         for (OrderDetail orderDetail : list) {
             System.out.println(orderDetail.getProductVariant().getColor());
         }
