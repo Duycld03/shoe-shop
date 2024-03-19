@@ -19,7 +19,7 @@
                          src="/assets/img/products/${product.primaryImage.imageURL}" data-src="${product.primaryImage.imageURL}" alt="img">
                     <div class="small_Product gap-4 md:grid md:grid-cols-4 md:my-9 md:w-5/6 hidden">
                         <c:forEach var="image" items="${product.images}">
-                            <img class="h-28 border-2 border-gray-300"
+                            <img class="h-28 w-[115px] border-2 border-gray-300"
                                  src="/assets/img/products/${image.imageURL}" alt="" onmouseover="handleChangeImage(this)" onmouseout="backToPrimaryImage()">
                         </c:forEach>
                     </div>
