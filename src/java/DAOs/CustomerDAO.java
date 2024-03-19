@@ -69,32 +69,14 @@ public class CustomerDAO {
             return false;
         }
 
-        // Check username format using regular expression
-        String usernamePattern = "^[a-zA-Z0-9.]+$";
-        if (!Pattern.matches(usernamePattern, username)) {
-            System.out.println("Username must inclde a-zA-Z0-9 and '.'");
-            return false;
-        }
 
-        // Check for special characters in username
-        String specialChars = "&=_'-+<>,";
-        for (char c : specialChars.toCharArray()) {
-            if (username.contains(String.valueOf(c))) {
-                System.out.println("Username must inclde a-zA-Z0-9 and '.'");
-                return false;
-            }
-        }
+   
         // Check password length and requirements
-        if (password.length() <= 8) {
+        if (password.length() < 8) {
             System.out.println("Password must be larger or equal than 8 character");
             return false;
         }
-        boolean hasUpperCase = !password.equals(password.toLowerCase());
-        boolean hasSpecialChar = !password.matches("[a-zA-Z0-9 ]*");
-        if (!hasUpperCase || !hasSpecialChar) {
-            System.out.println("password must has Upper Case and at lest a  special characters");
-            return false;
-        }
+
         String sql = "select * from Customers where UserName = ? and Password = ?";
         try {
             ps = conn.prepareStatement(sql);
@@ -396,12 +378,10 @@ public class CustomerDAO {
     }
 
     public static void main(String[] args) {
-        CustomerDAO d = new CustomerDAO();
-        String userName = "sdfs.";
-        String passwrod = "12345678910Phuc@";
-        String userName2 = "Phucdt1123";
-        boolean check = d.checkLUserLogin(userName2, passwrod);
-        System.out.println(check);
-
+        String userName = "Phucdt1123";
+        String password = "12345678";
+        CustomerDAO instance = new CustomerDAO();
+        boolean res = instance.checkLUserLogin(userName, password);
+        System.out.println(res);
     }
 }

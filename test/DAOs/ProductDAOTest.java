@@ -29,14 +29,15 @@ public class ProductDAOTest {
     /**
      * Test of searchProductByName method, of class ProductDAO.
      */
-//    @Test
-//    public void testSearchProductByName_Test_1() {
-//        String name = "";
-//        int expectSize = 23;
-//        List<Product> result = proDao.searchProductByName(name);
-//        int resultSize = result.size();
-//        assertEquals(expectSize, resultSize);
-//    }
+    @Test
+    public void testSearchProductByName_Test_1() {
+        String name = "";
+        int expectSize = 23;
+        List<Product> result = proDao.searchProductByName(name);
+        int resultSize = result.size();
+        assertEquals(expectSize, resultSize);
+    }
+
     /**
      * Test of searchProductByName method, of class ProductDAO.
      */
@@ -50,24 +51,24 @@ public class ProductDAOTest {
         assertEquals(expectSize, resultSize);
     }
 
-//    /**
-//     * Test of searchProductByName method, of class ProductDAO.
-//     */
-//    @Test
-//    public void testSearchProductByName_Test_3() {
-//        String name = "Thuong Dinh";
-//        int expectSize = 0;
-//        List<Product> result = proDao.searchProductByName(name);
-//        int resultSize = result.size();
-//        assertEquals(expectSize, resultSize);
-//    }
+    /**
+     * Test of searchProductByName method, of class ProductDAO.
+     */
+    @Test
+    public void testSearchProductByName_Test_3() {
+        String name = "Thuong Dinh";
+        int expectSize = 0;
+        List<Product> result = proDao.searchProductByName(name);
+        int resultSize = result.size();
+        assertEquals(expectSize, resultSize);
+    }
     /**
      * Test of searchProductByName method, of class ProductDAO.
      */
     @Test
     public void testSearchProductByName_Test_4() {
         String name = "Adios";
-        int expectSize = 2;
+        int expectSize = 7;
         List<Product> result = proDao.searchProductByName(name);
         int resultSize = result.size();
         assertEquals(expectSize, resultSize);
@@ -241,5 +242,4 @@ public class ProductDAOTest {
         boolean res = proDao.addProduct(newPro);
         assertTrue(res);
     }
-
 }

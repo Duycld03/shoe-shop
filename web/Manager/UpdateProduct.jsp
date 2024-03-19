@@ -39,12 +39,12 @@
                             </div>
                             <div class="form-group">
                                 <label>Price</label>
-                                <input name="price" type="number" class="form-control" value="${c.price}" required
+                                <input name="price" type="number" min="1" class="form-control" value="${c.price}" required
                                        title="Price must contain 10 digits">
                             </div>
                             <div class="form-group">
                                 <label>Discount</label>
-                                <input name="discount" type="number" class="form-control" value="${c.discount}"
+                                <input name="discount" type="number" min="0" class="form-control" value="${c.discount}"
                                        required title="Discount number must contain 10 digits">
                             </div>
 

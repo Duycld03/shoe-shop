@@ -22,39 +22,9 @@ public class CustomerDAOTest {
     public CustomerDAOTest() {
     }
 
-//    User Name and password both valid
+    //invalid username
     @Test
     public void testCheckUserLogin_test_1() {
-        String username = "PhuTH";
-        String password = "12345";
-        CustomerDAO instance = new CustomerDAO();
-        boolean result = instance.checkLUserLogin(username, password);
-        assertTrue(result);
-    }
-
-    //Do not exit user name
-    @Test
-    public void testCheckUserLogin_test_2() {
-        String username = "abcxyz1";
-        String password = "12345";
-        CustomerDAO instance = new CustomerDAO();
-        boolean result = instance.checkLUserLogin(username, password);
-        assertFalse(result);
-    }
-
-    //Wrong pass word
-    @Test
-    public void testCheckUserLogin_test_3() {
-        String username = "HaiNH03";
-        String password = "";
-        CustomerDAO instance = new CustomerDAO();
-        boolean result = instance.checkLUserLogin(username, password);
-        assertFalse(result);
-    }
-
-    //do not exit user name
-    @Test
-    public void testCheckUserLogin_test_4() {
         String username = "";
         String password = "";
         CustomerDAO instance = new CustomerDAO();
@@ -62,23 +32,74 @@ public class CustomerDAOTest {
         assertFalse(result);
     }
 
-    //Doesn't accept encoding via md5
+    //Do not exit user name
     @Test
-    public void testCheckUserLogin_test_5() {
-        String username = "PhuTH";
-        String password = "e10adc3949ba59abbe56e057f20f883e";
+    public void testCheckUserLogin_test_2() {
+        String username = "TungDT111111";
+        String password = "12345678910";
         CustomerDAO instance = new CustomerDAO();
         boolean result = instance.checkLUserLogin(username, password);
         assertFalse(result);
     }
 
+    //invalid password
     @Test
-    public void testCheckUserLogin_test_6() {
-        String username = "PhuTH";
-        String password = "123456";
+    public void testCheckUserLogin_test_3() {
+        String username = "Phucdt1123";
+        String password = "12345";
         CustomerDAO instance = new CustomerDAO();
         boolean result = instance.checkLUserLogin(username, password);
         assertFalse(result);
+    }
+
+    //invalid username
+    @Test
+    public void testCheckUserLogin_test_4() {
+        String username = "Phuc";
+        String password = "12345678910";
+        CustomerDAO instance = new CustomerDAO();
+        boolean result = instance.checkLUserLogin(username, password);
+        assertFalse(result);
+    }
+
+    //invalid username
+    @Test
+    public void testCheckUserLogin_test_5() {
+        String username = "example_Phuc_123456789012312312312";
+        String password = "12345678910Phuc@";
+        CustomerDAO instance = new CustomerDAO();
+        boolean result = instance.checkLUserLogin(username, password);
+        assertFalse(result);
+    }
+
+    //user exited
+    @Test
+    public void testCheckUserLogin_test_6() {
+        String username = "Phucdt1123";
+        String password = "12345678910Phuc@";
+        CustomerDAO instance = new CustomerDAO();
+        boolean result = instance.checkLUserLogin(username, password);
+        assertTrue(result);
+    }
+
+    //test useerpassword Boundary value
+    @Test
+    public void testCheckUserLogin_test_7() {
+        String username = "TienDM";
+        String password = "12345678";
+        CustomerDAO instance = new CustomerDAO();
+        boolean result = instance.checkLUserLogin(username, password);
+        assertTrue(result);
+    }
+
+    //test useername Boundary value
+    @Test
+    public void testCheckUserLogin_test_8() {
+        String username = "Phucdt1123Phucdt1123Phucdt1";
+        String password = "12345678";
+        CustomerDAO instance = new CustomerDAO();
+        boolean result = instance.checkLUserLogin(username, password);
+        assertTrue(result);
     }
 
     @Test
