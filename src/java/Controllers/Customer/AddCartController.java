@@ -49,7 +49,6 @@ public class AddCartController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		processRequest(request, response);
 	}
 
 	/**
@@ -63,6 +62,7 @@ public class AddCartController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		response.setContentType("application/json");
 
 		Cookie[] cookies = request.getCookies();
 		Cookie loginCookie = null;
@@ -71,15 +71,15 @@ public class AddCartController extends HttpServlet {
 				loginCookie = cookie;
 			}
 		}
-		if (loginCookie != null) {
+		if (loginCookie == null) {
 			response.sendRedirect("/customerLogin");
+			return;
 		}
 		String username = JwtUtils.getContentFromToken(loginCookie.getValue());
 		CustomerDAO customerDAO = new CustomerDAO();
 		Customer customer = customerDAO.getCustomerByUsername(username);
 		request.setAttribute("customer", customer);
 
-		HttpSession session = request.getSession();
 		if (request.getParameter("addToCart") != null) {
 			int quantity = Integer.parseInt(request.getParameter("quantity"));
 			int size = Integer.parseInt(request.getParameter("size"));
@@ -101,9 +101,8 @@ public class AddCartController extends HttpServlet {
 				if (stockQuantity > cartExisted.getProductVariant().getStockQuantity()) {
 //					response.sendRedirect("/product?proID=" + productId);
 					job.addProperty("error", "Quantity is not enough!");
-					session.setAttribute("error", "Quantity is not enough!");
-					response.getWriter().write(gson.toJson(job));
 					response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+					response.getWriter().write(gson.toJson(job));
 					return;
 				}
 				cartExisted.setQuantity(stockQuantity);
@@ -111,23 +110,30 @@ public class AddCartController extends HttpServlet {
 				int result = cartDAO.update(cartExisted);
 				if (result >= 1) {
 					job.addProperty("success", "Add To Cart successful!");
-					session.setAttribute("success", "Add To Cart successful!");
 				} else {
 					job.addProperty("error", "Add To Cart failed!");
-					session.setAttribute("error", "Add To Cart failed!");
+					response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+					response.getWriter().write(gson.toJson(job));
+					return;
 				}
 			} else {
 				ProductVariant productVariant = productVariantDAO.getVariantByID(variantId);
 				String cartId = CreateID.autoIncreaseID(cartDAO.getAllCartID(), "Cart");
+
+				if (quantity > productVariant.getStockQuantity()) {
+					job.addProperty("error", "Quantity is not enough!");
+					response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+					response.getWriter().write(gson.toJson(job));
+					return;
+				}
 				Cart newCart = new Cart(cartId, quantity, quantity * product.getPrice(), customer.getCustomerId(), productVariant);
 				int result = cartDAO.add(newCart);
 				if (result >= 1) {
 					job.addProperty("success", "Add To Cart successful!");
-					session.setAttribute("success", "Add To Cart successful!");
 				} else {
 					job.addProperty("error", "Add To Cart failed!");
-					session.setAttribute("error", "Add To Cart failed!");
 					response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+					response.getWriter().write(gson.toJson(job));
 					return;
 				}
 			}

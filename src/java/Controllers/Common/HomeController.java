@@ -62,9 +62,11 @@ public class HomeController extends HttpServlet {
 			throws ServletException, IOException {
 		Cookie[] cookies = request.getCookies();
 		Cookie loginCookie = null;
-		for (Cookie cookie : cookies) {
-			if (cookie.getName().equals("login")) {
-				loginCookie = cookie;
+		if (cookies != null) {
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().equals("login")) {
+					loginCookie = cookie;
+				}
 			}
 		}
 		if (loginCookie != null) {
