@@ -57,10 +57,11 @@ function addToCart(productId) {
 			productId: productId
 		},
 		success: function (response) {
-			message("success", "Add To Cart successful!")
+			message("success", response.success)
 		},
 		error: function (response) {
-			message("error", "Add To Cart failed!")
+			const res = response.responseJSON
+			message("error", res.error)
 		}
 	});
 }
